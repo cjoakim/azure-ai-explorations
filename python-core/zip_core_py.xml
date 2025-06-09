@@ -1,0 +1,27 @@
+<project name="zip_core_py" default="create_zip" basedir=".">
+
+    <description>
+        Zip the core python files, and requirements.in,
+        for distribution to other projects.
+        Chris Joakim, 2025
+        ant -f zip_core_py.xml ; jar tvf core_py.zip
+    </description>
+
+    <target name="create_zip" >
+
+        <copy file="requirements.in" tofile="requirements_core.in"/>
+
+        <property name="_zipFilename" value="core_py.zip" />
+
+        <delete file="${_zipFilename}" />
+
+        <zip destfile="${_zipFilename}"
+            basedir="."
+            includes="requirements_core.in,src/"
+            excludes="**/*.pyc,**/__pycache__/"/>
+
+        <echo message="done." />
+
+    </target>
+
+</project>
