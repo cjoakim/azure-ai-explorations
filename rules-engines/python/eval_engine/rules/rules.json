@@ -1,0 +1,106 @@
+[
+  {
+    "name": "Rule_1",
+    "domain": "<some high-level domain>",
+    "category": "<some lower-level name within the domain>",
+    "description": "Evaluates the expression: float((1 + 17) / 4.0)",
+    "expression": "float((1 + 17) / 4.0)",
+    "return_type": "float"
+  },
+  {
+    "name": "Rule_2",
+    "domain": "<some high-level domain>",
+    "category": "<some lower-level name within the domain>",
+    "description": "Evaluates the expression: int(data.income + 42)",
+    "expression": "int(data.income + 42)",
+    "return_type": "int"
+  },
+  {
+    "name": "Rule_3",
+    "domain": "<some high-level domain>",
+    "category": "<some lower-level name within the domain>",
+    "description": "Evaluates the expression: float(data.income * data.state_tax_rate)",
+    "expression": "float(data.income * data.state_tax_rate)",
+    "return_type": "float"
+  },
+  {
+    "name": "Rule_4",
+    "domain": "<some high-level domain>",
+    "category": "<some lower-level name within the domain>",
+    "description": "Evaluates the expression: float(data.income * (data.state_tax_rate + data.county_tax_rate))",
+    "expression": "float(data.income * (data.state_tax_rate + data.county_tax_rate))",
+    "return_type": "float"
+  },
+  {
+    "name": "Rule_5",
+    "domain": "<some high-level domain>",
+    "category": "<some lower-level name within the domain>",
+    "description": "Evaluates the expression: int(data.income * (data.state_tax_rate + data.county_tax_rate))",
+    "expression": "int(data.income * (data.state_tax_rate + data.county_tax_rate))",
+    "return_type": "int"
+  },
+  {
+    "name": "Rule_6",
+    "domain": "<some high-level domain>",
+    "category": "<some lower-level name within the domain>",
+    "description": "Evaluates the expression: int(sum([1,2,3,data.income]))",
+    "expression": "int(sum([1,2,3,data.income]))",
+    "return_type": "int"
+  },
+  {
+    "name": "Rule_7",
+    "domain": "<some high-level domain>",
+    "category": "<some lower-level name within the domain>",
+    "description": "Evaluates the expression: float([6.2,3.1,13.1,9.3,1.0])",
+    "expression": "float([6.2,3.1,13.1,9.3,1.0])",
+    "return_type": "float"
+  },
+  {
+    "name": "Rule_8",
+    "domain": "<some high-level domain>",
+    "category": "<some lower-level name within the domain>",
+    "description": "Evaluates the expression: str(hex(255))",
+    "expression": "str(hex(255))",
+    "return_type": "str"
+  },
+  {
+    "name": "Rule_9",
+    "domain": "<some high-level domain>",
+    "category": "<some lower-level name within the domain>",
+    "description": "Evaluates the expression: str(data.county[0:1].lower())",
+    "expression": "str(data.county[0:1].lower())",
+    "return_type": "str"
+  },
+  {
+    "name": "Rule_10",
+    "domain": "<some high-level domain>",
+    "category": "<some lower-level name within the domain>",
+    "description": "Evaluates the expression: str('wealthy' if data.income > 1_000_000 else 'middle_class')",
+    "expression": "str('wealthy' if data.income > 1_000_000 else 'middle_class')",
+    "return_type": "str"
+  },
+  {
+    "name": "Rule_11",
+    "domain": "<some high-level domain>",
+    "category": "<some lower-level name within the domain>",
+    "description": "Evaluates the expression: str(calculator.today() if data.income > 1_000_000 else calculator.next_week())",
+    "expression": "str(calculator.today() if data.income > 1_000_000 else calculator.next_week())",
+    "return_type": "str"
+  },
+  {
+    "name": "Rule_12",
+    "domain": "<some high-level domain>",
+    "category": "<some lower-level name within the domain>",
+    "description": "Evaluates the expression: str('even' if data.income % 2 == 0 else 'odd')",
+    "expression": "str('even' if data.income % 2 == 0 else 'odd')",
+    "return_type": "str"
+  },
+  {
+    "name": "Rule_13",
+    "domain": "<some high-level domain>",
+    "category": "<some lower-level name within the domain>",
+    "description": "Evaluates the expression: str('even' if (data.income + 1) % 2 == 0 else 'odd')",
+    "expression": "str('even' if (data.income + 1) % 2 == 0 else 'odd')",
+    "return_type": "str"
+  }
+]
