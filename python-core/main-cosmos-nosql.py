@@ -6,6 +6,9 @@ Usage:
   python main-cosmos-nosql.py test_cosmos_nosql dev 1000 app 0 /pk
   python main-cosmos-nosql.py test_cosmos_nosql dev 0 test 400 /pk
   python main-cosmos-nosql.py load_python_libraries dev python_libraries
+  python main-cosmos-nosql.py vector_search_similar_libs <dbname> <cname> <id>
+  python main-cosmos-nosql.py vector_search_similar_libs dev python_libraries pypi_flask
+  See https://cosmos.azure.com/ for ad-hoc queries
 Options:
   -h --help     Show this screen.
   --version     Show version.
@@ -143,12 +146,7 @@ async def load_python_libraries(dbname: str, cname: str):
     """
     logging.info("load_python_libraries, dbname: {}, cname: {}".format(dbname, cname))
     try:
-        opts = dict()
-        opts["enable_diagnostics_logging"] = True
-        nosql_util = CosmosNoSqlUtil(opts)
-        await nosql_util.initialize()
-        nosql_util.set_db(dbname)
-        nosql_util.set_container(cname)
+        nosql_util = await initialize_cosmos_nosql_util(dbname, cname)
 
         # Use the CosmosAIGraph Python libraries dataset in the public repo.
         # I created this dataset while at Microsoft.
@@ -175,12 +173,64 @@ async def load_python_libraries(dbname: str, cname: str):
                     logging.info(traceback.format_exc())
                     time.sleep(0.1)  # to avoid throttling and 429 errors
 
-        print("entry count: {}".format(len(entries)))  # 10855
+        print("entry count: {}".format(len(entries)))  # 10855 docs, 10761 loaded on 6/10
         await nosql_util.close()
 
     except Exception as e:
         logging.info(str(e))
         logging.info(traceback.format_exc())
+
+async def vector_search_similar_libs(dbname: str, cname: str, id: str):
+    nosql_util = await initialize_cosmos_nosql_util(dbname, cname)
+    try:
+        sql = ("SELECT c.id, c.pk, c.name, c.embedding FROM c where c.id = '{}' and c.pk = 'pypi' offset 0 limit 1").format(id)
+        docs = await nosql_util.query_items(
+            sql, cross_partition=False, pk="/pk", max_items=1)
+        if len(docs) == 0:
+            print("No document found with id: {}".format(id))
+        else:
+            embedding = docs[0]["embedding"]
+            print("embedding length: {}".format(len(embedding)))
+            sql = vector_search_sql(12, embedding)
+            FS.write(sql, "tmp/vector_search_sql.txt")
+            results = await nosql_util.query_items(sql, True)
+            for idx, result in enumerate(results):
+                print(result)
+
+            # results for pypi_flask:
+            # {'id': 'pypi_flask', 'pk': 'pypi', 'name': 'flask', 'SimilarityScore': 0}
+            # {'id': 'pypi_flask_restful', 'pk': 'pypi', 'name': 'flask-restful', 'SimilarityScore': 0.4545473538499831}
+            # {'id': 'pypi_flask_api', 'pk': 'pypi', 'name': 'flask-api', 'SimilarityScore': 0.46250825400134066}
+            # {'id': 'pypi_werkzeug', 'pk': 'pypi', 'name': 'werkzeug', 'SimilarityScore': 0.4705090974004422}
+            # {'id': 'pypi_flask_sqlalchemy', 'pk': 'pypi', 'name': 'flask-sqlalchemy', 'SimilarityScore': 0.47186151629061857}
+            # {'id': 'pypi_flask_appbuilder', 'pk': 'pypi', 'name': 'flask-appbuilder', 'SimilarityScore': 0.4725431475814093}
+            # {'id': 'pypi_flask_caching', 'pk': 'pypi', 'name': 'flask-caching', 'SimilarityScore': 0.48652661445815537}
+            # {'id': 'pypi_bottle', 'pk': 'pypi', 'name': 'bottle', 'SimilarityScore': 0.4896278704608053}
+            # {'id': 'pypi_pylons', 'pk': 'pypi', 'name': 'pylons', 'SimilarityScore': 0.49081412664406004}
+            # {'id': 'pypi_flask_testing', 'pk': 'pypi', 'name': 'flask-testing', 'SimilarityScore': 0.49349240632627694}
+            # {'id': 'pypi_flask_admin', 'pk': 'pypi', 'name': 'flask-admin', 'SimilarityScore': 0.4943784751148062}
+            # {'id': 'pypi_flask_wtf', 'pk': 'pypi', 'name': 'flask-wtf', 'SimilarityScore': 0.49762255864297505}
+
+    except Exception as e:
+        logging.info(str(e))
+        logging.info(traceback.format_exc())
+    await nosql_util.close()
+
+def vector_search_sql(top_n: int, embedding: list):
+    return """
+SELECT TOP {} c.id, c.pk, c.name, VectorDistance(c.embedding, {}) AS SimilarityScore
+ FROM c
+ ORDER BY VectorDistance(c.embedding, {})
+""".format(top_n, embedding, embedding).lstrip()
+
+async def initialize_cosmos_nosql_util(dbname: str, cname: str):
+    opts = dict()
+    opts["enable_diagnostics_logging"] = True
+    nosql_util = CosmosNoSqlUtil(opts)
+    await nosql_util.initialize()
+    nosql_util.set_db(dbname)
+    nosql_util.set_container(cname)
+    return nosql_util
 
 def create_random_document(id, pk):
     dg = DataGenerator()
@@ -213,6 +263,11 @@ if __name__ == "__main__":
                 dbname = sys.argv[2]
                 cname  = sys.argv[3]
                 asyncio.run(load_python_libraries(dbname, cname))
+            elif func == "vector_search_similar_libs":
+                dbname = sys.argv[2]
+                cname  = sys.argv[3]
+                libname = sys.argv[4]
+                asyncio.run(vector_search_similar_libs(dbname, cname, libname))
         except Exception as e:
             logging.info(str(e))
             logging.info(traceback.format_exc())
