@@ -76,6 +76,7 @@ def ppstats():
 
 if __name__ == "__main__":
     try:
+        load_dotenv(override=True)
         func = sys.argv[1].lower()
         if func == "env":
             check_env()

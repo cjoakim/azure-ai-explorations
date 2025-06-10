@@ -93,9 +93,9 @@ def verbose():
     return '--verbose' in sys.argv
 
 
-if __name__ == "__main-_":
-    load_dotenv(override=True)
+if __name__ == "__main__":
     try:
+        load_dotenv(override=True)
         func = sys.argv[1].lower()
         if func == "chat_flow1":
             chat_flow1()

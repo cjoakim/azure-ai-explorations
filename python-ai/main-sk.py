@@ -118,7 +118,7 @@ async def generate_embedding():
     url = os.environ["AZURE_OPENAI_URL"]
     key = os.environ["AZURE_OPENAI_KEY"]
     dep = os.environ["AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT"]
-    text = FS.read("../data/text/gettysburg_address.txt").strip()
+    text = FS.read("../data/misc/gettysburg-address.txt").strip()
 
     embedding_service = AzureTextEmbedding(
         api_key=key, endpoint=url, deployment_name=dep)
@@ -202,7 +202,7 @@ def gettysburg_address_user_md():
 
 
 def industrial_disease_lyrics_md():
-    text = FS.read("../data/text/industrial_disease_lyrics.txt").strip()
+    text = FS.read("../data/misc/industrial_disease_lyrics.txt").strip()
     return """
 ## Text to summarize
 
@@ -213,8 +213,9 @@ def industrial_disease_lyrics_md():
     ).lstrip()
 
 
-if __name__ == "__main-_":
+if __name__ == "__main__":
     try:
+        load_dotenv(override=True)
         func = sys.argv[1].lower()
         if func == "check_env":
             check_env()

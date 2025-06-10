@@ -136,8 +136,9 @@ def analyze_layout1():
     print("----------------------------------------")
 
 
-if __name__ == "__main-_":
+if __name__ == "__main__":
     try:
+        load_dotenv(override=True)
         func = sys.argv[1].lower()
         if func == "check_env":
             check_env()

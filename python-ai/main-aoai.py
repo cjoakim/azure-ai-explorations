@@ -135,32 +135,6 @@ def generate_completion_with_md_prompt():
     print("=== content ===")
     print(completion.choices[0].message.content)
 
-    # with gettysburg_address_user_md()
-    # - Four score and seven years ago, a new nation was founded on the principle of equality
-    # - The nation is now in the midst of a civil war to test its endurance
-    # - A battlefield is being dedicated as a final resting place for those who died for the nation
-    # - The ground is consecrated by the brave men who fought there
-    # - The living are urged to continue the work of those who fought and to honor their sacrifice
-    # - The goal is for the nation to have a new birth of freedom and for government by the people to endure
-
-    # with industrial_disease_lyrics_md()
-    # - Warning lights flashing at quality control
-    # - Rumors and anger in the loading bay and town
-    # - Whistle blown, walls came down
-    # - Meeting in boardroom, trying to trace smell
-    # - Leak in washroom, sneak-in personnel
-    # - Concerns about industrial disease in corridors
-    # - Caretaker crucified for sleeping at post
-    # - Watchdog with rabies, foreman with fleas
-    # - Panic on switchboard, tongues in knots
-    # - Symptoms of monetary squeeze
-    # - ITV and BBC discussing curse of industrial disease
-    # - Doctor diagnose industrial disease, prescribes for depression
-    # - Speaker's Corner scene with protest singer
-    # - Protest against war and factories
-    # - Jesus figures discussing stopping industrial disease
-    # - Critique on societal issues and control tactics.
-
     print("=== model_dump_json ===")
     print(completion.model_dump_json(indent=2))
 
@@ -199,7 +173,7 @@ Summarize the following text into bullet points.
 
 
 def gettysburg_address_user_md():
-    text = FS.read("../data/text/gettysburg_address.txt").strip()
+    text = FS.read("../data/misc/gettysburg-address.txt").strip()
     return """
 ## Text to summarize
 
@@ -222,8 +196,9 @@ def industrial_disease_lyrics_md():
     ).lstrip()
 
 
-if __name__ == "__main-_":
+if __name__ == "__main__":
     try:
+        load_dotenv(override=True)
         func = sys.argv[1].lower()
         if func == "check_env":
             check_env()
