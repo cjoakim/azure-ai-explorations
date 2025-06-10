@@ -1,0 +1,32 @@
+
+Group
+    az cognitiveservices account : Manage Azure Cognitive Services accounts.
+        This article lists the Azure CLI commands for Azure Cognitive Services account and
+        subscription management only. Refer to the documentation at
+        https://learn.microsoft.com/azure/cognitive-services/ for individual services to learn how
+        to use the APIs and supported SDKs.
+
+Subgroups:
+    commitment-plan : Manage commitment plans for Azure Cognitive Services accounts.
+    deployment      : Manage deployments for Azure Cognitive Services accounts.
+    identity        : Manage identity of Cognitive Services accounts.
+    keys            : Manage Azure Cognitive Services accounts.
+    network-rule    : Manage network rules.
+
+Commands:
+    create          : Manage Azure Cognitive Services accounts.
+    delete          : Manage Azure Cognitive Services accounts.
+    list            : Manage Azure Cognitive Services accounts.
+    list-deleted    : List soft-deleted Azure Cognitive Services accounts.
+    list-kinds      : List all valid kinds for Azure Cognitive Services account.
+    list-models     : Manage Azure Cognitive Services accounts.
+    list-skus       : Manage Azure Cognitive Services accounts.
+    list-usage      : List usages for Azure Cognitive Services account.
+    purge           : Purge a soft-deleted Azure Cognitive Services account.
+    recover         : Recover a soft-deleted Azure Cognitive Services account.
+    show            : Manage Azure Cognitive Services accounts.
+    show-deleted    : Show a soft-deleted Azure Cognitive Services account.
+    update          : Manage Azure Cognitive Services accounts.
+
+To search AI knowledge base for examples, use: az find "az cognitiveservices account"
+

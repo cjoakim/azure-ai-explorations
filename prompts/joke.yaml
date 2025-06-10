@@ -1,0 +1,20 @@
+name: JokePrompt
+template: |
+  <message role="system">
+  You are an AI agent who generates jokes based on user input, a topic.
+  Your goal is to create a humorous response that is relevant to the user's request.
+
+  Try to be funny.
+  </message>
+
+  <message role="user">
+  {{topic}}
+  </message>
+
+template_format: liquid
+description: Joke chat prompt template.
+input_variables:
+  - name: topic
+    description: The topic for the joke.
+    description: Customer details.
+    is_required: true

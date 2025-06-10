@@ -1,0 +1,43 @@
+# This file lists the Python libraries used in the virtual enviroment.
+# See the venv.ps1 and venv.sh scripts in this directory.
+# Chris Joakim, 2025
+
+aiohttp>=3.11.18
+azure-ai-documentintelligence==1.0.2
+azure-cosmos==4.9.0
+azure-identity
+#azure-search-documents==11.5.2
+black>=24.3.0
+certifi>=2022.12.07
+docopt
+duckdb
+Faker
+h11>=0.14.0
+httpx
+Jinja2>= 3.1.4
+huggingface_hub
+langchain-community==0.3.23
+langchain-core==0.3.58
+langchain-ollama==0.3.2
+langchain-openai==0.3.16
+langchain-text-splitters==0.3.8
+langchain==0.3.25
+langgraph
+langsmith==0.3.42
+openai>=1.78.1
+promptflow
+promptflow-tools
+psutil
+pymongo>=4.6.3
+pypistats
+pytest-asyncio>=0.25.3
+pytest-cov>=6.0.0
+pytest>= 8.3.5
+python-dotenv
+pytz
+redis
+semantic-kernel
+semantic-kernel[azure]
+#semantic-kernel-connectors-azure-openai
+six==1.17.0
+tiktoken

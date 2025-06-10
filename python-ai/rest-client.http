@@ -1,0 +1,66 @@
+# This file can be used by the VSCode REST Client extension.
+# See https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+#
+# Chris Joakim, Microsoft, 2025
+
+http://localhost:1234/v1/models
+
+###
+
+http://127.0.0.1:8001/health
+
+###
+
+http://127.0.0.1:8001/reload_graph
+
+###
+
+http://127.0.0.1:8001/ontology
+
+
+###
+
+POST http://127.0.0.1:11434/api/generate
+User-Agent: VSC-REST-Client
+content-type: application/json
+
+{
+    "model": "phi3",
+    "prompt": "tell me a joke about cats",
+    "stream": false
+}
+
+###
+
+POST http://127.0.0.1:8001/sparql_query
+User-Agent: VSC-REST-Client
+content-type: application/json
+
+{
+    "sparql": "PREFIX c: <http://cosmosdb.com/caig#> SELECT ?used_lib WHERE { <http://cosmosdb.com/caig/pypi_flask> c:uses_lib ?used_lib . } LIMIT 10"
+}
+
+###
+
+
+POST http://127.0.0.1:8001/sparql_bom_query
+User-Agent: VSC-REST-Client
+content-type: application/json
+
+{
+    "libname": "flask",
+    "max_depth": 2
+}
+
+
+###
+
+GET http://127.0.0.1:8000/ping
+
+###
+
+GET http://127.0.0.1:8000/liveness
+
+###
+
+GET http://127.0.0.1:8000/sparql_console

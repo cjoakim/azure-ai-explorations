@@ -1,0 +1,25 @@
+---
+name: Minimal Chat
+model:
+  api: chat
+  configuration:
+    type: azure_openai
+    azure_endpoint: ${env:AZURE_OPENAI_URL}
+    api_key: ${env:AZURE_OPENAI_KEY}
+    api_version: 2025-01-01-preview
+    azure_deployment: gpt-35-turbo
+  parameters:
+    temperature: 0.2
+    max_tokens: 1024
+inputs:
+  question:
+    type: string
+sample:
+  question: "What is Prompt flow?"
+---
+
+system:
+You are a helpful assistant.
+
+user:
+{{question}}

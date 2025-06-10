@@ -1,0 +1,9 @@
+
+Group
+    az cognitiveservices usage : Manage usage for Azure Cognitive Services.
+
+Commands:
+    list : Show all usages for Azure Cognitive Services.
+
+To search AI knowledge base for examples, use: az find "az cognitiveservices usage"
+

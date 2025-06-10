@@ -1,0 +1,21 @@
+# This file can be used by the VSCode REST Client extension
+# for ad-hoc testing of either the graph or web microservices.
+# See https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+#
+# Chris Joakim, 2025
+
+http://127.0.0.1:8000/ping
+
+###
+
+http://127.0.0.1:8000/health
+
+###
+
+POST http://127.0.0.1:8000/query_cosmos
+User-Agent: VSC-REST-Client
+content-type: application/json
+
+{
+    "sql": "select * from c where c.IATA = 'CLT'"
+}

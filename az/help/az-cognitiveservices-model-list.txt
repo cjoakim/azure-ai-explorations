@@ -1,0 +1,31 @@
+
+Command
+    az cognitiveservices model list : Show all models for Azure Cognitive Services.
+        This article lists the Azure CLI commands for Azure Cognitive Services account and
+        subscription management only. Refer to the documentation at
+        https://learn.microsoft.com/azure/cognitive-services/ for individual services to learn how
+        to use the APIs and supported SDKs.
+
+Arguments
+    --location -l [Required] : Location. Values from: `az account list-locations`. You can configure
+                               the default location using `az configure --defaults
+                               location=<location>`.
+
+Global Arguments
+    --debug                  : Increase logging verbosity to show all debug logs.
+    --help -h                : Show this help message and exit.
+    --only-show-errors       : Only show errors, suppressing warnings.
+    --output -o              : Output format.  Allowed values: json, jsonc, none, table, tsv, yaml,
+                               yamlc.  Default: json.
+    --query                  : JMESPath query string. See http://jmespath.org/ for more information
+                               and examples.
+    --subscription           : Name or ID of subscription. You can configure the default
+                               subscription using `az account set -s NAME_OR_ID`.
+    --verbose                : Increase logging verbosity. Use --debug for full debug logs.
+
+Examples
+    Show all models for Azure Cognitive Services.
+        az cognitiveservices model list -l centraluseuap
+
+To search AI knowledge base for examples, use: az find "az cognitiveservices model list"
+

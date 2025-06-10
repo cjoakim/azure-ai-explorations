@@ -1,0 +1,9 @@
+
+Group
+    az cognitiveservices model : Manage model for Azure Cognitive Services.
+
+Commands:
+    list : Show all models for Azure Cognitive Services.
+
+To search AI knowledge base for examples, use: az find "az cognitiveservices model"
+
