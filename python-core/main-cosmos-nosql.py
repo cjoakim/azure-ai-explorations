@@ -160,20 +160,20 @@ async def load_python_libraries(dbname: str, cname: str):
         # For DiskANN Vector Search, first enable the Feature as described here:
         # https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/vector-search#enable-the-vector-indexing-and-search-feature
         for idx, entry in enumerate(entries):
-            if idx < 3:
+            if idx < 999999:
                 abspath = entry["abspath"]
-                doc = FS.read_json(abspath)
-                doc["pk"] = "pypi"
-                doc4printing = FS.read_json(abspath)
-                doc4printing["pk"] = "pypi"
-                if "embedding" in doc4printing:
-                    del doc4printing["embedding"]  # remove the embedding for printing/logging
-                print("file {}: {}".format(idx, abspath))
-                jstr = json.dumps(doc4printing, sort_keys=False, indent=2)
-                print("doc: {}".format(jstr))
-                await nosql_util.upsert_item(doc)
-                time.sleep(0.5)  # to avoid throttling
-                print(len(doc["embedding"]))
+                print("processing file index {}: {}".format(idx, abspath))
+                try:
+                    doc = FS.read_json(abspath)
+                    if doc != None:
+                        # There is approx 600MB in this dataset, so it will fit in a
+                        # 20GB physical partition; the partition key value is "pypi".
+                        doc["pk"] = "pypi"
+                        await nosql_util.upsert_item(doc)
+                except Exception as e:
+                    logging.info("Error processing file {}: {}".format(abspath, str(e)))
+                    logging.info(traceback.format_exc())
+                    time.sleep(0.1)  # to avoid throttling and 429 errors
 
         print("entry count: {}".format(len(entries)))  # 10855
         await nosql_util.close()
