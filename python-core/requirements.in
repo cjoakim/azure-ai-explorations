@@ -4,6 +4,7 @@
 # Chris Joakim, 2025
 
 aiohttp
+azure-ai-projects
 azure-cosmos>=4.9.0
 azure-identity
 azure-storage-blob
@@ -13,6 +14,7 @@ duckdb
 Faker
 httpx
 Jinja2
+openai
 psutil
 pytest>=8.4.0
 pytest-asyncio>=1.0.0
