@@ -1,0 +1,8522 @@
+{
+  "apiVersion": "2024-11-30",
+  "content": "\"DA ESL MIX\" - CALIFORNIA SYSTEMS\nSULTANS OF SWING\nDire Straits\nYou get_a shiver_in the dark. It's been raining in the park, but meantime, South_of the river you stop and you hold everything. A band_is blowing Dixie double four time26. You feel_all right when_you hear that music ring.\nBut now you step_inside but you don't see too many faces, Coming_in_out_of the rain to hear the jazz go down. Competition in other places27, How about the horns, they're blowin' that sound28, Way_on downsouth, way_on downsouth London town.\nYou check_out Guitar George; he knows all the chords29. Mind he's strictly rhythm, he doesn't wanna make_it cry_or sing; And_an_old guitar_is_all he can_afford, When he gets_up_under the lights to play_his thing.\nAnd Harry doesn't mind if_he doesn't make the scene. He's got_a daytime job, he's doing_alright30. He can play the honky tonk just like_anything, Saving_it_up for Friday night, With the Sultans, with the Sultans of Swing.\nAnd_a crowd_of young boys they're fooling_around_in the corner. Drunk_and dressed_in their best brown baggies_and their platform soles, They don't give a damn about_any trumpet playing band. It_ain't what THEY call rock-and-roll, And the Sultans, yeah, the Sultans played Creole.\nAnd then, the man, he steps right_up to the microphone, And says_at last just_as the time bell rings, 'Good night.' Now it's time to go home, and he makes_it fast with_one more thing. We are the Sultans, we are the Sultans of Swing.\n26 playing double the normal time of the music\nThere's too much competition in too many other places (another version)\n28 But not too many horns can make that sound (another version)\n29 chords= acordes\n30 alright (esp Bristish English)= all-right, all right\nTelephone: 627 433 609 . E-mail: calsys@californiasys.com . www.californiasys.com Page 18/32",
+  "contentFormat": "text",
+  "modelId": "prebuilt-read",
+  "pages": [
+    {
+      "angle": 0,
+      "height": 11.6944,
+      "lines": [
+        {
+          "content": "\"DA ESL MIX\" - CALIFORNIA SYSTEMS",
+          "polygon": [
+            4.736,
+            0.9948,
+            7.1268,
+            0.9999,
+            7.1268,
+            1.1471,
+            4.736,
+            1.142
+          ],
+          "spans": [
+            {
+              "length": 33,
+              "offset": 0
+            }
+          ]
+        },
+        {
+          "content": "SULTANS OF SWING",
+          "polygon": [
+            3.1827,
+            1.7663,
+            5.071,
+            1.7663,
+            5.071,
+            1.9491,
+            3.1827,
+            1.9491
+          ],
+          "spans": [
+            {
+              "length": 16,
+              "offset": 34
+            }
+          ]
+        },
+        {
+          "content": "Dire Straits",
+          "polygon": [
+            3.6599,
+            2.2232,
+            4.6193,
+            2.2232,
+            4.6193,
+            2.3957,
+            3.6599,
+            2.3957
+          ],
+          "spans": [
+            {
+              "length": 12,
+              "offset": 51
+            }
+          ]
+        },
+        {
+          "content": "You get_a shiver_in the dark.",
+          "polygon": [
+            3.137,
+            2.6241,
+            5.1015,
+            2.6191,
+            5.1015,
+            2.7916,
+            3.137,
+            2.8069
+          ],
+          "spans": [
+            {
+              "length": 29,
+              "offset": 64
+            }
+          ]
+        },
+        {
+          "content": "It's been raining in the park, but meantime,",
+          "polygon": [
+            2.7056,
+            2.817,
+            5.5533,
+            2.817,
+            5.5533,
+            2.9845,
+            2.7056,
+            2.9794
+          ],
+          "spans": [
+            {
+              "length": 44,
+              "offset": 94
+            }
+          ]
+        },
+        {
+          "content": "South_of the river you stop and you hold everything.",
+          "polygon": [
+            2.3705,
+            2.9997,
+            5.8934,
+            3.0048,
+            5.8934,
+            3.1723,
+            2.3705,
+            3.1622
+          ],
+          "spans": [
+            {
+              "length": 52,
+              "offset": 139
+            }
+          ]
+        },
+        {
+          "content": "A band_is blowing Dixie double four time26.",
+          "polygon": [
+            2.665,
+            3.1825,
+            5.5888,
+            3.1825,
+            5.5888,
+            3.3449,
+            2.665,
+            3.3449
+          ],
+          "spans": [
+            {
+              "length": 43,
+              "offset": 192
+            }
+          ]
+        },
+        {
+          "content": "You feel_all right when_you hear that music ring.",
+          "polygon": [
+            2.4873,
+            3.3703,
+            5.7766,
+            3.3753,
+            5.7766,
+            3.5378,
+            2.4873,
+            3.5327
+          ],
+          "spans": [
+            {
+              "length": 49,
+              "offset": 236
+            }
+          ]
+        },
+        {
+          "content": "But now you step_inside but you don't see too many faces,",
+          "polygon": [
+            2.203,
+            3.7357,
+            6.0609,
+            3.7357,
+            6.0609,
+            3.9032,
+            2.203,
+            3.9032
+          ],
+          "spans": [
+            {
+              "length": 57,
+              "offset": 286
+            }
+          ]
+        },
+        {
+          "content": "Coming_in_out_of the rain to hear the jazz go down.",
+          "polygon": [
+            2.3908,
+            3.9235,
+            5.873,
+            3.9286,
+            5.873,
+            4.091,
+            2.3908,
+            4.0859
+          ],
+          "spans": [
+            {
+              "length": 51,
+              "offset": 344
+            }
+          ]
+        },
+        {
+          "content": "Competition in other places27,",
+          "polygon": [
+            3.1421,
+            4.1063,
+            5.1218,
+            4.1063,
+            5.1218,
+            4.2738,
+            3.1421,
+            4.2738
+          ],
+          "spans": [
+            {
+              "length": 30,
+              "offset": 396
+            }
+          ]
+        },
+        {
+          "content": "How about the horns, they're blowin' that sound28,",
+          "polygon": [
+            2.4467,
+            4.2941,
+            5.8071,
+            4.2941,
+            5.8071,
+            4.4514,
+            2.4467,
+            4.4616
+          ],
+          "spans": [
+            {
+              "length": 50,
+              "offset": 427
+            }
+          ]
+        },
+        {
+          "content": "Way_on downsouth, way_on downsouth London town.",
+          "polygon": [
+            2.2639,
+            4.4819,
+            5.9796,
+            4.4768,
+            5.9796,
+            4.6341,
+            2.2639,
+            4.6443
+          ],
+          "spans": [
+            {
+              "length": 47,
+              "offset": 478
+            }
+          ]
+        },
+        {
+          "content": "You check_out Guitar George; he knows all the chords29.",
+          "polygon": [
+            2.269,
+            4.8473,
+            5.9949,
+            4.8473,
+            5.9949,
+            5.0097,
+            2.269,
+            5.0097
+          ],
+          "spans": [
+            {
+              "length": 55,
+              "offset": 526
+            }
+          ]
+        },
+        {
+          "content": "Mind he's strictly rhythm, he doesn't wanna make_it cry_or sing;",
+          "polygon": [
+            1.9848,
+            5.03,
+            6.2842,
+            5.0351,
+            6.2842,
+            5.1975,
+            1.9848,
+            5.1925
+          ],
+          "spans": [
+            {
+              "length": 64,
+              "offset": 582
+            }
+          ]
+        },
+        {
+          "content": "And_an_old guitar_is_all he can_afford,",
+          "polygon": [
+            2.7817,
+            5.2178,
+            5.4619,
+            5.2128,
+            5.4619,
+            5.3752,
+            2.7817,
+            5.3803
+          ],
+          "spans": [
+            {
+              "length": 39,
+              "offset": 647
+            }
+          ]
+        },
+        {
+          "content": "When he gets_up_under the lights to play_his thing.",
+          "polygon": [
+            2.401,
+            5.3955,
+            5.8629,
+            5.4006,
+            5.8629,
+            5.5731,
+            2.401,
+            5.5681
+          ],
+          "spans": [
+            {
+              "length": 51,
+              "offset": 687
+            }
+          ]
+        },
+        {
+          "content": "And Harry doesn't mind if_he doesn't make the scene.",
+          "polygon": [
+            2.3401,
+            5.7711,
+            5.934,
+            5.7711,
+            5.934,
+            5.9284,
+            2.3401,
+            5.9284
+          ],
+          "spans": [
+            {
+              "length": 52,
+              "offset": 739
+            }
+          ]
+        },
+        {
+          "content": "He's got_a daytime job, he's doing_alright30.",
+          "polygon": [
+            2.6802,
+            5.9589,
+            5.5837,
+            5.9538,
+            5.5837,
+            6.1162,
+            2.6802,
+            6.1213
+          ],
+          "spans": [
+            {
+              "length": 45,
+              "offset": 792
+            }
+          ]
+        },
+        {
+          "content": "He can play the honky tonk just like_anything,",
+          "polygon": [
+            2.5787,
+            6.1416,
+            5.6599,
+            6.1416,
+            5.6599,
+            6.3142,
+            2.5787,
+            6.3142
+          ],
+          "spans": [
+            {
+              "length": 46,
+              "offset": 838
+            }
+          ]
+        },
+        {
+          "content": "Saving_it_up for Friday night,",
+          "polygon": [
+            3.1167,
+            6.3294,
+            5.1319,
+            6.3294,
+            5.1319,
+            6.4918,
+            3.1167,
+            6.4868
+          ],
+          "spans": [
+            {
+              "length": 30,
+              "offset": 885
+            }
+          ]
+        },
+        {
+          "content": "With the Sultans, with the Sultans of Swing.",
+          "polygon": [
+            2.6751,
+            6.5121,
+            5.5736,
+            6.5172,
+            5.5736,
+            6.6847,
+            2.6751,
+            6.6695
+          ],
+          "spans": [
+            {
+              "length": 44,
+              "offset": 916
+            }
+          ]
+        },
+        {
+          "content": "And_a crowd_of young boys they're fooling_around_in the corner.",
+          "polygon": [
+            1.9238,
+            6.8776,
+            6.335,
+            6.8776,
+            6.335,
+            7.0451,
+            1.9238,
+            7.0451
+          ],
+          "spans": [
+            {
+              "length": 63,
+              "offset": 961
+            }
+          ]
+        },
+        {
+          "content": "Drunk_and dressed_in their best brown baggies_and their platform soles,",
+          "polygon": [
+            1.7005,
+            7.0654,
+            6.5583,
+            7.0654,
+            6.5532,
+            7.2329,
+            1.7005,
+            7.2227
+          ],
+          "spans": [
+            {
+              "length": 71,
+              "offset": 1025
+            }
+          ]
+        },
+        {
+          "content": "They don't give a damn about_any trumpet playing band.",
+          "polygon": [
+            2.2183,
+            7.2481,
+            6.0507,
+            7.2481,
+            6.0507,
+            7.4156,
+            2.2183,
+            7.4156
+          ],
+          "spans": [
+            {
+              "length": 54,
+              "offset": 1097
+            }
+          ]
+        },
+        {
+          "content": "It_ain't what THEY call rock-and-roll,",
+          "polygon": [
+            2.8731,
+            7.4308,
+            5.3857,
+            7.4308,
+            5.3857,
+            7.5831,
+            2.8731,
+            7.5831
+          ],
+          "spans": [
+            {
+              "length": 38,
+              "offset": 1152
+            }
+          ]
+        },
+        {
+          "content": "And the Sultans, yeah, the Sultans played Creole.",
+          "polygon": [
+            2.5025,
+            7.6085,
+            5.7461,
+            7.6085,
+            5.7461,
+            7.7912,
+            2.5025,
+            7.7912
+          ],
+          "spans": [
+            {
+              "length": 49,
+              "offset": 1191
+            }
+          ]
+        },
+        {
+          "content": "And then, the man, he steps right_up to the microphone,",
+          "polygon": [
+            2.2589,
+            7.9892,
+            6.005,
+            7.9942,
+            6.005,
+            8.1668,
+            2.2589,
+            8.1516
+          ],
+          "spans": [
+            {
+              "length": 55,
+              "offset": 1241
+            }
+          ]
+        },
+        {
+          "content": "And says_at last just_as the time bell rings,",
+          "polygon": [
+            2.7056,
+            8.1719,
+            5.5482,
+            8.1719,
+            5.5482,
+            8.3394,
+            2.7056,
+            8.3394
+          ],
+          "spans": [
+            {
+              "length": 45,
+              "offset": 1297
+            }
+          ]
+        },
+        {
+          "content": "'Good night.' Now it's time to go home,",
+          "polygon": [
+            2.8325,
+            8.3546,
+            5.4467,
+            8.3597,
+            5.4467,
+            8.5272,
+            2.8325,
+            8.5221
+          ],
+          "spans": [
+            {
+              "length": 39,
+              "offset": 1343
+            }
+          ]
+        },
+        {
+          "content": "and he makes_it fast with_one more thing.",
+          "polygon": [
+            2.7208,
+            8.5374,
+            5.5329,
+            8.5424,
+            5.5329,
+            8.715,
+            2.7208,
+            8.6998
+          ],
+          "spans": [
+            {
+              "length": 41,
+              "offset": 1383
+            }
+          ]
+        },
+        {
+          "content": "We are the Sultans, we are the Sultans of Swing.",
+          "polygon": [
+            2.5431,
+            8.7302,
+            5.7106,
+            8.7353,
+            5.7106,
+            8.9028,
+            2.5431,
+            8.8876
+          ],
+          "spans": [
+            {
+              "length": 48,
+              "offset": 1425
+            }
+          ]
+        },
+        {
+          "content": "26",
+          "polygon": [
+            1.137,
+            9.4459,
+            1.2386,
+            9.451,
+            1.2386,
+            9.5423,
+            1.137,
+            9.5423
+          ],
+          "spans": [
+            {
+              "length": 2,
+              "offset": 1474
+            }
+          ]
+        },
+        {
+          "content": "playing double the normal time of the music",
+          "polygon": [
+            1.2487,
+            9.4764,
+            3.6852,
+            9.4713,
+            3.6852,
+            9.6185,
+            1.2487,
+            9.6286
+          ],
+          "spans": [
+            {
+              "length": 43,
+              "offset": 1477
+            }
+          ]
+        },
+        {
+          "content": "There's too much competition in too many other places (another version)",
+          "polygon": [
+            1.2081,
+            9.6236,
+            5.2335,
+            9.6236,
+            5.2335,
+            9.7809,
+            1.2081,
+            9.7758
+          ],
+          "spans": [
+            {
+              "length": 71,
+              "offset": 1521
+            }
+          ]
+        },
+        {
+          "content": "28",
+          "polygon": [
+            1.1472,
+            9.7555,
+            1.2741,
+            9.7606,
+            1.2741,
+            9.8672,
+            1.1421,
+            9.857
+          ],
+          "spans": [
+            {
+              "length": 2,
+              "offset": 1593
+            }
+          ]
+        },
+        {
+          "content": "But not too many horns can make that sound (another version)",
+          "polygon": [
+            1.2183,
+            9.7758,
+            4.6497,
+            9.786,
+            4.6497,
+            9.9332,
+            1.2183,
+            9.923
+          ],
+          "spans": [
+            {
+              "length": 60,
+              "offset": 1596
+            }
+          ]
+        },
+        {
+          "content": "29",
+          "polygon": [
+            1.1421,
+            9.9179,
+            1.2436,
+            9.9179,
+            1.2436,
+            10.0093,
+            1.1421,
+            10.0093
+          ],
+          "spans": [
+            {
+              "length": 2,
+              "offset": 1657
+            }
+          ]
+        },
+        {
+          "content": "chords= acordes",
+          "polygon": [
+            1.2284,
+            9.9332,
+            2.1776,
+            9.9332,
+            2.1776,
+            10.0753,
+            1.2233,
+            10.0702
+          ],
+          "spans": [
+            {
+              "length": 15,
+              "offset": 1660
+            }
+          ]
+        },
+        {
+          "content": "30 alright (esp Bristish English)= all-right, all right",
+          "polygon": [
+            1.132,
+            10.0804,
+            3.8781,
+            10.0854,
+            3.8781,
+            10.2529,
+            1.132,
+            10.2428
+          ],
+          "spans": [
+            {
+              "length": 55,
+              "offset": 1676
+            }
+          ]
+        },
+        {
+          "content": "Telephone: 627 433 609 . E-mail: calsys@californiasys.com",
+          "polygon": [
+            1.5533,
+            10.527,
+            4.4568,
+            10.527,
+            4.4568,
+            10.6539,
+            1.5533,
+            10.6539
+          ],
+          "spans": [
+            {
+              "length": 57,
+              "offset": 1732
+            }
+          ]
+        },
+        {
+          "content": ".",
+          "polygon": [
+            4.4822,
+            10.5423,
+            4.5939,
+            10.5372,
+            4.5939,
+            10.6488,
+            4.4822,
+            10.6539
+          ],
+          "spans": [
+            {
+              "length": 1,
+              "offset": 1790
+            }
+          ]
+        },
+        {
+          "content": "www.californiasys.com",
+          "polygon": [
+            4.6294,
+            10.5372,
+            5.7461,
+            10.5423,
+            5.7461,
+            10.6488,
+            4.6294,
+            10.6488
+          ],
+          "spans": [
+            {
+              "length": 21,
+              "offset": 1792
+            }
+          ]
+        },
+        {
+          "content": "Page 18/32",
+          "polygon": [
+            6.137,
+            10.5321,
+            6.7106,
+            10.527,
+            6.7106,
+            10.6539,
+            6.137,
+            10.6539
+          ],
+          "spans": [
+            {
+              "length": 10,
+              "offset": 1814
+            }
+          ]
+        }
+      ],
+      "pageNumber": 1,
+      "spans": [
+        {
+          "length": 1824,
+          "offset": 0
+        }
+      ],
+      "unit": "inch",
+      "width": 8.2639,
+      "words": [
+        {
+          "confidence": 0.961,
+          "content": "\"DA",
+          "polygon": [
+            4.7387,
+            1,
+            4.9729,
+            0.9982,
+            4.9729,
+            1.1451,
+            4.7387,
+            1.1436
+          ],
+          "span": {
+            "length": 3,
+            "offset": 0
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "ESL",
+          "polygon": [
+            5.0273,
+            0.9978,
+            5.2804,
+            0.9968,
+            5.2804,
+            1.1467,
+            5.0273,
+            1.1455
+          ],
+          "span": {
+            "length": 3,
+            "offset": 4
+          }
+        },
+        {
+          "confidence": 0.988,
+          "content": "MIX\"",
+          "polygon": [
+            5.3277,
+            0.9966,
+            5.6399,
+            0.9966,
+            5.6399,
+            1.1471,
+            5.3277,
+            1.1469
+          ],
+          "span": {
+            "length": 4,
+            "offset": 8
+          }
+        },
+        {
+          "confidence": 0.993,
+          "content": "-",
+          "polygon": [
+            5.6825,
+            0.9966,
+            5.7463,
+            0.9967,
+            5.7463,
+            1.1471,
+            5.6825,
+            1.1471
+          ],
+          "span": {
+            "length": 1,
+            "offset": 13
+          }
+        },
+        {
+          "confidence": 0.982,
+          "content": "CALIFORNIA",
+          "polygon": [
+            5.796,
+            0.9969,
+            6.5198,
+            1.003,
+            6.5198,
+            1.1461,
+            5.796,
+            1.1471
+          ],
+          "span": {
+            "length": 10,
+            "offset": 15
+          }
+        },
+        {
+          "confidence": 0.985,
+          "content": "SYSTEMS",
+          "polygon": [
+            6.5718,
+            1.0037,
+            7.1319,
+            1.013,
+            7.1319,
+            1.142,
+            6.5718,
+            1.1458
+          ],
+          "span": {
+            "length": 7,
+            "offset": 26
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "SULTANS",
+          "polygon": [
+            3.1829,
+            1.7669,
+            4.07,
+            1.7703,
+            4.0678,
+            1.9522,
+            3.1829,
+            1.9528
+          ],
+          "span": {
+            "length": 7,
+            "offset": 34
+          }
+        },
+        {
+          "confidence": 0.985,
+          "content": "OF",
+          "polygon": [
+            4.1271,
+            1.7704,
+            4.3617,
+            1.7707,
+            4.3588,
+            1.9528,
+            4.1248,
+            1.9523
+          ],
+          "span": {
+            "length": 2,
+            "offset": 42
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "SWING",
+          "polygon": [
+            4.4218,
+            1.7708,
+            5.0761,
+            1.7703,
+            5.0761,
+            1.9541,
+            4.4188,
+            1.953
+          ],
+          "span": {
+            "length": 5,
+            "offset": 45
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "Dire",
+          "polygon": [
+            3.66,
+            2.2244,
+            4.0271,
+            2.227,
+            4.0259,
+            2.3978,
+            3.66,
+            2.4008
+          ],
+          "span": {
+            "length": 4,
+            "offset": 51
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "Straits",
+          "polygon": [
+            4.0804,
+            2.2273,
+            4.6241,
+            2.2272,
+            4.6209,
+            2.3956,
+            4.079,
+            2.3974
+          ],
+          "span": {
+            "length": 7,
+            "offset": 56
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "You",
+          "polygon": [
+            3.1462,
+            2.6272,
+            3.4401,
+            2.6287,
+            3.4362,
+            2.8067,
+            3.1417,
+            2.8027
+          ],
+          "span": {
+            "length": 3,
+            "offset": 64
+          }
+        },
+        {
+          "confidence": 0.98,
+          "content": "get_a",
+          "polygon": [
+            3.4829,
+            2.6288,
+            3.8281,
+            2.6292,
+            3.8251,
+            2.8069,
+            3.4791,
+            2.8069
+          ],
+          "span": {
+            "length": 5,
+            "offset": 68
+          }
+        },
+        {
+          "confidence": 0.963,
+          "content": "shiver_in",
+          "polygon": [
+            3.868,
+            2.6291,
+            4.4558,
+            2.6267,
+            4.4543,
+            2.8011,
+            3.8652,
+            2.8069
+          ],
+          "span": {
+            "length": 9,
+            "offset": 74
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            4.4929,
+            2.6264,
+            4.7183,
+            2.6243,
+            4.7174,
+            2.7948,
+            4.4914,
+            2.8005
+          ],
+          "span": {
+            "length": 3,
+            "offset": 84
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "dark.",
+          "polygon": [
+            4.7582,
+            2.6239,
+            5.1066,
+            2.6195,
+            5.1066,
+            2.782,
+            4.7574,
+            2.7937
+          ],
+          "span": {
+            "length": 5,
+            "offset": 88
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "It's",
+          "polygon": [
+            2.7112,
+            2.8222,
+            2.9103,
+            2.8218,
+            2.9072,
+            2.9824,
+            2.708,
+            2.9804
+          ],
+          "span": {
+            "length": 4,
+            "offset": 94
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "been",
+          "polygon": [
+            2.9443,
+            2.8217,
+            3.2324,
+            2.8213,
+            3.2298,
+            2.9851,
+            2.9413,
+            2.9827
+          ],
+          "span": {
+            "length": 4,
+            "offset": 99
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "raining",
+          "polygon": [
+            3.2769,
+            2.8213,
+            3.772,
+            2.8215,
+            3.7699,
+            2.9874,
+            3.2744,
+            2.9854
+          ],
+          "span": {
+            "length": 7,
+            "offset": 104
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "in",
+          "polygon": [
+            3.8113,
+            2.8215,
+            3.9134,
+            2.8216,
+            3.9115,
+            2.9877,
+            3.8093,
+            2.9875
+          ],
+          "span": {
+            "length": 2,
+            "offset": 112
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "the",
+          "polygon": [
+            3.9579,
+            2.8217,
+            4.1806,
+            2.8223,
+            4.179,
+            2.9873,
+            3.9561,
+            2.9877
+          ],
+          "span": {
+            "length": 3,
+            "offset": 115
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "park,",
+          "polygon": [
+            4.2225,
+            2.8224,
+            4.5603,
+            2.8236,
+            4.5592,
+            2.9858,
+            4.221,
+            2.9873
+          ],
+          "span": {
+            "length": 5,
+            "offset": 119
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "but",
+          "polygon": [
+            4.5944,
+            2.8238,
+            4.8223,
+            2.8248,
+            4.8214,
+            2.984,
+            4.5933,
+            2.9856
+          ],
+          "span": {
+            "length": 3,
+            "offset": 125
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "meantime,",
+          "polygon": [
+            4.8589,
+            2.825,
+            5.5583,
+            2.8295,
+            5.5583,
+            2.9755,
+            4.8581,
+            2.9837
+          ],
+          "span": {
+            "length": 9,
+            "offset": 129
+          }
+        },
+        {
+          "confidence": 0.963,
+          "content": "South_of",
+          "polygon": [
+            2.3732,
+            3.0046,
+            2.9735,
+            3.0051,
+            2.9729,
+            3.1627,
+            2.3732,
+            3.1547
+          ],
+          "span": {
+            "length": 8,
+            "offset": 139
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "the",
+          "polygon": [
+            3.0108,
+            3.0051,
+            3.2136,
+            3.0053,
+            3.2128,
+            3.1652,
+            3.0102,
+            3.1631
+          ],
+          "span": {
+            "length": 3,
+            "offset": 148
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "river",
+          "polygon": [
+            3.2509,
+            3.0053,
+            3.5683,
+            3.0055,
+            3.5672,
+            3.1685,
+            3.2501,
+            3.1656
+          ],
+          "span": {
+            "length": 5,
+            "offset": 152
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "you",
+          "polygon": [
+            3.6057,
+            3.0056,
+            3.8591,
+            3.0057,
+            3.8577,
+            3.1707,
+            3.6046,
+            3.1688
+          ],
+          "span": {
+            "length": 3,
+            "offset": 158
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "stop",
+          "polygon": [
+            3.8965,
+            3.0057,
+            4.1739,
+            3.0058,
+            4.1722,
+            3.1723,
+            3.8951,
+            3.171
+          ],
+          "span": {
+            "length": 4,
+            "offset": 162
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "and",
+          "polygon": [
+            4.2192,
+            3.0059,
+            4.4647,
+            3.006,
+            4.4627,
+            3.1723,
+            4.2175,
+            3.1723
+          ],
+          "span": {
+            "length": 3,
+            "offset": 167
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "you",
+          "polygon": [
+            4.5047,
+            3.006,
+            4.7581,
+            3.006,
+            4.7559,
+            3.1723,
+            4.5027,
+            3.1723
+          ],
+          "span": {
+            "length": 3,
+            "offset": 171
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "hold",
+          "polygon": [
+            4.7928,
+            3.0061,
+            5.0942,
+            3.0061,
+            5.0917,
+            3.1723,
+            4.7906,
+            3.1723
+          ],
+          "span": {
+            "length": 4,
+            "offset": 175
+          }
+        },
+        {
+          "confidence": 0.993,
+          "content": "everything.",
+          "polygon": [
+            5.1369,
+            3.0061,
+            5.8984,
+            3.0061,
+            5.8984,
+            3.1716,
+            5.1344,
+            3.1723
+          ],
+          "span": {
+            "length": 11,
+            "offset": 180
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "A",
+          "polygon": [
+            2.6675,
+            3.1836,
+            2.7931,
+            3.1837,
+            2.793,
+            3.3425,
+            2.6675,
+            3.3409
+          ],
+          "span": {
+            "length": 1,
+            "offset": 192
+          }
+        },
+        {
+          "confidence": 0.962,
+          "content": "band_is",
+          "polygon": [
+            2.8271,
+            3.1838,
+            3.3453,
+            3.1844,
+            3.3445,
+            3.3483,
+            2.827,
+            3.343
+          ],
+          "span": {
+            "length": 7,
+            "offset": 194
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "blowing",
+          "polygon": [
+            3.3793,
+            3.1845,
+            3.9289,
+            3.1848,
+            3.9274,
+            3.35,
+            3.3785,
+            3.3486
+          ],
+          "span": {
+            "length": 7,
+            "offset": 202
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "Dixie",
+          "polygon": [
+            3.9629,
+            3.1848,
+            4.3135,
+            3.1849,
+            4.3117,
+            3.3492,
+            3.9614,
+            3.35
+          ],
+          "span": {
+            "length": 5,
+            "offset": 210
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "double",
+          "polygon": [
+            4.3528,
+            3.1849,
+            4.8108,
+            3.1847,
+            4.8084,
+            3.3446,
+            4.3509,
+            3.3489
+          ],
+          "span": {
+            "length": 6,
+            "offset": 216
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "four",
+          "polygon": [
+            4.85,
+            3.1847,
+            5.1274,
+            3.1845,
+            5.1247,
+            3.3402,
+            4.8476,
+            3.344
+          ],
+          "span": {
+            "length": 4,
+            "offset": 223
+          }
+        },
+        {
+          "confidence": 0.988,
+          "content": "time26.",
+          "polygon": [
+            5.1667,
+            3.1845,
+            5.5939,
+            3.1839,
+            5.5939,
+            3.3312,
+            5.1639,
+            3.3396
+          ],
+          "span": {
+            "length": 7,
+            "offset": 228
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "You",
+          "polygon": [
+            2.4948,
+            3.3726,
+            2.7752,
+            3.3727,
+            2.7717,
+            3.5364,
+            2.4915,
+            3.5354
+          ],
+          "span": {
+            "length": 3,
+            "offset": 236
+          }
+        },
+        {
+          "confidence": 0.962,
+          "content": "feel_all",
+          "polygon": [
+            2.8126,
+            3.3727,
+            3.2801,
+            3.3732,
+            3.276,
+            3.5378,
+            2.8091,
+            3.5365
+          ],
+          "span": {
+            "length": 8,
+            "offset": 240
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "right",
+          "polygon": [
+            3.3201,
+            3.3732,
+            3.6407,
+            3.3738,
+            3.6363,
+            3.5378,
+            3.3161,
+            3.5378
+          ],
+          "span": {
+            "length": 5,
+            "offset": 249
+          }
+        },
+        {
+          "confidence": 0.902,
+          "content": "when_you",
+          "polygon": [
+            3.6754,
+            3.3738,
+            4.3725,
+            3.3757,
+            4.3674,
+            3.5378,
+            3.671,
+            3.5378
+          ],
+          "span": {
+            "length": 8,
+            "offset": 255
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "hear",
+          "polygon": [
+            4.4073,
+            3.3758,
+            4.7011,
+            3.3769,
+            4.6956,
+            3.5378,
+            4.4021,
+            3.5378
+          ],
+          "span": {
+            "length": 4,
+            "offset": 264
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "that",
+          "polygon": [
+            4.7385,
+            3.3771,
+            4.9976,
+            3.3782,
+            4.9918,
+            3.5378,
+            4.733,
+            3.5378
+          ],
+          "span": {
+            "length": 4,
+            "offset": 269
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "music",
+          "polygon": [
+            5.0323,
+            3.3783,
+            5.4249,
+            3.3803,
+            5.4188,
+            3.5378,
+            5.0265,
+            3.5378
+          ],
+          "span": {
+            "length": 5,
+            "offset": 274
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "ring.",
+          "polygon": [
+            5.4623,
+            3.3805,
+            5.7817,
+            3.3822,
+            5.779,
+            3.5378,
+            5.4561,
+            3.5378
+          ],
+          "span": {
+            "length": 5,
+            "offset": 280
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "But",
+          "polygon": [
+            2.2037,
+            3.7422,
+            2.418,
+            3.7414,
+            2.418,
+            3.9029,
+            2.2037,
+            3.902
+          ],
+          "span": {
+            "length": 3,
+            "offset": 286
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "now",
+          "polygon": [
+            2.4501,
+            3.7413,
+            2.7634,
+            3.7402,
+            2.7634,
+            3.9044,
+            2.4501,
+            3.903
+          ],
+          "span": {
+            "length": 3,
+            "offset": 290
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "you",
+          "polygon": [
+            2.8009,
+            3.7401,
+            3.0553,
+            3.7396,
+            3.0553,
+            3.9052,
+            2.8009,
+            3.9045
+          ],
+          "span": {
+            "length": 3,
+            "offset": 294
+          }
+        },
+        {
+          "confidence": 0.987,
+          "content": "step_inside",
+          "polygon": [
+            3.0955,
+            3.7395,
+            3.8373,
+            3.7386,
+            3.8373,
+            3.9064,
+            3.0955,
+            3.9053
+          ],
+          "span": {
+            "length": 11,
+            "offset": 298
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "but",
+          "polygon": [
+            3.8722,
+            3.7386,
+            4.0971,
+            3.7387,
+            4.0971,
+            3.9063,
+            3.8722,
+            3.9064
+          ],
+          "span": {
+            "length": 3,
+            "offset": 310
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "you",
+          "polygon": [
+            4.1319,
+            3.7387,
+            4.3864,
+            3.7388,
+            4.3864,
+            3.9061,
+            4.1319,
+            3.9063
+          ],
+          "span": {
+            "length": 3,
+            "offset": 314
+          }
+        },
+        {
+          "confidence": 0.993,
+          "content": "don't",
+          "polygon": [
+            4.4238,
+            3.7389,
+            4.7613,
+            3.7395,
+            4.7613,
+            3.9053,
+            4.4238,
+            3.906
+          ],
+          "span": {
+            "length": 5,
+            "offset": 318
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "see",
+          "polygon": [
+            4.7988,
+            3.7396,
+            5.0023,
+            3.7401,
+            5.0023,
+            3.9047,
+            4.7988,
+            3.9053
+          ],
+          "span": {
+            "length": 3,
+            "offset": 324
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "too",
+          "polygon": [
+            5.0425,
+            3.7402,
+            5.2514,
+            3.7409,
+            5.2514,
+            3.9038,
+            5.0425,
+            3.9045
+          ],
+          "span": {
+            "length": 3,
+            "offset": 328
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "many",
+          "polygon": [
+            5.2889,
+            3.741,
+            5.6611,
+            3.7424,
+            5.6611,
+            3.9019,
+            5.2889,
+            3.9036
+          ],
+          "span": {
+            "length": 4,
+            "offset": 332
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "faces,",
+          "polygon": [
+            5.7013,
+            3.7426,
+            6.0659,
+            3.7443,
+            6.0659,
+            3.8997,
+            5.7013,
+            3.9017
+          ],
+          "span": {
+            "length": 6,
+            "offset": 337
+          }
+        },
+        {
+          "confidence": 0.642,
+          "content": "Coming_in_out_of",
+          "polygon": [
+            2.3935,
+            3.9245,
+            3.6357,
+            3.9269,
+            3.6334,
+            4.0909,
+            2.3935,
+            4.0931
+          ],
+          "span": {
+            "length": 16,
+            "offset": 344
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            3.6737,
+            3.927,
+            3.8744,
+            3.9273,
+            3.8716,
+            4.0908,
+            3.6713,
+            4.0909
+          ],
+          "span": {
+            "length": 3,
+            "offset": 361
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "rain",
+          "polygon": [
+            3.9178,
+            3.9274,
+            4.1809,
+            3.9278,
+            4.1775,
+            4.0913,
+            3.9149,
+            4.0909
+          ],
+          "span": {
+            "length": 4,
+            "offset": 365
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "to",
+          "polygon": [
+            4.2188,
+            3.9279,
+            4.3436,
+            3.9281,
+            4.34,
+            4.0915,
+            4.2154,
+            4.0913
+          ],
+          "span": {
+            "length": 2,
+            "offset": 370
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "hear",
+          "polygon": [
+            4.3816,
+            3.9282,
+            4.6718,
+            3.9286,
+            4.6675,
+            4.0924,
+            4.3779,
+            4.0916
+          ],
+          "span": {
+            "length": 4,
+            "offset": 373
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            4.7125,
+            3.9287,
+            4.9159,
+            3.929,
+            4.9112,
+            4.0932,
+            4.7081,
+            4.0925
+          ],
+          "span": {
+            "length": 3,
+            "offset": 378
+          }
+        },
+        {
+          "confidence": 0.985,
+          "content": "jazz",
+          "polygon": [
+            4.9511,
+            3.9291,
+            5.2115,
+            3.9295,
+            5.2062,
+            4.0945,
+            4.9464,
+            4.0934
+          ],
+          "span": {
+            "length": 4,
+            "offset": 382
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "go",
+          "polygon": [
+            5.2549,
+            3.9295,
+            5.4122,
+            3.9298,
+            5.4066,
+            4.0955,
+            5.2496,
+            4.0947
+          ],
+          "span": {
+            "length": 2,
+            "offset": 387
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "down.",
+          "polygon": [
+            5.4529,
+            3.9298,
+            5.8781,
+            3.9305,
+            5.8781,
+            4.0961,
+            5.4472,
+            4.0957
+          ],
+          "span": {
+            "length": 5,
+            "offset": 390
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "Competition",
+          "polygon": [
+            3.1429,
+            4.1122,
+            3.9909,
+            4.1098,
+            3.9895,
+            4.2788,
+            3.1429,
+            4.2689
+          ],
+          "span": {
+            "length": 11,
+            "offset": 396
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "in",
+          "polygon": [
+            4.0257,
+            4.1098,
+            4.1567,
+            4.1098,
+            4.1551,
+            4.2788,
+            4.0242,
+            4.2788
+          ],
+          "span": {
+            "length": 2,
+            "offset": 408
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "other",
+          "polygon": [
+            4.1942,
+            4.1098,
+            4.5366,
+            4.1103,
+            4.5343,
+            4.2766,
+            4.1924,
+            4.2788
+          ],
+          "span": {
+            "length": 5,
+            "offset": 411
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "places27,",
+          "polygon": [
+            4.5767,
+            4.1104,
+            5.1269,
+            4.1125,
+            5.1269,
+            4.2645,
+            4.5743,
+            4.276
+          ],
+          "span": {
+            "length": 9,
+            "offset": 417
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "How",
+          "polygon": [
+            2.4511,
+            4.2993,
+            2.7916,
+            4.2984,
+            2.7887,
+            4.4528,
+            2.4478,
+            4.4473
+          ],
+          "span": {
+            "length": 3,
+            "offset": 427
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "about",
+          "polygon": [
+            2.8303,
+            4.2983,
+            3.2043,
+            4.2975,
+            3.2018,
+            4.4577,
+            2.8274,
+            4.4534
+          ],
+          "span": {
+            "length": 5,
+            "offset": 431
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            3.243,
+            4.2974,
+            3.4443,
+            4.2969,
+            3.442,
+            4.4599,
+            3.2406,
+            4.4581
+          ],
+          "span": {
+            "length": 3,
+            "offset": 437
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "horns,",
+          "polygon": [
+            3.483,
+            4.2969,
+            3.8957,
+            4.2961,
+            3.8939,
+            4.4616,
+            3.4807,
+            4.4601
+          ],
+          "span": {
+            "length": 6,
+            "offset": 441
+          }
+        },
+        {
+          "confidence": 0.993,
+          "content": "they're",
+          "polygon": [
+            3.937,
+            4.296,
+            4.3936,
+            4.2953,
+            4.3922,
+            4.4601,
+            3.9352,
+            4.4615
+          ],
+          "span": {
+            "length": 7,
+            "offset": 448
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "blowin'",
+          "polygon": [
+            4.4271,
+            4.2953,
+            4.9302,
+            4.2947,
+            4.9293,
+            4.455,
+            4.4258,
+            4.4599
+          ],
+          "span": {
+            "length": 7,
+            "offset": 456
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "that",
+          "polygon": [
+            4.974,
+            4.2947,
+            5.232,
+            4.2945,
+            5.2314,
+            4.4505,
+            4.9732,
+            4.4543
+          ],
+          "span": {
+            "length": 4,
+            "offset": 464
+          }
+        },
+        {
+          "confidence": 0.963,
+          "content": "sound28,",
+          "polygon": [
+            5.2655,
+            4.2944,
+            5.8121,
+            4.2941,
+            5.8121,
+            4.4389,
+            5.265,
+            4.4501
+          ],
+          "span": {
+            "length": 8,
+            "offset": 469
+          }
+        },
+        {
+          "confidence": 0.978,
+          "content": "Way_on",
+          "polygon": [
+            2.2688,
+            4.4847,
+            2.8378,
+            4.4854,
+            2.8378,
+            4.6443,
+            2.2688,
+            4.643
+          ],
+          "span": {
+            "length": 6,
+            "offset": 478
+          }
+        },
+        {
+          "confidence": 0.993,
+          "content": "downsouth,",
+          "polygon": [
+            2.8759,
+            4.4854,
+            3.6583,
+            4.4855,
+            3.6583,
+            4.6443,
+            2.8759,
+            4.6443
+          ],
+          "span": {
+            "length": 10,
+            "offset": 485
+          }
+        },
+        {
+          "confidence": 0.985,
+          "content": "way_on",
+          "polygon": [
+            3.6964,
+            4.4855,
+            4.2223,
+            4.485,
+            4.2223,
+            4.6435,
+            3.6964,
+            4.6443
+          ],
+          "span": {
+            "length": 6,
+            "offset": 496
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "downsouth",
+          "polygon": [
+            4.2604,
+            4.485,
+            5.0123,
+            4.4836,
+            5.0123,
+            4.6361,
+            4.2604,
+            4.6433
+          ],
+          "span": {
+            "length": 9,
+            "offset": 503
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "London",
+          "polygon": [
+            5.0479,
+            4.4835,
+            5.5635,
+            4.482,
+            5.5635,
+            4.6282,
+            5.0479,
+            4.6356
+          ],
+          "span": {
+            "length": 6,
+            "offset": 513
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "town.",
+          "polygon": [
+            5.6042,
+            4.4818,
+            5.9847,
+            4.4804,
+            5.9847,
+            4.621,
+            5.6042,
+            4.6275
+          ],
+          "span": {
+            "length": 5,
+            "offset": 520
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "You",
+          "polygon": [
+            2.2699,
+            4.851,
+            2.5428,
+            4.8511,
+            2.5431,
+            4.9988,
+            2.2699,
+            4.9929
+          ],
+          "span": {
+            "length": 3,
+            "offset": 526
+          }
+        },
+        {
+          "confidence": 0.963,
+          "content": "check_out",
+          "polygon": [
+            2.5837,
+            4.8511,
+            3.2494,
+            4.8511,
+            3.2503,
+            5.0108,
+            2.5839,
+            4.9996
+          ],
+          "span": {
+            "length": 9,
+            "offset": 530
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "Guitar",
+          "polygon": [
+            3.2851,
+            4.851,
+            3.7137,
+            4.8509,
+            3.7149,
+            5.0147,
+            3.286,
+            5.0113
+          ],
+          "span": {
+            "length": 6,
+            "offset": 540
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "George;",
+          "polygon": [
+            3.7494,
+            4.8508,
+            4.2595,
+            4.8505,
+            4.2613,
+            5.0148,
+            3.7507,
+            5.0148
+          ],
+          "span": {
+            "length": 7,
+            "offset": 547
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "he",
+          "polygon": [
+            4.3003,
+            4.8504,
+            4.461,
+            4.8503,
+            4.463,
+            5.0148,
+            4.3021,
+            5.0148
+          ],
+          "span": {
+            "length": 2,
+            "offset": 555
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "knows",
+          "polygon": [
+            4.4993,
+            4.8502,
+            4.9355,
+            4.8498,
+            4.9378,
+            5.0112,
+            4.5013,
+            5.0147
+          ],
+          "span": {
+            "length": 5,
+            "offset": 558
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "all",
+          "polygon": [
+            4.9763,
+            4.8497,
+            5.1319,
+            4.8495,
+            5.1344,
+            5.0082,
+            4.9787,
+            5.0106
+          ],
+          "span": {
+            "length": 3,
+            "offset": 564
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            5.1753,
+            4.8494,
+            5.3768,
+            4.8491,
+            5.3795,
+            5.0045,
+            5.1778,
+            5.0076
+          ],
+          "span": {
+            "length": 3,
+            "offset": 568
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "chords29.",
+          "polygon": [
+            5.415,
+            4.8491,
+            5.9999,
+            4.8479,
+            5.9999,
+            4.9909,
+            5.4178,
+            5.004
+          ],
+          "span": {
+            "length": 9,
+            "offset": 572
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "Mind",
+          "polygon": [
+            1.9884,
+            5.0405,
+            2.3578,
+            5.0378,
+            2.3573,
+            5.1915,
+            1.9884,
+            5.1889
+          ],
+          "span": {
+            "length": 4,
+            "offset": 582
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "he's",
+          "polygon": [
+            2.3995,
+            5.0375,
+            2.6492,
+            5.0358,
+            2.6482,
+            5.1935,
+            2.3989,
+            5.1917
+          ],
+          "span": {
+            "length": 4,
+            "offset": 587
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "strictly",
+          "polygon": [
+            2.6883,
+            5.0357,
+            3.1436,
+            5.0337,
+            3.1418,
+            5.196,
+            2.6872,
+            5.1937
+          ],
+          "span": {
+            "length": 8,
+            "offset": 592
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "rhythm,",
+          "polygon": [
+            3.18,
+            5.0336,
+            3.7055,
+            5.0327,
+            3.7029,
+            5.1975,
+            3.1782,
+            5.1962
+          ],
+          "span": {
+            "length": 7,
+            "offset": 601
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "he",
+          "polygon": [
+            3.7446,
+            5.0327,
+            3.9033,
+            5.0327,
+            3.9004,
+            5.1975,
+            3.7419,
+            5.1975
+          ],
+          "span": {
+            "length": 2,
+            "offset": 609
+          }
+        },
+        {
+          "confidence": 0.981,
+          "content": "doesn't",
+          "polygon": [
+            3.9423,
+            5.0327,
+            4.4158,
+            5.0335,
+            4.4121,
+            5.1975,
+            3.9393,
+            5.1975
+          ],
+          "span": {
+            "length": 7,
+            "offset": 612
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "wanna",
+          "polygon": [
+            4.4496,
+            5.0335,
+            4.8971,
+            5.0355,
+            4.8927,
+            5.1975,
+            4.4459,
+            5.1975
+          ],
+          "span": {
+            "length": 5,
+            "offset": 620
+          }
+        },
+        {
+          "confidence": 0.984,
+          "content": "make_it",
+          "polygon": [
+            4.9362,
+            5.0357,
+            5.4617,
+            5.0392,
+            5.4564,
+            5.1975,
+            4.9317,
+            5.1975
+          ],
+          "span": {
+            "length": 7,
+            "offset": 626
+          }
+        },
+        {
+          "confidence": 0.977,
+          "content": "cry_or",
+          "polygon": [
+            5.5007,
+            5.0395,
+            5.9196,
+            5.0432,
+            5.9136,
+            5.197,
+            5.4954,
+            5.1975
+          ],
+          "span": {
+            "length": 6,
+            "offset": 634
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "sing;",
+          "polygon": [
+            5.9612,
+            5.0437,
+            6.2893,
+            5.0469,
+            6.2893,
+            5.1956,
+            5.9552,
+            5.1968
+          ],
+          "span": {
+            "length": 5,
+            "offset": 641
+          }
+        },
+        {
+          "confidence": 0.939,
+          "content": "And_an_old",
+          "polygon": [
+            2.7868,
+            5.2185,
+            3.6308,
+            5.2177,
+            3.6275,
+            5.3819,
+            2.7835,
+            5.372
+          ],
+          "span": {
+            "length": 10,
+            "offset": 647
+          }
+        },
+        {
+          "confidence": 0.823,
+          "content": "guitar_is_all",
+          "polygon": [
+            3.6728,
+            5.2177,
+            4.4826,
+            5.2172,
+            4.4794,
+            5.3818,
+            3.6696,
+            5.382
+          ],
+          "span": {
+            "length": 13,
+            "offset": 658
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "he",
+          "polygon": [
+            4.5194,
+            5.2172,
+            4.6772,
+            5.2171,
+            4.674,
+            5.3806,
+            4.5162,
+            5.3816
+          ],
+          "span": {
+            "length": 2,
+            "offset": 672
+          }
+        },
+        {
+          "confidence": 0.977,
+          "content": "can_afford,",
+          "polygon": [
+            4.714,
+            5.2171,
+            5.467,
+            5.2169,
+            5.4653,
+            5.3696,
+            4.7108,
+            5.3803
+          ],
+          "span": {
+            "length": 11,
+            "offset": 675
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "When",
+          "polygon": [
+            2.4036,
+            5.4004,
+            2.782,
+            5.401,
+            2.782,
+            5.5739,
+            2.4036,
+            5.5726
+          ],
+          "span": {
+            "length": 4,
+            "offset": 687
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "he",
+          "polygon": [
+            2.8164,
+            5.401,
+            2.9969,
+            5.4013,
+            2.9969,
+            5.5746,
+            2.8164,
+            5.574
+          ],
+          "span": {
+            "length": 2,
+            "offset": 692
+          }
+        },
+        {
+          "confidence": 0.935,
+          "content": "gets_up_under",
+          "polygon": [
+            3.0371,
+            5.4013,
+            4.0259,
+            5.4026,
+            4.0259,
+            5.5775,
+            3.0371,
+            5.5748
+          ],
+          "span": {
+            "length": 13,
+            "offset": 695
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            4.0632,
+            5.4026,
+            4.2696,
+            5.4028,
+            4.2696,
+            5.5781,
+            4.0632,
+            5.5776
+          ],
+          "span": {
+            "length": 3,
+            "offset": 709
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "lights",
+          "polygon": [
+            4.3068,
+            5.4029,
+            4.6737,
+            5.4032,
+            4.6737,
+            5.5782,
+            4.3068,
+            5.5782
+          ],
+          "span": {
+            "length": 6,
+            "offset": 713
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "to",
+          "polygon": [
+            4.7138,
+            5.4032,
+            4.8428,
+            5.4034,
+            4.8428,
+            5.5782,
+            4.7138,
+            5.5782
+          ],
+          "span": {
+            "length": 2,
+            "offset": 720
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "play_his",
+          "polygon": [
+            4.8801,
+            5.4034,
+            5.4361,
+            5.4038,
+            5.4361,
+            5.5782,
+            4.8801,
+            5.5782
+          ],
+          "span": {
+            "length": 8,
+            "offset": 723
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "thing.",
+          "polygon": [
+            5.4734,
+            5.4038,
+            5.868,
+            5.4041,
+            5.868,
+            5.5782,
+            5.4734,
+            5.5782
+          ],
+          "span": {
+            "length": 6,
+            "offset": 732
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "And",
+          "polygon": [
+            2.3466,
+            5.7752,
+            2.6412,
+            5.7742,
+            2.6379,
+            5.9335,
+            2.3434,
+            5.9335
+          ],
+          "span": {
+            "length": 3,
+            "offset": 739
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "Harry",
+          "polygon": [
+            2.6799,
+            5.774,
+            3.0804,
+            5.7728,
+            3.0772,
+            5.9333,
+            2.6767,
+            5.9335
+          ],
+          "span": {
+            "length": 5,
+            "offset": 743
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "doesn't",
+          "polygon": [
+            3.1166,
+            5.7728,
+            3.5894,
+            5.772,
+            3.5862,
+            5.9319,
+            3.1133,
+            5.9332
+          ],
+          "span": {
+            "length": 7,
+            "offset": 749
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "mind",
+          "polygon": [
+            3.6256,
+            5.7719,
+            3.9744,
+            5.7717,
+            3.9712,
+            5.931,
+            3.6224,
+            5.9318
+          ],
+          "span": {
+            "length": 4,
+            "offset": 757
+          }
+        },
+        {
+          "confidence": 0.948,
+          "content": "if_he",
+          "polygon": [
+            4.0158,
+            5.7717,
+            4.3361,
+            5.7718,
+            4.3329,
+            5.9302,
+            4.0125,
+            5.9309
+          ],
+          "span": {
+            "length": 5,
+            "offset": 762
+          }
+        },
+        {
+          "confidence": 0.993,
+          "content": "doesn't",
+          "polygon": [
+            4.3775,
+            5.7718,
+            4.8477,
+            5.7726,
+            4.8445,
+            5.9293,
+            4.3742,
+            5.9301
+          ],
+          "span": {
+            "length": 7,
+            "offset": 768
+          }
+        },
+        {
+          "confidence": 0.988,
+          "content": "make",
+          "polygon": [
+            4.8865,
+            5.7727,
+            5.2456,
+            5.7737,
+            5.2424,
+            5.9287,
+            4.8833,
+            5.9292
+          ],
+          "span": {
+            "length": 4,
+            "offset": 776
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            5.2844,
+            5.7738,
+            5.4885,
+            5.7746,
+            5.4853,
+            5.9283,
+            5.2812,
+            5.9286
+          ],
+          "span": {
+            "length": 3,
+            "offset": 781
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "scene.",
+          "polygon": [
+            5.5273,
+            5.7747,
+            5.939,
+            5.7765,
+            5.939,
+            5.9279,
+            5.524,
+            5.9283
+          ],
+          "span": {
+            "length": 6,
+            "offset": 785
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "He's",
+          "polygon": [
+            2.6834,
+            5.9639,
+            2.9766,
+            5.9624,
+            2.9737,
+            6.1264,
+            2.6802,
+            6.1262
+          ],
+          "span": {
+            "length": 4,
+            "offset": 792
+          }
+        },
+        {
+          "confidence": 0.987,
+          "content": "got_a",
+          "polygon": [
+            3.0174,
+            5.9621,
+            3.3757,
+            5.9605,
+            3.3732,
+            6.1264,
+            3.0145,
+            6.1264
+          ],
+          "span": {
+            "length": 5,
+            "offset": 797
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "daytime",
+          "polygon": [
+            3.4164,
+            5.9603,
+            3.9322,
+            5.9585,
+            3.9304,
+            6.126,
+            3.414,
+            6.1264
+          ],
+          "span": {
+            "length": 7,
+            "offset": 803
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "job,",
+          "polygon": [
+            3.9648,
+            5.9584,
+            4.2227,
+            5.9578,
+            4.2212,
+            6.1254,
+            3.963,
+            6.1259
+          ],
+          "span": {
+            "length": 4,
+            "offset": 811
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "he's",
+          "polygon": [
+            4.2607,
+            5.9577,
+            4.5132,
+            5.9572,
+            4.512,
+            6.1247,
+            4.2592,
+            6.1253
+          ],
+          "span": {
+            "length": 4,
+            "offset": 816
+          }
+        },
+        {
+          "confidence": 0.963,
+          "content": "doing_alright30.",
+          "polygon": [
+            4.5566,
+            5.9572,
+            5.5888,
+            5.9569,
+            5.5888,
+            6.1204,
+            4.5554,
+            6.1245
+          ],
+          "span": {
+            "length": 16,
+            "offset": 821
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "He",
+          "polygon": [
+            2.579,
+            6.1466,
+            2.7909,
+            6.1463,
+            2.7909,
+            6.3158,
+            2.579,
+            6.3173
+          ],
+          "span": {
+            "length": 2,
+            "offset": 838
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "can",
+          "polygon": [
+            2.829,
+            6.1463,
+            3.0572,
+            6.146,
+            3.0572,
+            6.3139,
+            2.829,
+            6.3155
+          ],
+          "span": {
+            "length": 3,
+            "offset": 841
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "play",
+          "polygon": [
+            3.0925,
+            6.146,
+            3.3833,
+            6.1458,
+            3.3833,
+            6.3122,
+            3.0925,
+            6.3137
+          ],
+          "span": {
+            "length": 4,
+            "offset": 845
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            3.4213,
+            6.1458,
+            3.6251,
+            6.1458,
+            3.6251,
+            6.3113,
+            3.4213,
+            6.312
+          ],
+          "span": {
+            "length": 3,
+            "offset": 850
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "honky",
+          "polygon": [
+            3.6632,
+            6.1458,
+            4.0844,
+            6.1461,
+            4.0844,
+            6.3104,
+            3.6632,
+            6.3112
+          ],
+          "span": {
+            "length": 5,
+            "offset": 854
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "tonk",
+          "polygon": [
+            4.1197,
+            6.1462,
+            4.3941,
+            6.1466,
+            4.3941,
+            6.3104,
+            4.1197,
+            6.3104
+          ],
+          "span": {
+            "length": 4,
+            "offset": 860
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "just",
+          "polygon": [
+            4.4267,
+            6.1466,
+            4.6767,
+            6.1471,
+            4.6767,
+            6.3108,
+            4.4267,
+            6.3104
+          ],
+          "span": {
+            "length": 4,
+            "offset": 865
+          }
+        },
+        {
+          "confidence": 0.963,
+          "content": "like_anything,",
+          "polygon": [
+            4.7093,
+            6.1472,
+            5.6649,
+            6.1503,
+            5.6649,
+            6.3155,
+            4.7093,
+            6.3109
+          ],
+          "span": {
+            "length": 14,
+            "offset": 870
+          }
+        },
+        {
+          "confidence": 0.949,
+          "content": "Saving_it_up",
+          "polygon": [
+            3.1227,
+            6.3336,
+            4.0073,
+            6.3315,
+            4.0026,
+            6.4918,
+            3.1194,
+            6.4925
+          ],
+          "span": {
+            "length": 12,
+            "offset": 885
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "for",
+          "polygon": [
+            4.0519,
+            6.3316,
+            4.2357,
+            6.3321,
+            4.2307,
+            6.4926,
+            4.0472,
+            6.492
+          ],
+          "span": {
+            "length": 3,
+            "offset": 898
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "Friday",
+          "polygon": [
+            4.2777,
+            6.3322,
+            4.7082,
+            6.3347,
+            4.7024,
+            6.4953,
+            4.2726,
+            6.4927
+          ],
+          "span": {
+            "length": 6,
+            "offset": 902
+          }
+        },
+        {
+          "confidence": 0.993,
+          "content": "night,",
+          "polygon": [
+            4.7449,
+            6.335,
+            5.137,
+            6.3386,
+            5.1322,
+            6.4969,
+            4.7391,
+            6.4955
+          ],
+          "span": {
+            "length": 6,
+            "offset": 909
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "With",
+          "polygon": [
+            2.6771,
+            6.5181,
+            3.0193,
+            6.5163,
+            3.0193,
+            6.6653,
+            2.6771,
+            6.666
+          ],
+          "span": {
+            "length": 4,
+            "offset": 916
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            3.055,
+            6.5161,
+            3.2593,
+            6.5155,
+            3.2593,
+            6.6654,
+            3.055,
+            6.6652
+          ],
+          "span": {
+            "length": 3,
+            "offset": 921
+          }
+        },
+        {
+          "confidence": 0.993,
+          "content": "Sultans,",
+          "polygon": [
+            3.3002,
+            6.5153,
+            3.816,
+            6.5145,
+            3.816,
+            6.6672,
+            3.3002,
+            6.6654
+          ],
+          "span": {
+            "length": 8,
+            "offset": 925
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "with",
+          "polygon": [
+            3.8543,
+            6.5145,
+            4.1608,
+            6.5148,
+            4.1608,
+            6.6696,
+            3.8543,
+            6.6673
+          ],
+          "span": {
+            "length": 4,
+            "offset": 934
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "the",
+          "polygon": [
+            4.1991,
+            6.5149,
+            4.4008,
+            6.5154,
+            4.4008,
+            6.6719,
+            4.1991,
+            6.67
+          ],
+          "span": {
+            "length": 3,
+            "offset": 939
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "Sultans",
+          "polygon": [
+            4.4417,
+            6.5155,
+            4.9218,
+            6.5178,
+            4.9218,
+            6.6785,
+            4.4417,
+            6.6723
+          ],
+          "span": {
+            "length": 7,
+            "offset": 943
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "of",
+          "polygon": [
+            4.9627,
+            6.518,
+            5.0929,
+            6.5188,
+            5.0929,
+            6.6811,
+            4.9627,
+            6.6792
+          ],
+          "span": {
+            "length": 2,
+            "offset": 951
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "Swing.",
+          "polygon": [
+            5.1286,
+            6.519,
+            5.5786,
+            6.5229,
+            5.5786,
+            6.6898,
+            5.1286,
+            6.6816
+          ],
+          "span": {
+            "length": 6,
+            "offset": 954
+          }
+        },
+        {
+          "confidence": 0.977,
+          "content": "And_a",
+          "polygon": [
+            1.932,
+            6.8818,
+            2.3759,
+            6.8813,
+            2.373,
+            7.0418,
+            1.9287,
+            7.0375
+          ],
+          "span": {
+            "length": 5,
+            "offset": 961
+          }
+        },
+        {
+          "confidence": 0.971,
+          "content": "crowd_of",
+          "polygon": [
+            2.4153,
+            6.8813,
+            3.0432,
+            6.881,
+            3.0408,
+            7.0466,
+            2.4124,
+            7.0422
+          ],
+          "span": {
+            "length": 8,
+            "offset": 967
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "young",
+          "polygon": [
+            3.0747,
+            6.881,
+            3.4976,
+            6.8811,
+            3.4956,
+            7.0483,
+            3.0723,
+            7.0468
+          ],
+          "span": {
+            "length": 5,
+            "offset": 976
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "boys",
+          "polygon": [
+            3.5318,
+            6.8811,
+            3.8444,
+            6.8812,
+            3.8426,
+            7.0491,
+            3.5297,
+            7.0484
+          ],
+          "span": {
+            "length": 4,
+            "offset": 982
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "they're",
+          "polygon": [
+            3.8838,
+            6.8813,
+            4.3304,
+            6.8818,
+            4.3289,
+            7.0486,
+            3.882,
+            7.0491
+          ],
+          "span": {
+            "length": 7,
+            "offset": 987
+          }
+        },
+        {
+          "confidence": 0.961,
+          "content": "fooling_around_in",
+          "polygon": [
+            4.3698,
+            6.8818,
+            5.5992,
+            6.8844,
+            5.5987,
+            7.0409,
+            4.3684,
+            7.0485
+          ],
+          "span": {
+            "length": 17,
+            "offset": 995
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            5.636,
+            6.8845,
+            5.8383,
+            6.8851,
+            5.8379,
+            7.0383,
+            5.6355,
+            7.0406
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1013
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "corner.",
+          "polygon": [
+            5.8777,
+            6.8852,
+            6.34,
+            6.8867,
+            6.34,
+            7.0322,
+            5.8774,
+            7.0378
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1017
+          }
+        },
+        {
+          "confidence": 0.975,
+          "content": "Drunk_and",
+          "polygon": [
+            1.7048,
+            7.0689,
+            2.4673,
+            7.0688,
+            2.4673,
+            7.2204,
+            1.7048,
+            7.2131
+          ],
+          "span": {
+            "length": 9,
+            "offset": 1025
+          }
+        },
+        {
+          "confidence": 0.99,
+          "content": "dressed_in",
+          "polygon": [
+            2.5117,
+            7.0688,
+            3.2219,
+            7.0688,
+            3.2219,
+            7.2263,
+            2.5117,
+            7.2207
+          ],
+          "span": {
+            "length": 10,
+            "offset": 1035
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "their",
+          "polygon": [
+            3.2584,
+            7.0688,
+            3.5639,
+            7.0689,
+            3.5639,
+            7.2284,
+            3.2584,
+            7.2265
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1046
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "best",
+          "polygon": [
+            3.6005,
+            7.0689,
+            3.8694,
+            7.0689,
+            3.8694,
+            7.2303,
+            3.6005,
+            7.2287
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1052
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "brown",
+          "polygon": [
+            3.9007,
+            7.0689,
+            4.3394,
+            7.069,
+            4.3394,
+            7.2324,
+            3.9007,
+            7.2304
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1057
+          }
+        },
+        {
+          "confidence": 0.969,
+          "content": "baggies_and",
+          "polygon": [
+            4.3733,
+            7.069,
+            5.1984,
+            7.0693,
+            5.1984,
+            7.2352,
+            4.3733,
+            7.2326
+          ],
+          "span": {
+            "length": 11,
+            "offset": 1063
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "their",
+          "polygon": [
+            5.2402,
+            7.0693,
+            5.5457,
+            7.0694,
+            5.5457,
+            7.2356,
+            5.2402,
+            7.2352
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1075
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "platform",
+          "polygon": [
+            5.5849,
+            7.0695,
+            6.1619,
+            7.0697,
+            6.1619,
+            7.2359,
+            5.5849,
+            7.2357
+          ],
+          "span": {
+            "length": 8,
+            "offset": 1081
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "soles,",
+          "polygon": [
+            6.2011,
+            7.0698,
+            6.5583,
+            7.07,
+            6.5583,
+            7.2357,
+            6.2011,
+            7.2359
+          ],
+          "span": {
+            "length": 6,
+            "offset": 1090
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "They",
+          "polygon": [
+            2.223,
+            7.2493,
+            2.5618,
+            7.2507,
+            2.5618,
+            7.4196,
+            2.223,
+            7.4195
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1097
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "don't",
+          "polygon": [
+            2.5973,
+            7.2509,
+            2.9387,
+            7.2521,
+            2.9387,
+            7.4196,
+            2.5973,
+            7.4196
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1102
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "give",
+          "polygon": [
+            2.977,
+            7.2523,
+            3.2529,
+            7.2531,
+            3.2529,
+            7.4195,
+            2.977,
+            7.4196
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1108
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "a",
+          "polygon": [
+            3.2939,
+            7.2532,
+            3.3649,
+            7.2533,
+            3.3649,
+            7.4195,
+            3.2939,
+            7.4195
+          ],
+          "span": {
+            "length": 1,
+            "offset": 1113
+          }
+        },
+        {
+          "confidence": 0.988,
+          "content": "damn",
+          "polygon": [
+            3.4059,
+            7.2534,
+            3.7883,
+            7.254,
+            3.7883,
+            7.4194,
+            3.4059,
+            7.4195
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1115
+          }
+        },
+        {
+          "confidence": 0.966,
+          "content": "about_any",
+          "polygon": [
+            3.8238,
+            7.2541,
+            4.5177,
+            7.2541,
+            4.5177,
+            7.419,
+            3.8238,
+            7.4194
+          ],
+          "span": {
+            "length": 9,
+            "offset": 1120
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "trumpet",
+          "polygon": [
+            4.5587,
+            7.2541,
+            5.0941,
+            7.2532,
+            5.0941,
+            7.4186,
+            4.5587,
+            7.419
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1130
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "playing",
+          "polygon": [
+            5.1296,
+            7.2531,
+            5.6295,
+            7.2517,
+            5.6295,
+            7.4181,
+            5.1296,
+            7.4186
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1138
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "band.",
+          "polygon": [
+            5.6651,
+            7.2515,
+            6.0558,
+            7.25,
+            6.0558,
+            7.4176,
+            5.6651,
+            7.4181
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1146
+          }
+        },
+        {
+          "confidence": 0.962,
+          "content": "It_ain't",
+          "polygon": [
+            2.8744,
+            7.4368,
+            3.3566,
+            7.4344,
+            3.3566,
+            7.5855,
+            2.8744,
+            7.5808
+          ],
+          "span": {
+            "length": 8,
+            "offset": 1152
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "what",
+          "polygon": [
+            3.391,
+            7.4343,
+            3.7256,
+            7.4335,
+            3.7256,
+            7.5878,
+            3.391,
+            7.5858
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1161
+          }
+        },
+        {
+          "confidence": 0.987,
+          "content": "THEY",
+          "polygon": [
+            3.7625,
+            7.4334,
+            4.166,
+            7.4335,
+            4.166,
+            7.5882,
+            3.7625,
+            7.5879
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1166
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "call",
+          "polygon": [
+            4.2054,
+            7.4336,
+            4.4317,
+            7.4341,
+            4.4317,
+            7.5882,
+            4.2054,
+            7.5882
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1171
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "rock-and-roll,",
+          "polygon": [
+            4.4686,
+            7.4342,
+            5.3908,
+            7.4399,
+            5.3908,
+            7.5818,
+            4.4686,
+            7.5882
+          ],
+          "span": {
+            "length": 14,
+            "offset": 1176
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "And",
+          "polygon": [
+            2.5032,
+            7.6095,
+            2.8025,
+            7.6122,
+            2.8025,
+            7.7883,
+            2.5032,
+            7.7843
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1191
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            2.8457,
+            7.6126,
+            3.0501,
+            7.6143,
+            3.0501,
+            7.7912,
+            2.8457,
+            7.7888
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1195
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "Sultans,",
+          "polygon": [
+            3.0875,
+            7.6145,
+            3.6027,
+            7.6175,
+            3.6027,
+            7.7954,
+            3.0875,
+            7.7915
+          ],
+          "span": {
+            "length": 8,
+            "offset": 1199
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "yeah,",
+          "polygon": [
+            3.6459,
+            7.6177,
+            3.9942,
+            7.6189,
+            3.9942,
+            7.7963,
+            3.6459,
+            7.7956
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1208
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            4.0345,
+            7.619,
+            4.2389,
+            7.6194,
+            4.2389,
+            7.7963,
+            4.0345,
+            7.7963
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1214
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "Sultans",
+          "polygon": [
+            4.282,
+            7.6194,
+            4.7599,
+            7.6193,
+            4.7599,
+            7.7955,
+            4.282,
+            7.7963
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1218
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "played",
+          "polygon": [
+            4.8002,
+            7.6193,
+            5.2463,
+            7.618,
+            5.2463,
+            7.7918,
+            4.8002,
+            7.7953
+          ],
+          "span": {
+            "length": 6,
+            "offset": 1226
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "Creole.",
+          "polygon": [
+            5.2866,
+            7.6178,
+            5.7512,
+            7.6151,
+            5.7512,
+            7.7856,
+            5.2866,
+            7.7914
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1233
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "And",
+          "polygon": [
+            2.2624,
+            7.9908,
+            2.561,
+            7.9915,
+            2.558,
+            8.1454,
+            2.2592,
+            8.1396
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1241
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "then,",
+          "polygon": [
+            2.6036,
+            7.9916,
+            2.9261,
+            7.9923,
+            2.9235,
+            8.152,
+            2.6007,
+            8.1462
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1245
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            2.9714,
+            7.9924,
+            3.174,
+            7.9929,
+            3.1716,
+            8.1555,
+            2.9688,
+            8.1526
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1251
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "man,",
+          "polygon": [
+            3.214,
+            7.993,
+            3.5365,
+            7.9936,
+            3.5344,
+            8.1597,
+            3.2116,
+            8.1561
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1255
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "he",
+          "polygon": [
+            3.5765,
+            7.9937,
+            3.7365,
+            7.994,
+            3.7345,
+            8.1616,
+            3.5744,
+            8.1601
+          ],
+          "span": {
+            "length": 2,
+            "offset": 1260
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "steps",
+          "polygon": [
+            3.7764,
+            7.9941,
+            4.107,
+            7.9948,
+            4.1053,
+            8.1639,
+            3.7745,
+            8.162
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1263
+          }
+        },
+        {
+          "confidence": 0.979,
+          "content": "right_up",
+          "polygon": [
+            4.147,
+            7.9948,
+            4.7147,
+            7.9958,
+            4.7136,
+            8.1649,
+            4.1453,
+            8.1641
+          ],
+          "span": {
+            "length": 8,
+            "offset": 1269
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "to",
+          "polygon": [
+            4.7574,
+            7.9959,
+            4.8826,
+            7.9961,
+            4.8817,
+            8.1648,
+            4.7563,
+            8.1649
+          ],
+          "span": {
+            "length": 2,
+            "offset": 1278
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            4.9226,
+            7.9962,
+            5.1279,
+            7.9965,
+            5.1271,
+            8.1636,
+            4.9217,
+            8.1648
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1281
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "microphone,",
+          "polygon": [
+            5.1652,
+            7.9965,
+            6.0101,
+            7.9976,
+            6.0101,
+            8.1557,
+            5.1645,
+            8.1634
+          ],
+          "span": {
+            "length": 11,
+            "offset": 1285
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "And",
+          "polygon": [
+            2.7112,
+            8.1824,
+            3.0148,
+            8.1804,
+            3.0116,
+            8.3402,
+            2.708,
+            8.3403
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1297
+          }
+        },
+        {
+          "confidence": 0.993,
+          "content": "says_at",
+          "polygon": [
+            3.0578,
+            8.1801,
+            3.5173,
+            8.1778,
+            3.514,
+            8.3403,
+            3.0546,
+            8.3402
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1301
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "last",
+          "polygon": [
+            3.5495,
+            8.1777,
+            3.8021,
+            8.177,
+            3.7989,
+            8.3407,
+            3.5463,
+            8.3404
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1309
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "just_as",
+          "polygon": [
+            3.8343,
+            8.1769,
+            4.2858,
+            8.1762,
+            4.2825,
+            8.3417,
+            3.8311,
+            8.3408
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1314
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            4.3261,
+            8.1762,
+            4.5276,
+            8.1764,
+            4.5243,
+            8.3424,
+            4.3228,
+            8.3417
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1322
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "time",
+          "polygon": [
+            4.5679,
+            8.1764,
+            4.8608,
+            8.1768,
+            4.8575,
+            8.3435,
+            4.5646,
+            8.3425
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1326
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "bell",
+          "polygon": [
+            4.893,
+            8.1769,
+            5.1402,
+            8.1776,
+            5.137,
+            8.3445,
+            4.8898,
+            8.3436
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1331
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "rings,",
+          "polygon": [
+            5.1778,
+            8.1777,
+            5.5533,
+            8.1794,
+            5.5533,
+            8.3445,
+            5.1746,
+            8.3445
+          ],
+          "span": {
+            "length": 6,
+            "offset": 1336
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "'Good",
+          "polygon": [
+            2.837,
+            8.3604,
+            3.2391,
+            8.3594,
+            3.2364,
+            8.5272,
+            2.8338,
+            8.5272
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1343
+          }
+        },
+        {
+          "confidence": 0.99,
+          "content": "night.'",
+          "polygon": [
+            3.2774,
+            8.3594,
+            3.7014,
+            8.3594,
+            3.6992,
+            8.5272,
+            3.2747,
+            8.5272
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1349
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "Now",
+          "polygon": [
+            3.7397,
+            8.3595,
+            4.0679,
+            8.3601,
+            4.0662,
+            8.5272,
+            3.7376,
+            8.5272
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1357
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "it's",
+          "polygon": [
+            4.109,
+            8.3602,
+            4.2895,
+            8.3608,
+            4.288,
+            8.5272,
+            4.1073,
+            8.5272
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1361
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "time",
+          "polygon": [
+            4.3333,
+            8.3609,
+            4.6232,
+            8.3624,
+            4.6222,
+            8.5272,
+            4.3319,
+            8.5272
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1366
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "to",
+          "polygon": [
+            4.6642,
+            8.3626,
+            4.7928,
+            8.3634,
+            4.792,
+            8.5272,
+            4.6632,
+            8.5272
+          ],
+          "span": {
+            "length": 2,
+            "offset": 1371
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "go",
+          "polygon": [
+            4.8311,
+            8.3637,
+            4.9897,
+            8.3648,
+            4.9891,
+            8.5272,
+            4.8303,
+            8.5272
+          ],
+          "span": {
+            "length": 2,
+            "offset": 1374
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "home,",
+          "polygon": [
+            5.028,
+            8.365,
+            5.4517,
+            8.3686,
+            5.4517,
+            8.5272,
+            5.0275,
+            8.5272
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1377
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "and",
+          "polygon": [
+            2.7262,
+            8.5513,
+            2.9653,
+            8.5484,
+            2.962,
+            8.6963,
+            2.723,
+            8.6948
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1383
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "he",
+          "polygon": [
+            2.9994,
+            8.548,
+            3.1676,
+            8.5461,
+            3.1643,
+            8.6978,
+            2.9962,
+            8.6965
+          ],
+          "span": {
+            "length": 2,
+            "offset": 1387
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "makes_it",
+          "polygon": [
+            3.1991,
+            8.5459,
+            3.8087,
+            8.5422,
+            3.8054,
+            8.7027,
+            3.1959,
+            8.698
+          ],
+          "span": {
+            "length": 8,
+            "offset": 1390
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "fast",
+          "polygon": [
+            3.8481,
+            8.5421,
+            4.0819,
+            8.5418,
+            4.0787,
+            8.7051,
+            3.8448,
+            8.7031
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1399
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "with_one",
+          "polygon": [
+            4.1161,
+            8.5419,
+            4.7309,
+            8.5438,
+            4.7276,
+            8.7113,
+            4.1128,
+            8.7055
+          ],
+          "span": {
+            "length": 8,
+            "offset": 1404
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "more",
+          "polygon": [
+            4.7703,
+            8.5442,
+            5.1118,
+            8.5472,
+            5.1086,
+            8.7154,
+            4.767,
+            8.7117
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1413
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "thing.",
+          "polygon": [
+            5.1512,
+            8.5476,
+            5.538,
+            8.5527,
+            5.538,
+            8.7201,
+            5.148,
+            8.7158
+          ],
+          "span": {
+            "length": 6,
+            "offset": 1418
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "We",
+          "polygon": [
+            2.5469,
+            8.7344,
+            2.7735,
+            8.734,
+            2.7733,
+            8.8848,
+            2.5469,
+            8.8844
+          ],
+          "span": {
+            "length": 2,
+            "offset": 1425
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "are",
+          "polygon": [
+            2.8152,
+            8.7339,
+            3.0158,
+            8.7336,
+            3.0153,
+            8.8853,
+            2.8149,
+            8.8848
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1428
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            3.0549,
+            8.7335,
+            3.258,
+            8.7333,
+            3.2573,
+            8.8862,
+            3.0543,
+            8.8854
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1432
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "Sultans,",
+          "polygon": [
+            3.2997,
+            8.7333,
+            3.8128,
+            8.7332,
+            3.8115,
+            8.889,
+            3.2989,
+            8.8863
+          ],
+          "span": {
+            "length": 8,
+            "offset": 1436
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "we",
+          "polygon": [
+            3.8571,
+            8.7332,
+            4.0525,
+            8.7334,
+            4.0509,
+            8.8907,
+            3.8558,
+            8.8893
+          ],
+          "span": {
+            "length": 2,
+            "offset": 1445
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "are",
+          "polygon": [
+            4.0915,
+            8.7335,
+            4.2921,
+            8.7337,
+            4.2903,
+            8.8926,
+            4.09,
+            8.891
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1448
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "the",
+          "polygon": [
+            4.3338,
+            8.7337,
+            4.5344,
+            8.7341,
+            4.5323,
+            8.8949,
+            4.332,
+            8.8929
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1452
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "Sultans",
+          "polygon": [
+            4.5734,
+            8.7342,
+            5.0579,
+            8.7355,
+            5.0553,
+            8.9005,
+            4.5714,
+            8.8952
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1456
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "of",
+          "polygon": [
+            5.097,
+            8.7357,
+            5.2298,
+            8.7361,
+            5.2271,
+            8.9025,
+            5.0944,
+            8.9009
+          ],
+          "span": {
+            "length": 2,
+            "offset": 1464
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "Swing.",
+          "polygon": [
+            5.2637,
+            8.7362,
+            5.7157,
+            8.7382,
+            5.7157,
+            8.9079,
+            5.2609,
+            8.903
+          ],
+          "span": {
+            "length": 6,
+            "offset": 1467
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "26",
+          "polygon": [
+            1.1371,
+            9.4459,
+            1.2399,
+            9.4459,
+            1.2375,
+            9.5422,
+            1.137,
+            9.5396
+          ],
+          "span": {
+            "length": 2,
+            "offset": 1474
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "playing",
+          "polygon": [
+            1.2497,
+            9.4799,
+            1.6769,
+            9.4762,
+            1.679,
+            9.6284,
+            1.2529,
+            9.6337
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1477
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "double",
+          "polygon": [
+            1.7123,
+            9.476,
+            2.0782,
+            9.4743,
+            2.0792,
+            9.6237,
+            1.7143,
+            9.628
+          ],
+          "span": {
+            "length": 6,
+            "offset": 1485
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            2.1136,
+            9.4742,
+            2.2788,
+            9.4737,
+            2.2793,
+            9.6215,
+            2.1145,
+            9.6233
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1492
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "normal",
+          "polygon": [
+            2.3166,
+            9.4737,
+            2.6942,
+            9.474,
+            2.6936,
+            9.6174,
+            2.317,
+            9.6211
+          ],
+          "span": {
+            "length": 6,
+            "offset": 1496
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "time",
+          "polygon": [
+            2.7296,
+            9.4742,
+            2.968,
+            9.4751,
+            2.9667,
+            9.615,
+            2.7289,
+            9.6171
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1503
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "of",
+          "polygon": [
+            3.0082,
+            9.4753,
+            3.1097,
+            9.476,
+            3.1079,
+            9.6139,
+            3.0067,
+            9.6146
+          ],
+          "span": {
+            "length": 2,
+            "offset": 1508
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            3.138,
+            9.4762,
+            3.315,
+            9.4775,
+            3.3128,
+            9.6123,
+            3.1362,
+            9.6137
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1511
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "music",
+          "polygon": [
+            3.3528,
+            9.4778,
+            3.6903,
+            9.4812,
+            3.6903,
+            9.6099,
+            3.3504,
+            9.612
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1515
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "There's",
+          "polygon": [
+            1.2825,
+            9.6289,
+            1.6744,
+            9.632,
+            1.6683,
+            9.7716,
+            1.276,
+            9.768
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1521
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "too",
+          "polygon": [
+            1.7031,
+            9.6322,
+            1.8966,
+            9.6334,
+            1.8907,
+            9.7735,
+            1.697,
+            9.7719
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1529
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "much",
+          "polygon": [
+            1.9277,
+            9.6335,
+            2.2336,
+            9.635,
+            2.2279,
+            9.776,
+            1.9218,
+            9.7737
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1533
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "competition",
+          "polygon": [
+            2.2647,
+            9.6352,
+            2.9099,
+            9.6367,
+            2.9048,
+            9.7799,
+            2.259,
+            9.7762
+          ],
+          "span": {
+            "length": 11,
+            "offset": 1538
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "in",
+          "polygon": [
+            2.9458,
+            9.6368,
+            3.0318,
+            9.6367,
+            3.0268,
+            9.7803,
+            2.9407,
+            9.7801
+          ],
+          "span": {
+            "length": 2,
+            "offset": 1550
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "too",
+          "polygon": [
+            3.0605,
+            9.6366,
+            3.2565,
+            9.6365,
+            3.2516,
+            9.7809,
+            3.0555,
+            9.7804
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1553
+          }
+        },
+        {
+          "confidence": 0.99,
+          "content": "many",
+          "polygon": [
+            3.2875,
+            9.6364,
+            3.5911,
+            9.6359,
+            3.5865,
+            9.7809,
+            3.2827,
+            9.7809
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1557
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "other",
+          "polygon": [
+            3.6245,
+            9.6358,
+            3.9041,
+            9.6347,
+            3.8998,
+            9.7809,
+            3.62,
+            9.7809
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1562
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "places",
+          "polygon": [
+            3.9328,
+            9.6346,
+            4.2722,
+            9.6328,
+            4.2681,
+            9.7809,
+            3.9285,
+            9.7809
+          ],
+          "span": {
+            "length": 6,
+            "offset": 1568
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "(another",
+          "polygon": [
+            4.308,
+            9.6326,
+            4.7597,
+            9.6293,
+            4.7561,
+            9.7809,
+            4.304,
+            9.7809
+          ],
+          "span": {
+            "length": 8,
+            "offset": 1575
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "version)",
+          "polygon": [
+            4.7884,
+            9.629,
+            5.2385,
+            9.6247,
+            5.2368,
+            9.7808,
+            4.7848,
+            9.7809
+          ],
+          "span": {
+            "length": 8,
+            "offset": 1584
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "28",
+          "polygon": [
+            1.1472,
+            9.7555,
+            1.2448,
+            9.7585,
+            1.2386,
+            9.8649,
+            1.1421,
+            9.8592
+          ],
+          "span": {
+            "length": 2,
+            "offset": 1593
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "But",
+          "polygon": [
+            1.2625,
+            9.7811,
+            1.4585,
+            9.7832,
+            1.4552,
+            9.9288,
+            1.2592,
+            9.928
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1596
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "not",
+          "polygon": [
+            1.4865,
+            9.7835,
+            1.6639,
+            9.7854,
+            1.6606,
+            9.9297,
+            1.4832,
+            9.9289
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1600
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "too",
+          "polygon": [
+            1.6919,
+            9.7857,
+            1.8692,
+            9.7872,
+            1.866,
+            9.9304,
+            1.6886,
+            9.9298
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1604
+          }
+        },
+        {
+          "confidence": 0.986,
+          "content": "many",
+          "polygon": [
+            1.8972,
+            9.7874,
+            2.2193,
+            9.7899,
+            2.2161,
+            9.9314,
+            1.894,
+            9.9304
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1608
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "horns",
+          "polygon": [
+            2.2473,
+            9.79,
+            2.5507,
+            9.7915,
+            2.5475,
+            9.9322,
+            2.2441,
+            9.9315
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1613
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "can",
+          "polygon": [
+            2.588,
+            9.7917,
+            2.7748,
+            9.7924,
+            2.7715,
+            9.9326,
+            2.5848,
+            9.9323
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1619
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "make",
+          "polygon": [
+            2.8051,
+            9.7925,
+            3.0968,
+            9.7931,
+            3.0936,
+            9.933,
+            2.8019,
+            9.9326
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1623
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "that",
+          "polygon": [
+            3.1318,
+            9.7932,
+            3.3372,
+            9.7932,
+            3.334,
+            9.9331,
+            3.1286,
+            9.933
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1628
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "sound",
+          "polygon": [
+            3.3746,
+            9.7931,
+            3.692,
+            9.7928,
+            3.6887,
+            9.9332,
+            3.3713,
+            9.9331
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1633
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "(another",
+          "polygon": [
+            3.7293,
+            9.7927,
+            4.1797,
+            9.791,
+            4.1765,
+            9.9328,
+            3.7261,
+            9.9332
+          ],
+          "span": {
+            "length": 8,
+            "offset": 1639
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "version)",
+          "polygon": [
+            4.2124,
+            9.7908,
+            4.6548,
+            9.7879,
+            4.6548,
+            9.932,
+            4.2092,
+            9.9328
+          ],
+          "span": {
+            "length": 8,
+            "offset": 1648
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "29",
+          "polygon": [
+            1.1421,
+            9.9179,
+            1.2457,
+            9.9179,
+            1.2457,
+            10.0093,
+            1.1421,
+            10.0093
+          ],
+          "span": {
+            "length": 2,
+            "offset": 1657
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "chords=",
+          "polygon": [
+            1.2664,
+            9.9346,
+            1.7113,
+            9.9446,
+            1.7097,
+            10.0773,
+            1.2633,
+            10.0768
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1660
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "acordes",
+          "polygon": [
+            1.7462,
+            9.9451,
+            2.1825,
+            9.9476,
+            2.1825,
+            10.0714,
+            1.7447,
+            10.0771
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1668
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "30",
+          "polygon": [
+            1.1366,
+            10.084,
+            1.2393,
+            10.0855,
+            1.236,
+            10.2242,
+            1.1334,
+            10.2206
+          ],
+          "span": {
+            "length": 2,
+            "offset": 1676
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "alright",
+          "polygon": [
+            1.2759,
+            10.086,
+            1.6279,
+            10.0907,
+            1.6247,
+            10.2369,
+            1.2727,
+            10.2255
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1679
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "(esp",
+          "polygon": [
+            1.6646,
+            10.0911,
+            1.8846,
+            10.0934,
+            1.8814,
+            10.2434,
+            1.6614,
+            10.2379
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1687
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "Bristish",
+          "polygon": [
+            1.9213,
+            10.0938,
+            2.3418,
+            10.0963,
+            2.3386,
+            10.2506,
+            1.9181,
+            10.2444
+          ],
+          "span": {
+            "length": 8,
+            "offset": 1692
+          }
+        },
+        {
+          "confidence": 0.958,
+          "content": "English)=",
+          "polygon": [
+            2.376,
+            10.0964,
+            2.909,
+            10.0966,
+            2.9057,
+            10.2516,
+            2.3728,
+            10.2508
+          ],
+          "span": {
+            "length": 9,
+            "offset": 1701
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "all-right,",
+          "polygon": [
+            2.9432,
+            10.0966,
+            3.4077,
+            10.0943,
+            3.4045,
+            10.2463,
+            2.94,
+            10.2515
+          ],
+          "span": {
+            "length": 10,
+            "offset": 1711
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "all",
+          "polygon": [
+            3.4493,
+            10.094,
+            3.5788,
+            10.0928,
+            3.5756,
+            10.2428,
+            3.446,
+            10.2457
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1722
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "right",
+          "polygon": [
+            3.6179,
+            10.0924,
+            3.8832,
+            10.0895,
+            3.8812,
+            10.2354,
+            3.6147,
+            10.2419
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1726
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "Telephone:",
+          "polygon": [
+            1.5556,
+            10.5323,
+            2.0807,
+            10.5315,
+            2.0833,
+            10.6571,
+            1.5588,
+            10.6584
+          ],
+          "span": {
+            "length": 10,
+            "offset": 1732
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "627",
+          "polygon": [
+            2.1145,
+            10.5315,
+            2.2736,
+            10.5314,
+            2.276,
+            10.6566,
+            2.1171,
+            10.657
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1743
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "433",
+          "polygon": [
+            2.3034,
+            10.5314,
+            2.4625,
+            10.5314,
+            2.4648,
+            10.6561,
+            2.3058,
+            10.6565
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1747
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "609",
+          "polygon": [
+            2.4944,
+            10.5314,
+            2.6555,
+            10.5315,
+            2.6575,
+            10.6556,
+            2.4966,
+            10.656
+          ],
+          "span": {
+            "length": 3,
+            "offset": 1751
+          }
+        },
+        {
+          "confidence": 0.958,
+          "content": ".",
+          "polygon": [
+            2.741,
+            10.5316,
+            2.7947,
+            10.5316,
+            2.7966,
+            10.6552,
+            2.7429,
+            10.6553
+          ],
+          "span": {
+            "length": 1,
+            "offset": 1755
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "E-mail:",
+          "polygon": [
+            2.8842,
+            10.5318,
+            3.2223,
+            10.5324,
+            3.2237,
+            10.654,
+            2.886,
+            10.6549
+          ],
+          "span": {
+            "length": 7,
+            "offset": 1757
+          }
+        },
+        {
+          "confidence": 0.904,
+          "content": "calsys@californiasys.com",
+          "polygon": [
+            3.2542,
+            10.5325,
+            4.4619,
+            10.5378,
+            4.4619,
+            10.6507,
+            3.2555,
+            10.6539
+          ],
+          "span": {
+            "length": 24,
+            "offset": 1765
+          }
+        },
+        {
+          "confidence": 0.66,
+          "content": ".",
+          "polygon": [
+            4.5123,
+            10.5408,
+            4.5975,
+            10.5372,
+            4.5989,
+            10.6434,
+            4.5171,
+            10.6473
+          ],
+          "span": {
+            "length": 1,
+            "offset": 1790
+          }
+        },
+        {
+          "confidence": 0.988,
+          "content": "www.californiasys.com",
+          "polygon": [
+            4.6322,
+            10.5441,
+            5.7512,
+            10.5455,
+            5.7512,
+            10.6526,
+            4.6354,
+            10.652
+          ],
+          "span": {
+            "length": 21,
+            "offset": 1792
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "Page",
+          "polygon": [
+            6.1438,
+            10.5385,
+            6.3886,
+            10.5353,
+            6.3854,
+            10.6569,
+            6.1406,
+            10.6521
+          ],
+          "span": {
+            "length": 4,
+            "offset": 1814
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "18/32",
+          "polygon": [
+            6.4185,
+            10.5349,
+            6.7157,
+            10.531,
+            6.7138,
+            10.6579,
+            6.4152,
+            10.6573
+          ],
+          "span": {
+            "length": 5,
+            "offset": 1819
+          }
+        }
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            4.736,
+            0.9948,
+            7.1272,
+            0.9999,
+            7.1268,
+            1.1471,
+            4.7357,
+            1.142
+          ]
+        }
+      ],
+      "content": "\"DA ESL MIX\" - CALIFORNIA SYSTEMS",
+      "spans": [
+        {
+          "length": 33,
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            3.1827,
+            1.7663,
+            5.071,
+            1.7663,
+            5.071,
+            1.9491,
+            3.1827,
+            1.9491
+          ]
+        }
+      ],
+      "content": "SULTANS OF SWING",
+      "spans": [
+        {
+          "length": 16,
+          "offset": 34
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            3.6599,
+            2.2232,
+            4.6193,
+            2.2232,
+            4.6193,
+            2.3957,
+            3.6599,
+            2.3957
+          ]
+        }
+      ],
+      "content": "Dire Straits",
+      "spans": [
+        {
+          "length": 12,
+          "offset": 51
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            2.3711,
+            2.6149,
+            5.8942,
+            2.6203,
+            5.8928,
+            3.538,
+            2.3697,
+            3.5325
+          ]
+        }
+      ],
+      "content": "You get_a shiver_in the dark. It's been raining in the park, but meantime, South_of the river you stop and you hold everything. A band_is blowing Dixie double four time26. You feel_all right when_you hear that music ring.",
+      "spans": [
+        {
+          "length": 221,
+          "offset": 64
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            2.203,
+            3.7357,
+            6.0609,
+            3.7357,
+            6.0609,
+            4.6443,
+            2.203,
+            4.6443
+          ]
+        }
+      ],
+      "content": "But now you step_inside but you don't see too many faces, Coming_in_out_of the rain to hear the jazz go down. Competition in other places27, How about the horns, they're blowin' that sound28, Way_on downsouth, way_on downsouth London town.",
+      "spans": [
+        {
+          "length": 239,
+          "offset": 286
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            1.9848,
+            4.8473,
+            6.2842,
+            4.8473,
+            6.2842,
+            5.5731,
+            1.9848,
+            5.5731
+          ]
+        }
+      ],
+      "content": "You check_out Guitar George; he knows all the chords29. Mind he's strictly rhythm, he doesn't wanna make_it cry_or sing; And_an_old guitar_is_all he can_afford, When he gets_up_under the lights to play_his thing.",
+      "spans": [
+        {
+          "length": 212,
+          "offset": 526
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            2.3401,
+            5.7711,
+            5.934,
+            5.7711,
+            5.934,
+            6.6847,
+            2.3401,
+            6.6847
+          ]
+        }
+      ],
+      "content": "And Harry doesn't mind if_he doesn't make the scene. He's got_a daytime job, he's doing_alright30. He can play the honky tonk just like_anything, Saving_it_up for Friday night, With the Sultans, with the Sultans of Swing.",
+      "spans": [
+        {
+          "length": 221,
+          "offset": 739
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            1.7005,
+            6.8776,
+            6.5583,
+            6.8776,
+            6.5583,
+            7.7912,
+            1.7005,
+            7.7912
+          ]
+        }
+      ],
+      "content": "And_a crowd_of young boys they're fooling_around_in the corner. Drunk_and dressed_in their best brown baggies_and their platform soles, They don't give a damn about_any trumpet playing band. It_ain't what THEY call rock-and-roll, And the Sultans, yeah, the Sultans played Creole.",
+      "spans": [
+        {
+          "length": 279,
+          "offset": 961
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            2.2589,
+            7.9892,
+            6.0053,
+            7.9942,
+            6.004,
+            8.9032,
+            2.2576,
+            8.8981
+          ]
+        }
+      ],
+      "content": "And then, the man, he steps right_up to the microphone, And says_at last just_as the time bell rings, 'Good night.' Now it's time to go home, and he makes_it fast with_one more thing. We are the Sultans, we are the Sultans of Swing.",
+      "spans": [
+        {
+          "length": 232,
+          "offset": 1241
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            1.137,
+            9.4459,
+            3.6867,
+            9.4713,
+            3.6849,
+            9.6529,
+            1.1352,
+            9.6275
+          ]
+        }
+      ],
+      "content": "26 playing double the normal time of the music",
+      "spans": [
+        {
+          "length": 46,
+          "offset": 1474
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            1.2081,
+            9.6236,
+            5.2335,
+            9.6236,
+            5.2335,
+            9.7809,
+            1.2081,
+            9.7809
+          ]
+        }
+      ],
+      "content": "There's too much competition in too many other places (another version)",
+      "spans": [
+        {
+          "length": 71,
+          "offset": 1521
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            1.143,
+            9.7555,
+            4.651,
+            9.786,
+            4.6495,
+            9.9529,
+            1.1416,
+            9.9224
+          ]
+        }
+      ],
+      "content": "28 But not too many horns can make that sound (another version)",
+      "spans": [
+        {
+          "length": 63,
+          "offset": 1593
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            1.1421,
+            9.9174,
+            2.1785,
+            9.9229,
+            2.1776,
+            10.0753,
+            1.1413,
+            10.0698
+          ]
+        }
+      ],
+      "content": "29 chords= acordes",
+      "spans": [
+        {
+          "length": 18,
+          "offset": 1657
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            1.132,
+            10.0804,
+            3.8784,
+            10.0854,
+            3.8781,
+            10.2529,
+            1.1317,
+            10.2479
+          ]
+        }
+      ],
+      "content": "30 alright (esp Bristish English)= all-right, all right",
+      "spans": [
+        {
+          "length": 55,
+          "offset": 1676
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            1.5533,
+            10.527,
+            6.7106,
+            10.527,
+            6.7106,
+            10.6539,
+            1.5533,
+            10.6539
+          ]
+        }
+      ],
+      "content": "Telephone: 627 433 609 . E-mail: calsys@californiasys.com . www.californiasys.com Page 18/32",
+      "spans": [
+        {
+          "length": 92,
+          "offset": 1732
+        }
+      ]
+    }
+  ],
+  "stringIndexType": "textElements",
+  "styles": [
+    {
+      "confidence": 0.5,
+      "isHandwritten": true,
+      "spans": [
+        {
+          "length": 33,
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "color": "#fd0505",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 3,
+          "offset": 0
+        },
+        {
+          "length": 6,
+          "offset": 8
+        },
+        {
+          "length": 7,
+          "offset": 26
+        }
+      ]
+    },
+    {
+      "backgroundColor": "#fefefe",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 33,
+          "offset": 0
+        },
+        {
+          "length": 1773,
+          "offset": 51
+        }
+      ]
+    },
+    {
+      "color": "#fd0101",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 3,
+          "offset": 4
+        }
+      ]
+    },
+    {
+      "color": "#fd0909",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 10,
+          "offset": 15
+        }
+      ]
+    },
+    {
+      "confidence": 0.95,
+      "isHandwritten": false,
+      "spans": [
+        {
+          "length": 1755,
+          "offset": 34
+        },
+        {
+          "length": 32,
+          "offset": 1792
+        }
+      ]
+    },
+    {
+      "color": "#010181",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 16,
+          "offset": 34
+        },
+        {
+          "length": 1,
+          "offset": 1755
+        },
+        {
+          "length": 1,
+          "offset": 1790
+        }
+      ]
+    },
+    {
+      "backgroundColor": "#32cccc",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 16,
+          "offset": 34
+        }
+      ]
+    },
+    {
+      "confidence": 1,
+      "fontStyle": "normal",
+      "spans": [
+        {
+          "length": 1633,
+          "offset": 34
+        },
+        {
+          "length": 148,
+          "offset": 1676
+        }
+      ]
+    },
+    {
+      "confidence": 1,
+      "fontWeight": "normal",
+      "spans": [
+        {
+          "length": 1439,
+          "offset": 34
+        },
+        {
+          "length": 115,
+          "offset": 1477
+        },
+        {
+          "length": 135,
+          "offset": 1596
+        },
+        {
+          "length": 32,
+          "offset": 1757
+        },
+        {
+          "length": 10,
+          "offset": 1814
+        }
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "similarFontFamily": "Times New Roman, serif",
+      "spans": [
+        {
+          "length": 7,
+          "offset": 34
+        },
+        {
+          "length": 7,
+          "offset": 202
+        },
+        {
+          "length": 6,
+          "offset": 216
+        },
+        {
+          "length": 4,
+          "offset": 1171
+        },
+        {
+          "length": 7,
+          "offset": 1679
+        }
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "similarFontFamily": "Georgia, serif",
+      "spans": [
+        {
+          "length": 2,
+          "offset": 42
+        },
+        {
+          "length": 7,
+          "offset": 56
+        },
+        {
+          "length": 3,
+          "offset": 84
+        },
+        {
+          "length": 4,
+          "offset": 94
+        },
+        {
+          "length": 3,
+          "offset": 115
+        },
+        {
+          "length": 22,
+          "offset": 139
+        },
+        {
+          "length": 5,
+          "offset": 249
+        },
+        {
+          "length": 4,
+          "offset": 264
+        },
+        {
+          "length": 3,
+          "offset": 286
+        },
+        {
+          "length": 15,
+          "offset": 294
+        },
+        {
+          "length": 3,
+          "offset": 324
+        },
+        {
+          "length": 6,
+          "offset": 337
+        },
+        {
+          "length": 16,
+          "offset": 373
+        },
+        {
+          "length": 3,
+          "offset": 437
+        },
+        {
+          "length": 7,
+          "offset": 448
+        },
+        {
+          "length": 9,
+          "offset": 503
+        },
+        {
+          "length": 5,
+          "offset": 520
+        },
+        {
+          "length": 16,
+          "offset": 547
+        },
+        {
+          "length": 13,
+          "offset": 568
+        },
+        {
+          "length": 13,
+          "offset": 587
+        },
+        {
+          "length": 2,
+          "offset": 609
+        },
+        {
+          "length": 5,
+          "offset": 641
+        },
+        {
+          "length": 2,
+          "offset": 672
+        },
+        {
+          "length": 2,
+          "offset": 692
+        },
+        {
+          "length": 7,
+          "offset": 749
+        },
+        {
+          "length": 34,
+          "offset": 768
+        },
+        {
+          "length": 4,
+          "offset": 816
+        },
+        {
+          "length": 3,
+          "offset": 850
+        },
+        {
+          "length": 4,
+          "offset": 865
+        },
+        {
+          "length": 12,
+          "offset": 885
+        },
+        {
+          "length": 17,
+          "offset": 916
+        },
+        {
+          "length": 21,
+          "offset": 939
+        },
+        {
+          "length": 7,
+          "offset": 987
+        },
+        {
+          "length": 11,
+          "offset": 1013
+        },
+        {
+          "length": 21,
+          "offset": 1035
+        },
+        {
+          "length": 6,
+          "offset": 1090
+        },
+        {
+          "length": 12,
+          "offset": 1195
+        },
+        {
+          "length": 3,
+          "offset": 1214
+        },
+        {
+          "length": 3,
+          "offset": 1251
+        },
+        {
+          "length": 8,
+          "offset": 1260
+        },
+        {
+          "length": 3,
+          "offset": 1281
+        },
+        {
+          "length": 7,
+          "offset": 1301
+        },
+        {
+          "length": 16,
+          "offset": 1314
+        },
+        {
+          "length": 4,
+          "offset": 1361
+        },
+        {
+          "length": 2,
+          "offset": 1425
+        },
+        {
+          "length": 41,
+          "offset": 1432
+        },
+        {
+          "length": 10,
+          "offset": 1732
+        }
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "similarFontFamily": "Times New Roman, Baskerville, serif",
+      "spans": [
+        {
+          "length": 5,
+          "offset": 45
+        },
+        {
+          "length": 1,
+          "offset": 192
+        }
+      ]
+    },
+    {
+      "color": "#0505fd",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 12,
+          "offset": 51
+        }
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "similarFontFamily": "Georgia, serif",
+      "spans": [
+        {
+          "length": 4,
+          "offset": 51
+        },
+        {
+          "length": 8,
+          "offset": 240
+        },
+        {
+          "length": 8,
+          "offset": 255
+        },
+        {
+          "length": 5,
+          "offset": 274
+        },
+        {
+          "length": 7,
+          "offset": 601
+        },
+        {
+          "length": 7,
+          "offset": 612
+        },
+        {
+          "length": 6,
+          "offset": 1336
+        },
+        {
+          "length": 2,
+          "offset": 1371
+        },
+        {
+          "length": 2,
+          "offset": 1387
+        },
+        {
+          "length": 5,
+          "offset": 1819
+        }
+      ]
+    },
+    {
+      "color": "#0d0d85",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 3,
+          "offset": 64
+        },
+        {
+          "length": 1,
+          "offset": 192
+        },
+        {
+          "length": 5,
+          "offset": 210
+        },
+        {
+          "length": 2,
+          "offset": 370
+        },
+        {
+          "length": 4,
+          "offset": 464
+        },
+        {
+          "length": 6,
+          "offset": 513
+        },
+        {
+          "length": 2,
+          "offset": 555
+        },
+        {
+          "length": 4,
+          "offset": 687
+        },
+        {
+          "length": 13,
+          "offset": 695
+        },
+        {
+          "length": 11,
+          "offset": 939
+        },
+        {
+          "length": 3,
+          "offset": 1013
+        },
+        {
+          "length": 6,
+          "offset": 1090
+        },
+        {
+          "length": 4,
+          "offset": 1115
+        },
+        {
+          "length": 5,
+          "offset": 1146
+        },
+        {
+          "length": 4,
+          "offset": 1166
+        },
+        {
+          "length": 3,
+          "offset": 1214
+        },
+        {
+          "length": 3,
+          "offset": 1322
+        },
+        {
+          "length": 4,
+          "offset": 1361
+        }
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "similarFontFamily": "Baskerville, serif",
+      "spans": [
+        {
+          "length": 3,
+          "offset": 64
+        },
+        {
+          "length": 9,
+          "offset": 74
+        },
+        {
+          "length": 3,
+          "offset": 167
+        },
+        {
+          "length": 4,
+          "offset": 175
+        },
+        {
+          "length": 5,
+          "offset": 390
+        },
+        {
+          "length": 2,
+          "offset": 408
+        },
+        {
+          "length": 3,
+          "offset": 564
+        },
+        {
+          "length": 5,
+          "offset": 620
+        },
+        {
+          "length": 4,
+          "offset": 687
+        },
+        {
+          "length": 13,
+          "offset": 695
+        },
+        {
+          "length": 6,
+          "offset": 713
+        },
+        {
+          "length": 15,
+          "offset": 723
+        },
+        {
+          "length": 11,
+          "offset": 838
+        },
+        {
+          "length": 5,
+          "offset": 961
+        },
+        {
+          "length": 9,
+          "offset": 1025
+        },
+        {
+          "length": 5,
+          "offset": 1102
+        },
+        {
+          "length": 6,
+          "offset": 1113
+        },
+        {
+          "length": 7,
+          "offset": 1138
+        },
+        {
+          "length": 4,
+          "offset": 1161
+        },
+        {
+          "length": 5,
+          "offset": 1208
+        },
+        {
+          "length": 6,
+          "offset": 1226
+        },
+        {
+          "length": 3,
+          "offset": 1241
+        },
+        {
+          "length": 8,
+          "offset": 1269
+        },
+        {
+          "length": 3,
+          "offset": 1297
+        },
+        {
+          "length": 3,
+          "offset": 1383
+        }
+      ]
+    },
+    {
+      "color": "#151589",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 5,
+          "offset": 68
+        },
+        {
+          "length": 9,
+          "offset": 84
+        },
+        {
+          "length": 2,
+          "offset": 112
+        },
+        {
+          "length": 5,
+          "offset": 119
+        },
+        {
+          "length": 4,
+          "offset": 162
+        },
+        {
+          "length": 3,
+          "offset": 171
+        },
+        {
+          "length": 11,
+          "offset": 180
+        },
+        {
+          "length": 7,
+          "offset": 202
+        },
+        {
+          "length": 11,
+          "offset": 216
+        },
+        {
+          "length": 5,
+          "offset": 249
+        },
+        {
+          "length": 5,
+          "offset": 280
+        },
+        {
+          "length": 11,
+          "offset": 298
+        },
+        {
+          "length": 3,
+          "offset": 324
+        },
+        {
+          "length": 11,
+          "offset": 332
+        },
+        {
+          "length": 13,
+          "offset": 382
+        },
+        {
+          "length": 3,
+          "offset": 437
+        },
+        {
+          "length": 7,
+          "offset": 448
+        },
+        {
+          "length": 8,
+          "offset": 469
+        },
+        {
+          "length": 17,
+          "offset": 485
+        },
+        {
+          "length": 13,
+          "offset": 526
+        },
+        {
+          "length": 13,
+          "offset": 558
+        },
+        {
+          "length": 4,
+          "offset": 587
+        },
+        {
+          "length": 7,
+          "offset": 601
+        },
+        {
+          "length": 5,
+          "offset": 620
+        },
+        {
+          "length": 37,
+          "offset": 634
+        },
+        {
+          "length": 11,
+          "offset": 675
+        },
+        {
+          "length": 2,
+          "offset": 692
+        },
+        {
+          "length": 6,
+          "offset": 713
+        },
+        {
+          "length": 15,
+          "offset": 723
+        },
+        {
+          "length": 5,
+          "offset": 762
+        },
+        {
+          "length": 4,
+          "offset": 776
+        },
+        {
+          "length": 7,
+          "offset": 803
+        },
+        {
+          "length": 16,
+          "offset": 821
+        },
+        {
+          "length": 4,
+          "offset": 845
+        },
+        {
+          "length": 5,
+          "offset": 854
+        },
+        {
+          "length": 12,
+          "offset": 885
+        },
+        {
+          "length": 6,
+          "offset": 909
+        },
+        {
+          "length": 9,
+          "offset": 951
+        },
+        {
+          "length": 8,
+          "offset": 967
+        },
+        {
+          "length": 7,
+          "offset": 1017
+        },
+        {
+          "length": 10,
+          "offset": 1035
+        },
+        {
+          "length": 32,
+          "offset": 1057
+        },
+        {
+          "length": 5,
+          "offset": 1102
+        },
+        {
+          "length": 7,
+          "offset": 1138
+        },
+        {
+          "length": 13,
+          "offset": 1152
+        },
+        {
+          "length": 4,
+          "offset": 1171
+        },
+        {
+          "length": 3,
+          "offset": 1195
+        },
+        {
+          "length": 5,
+          "offset": 1208
+        },
+        {
+          "length": 14,
+          "offset": 1218
+        },
+        {
+          "length": 3,
+          "offset": 1241
+        },
+        {
+          "length": 3,
+          "offset": 1281
+        },
+        {
+          "length": 12,
+          "offset": 1309
+        },
+        {
+          "length": 9,
+          "offset": 1326
+        },
+        {
+          "length": 9,
+          "offset": 1377
+        },
+        {
+          "length": 27,
+          "offset": 1390
+        },
+        {
+          "length": 19,
+          "offset": 1428
+        },
+        {
+          "length": 10,
+          "offset": 1732
+        },
+        {
+          "length": 3,
+          "offset": 1751
+        }
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "similarFontFamily": "Baskerville, Georgia, serif",
+      "spans": [
+        {
+          "length": 5,
+          "offset": 68
+        },
+        {
+          "length": 3,
+          "offset": 709
+        },
+        {
+          "length": 4,
+          "offset": 1108
+        }
+      ]
+    },
+    {
+      "color": "#111189",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 9,
+          "offset": 74
+        },
+        {
+          "length": 17,
+          "offset": 94
+        },
+        {
+          "length": 3,
+          "offset": 115
+        },
+        {
+          "length": 22,
+          "offset": 129
+        },
+        {
+          "length": 3,
+          "offset": 158
+        },
+        {
+          "length": 3,
+          "offset": 167
+        },
+        {
+          "length": 4,
+          "offset": 175
+        },
+        {
+          "length": 7,
+          "offset": 194
+        },
+        {
+          "length": 7,
+          "offset": 228
+        },
+        {
+          "length": 8,
+          "offset": 240
+        },
+        {
+          "length": 24,
+          "offset": 255
+        },
+        {
+          "length": 7,
+          "offset": 286
+        },
+        {
+          "length": 13,
+          "offset": 310
+        },
+        {
+          "length": 3,
+          "offset": 328
+        },
+        {
+          "length": 8,
+          "offset": 361
+        },
+        {
+          "length": 8,
+          "offset": 373
+        },
+        {
+          "length": 11,
+          "offset": 396
+        },
+        {
+          "length": 5,
+          "offset": 411
+        },
+        {
+          "length": 9,
+          "offset": 427
+        },
+        {
+          "length": 6,
+          "offset": 441
+        },
+        {
+          "length": 7,
+          "offset": 456
+        },
+        {
+          "length": 6,
+          "offset": 478
+        },
+        {
+          "length": 9,
+          "offset": 503
+        },
+        {
+          "length": 5,
+          "offset": 520
+        },
+        {
+          "length": 14,
+          "offset": 540
+        },
+        {
+          "length": 14,
+          "offset": 572
+        },
+        {
+          "length": 8,
+          "offset": 592
+        },
+        {
+          "length": 10,
+          "offset": 609
+        },
+        {
+          "length": 7,
+          "offset": 626
+        },
+        {
+          "length": 2,
+          "offset": 672
+        },
+        {
+          "length": 3,
+          "offset": 709
+        },
+        {
+          "length": 22,
+          "offset": 739
+        },
+        {
+          "length": 7,
+          "offset": 768
+        },
+        {
+          "length": 3,
+          "offset": 781
+        },
+        {
+          "length": 10,
+          "offset": 792
+        },
+        {
+          "length": 9,
+          "offset": 811
+        },
+        {
+          "length": 2,
+          "offset": 838
+        },
+        {
+          "length": 3,
+          "offset": 850
+        },
+        {
+          "length": 24,
+          "offset": 860
+        },
+        {
+          "length": 10,
+          "offset": 898
+        },
+        {
+          "length": 22,
+          "offset": 916
+        },
+        {
+          "length": 5,
+          "offset": 976
+        },
+        {
+          "length": 25,
+          "offset": 987
+        },
+        {
+          "length": 5,
+          "offset": 1046
+        },
+        {
+          "length": 4,
+          "offset": 1097
+        },
+        {
+          "length": 4,
+          "offset": 1108
+        },
+        {
+          "length": 17,
+          "offset": 1120
+        },
+        {
+          "length": 18,
+          "offset": 1176
+        },
+        {
+          "length": 8,
+          "offset": 1199
+        },
+        {
+          "length": 7,
+          "offset": 1233
+        },
+        {
+          "length": 9,
+          "offset": 1245
+        },
+        {
+          "length": 8,
+          "offset": 1269
+        },
+        {
+          "length": 15,
+          "offset": 1285
+        },
+        {
+          "length": 24,
+          "offset": 1336
+        },
+        {
+          "length": 4,
+          "offset": 1366
+        },
+        {
+          "length": 2,
+          "offset": 1387
+        },
+        {
+          "length": 6,
+          "offset": 1418
+        },
+        {
+          "length": 25,
+          "offset": 1448
+        },
+        {
+          "length": 7,
+          "offset": 1743
+        },
+        {
+          "length": 7,
+          "offset": 1757
+        }
+      ]
+    },
+    {
+      "confidence": 0.9,
+      "similarFontFamily": "Baskerville, serif",
+      "spans": [
+        {
+          "length": 5,
+          "offset": 88
+        },
+        {
+          "length": 14,
+          "offset": 870
+        },
+        {
+          "length": 9,
+          "offset": 1120
+        }
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "similarFontFamily": "Times New Roman, serif",
+      "spans": [
+        {
+          "length": 4,
+          "offset": 99
+        },
+        {
+          "length": 5,
+          "offset": 210
+        },
+        {
+          "length": 3,
+          "offset": 328
+        },
+        {
+          "length": 2,
+          "offset": 370
+        },
+        {
+          "length": 11,
+          "offset": 396
+        },
+        {
+          "length": 3,
+          "offset": 898
+        },
+        {
+          "length": 8,
+          "offset": 1081
+        },
+        {
+          "length": 4,
+          "offset": 1166
+        },
+        {
+          "length": 14,
+          "offset": 1176
+        },
+        {
+          "length": 7,
+          "offset": 1233
+        },
+        {
+          "length": 11,
+          "offset": 1285
+        },
+        {
+          "length": 5,
+          "offset": 1343
+        },
+        {
+          "length": 193,
+          "offset": 1474
+        },
+        {
+          "length": 44,
+          "offset": 1687
+        },
+        {
+          "length": 11,
+          "offset": 1743
+        }
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "similarFontFamily": "Georgia, Baskerville, serif",
+      "spans": [
+        {
+          "length": 7,
+          "offset": 104
+        }
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "similarFontFamily": "Georgia, Baskerville, serif",
+      "spans": [
+        {
+          "length": 2,
+          "offset": 112
+        },
+        {
+          "length": 11,
+          "offset": 180
+        },
+        {
+          "length": 4,
+          "offset": 269
+        },
+        {
+          "length": 5,
+          "offset": 280
+        },
+        {
+          "length": 20,
+          "offset": 464
+        },
+        {
+          "length": 7,
+          "offset": 626
+        },
+        {
+          "length": 5,
+          "offset": 743
+        },
+        {
+          "length": 10,
+          "offset": 757
+        },
+        {
+          "length": 12,
+          "offset": 803
+        },
+        {
+          "length": 16,
+          "offset": 821
+        },
+        {
+          "length": 13,
+          "offset": 902
+        },
+        {
+          "length": 5,
+          "offset": 976
+        },
+        {
+          "length": 3,
+          "offset": 1191
+        },
+        {
+          "length": 7,
+          "offset": 1218
+        }
+      ]
+    },
+    {
+      "confidence": 0.6,
+      "similarFontFamily": "Georgia, Times New Roman, serif",
+      "spans": [
+        {
+          "length": 5,
+          "offset": 119
+        },
+        {
+          "length": 3,
+          "offset": 171
+        }
+      ]
+    },
+    {
+      "color": "#191989",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 3,
+          "offset": 125
+        },
+        {
+          "length": 3,
+          "offset": 294
+        },
+        {
+          "length": 2,
+          "offset": 1374
+        }
+      ]
+    },
+    {
+      "confidence": 0.95,
+      "similarFontFamily": "Georgia, Times New Roman, serif",
+      "spans": [
+        {
+          "length": 3,
+          "offset": 125
+        },
+        {
+          "length": 16,
+          "offset": 344
+        },
+        {
+          "length": 3,
+          "offset": 526
+        },
+        {
+          "length": 6,
+          "offset": 634
+        },
+        {
+          "length": 5,
+          "offset": 1377
+        },
+        {
+          "length": 3,
+          "offset": 1428
+        }
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "similarFontFamily": "Georgia, Times New Roman, serif",
+      "spans": [
+        {
+          "length": 9,
+          "offset": 129
+        },
+        {
+          "length": 4,
+          "offset": 162
+        },
+        {
+          "length": 5,
+          "offset": 318
+        },
+        {
+          "length": 6,
+          "offset": 513
+        },
+        {
+          "length": 6,
+          "offset": 540
+        },
+        {
+          "length": 4,
+          "offset": 582
+        },
+        {
+          "length": 8,
+          "offset": 967
+        },
+        {
+          "length": 2,
+          "offset": 1278
+        },
+        {
+          "length": 3,
+          "offset": 1357
+        }
+      ]
+    },
+    {
+      "color": "#111185",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 5,
+          "offset": 152
+        },
+        {
+          "length": 3,
+          "offset": 236
+        },
+        {
+          "length": 16,
+          "offset": 344
+        },
+        {
+          "length": 2,
+          "offset": 408
+        },
+        {
+          "length": 6,
+          "offset": 785
+        },
+        {
+          "length": 3,
+          "offset": 841
+        },
+        {
+          "length": 5,
+          "offset": 961
+        },
+        {
+          "length": 9,
+          "offset": 1025
+        },
+        {
+          "length": 4,
+          "offset": 1255
+        },
+        {
+          "length": 5,
+          "offset": 1263
+        },
+        {
+          "length": 2,
+          "offset": 1425
+        }
+      ]
+    },
+    {
+      "confidence": 0.9,
+      "similarFontFamily": "Times New Roman, Baskerville, serif",
+      "spans": [
+        {
+          "length": 7,
+          "offset": 194
+        }
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "similarFontFamily": "Times New Roman, Georgia, serif",
+      "spans": [
+        {
+          "length": 12,
+          "offset": 223
+        },
+        {
+          "length": 5,
+          "offset": 411
+        },
+        {
+          "length": 7,
+          "offset": 1757
+        }
+      ]
+    },
+    {
+      "confidence": 0.7,
+      "similarFontFamily": "Georgia, serif",
+      "spans": [
+        {
+          "length": 3,
+          "offset": 236
+        },
+        {
+          "length": 3,
+          "offset": 290
+        },
+        {
+          "length": 3,
+          "offset": 361
+        },
+        {
+          "length": 23,
+          "offset": 1057
+        },
+        {
+          "length": 5,
+          "offset": 1245
+        },
+        {
+          "length": 4,
+          "offset": 1309
+        },
+        {
+          "length": 4,
+          "offset": 1331
+        },
+        {
+          "length": 4,
+          "offset": 1399
+        },
+        {
+          "length": 6,
+          "offset": 1418
+        }
+      ]
+    },
+    {
+      "confidence": 0.95,
+      "similarFontFamily": "Georgia, serif",
+      "spans": [
+        {
+          "length": 3,
+          "offset": 310
+        },
+        {
+          "length": 3,
+          "offset": 427
+        },
+        {
+          "length": 6,
+          "offset": 441
+        },
+        {
+          "length": 10,
+          "offset": 485
+        },
+        {
+          "length": 4,
+          "offset": 934
+        },
+        {
+          "length": 4,
+          "offset": 982
+        },
+        {
+          "length": 8,
+          "offset": 1390
+        },
+        {
+          "length": 4,
+          "offset": 1814
+        }
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "similarFontFamily": "Georgia, Times New Roman, serif",
+      "spans": [
+        {
+          "length": 3,
+          "offset": 314
+        },
+        {
+          "length": 5,
+          "offset": 431
+        },
+        {
+          "length": 17,
+          "offset": 995
+        },
+        {
+          "length": 4,
+          "offset": 1255
+        }
+      ]
+    },
+    {
+      "confidence": 0.7,
+      "similarFontFamily": "Georgia, Times New Roman, serif",
+      "spans": [
+        {
+          "length": 4,
+          "offset": 332
+        },
+        {
+          "length": 6,
+          "offset": 496
+        }
+      ]
+    },
+    {
+      "confidence": 0.95,
+      "similarFontFamily": "Georgia, Baskerville, serif",
+      "spans": [
+        {
+          "length": 4,
+          "offset": 365
+        }
+      ]
+    },
+    {
+      "color": "#19198d",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 9,
+          "offset": 417
+        },
+        {
+          "length": 4,
+          "offset": 982
+        },
+        {
+          "length": 4,
+          "offset": 1052
+        },
+        {
+          "length": 1,
+          "offset": 1113
+        },
+        {
+          "length": 2,
+          "offset": 1260
+        },
+        {
+          "length": 7,
+          "offset": 1301
+        }
+      ]
+    },
+    {
+      "confidence": 0.6,
+      "similarFontFamily": "Times New Roman, serif",
+      "spans": [
+        {
+          "length": 9,
+          "offset": 417
+        }
+      ]
+    },
+    {
+      "confidence": 0.4,
+      "similarFontFamily": "Georgia, serif",
+      "spans": [
+        {
+          "length": 7,
+          "offset": 456
+        }
+      ]
+    },
+    {
+      "confidence": 0.7,
+      "similarFontFamily": "Georgia, Baskerville, serif",
+      "spans": [
+        {
+          "length": 9,
+          "offset": 530
+        },
+        {
+          "length": 3,
+          "offset": 739
+        },
+        {
+          "length": 7,
+          "offset": 1349
+        }
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "similarFontFamily": "Baskerville, Times New Roman, serif",
+      "spans": [
+        {
+          "length": 10,
+          "offset": 647
+        },
+        {
+          "length": 11,
+          "offset": 675
+        },
+        {
+          "length": 10,
+          "offset": 854
+        }
+      ]
+    },
+    {
+      "confidence": 0.6,
+      "similarFontFamily": "Baskerville, serif",
+      "spans": [
+        {
+          "length": 13,
+          "offset": 658
+        },
+        {
+          "length": 4,
+          "offset": 1097
+        }
+      ]
+    },
+    {
+      "color": "#090985",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 2,
+          "offset": 720
+        },
+        {
+          "length": 2,
+          "offset": 1371
+        }
+      ]
+    },
+    {
+      "confidence": 0.7,
+      "similarFontFamily": "Baskerville, serif",
+      "spans": [
+        {
+          "length": 2,
+          "offset": 720
+        }
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "similarFontFamily": "Baskerville, Times New Roman, serif",
+      "spans": [
+        {
+          "length": 7,
+          "offset": 1130
+        }
+      ]
+    },
+    {
+      "confidence": 0.95,
+      "similarFontFamily": "Baskerville, Times New Roman, serif",
+      "spans": [
+        {
+          "length": 5,
+          "offset": 1146
+        }
+      ]
+    },
+    {
+      "confidence": 0.7,
+      "similarFontFamily": "Times New Roman, Baskerville, serif",
+      "spans": [
+        {
+          "length": 8,
+          "offset": 1152
+        }
+      ]
+    },
+    {
+      "color": "#1d1d8d",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 2,
+          "offset": 1278
+        }
+      ]
+    },
+    {
+      "confidence": 0.6,
+      "similarFontFamily": "Georgia, serif",
+      "spans": [
+        {
+          "length": 4,
+          "offset": 1366
+        },
+        {
+          "length": 8,
+          "offset": 1404
+        }
+      ]
+    },
+    {
+      "confidence": 0.9,
+      "similarFontFamily": "Georgia, serif",
+      "spans": [
+        {
+          "length": 2,
+          "offset": 1374
+        },
+        {
+          "length": 4,
+          "offset": 1413
+        }
+      ]
+    },
+    {
+      "color": "#696969",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 2,
+          "offset": 1474
+        },
+        {
+          "length": 2,
+          "offset": 1593
+        }
+      ]
+    },
+    {
+      "confidence": 1,
+      "fontWeight": "bold",
+      "spans": [
+        {
+          "length": 2,
+          "offset": 1474
+        },
+        {
+          "length": 2,
+          "offset": 1593
+        },
+        {
+          "length": 11,
+          "offset": 1743
+        }
+      ]
+    },
+    {
+      "color": "#1d1d1d",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 18,
+          "offset": 1477
+        },
+        {
+          "length": 2,
+          "offset": 1508
+        },
+        {
+          "length": 3,
+          "offset": 1529
+        },
+        {
+          "length": 11,
+          "offset": 1538
+        },
+        {
+          "length": 8,
+          "offset": 1575
+        },
+        {
+          "length": 3,
+          "offset": 1600
+        },
+        {
+          "length": 10,
+          "offset": 1608
+        },
+        {
+          "length": 4,
+          "offset": 1623
+        },
+        {
+          "length": 8,
+          "offset": 1648
+        },
+        {
+          "length": 12,
+          "offset": 1679
+        },
+        {
+          "length": 9,
+          "offset": 1701
+        }
+      ]
+    },
+    {
+      "color": "#191919",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 11,
+          "offset": 1496
+        },
+        {
+          "length": 13,
+          "offset": 1515
+        },
+        {
+          "length": 4,
+          "offset": 1533
+        },
+        {
+          "length": 24,
+          "offset": 1550
+        },
+        {
+          "length": 8,
+          "offset": 1584
+        },
+        {
+          "length": 3,
+          "offset": 1596
+        },
+        {
+          "length": 3,
+          "offset": 1604
+        },
+        {
+          "length": 3,
+          "offset": 1619
+        },
+        {
+          "length": 19,
+          "offset": 1628
+        },
+        {
+          "length": 7,
+          "offset": 1660
+        },
+        {
+          "length": 20,
+          "offset": 1711
+        }
+      ]
+    },
+    {
+      "color": "#151515",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 3,
+          "offset": 1511
+        },
+        {
+          "length": 8,
+          "offset": 1692
+        }
+      ]
+    },
+    {
+      "color": "#4d4d4d",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 2,
+          "offset": 1657
+        }
+      ]
+    },
+    {
+      "color": "#252525",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 7,
+          "offset": 1668
+        }
+      ]
+    },
+    {
+      "confidence": 1,
+      "fontStyle": "italic",
+      "spans": [
+        {
+          "length": 7,
+          "offset": 1668
+        }
+      ]
+    },
+    {
+      "confidence": 0.95,
+      "similarFontFamily": "Times New Roman, Baskerville, serif",
+      "spans": [
+        {
+          "length": 7,
+          "offset": 1668
+        }
+      ]
+    },
+    {
+      "color": "#3d3d3d",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 2,
+          "offset": 1676
+        }
+      ]
+    },
+    {
+      "confidence": 0.5,
+      "similarFontFamily": "Baskerville, serif",
+      "spans": [
+        {
+          "length": 2,
+          "offset": 1676
+        }
+      ]
+    },
+    {
+      "confidence": 0.95,
+      "fontWeight": "normal",
+      "spans": [
+        {
+          "length": 10,
+          "offset": 1732
+        }
+      ]
+    },
+    {
+      "confidence": 0.5,
+      "fontWeight": "bold",
+      "spans": [
+        {
+          "length": 1,
+          "offset": 1755
+        }
+      ]
+    },
+    {
+      "confidence": 0.2,
+      "similarFontFamily": "Arial, Helvetica, sans-serif",
+      "spans": [
+        {
+          "length": 1,
+          "offset": 1755
+        }
+      ]
+    },
+    {
+      "color": "#0909fd",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 24,
+          "offset": 1765
+        }
+      ]
+    },
+    {
+      "confidence": 0.7,
+      "similarFontFamily": "Times New Roman, serif",
+      "spans": [
+        {
+          "length": 24,
+          "offset": 1765
+        }
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "isHandwritten": false,
+      "spans": [
+        {
+          "length": 1,
+          "offset": 1790
+        }
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "fontWeight": "bold",
+      "spans": [
+        {
+          "length": 1,
+          "offset": 1790
+        }
+      ]
+    },
+    {
+      "confidence": 0.2,
+      "similarFontFamily": "Georgia, serif",
+      "spans": [
+        {
+          "length": 1,
+          "offset": 1790
+        }
+      ]
+    },
+    {
+      "color": "#fd0d0d",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 21,
+          "offset": 1792
+        }
+      ]
+    },
+    {
+      "confidence": 0.7,
+      "fontWeight": "bold",
+      "spans": [
+        {
+          "length": 21,
+          "offset": 1792
+        }
+      ]
+    },
+    {
+      "confidence": 0.95,
+      "similarFontFamily": "Times New Roman, serif",
+      "spans": [
+        {
+          "length": 21,
+          "offset": 1792
+        }
+      ]
+    },
+    {
+      "color": "#2d2d2d",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 4,
+          "offset": 1814
+        }
+      ]
+    },
+    {
+      "color": "#393939",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 5,
+          "offset": 1819
+        }
+      ]
+    }
+  ]
+}

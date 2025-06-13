@@ -95,15 +95,26 @@ def explore():
 
 async def explore_async_local_file():
     di_client : build_async_docintel_client = build_async_docintel_client()
+    sos_lyrics = "../data/docs/dire-straits-sultans-of-swing-lyrics.pdf"
+    constitution = "../data/docs/us-constitution.pdf"
+    infile = constitution
+    print(f"Analyzing file: {infile} ...")
     async with di_client:
-        with open("docs/LawsOfChess.pdf", "rb") as f:
+        with open(infile, "rb") as f:
             poller = await di_client.begin_analyze_document(
                 "prebuilt-read",
                 body=f,
                 features=[DocumentAnalysisFeature.STYLE_FONT],
             )
+            print(f"poller type: {str(type(poller))}")
+            # <class 'azure.ai.documentintelligence.aio._operations._patch.AsyncAnalyzeDocumentLROPoller'>
+
         result: AnalyzeResult = await poller.result()
+        print(f"result type: {str(type(result))}")
+        # <class 'azure.ai.documentintelligence.models._models.AnalyzeResult'>
+
         print(result.content)
+        FS.write_json(result.as_dict(), "tmp/result.json")
 
 
 def model_pricing_html_page():
@@ -214,3 +225,77 @@ if __name__ == "__main__":
     except Exception as e:
         print(str(e))
         print(traceback.format_exc())
+
+
+
+# SDK snippets below:
+
+# class AnalyzeResult(_model_base.Model):
+#     """Document analysis result.
+#     :ivar api_version: API version used to produce this result. Required.
+#     :vartype api_version: str
+#     :ivar model_id: Document model ID used to produce this result. Required.
+#     :vartype model_id: str
+#     :ivar string_index_type: Method used to compute string offset and length. Required. Known
+#      values are: "textElements", "unicodeCodePoint", and "utf16CodeUnit".
+#     :vartype string_index_type: str or ~azure.ai.documentintelligence.models.StringIndexType
+#     :ivar content_format: Format of the analyze result top-level content. Known values are: "text"
+#      and "markdown".
+#     :vartype content_format: str or ~azure.ai.documentintelligence.models.DocumentContentFormat
+#     :ivar content: Concatenate string representation of all textual and visual elements in reading
+#      order. Required.
+#     :vartype content: str
+#     :ivar pages: Analyzed pages. Required.
+#     :vartype pages: list[~azure.ai.documentintelligence.models.DocumentPage]
+#     :ivar paragraphs: Extracted paragraphs.
+#     :vartype paragraphs: list[~azure.ai.documentintelligence.models.DocumentParagraph]
+#     :ivar tables: Extracted tables.
+#     :vartype tables: list[~azure.ai.documentintelligence.models.DocumentTable]
+#     :ivar figures: Extracted figures.
+#     :vartype figures: list[~azure.ai.documentintelligence.models.DocumentFigure]
+#     :ivar sections: Extracted sections.
+#     :vartype sections: list[~azure.ai.documentintelligence.models.DocumentSection]
+#     :ivar key_value_pairs: Extracted key-value pairs.
+#     :vartype key_value_pairs: list[~azure.ai.documentintelligence.models.DocumentKeyValuePair]
+#     :ivar styles: Extracted font styles.
+#     :vartype styles: list[~azure.ai.documentintelligence.models.DocumentStyle]
+#     :ivar languages: Detected languages.
+#     :vartype languages: list[~azure.ai.documentintelligence.models.DocumentLanguage]
+#     :ivar documents: Extracted documents.
+#     :vartype documents: list[~azure.ai.documentintelligence.models.AnalyzedDocument]
+#     :ivar warnings: List of warnings encountered.
+#     :vartype warnings: list[~azure.ai.documentintelligence.models.DocumentIntelligenceWarning]
+#     """
+
+#     api_version: str = rest_field(name="apiVersion")
+#     """API version used to produce this result. Required."""
+#     model_id: str = rest_field(name="modelId")
+#     """Document model ID used to produce this result. Required."""
+#     string_index_type: Union[str, "_models.StringIndexType"] = rest_field(name="stringIndexType")
+#     """Method used to compute string offset and length. Required. Known values are: \"textElements\",
+#      \"unicodeCodePoint\", and \"utf16CodeUnit\"."""
+#     content_format: Optional[Union[str, "_models.DocumentContentFormat"]] = rest_field(name="contentFormat")
+#     """Format of the analyze result top-level content. Known values are: \"text\" and \"markdown\"."""
+#     content: str = rest_field()
+#     """Concatenate string representation of all textual and visual elements in reading
+#      order. Required."""
+#     pages: List["_models.DocumentPage"] = rest_field()
+#     """Analyzed pages. Required."""
+#     paragraphs: Optional[List["_models.DocumentParagraph"]] = rest_field()
+#     """Extracted paragraphs."""
+#     tables: Optional[List["_models.DocumentTable"]] = rest_field()
+#     """Extracted tables."""
+#     figures: Optional[List["_models.DocumentFigure"]] = rest_field()
+#     """Extracted figures."""
+#     sections: Optional[List["_models.DocumentSection"]] = rest_field()
+#     """Extracted sections."""
+#     key_value_pairs: Optional[List["_models.DocumentKeyValuePair"]] = rest_field(name="keyValuePairs")
+#     """Extracted key-value pairs."""
+#     styles: Optional[List["_models.DocumentStyle"]] = rest_field()
+#     """Extracted font styles."""
+#     languages: Optional[List["_models.DocumentLanguage"]] = rest_field()
+#     """Detected languages."""
+#     documents: Optional[List["_models.AnalyzedDocument"]] = rest_field()
+#     """Extracted documents."""
+#     warnings: Optional[List["_models.DocumentIntelligenceWarning"]] = rest_field()
+#     """List of warnings encountered."""
