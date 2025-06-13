@@ -4,6 +4,7 @@
 # Chris Joakim, 2025
 
 aiohttp
+azure-ai-documentintelligence>=1.0.2
 azure-ai-projects
 azure-cosmos>=4.9.0
 azure-identity
