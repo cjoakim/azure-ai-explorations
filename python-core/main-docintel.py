@@ -97,7 +97,10 @@ async def explore_async_local_file():
     di_client : build_async_docintel_client = build_async_docintel_client()
     sos_lyrics = "../data/docs/dire-straits-sultans-of-swing-lyrics.pdf"
     constitution = "../data/docs/us-constitution.pdf"
-    infile = constitution
+    laws_of_chess = "../data/docs/LawsOfChess.pdf"
+    simple_sample = "../data/docs/simple-sample-doc.pdf"
+
+    infile = laws_of_chess
     print(f"Analyzing file: {infile} ...")
     async with di_client:
         with open(infile, "rb") as f:
@@ -114,8 +117,23 @@ async def explore_async_local_file():
         # <class 'azure.ai.documentintelligence.models._models.AnalyzeResult'>
 
         print(result.content)
-        FS.write_json(result.as_dict(), "tmp/result.json")
+        basename = os.path.basename(infile)
+        outfile = f"tmp/{basename}.json"
+        FS.write_json(result.as_dict(), outfile)
 
+        print(f"page count is {len(result.pages)}")
+
+        for page_idx, page in enumerate(result.pages):
+            print(f"---- page idx and number {page_idx} {page.page_number}")
+            if page.lines:
+                for line_idx, line in enumerate(page.lines):
+                    if line.content:
+                        print(f"line content: {line.content}")
+                    if False:
+                        if line.polygon:
+                            print(f"line polygon: {line.polygon}")
+                        if line.spans:
+                            print(f"line spans: {line.spans}")
 
 def model_pricing_html_page():
     # HTML doesn't seem to be supported as a source.

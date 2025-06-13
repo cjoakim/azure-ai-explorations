@@ -1,0 +1,2473 @@
+{
+  "apiVersion": "2024-11-30",
+  "content": "This is a sample document\nPage 1 is pretty unexceptional.\nThis is page 2, it has some images.\nThis is a tuxedo cat:\nWhile this is George Clooney in a tuxedo:\nThis is the last sentence on page 2.\nThis is the beginning of page 3; it has tables.\nThis is a table of the color sequence for wire conductors in a cable.\nBlack\nWhite\nRed\nGreen\nOrange\nBlue\nThank you for reading this simple document.",
+  "contentFormat": "text",
+  "modelId": "prebuilt-read",
+  "pages": [
+    {
+      "angle": 0,
+      "height": 11,
+      "lines": [
+        {
+          "content": "This is a sample document",
+          "polygon": [
+            0.9837,
+            1.0217,
+            2.9272,
+            1.0217,
+            2.9272,
+            1.1936,
+            0.9837,
+            1.1936
+          ],
+          "spans": [
+            {
+              "length": 25,
+              "offset": 0
+            }
+          ]
+        },
+        {
+          "content": "Page 1 is pretty unexceptional.",
+          "polygon": [
+            0.9885,
+            1.714,
+            3.1708,
+            1.7092,
+            3.1708,
+            1.8859,
+            0.9885,
+            1.8906
+          ],
+          "spans": [
+            {
+              "length": 31,
+              "offset": 26
+            }
+          ]
+        }
+      ],
+      "pageNumber": 1,
+      "spans": [
+        {
+          "length": 57,
+          "offset": 0
+        }
+      ],
+      "unit": "inch",
+      "width": 8.5,
+      "words": [
+        {
+          "confidence": 0.988,
+          "content": "This",
+          "polygon": [
+            0.9869,
+            1.0281,
+            1.2686,
+            1.0264,
+            1.2686,
+            1.1945,
+            0.9869,
+            1.1921
+          ],
+          "span": {
+            "length": 4,
+            "offset": 0
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "is",
+          "polygon": [
+            1.3024,
+            1.0263,
+            1.4405,
+            1.0257,
+            1.4405,
+            1.1957,
+            1.3024,
+            1.1948
+          ],
+          "span": {
+            "length": 2,
+            "offset": 5
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "a",
+          "polygon": [
+            1.4856,
+            1.0255,
+            1.5588,
+            1.0252,
+            1.5588,
+            1.1966,
+            1.4856,
+            1.196
+          ],
+          "span": {
+            "length": 1,
+            "offset": 8
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "sample",
+          "polygon": [
+            1.6067,
+            1.025,
+            2.1308,
+            1.024,
+            2.1308,
+            1.1984,
+            1.6067,
+            1.1968
+          ],
+          "span": {
+            "length": 6,
+            "offset": 10
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "document",
+          "polygon": [
+            2.1759,
+            1.024,
+            2.932,
+            1.0253,
+            2.932,
+            1.1984,
+            2.1759,
+            1.1984
+          ],
+          "span": {
+            "length": 8,
+            "offset": 17
+          }
+        },
+        {
+          "confidence": 0.986,
+          "content": "Page",
+          "polygon": [
+            0.9898,
+            1.719,
+            1.3373,
+            1.716,
+            1.3363,
+            1.8885,
+            0.9898,
+            1.8812
+          ],
+          "span": {
+            "length": 4,
+            "offset": 26
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "1",
+          "polygon": [
+            1.391,
+            1.7156,
+            1.4418,
+            1.7153,
+            1.4406,
+            1.8899,
+            1.3899,
+            1.8892
+          ],
+          "span": {
+            "length": 1,
+            "offset": 31
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "is",
+          "polygon": [
+            1.5125,
+            1.7148,
+            1.617,
+            1.7142,
+            1.6152,
+            1.8923,
+            1.511,
+            1.8908
+          ],
+          "span": {
+            "length": 2,
+            "offset": 33
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "pretty",
+          "polygon": [
+            1.6678,
+            1.714,
+            2.0775,
+            1.713,
+            2.0744,
+            1.8937,
+            1.6659,
+            1.8925
+          ],
+          "span": {
+            "length": 6,
+            "offset": 36
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "unexceptional.",
+          "polygon": [
+            2.1198,
+            1.7129,
+            3.1756,
+            1.7169,
+            3.1756,
+            1.8759,
+            2.1167,
+            1.8936
+          ],
+          "span": {
+            "length": 14,
+            "offset": 43
+          }
+        }
+      ]
+    },
+    {
+      "angle": 0.09301254898309708,
+      "height": 11,
+      "lines": [
+        {
+          "content": "This is page 2, it has some images.",
+          "polygon": [
+            0.9837,
+            1.0217,
+            3.4525,
+            1.0217,
+            3.4525,
+            1.1936,
+            0.9837,
+            1.1936
+          ],
+          "spans": [
+            {
+              "length": 35,
+              "offset": 58
+            }
+          ]
+        },
+        {
+          "content": "This is a tuxedo cat:",
+          "polygon": [
+            0.9837,
+            1.375,
+            2.402,
+            1.375,
+            2.4067,
+            1.5278,
+            0.9837,
+            1.5278
+          ],
+          "spans": [
+            {
+              "length": 21,
+              "offset": 94
+            }
+          ]
+        },
+        {
+          "content": "While this is George Clooney in a tuxedo:",
+          "polygon": [
+            0.9742,
+            5.1181,
+            3.9157,
+            5.1228,
+            3.9157,
+            5.2899,
+            0.9742,
+            5.2852
+          ],
+          "spans": [
+            {
+              "length": 41,
+              "offset": 116
+            }
+          ]
+        },
+        {
+          "content": "This is the last sentence on page 2.",
+          "polygon": [
+            0.9837,
+            9.2669,
+            3.4907,
+            9.2669,
+            3.4907,
+            9.4388,
+            0.9837,
+            9.4293
+          ],
+          "spans": [
+            {
+              "length": 36,
+              "offset": 158
+            }
+          ]
+        }
+      ],
+      "pageNumber": 2,
+      "spans": [
+        {
+          "length": 136,
+          "offset": 58
+        }
+      ],
+      "unit": "inch",
+      "width": 8.5,
+      "words": [
+        {
+          "confidence": 0.992,
+          "content": "This",
+          "polygon": [
+            0.9869,
+            1.0294,
+            1.2732,
+            1.0281,
+            1.2729,
+            1.1948,
+            0.9869,
+            1.1935
+          ],
+          "span": {
+            "length": 4,
+            "offset": 58
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "is",
+          "polygon": [
+            1.3063,
+            1.028,
+            1.4274,
+            1.0276,
+            1.4269,
+            1.1955,
+            1.3059,
+            1.195
+          ],
+          "span": {
+            "length": 2,
+            "offset": 63
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "page",
+          "polygon": [
+            1.4605,
+            1.0275,
+            1.8239,
+            1.0266,
+            1.8229,
+            1.1965,
+            1.4599,
+            1.1956
+          ],
+          "span": {
+            "length": 4,
+            "offset": 66
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "2,",
+          "polygon": [
+            1.8652,
+            1.0265,
+            1.9781,
+            1.0263,
+            1.9769,
+            1.1968,
+            1.8641,
+            1.1966
+          ],
+          "span": {
+            "length": 2,
+            "offset": 71
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "it",
+          "polygon": [
+            2.0111,
+            1.0263,
+            2.1103,
+            1.0262,
+            2.1089,
+            1.1969,
+            2.0099,
+            1.1968
+          ],
+          "span": {
+            "length": 2,
+            "offset": 74
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "has",
+          "polygon": [
+            2.1433,
+            1.0262,
+            2.4159,
+            1.0262,
+            2.4141,
+            1.1968,
+            2.1419,
+            1.1969
+          ],
+          "span": {
+            "length": 3,
+            "offset": 77
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "some",
+          "polygon": [
+            2.4627,
+            1.0263,
+            2.8372,
+            1.027,
+            2.8349,
+            1.196,
+            2.4609,
+            1.1968
+          ],
+          "span": {
+            "length": 4,
+            "offset": 81
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "images.",
+          "polygon": [
+            2.8702,
+            1.027,
+            3.4573,
+            1.0292,
+            3.4573,
+            1.1936,
+            2.8679,
+            1.196
+          ],
+          "span": {
+            "length": 7,
+            "offset": 86
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "This",
+          "polygon": [
+            0.9869,
+            1.3755,
+            1.2759,
+            1.3782,
+            1.2735,
+            1.5271,
+            0.9838,
+            1.5314
+          ],
+          "span": {
+            "length": 4,
+            "offset": 94
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "is",
+          "polygon": [
+            1.3048,
+            1.3784,
+            1.4421,
+            1.3793,
+            1.4401,
+            1.5253,
+            1.3025,
+            1.5267
+          ],
+          "span": {
+            "length": 2,
+            "offset": 99
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "a",
+          "polygon": [
+            1.4879,
+            1.3795,
+            1.5578,
+            1.3799,
+            1.556,
+            1.5245,
+            1.486,
+            1.525
+          ],
+          "span": {
+            "length": 1,
+            "offset": 102
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "tuxedo",
+          "polygon": [
+            1.6035,
+            1.3801,
+            2.0878,
+            1.3804,
+            2.0871,
+            1.5242,
+            1.6018,
+            1.5241
+          ],
+          "span": {
+            "length": 6,
+            "offset": 104
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "cat:",
+          "polygon": [
+            2.1335,
+            1.3803,
+            2.4067,
+            1.3793,
+            2.4067,
+            1.5269,
+            2.1329,
+            1.5244
+          ],
+          "span": {
+            "length": 4,
+            "offset": 111
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "While",
+          "polygon": [
+            0.9826,
+            5.1207,
+            1.4053,
+            5.1199,
+            1.401,
+            5.2907,
+            0.9784,
+            5.2879
+          ],
+          "span": {
+            "length": 5,
+            "offset": 116
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "this",
+          "polygon": [
+            1.4473,
+            5.1199,
+            1.688,
+            5.1198,
+            1.6838,
+            5.2921,
+            1.443,
+            5.2909
+          ],
+          "span": {
+            "length": 4,
+            "offset": 122
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "is",
+          "polygon": [
+            1.7216,
+            5.1198,
+            1.8616,
+            5.1197,
+            1.8573,
+            5.293,
+            1.7173,
+            5.2923
+          ],
+          "span": {
+            "length": 2,
+            "offset": 127
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "George",
+          "polygon": [
+            1.9091,
+            5.1198,
+            2.413,
+            5.1205,
+            2.4088,
+            5.2946,
+            1.9049,
+            5.2931
+          ],
+          "span": {
+            "length": 6,
+            "offset": 130
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "Clooney",
+          "polygon": [
+            2.4578,
+            5.1206,
+            3.0316,
+            5.1226,
+            3.0274,
+            5.2947,
+            2.4535,
+            5.2946
+          ],
+          "span": {
+            "length": 7,
+            "offset": 137
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "in",
+          "polygon": [
+            3.0652,
+            5.1227,
+            3.208,
+            5.1235,
+            3.2037,
+            5.2947,
+            3.061,
+            5.2947
+          ],
+          "span": {
+            "length": 2,
+            "offset": 145
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "a",
+          "polygon": [
+            3.2556,
+            5.1237,
+            3.3311,
+            5.1241,
+            3.3269,
+            5.2946,
+            3.2513,
+            5.2947
+          ],
+          "span": {
+            "length": 1,
+            "offset": 148
+          }
+        },
+        {
+          "confidence": 0.993,
+          "content": "tuxedo:",
+          "polygon": [
+            3.3703,
+            5.1243,
+            3.9205,
+            5.1279,
+            3.9205,
+            5.293,
+            3.3661,
+            5.2946
+          ],
+          "span": {
+            "length": 7,
+            "offset": 150
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "This",
+          "polygon": [
+            0.9839,
+            9.2671,
+            1.2657,
+            9.2683,
+            1.265,
+            9.424,
+            0.9839,
+            9.4197
+          ],
+          "span": {
+            "length": 4,
+            "offset": 158
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "is",
+          "polygon": [
+            1.2982,
+            9.2685,
+            1.4418,
+            9.269,
+            1.4407,
+            9.4266,
+            1.2974,
+            9.4245
+          ],
+          "span": {
+            "length": 2,
+            "offset": 163
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            1.4797,
+            9.2691,
+            1.7073,
+            9.2698,
+            1.7055,
+            9.4302,
+            1.4785,
+            9.4271
+          ],
+          "span": {
+            "length": 3,
+            "offset": 166
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "last",
+          "polygon": [
+            1.7561,
+            9.2699,
+            2.0135,
+            9.2703,
+            2.011,
+            9.4337,
+            1.7542,
+            9.4308
+          ],
+          "span": {
+            "length": 4,
+            "offset": 170
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "sentence",
+          "polygon": [
+            2.0541,
+            9.2703,
+            2.7098,
+            9.2701,
+            2.7056,
+            9.4402,
+            2.0515,
+            9.4342
+          ],
+          "span": {
+            "length": 8,
+            "offset": 175
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "on",
+          "polygon": [
+            2.7559,
+            9.2701,
+            2.9266,
+            9.2696,
+            2.9219,
+            9.4417,
+            2.7516,
+            9.4406
+          ],
+          "span": {
+            "length": 2,
+            "offset": 184
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "page",
+          "polygon": [
+            2.9781,
+            9.2695,
+            3.3113,
+            9.2684,
+            3.3057,
+            9.4436,
+            2.9732,
+            9.442
+          ],
+          "span": {
+            "length": 4,
+            "offset": 187
+          }
+        },
+        {
+          "confidence": 0.994,
+          "content": "2.",
+          "polygon": [
+            3.3574,
+            9.2682,
+            3.4955,
+            9.2677,
+            3.4922,
+            9.4436,
+            3.3516,
+            9.4436
+          ],
+          "span": {
+            "length": 2,
+            "offset": 192
+          }
+        }
+      ]
+    },
+    {
+      "angle": 0.2491057962179184,
+      "height": 11,
+      "lines": [
+        {
+          "content": "This is the beginning of page 3; it has tables.",
+          "polygon": [
+            0.9837,
+            1.0169,
+            4.1258,
+            1.0169,
+            4.1258,
+            1.1984,
+            0.9837,
+            1.1936
+          ],
+          "spans": [
+            {
+              "length": 47,
+              "offset": 195
+            }
+          ]
+        },
+        {
+          "content": "This is a table of the color sequence for wire conductors in a cable.",
+          "polygon": [
+            0.9789,
+            1.714,
+            5.7447,
+            1.714,
+            5.7447,
+            1.8763,
+            0.9789,
+            1.8763
+          ],
+          "spans": [
+            {
+              "length": 69,
+              "offset": 243
+            }
+          ]
+        },
+        {
+          "content": "Black",
+          "polygon": [
+            1.0553,
+            2.0625,
+            1.5042,
+            2.0673,
+            1.4994,
+            2.2248,
+            1.0506,
+            2.2201
+          ],
+          "spans": [
+            {
+              "length": 5,
+              "offset": 313
+            }
+          ]
+        },
+        {
+          "content": "White",
+          "polygon": [
+            1.0601,
+            2.2773,
+            1.5042,
+            2.2821,
+            1.5042,
+            2.4253,
+            1.0553,
+            2.4206
+          ],
+          "spans": [
+            {
+              "length": 5,
+              "offset": 319
+            }
+          ]
+        },
+        {
+          "content": "Red",
+          "polygon": [
+            1.0697,
+            2.4874,
+            1.3657,
+            2.4922,
+            1.361,
+            2.6306,
+            1.0697,
+            2.6354
+          ],
+          "spans": [
+            {
+              "length": 3,
+              "offset": 325
+            }
+          ]
+        },
+        {
+          "content": "Green",
+          "polygon": [
+            1.0697,
+            2.7023,
+            1.5329,
+            2.7118,
+            1.5281,
+            2.855,
+            1.0649,
+            2.8503
+          ],
+          "spans": [
+            {
+              "length": 5,
+              "offset": 329
+            }
+          ]
+        },
+        {
+          "content": "Orange",
+          "polygon": [
+            1.0601,
+            2.9123,
+            1.6093,
+            2.9123,
+            1.6093,
+            3.0794,
+            1.0601,
+            3.0747
+          ],
+          "spans": [
+            {
+              "length": 6,
+              "offset": 335
+            }
+          ]
+        },
+        {
+          "content": "Blue",
+          "polygon": [
+            1.0697,
+            3.1224,
+            1.4039,
+            3.1319,
+            1.3992,
+            3.2704,
+            1.0649,
+            3.2704
+          ],
+          "spans": [
+            {
+              "length": 4,
+              "offset": 342
+            }
+          ]
+        },
+        {
+          "content": "Thank you for reading this simple document.",
+          "polygon": [
+            0.9837,
+            4.0152,
+            4.1736,
+            4.02,
+            4.1736,
+            4.2014,
+            0.9837,
+            4.1966
+          ],
+          "spans": [
+            {
+              "length": 43,
+              "offset": 347
+            }
+          ]
+        }
+      ],
+      "pageNumber": 3,
+      "spans": [
+        {
+          "length": 195,
+          "offset": 195
+        }
+      ],
+      "unit": "inch",
+      "width": 8.5,
+      "words": [
+        {
+          "confidence": 0.989,
+          "content": "This",
+          "polygon": [
+            0.9898,
+            1.0261,
+            1.2656,
+            1.0233,
+            1.2626,
+            1.1908,
+            0.9868,
+            1.1865
+          ],
+          "span": {
+            "length": 4,
+            "offset": 195
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "is",
+          "polygon": [
+            1.3001,
+            1.023,
+            1.4438,
+            1.0215,
+            1.4407,
+            1.1937,
+            1.2971,
+            1.1914
+          ],
+          "span": {
+            "length": 2,
+            "offset": 200
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            1.4811,
+            1.0213,
+            1.7081,
+            1.0197,
+            1.705,
+            1.1967,
+            1.4781,
+            1.1942
+          ],
+          "span": {
+            "length": 3,
+            "offset": 203
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "beginning",
+          "polygon": [
+            1.7569,
+            1.0194,
+            2.4465,
+            1.0172,
+            2.4434,
+            1.2017,
+            1.7539,
+            1.1972
+          ],
+          "span": {
+            "length": 9,
+            "offset": 207
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "of",
+          "polygon": [
+            2.4838,
+            1.0172,
+            2.6217,
+            1.0172,
+            2.6187,
+            1.202,
+            2.4808,
+            1.2018
+          ],
+          "span": {
+            "length": 2,
+            "offset": 217
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "page",
+          "polygon": [
+            2.6648,
+            1.0173,
+            2.9981,
+            1.0182,
+            2.9951,
+            1.2016,
+            2.6618,
+            1.2021
+          ],
+          "span": {
+            "length": 4,
+            "offset": 220
+          }
+        },
+        {
+          "confidence": 0.967,
+          "content": "3;",
+          "polygon": [
+            3.0441,
+            1.0184,
+            3.1504,
+            1.0188,
+            3.1473,
+            1.2011,
+            3.041,
+            1.2014
+          ],
+          "span": {
+            "length": 2,
+            "offset": 225
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "it",
+          "polygon": [
+            3.1848,
+            1.0189,
+            3.2998,
+            1.0196,
+            3.2967,
+            1.2002,
+            3.1818,
+            1.201
+          ],
+          "span": {
+            "length": 2,
+            "offset": 228
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "has",
+          "polygon": [
+            3.3457,
+            1.02,
+            3.5899,
+            1.0218,
+            3.5869,
+            1.1979,
+            3.3427,
+            1.1998
+          ],
+          "span": {
+            "length": 3,
+            "offset": 231
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "tables.",
+          "polygon": [
+            3.6273,
+            1.0221,
+            4.1306,
+            1.0273,
+            4.1306,
+            1.1912,
+            3.6242,
+            1.1976
+          ],
+          "span": {
+            "length": 7,
+            "offset": 235
+          }
+        },
+        {
+          "confidence": 0.984,
+          "content": "This",
+          "polygon": [
+            0.9839,
+            1.715,
+            1.2696,
+            1.7149,
+            1.2668,
+            1.8707,
+            0.9808,
+            1.8679
+          ],
+          "span": {
+            "length": 4,
+            "offset": 243
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "is",
+          "polygon": [
+            1.3014,
+            1.7149,
+            1.4416,
+            1.7149,
+            1.4389,
+            1.8725,
+            1.2985,
+            1.8711
+          ],
+          "span": {
+            "length": 2,
+            "offset": 248
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "a",
+          "polygon": [
+            1.4866,
+            1.7148,
+            1.5607,
+            1.7148,
+            1.558,
+            1.8737,
+            1.4839,
+            1.8729
+          ],
+          "span": {
+            "length": 1,
+            "offset": 251
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "table",
+          "polygon": [
+            1.603,
+            1.7148,
+            1.9628,
+            1.7148,
+            1.9604,
+            1.8768,
+            1.6004,
+            1.8741
+          ],
+          "span": {
+            "length": 5,
+            "offset": 253
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "of",
+          "polygon": [
+            2.0078,
+            1.7148,
+            2.1454,
+            1.7148,
+            2.1431,
+            1.8781,
+            2.0054,
+            1.8771
+          ],
+          "span": {
+            "length": 2,
+            "offset": 259
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "the",
+          "polygon": [
+            2.1798,
+            1.7148,
+            2.4073,
+            1.7148,
+            2.4052,
+            1.8798,
+            2.1775,
+            1.8783
+          ],
+          "span": {
+            "length": 3,
+            "offset": 262
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "color",
+          "polygon": [
+            2.4523,
+            1.7148,
+            2.8175,
+            1.7149,
+            2.8156,
+            1.8811,
+            2.4502,
+            1.8799
+          ],
+          "span": {
+            "length": 5,
+            "offset": 266
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "sequence",
+          "polygon": [
+            2.8571,
+            1.7149,
+            3.553,
+            1.7152,
+            3.5516,
+            1.8811,
+            2.8553,
+            1.8811
+          ],
+          "span": {
+            "length": 8,
+            "offset": 272
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "for",
+          "polygon": [
+            3.5927,
+            1.7153,
+            3.7885,
+            1.7154,
+            3.7872,
+            1.8811,
+            3.5913,
+            1.8811
+          ],
+          "span": {
+            "length": 3,
+            "offset": 281
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "wire",
+          "polygon": [
+            3.8229,
+            1.7154,
+            4.1166,
+            1.7156,
+            4.1155,
+            1.8811,
+            3.8217,
+            1.8811
+          ],
+          "span": {
+            "length": 4,
+            "offset": 285
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "conductors",
+          "polygon": [
+            4.1642,
+            1.7157,
+            4.9632,
+            1.7164,
+            4.9627,
+            1.8777,
+            4.1632,
+            1.8811
+          ],
+          "span": {
+            "length": 10,
+            "offset": 290
+          }
+        },
+        {
+          "confidence": 0.993,
+          "content": "in",
+          "polygon": [
+            4.995,
+            1.7165,
+            5.1379,
+            1.7166,
+            5.1375,
+            1.8764,
+            4.9945,
+            1.8775
+          ],
+          "span": {
+            "length": 2,
+            "offset": 301
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "a",
+          "polygon": [
+            5.1881,
+            1.7167,
+            5.2622,
+            1.7168,
+            5.2619,
+            1.8753,
+            5.1878,
+            1.876
+          ],
+          "span": {
+            "length": 1,
+            "offset": 304
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "cable.",
+          "polygon": [
+            5.3099,
+            1.7169,
+            5.7494,
+            1.7174,
+            5.7494,
+            1.8711,
+            5.3096,
+            1.8749
+          ],
+          "span": {
+            "length": 6,
+            "offset": 306
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "Black",
+          "polygon": [
+            1.0715,
+            2.0626,
+            1.509,
+            2.0673,
+            1.509,
+            2.2248,
+            1.0699,
+            2.2201
+          ],
+          "span": {
+            "length": 5,
+            "offset": 313
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "White",
+          "polygon": [
+            1.0628,
+            2.2813,
+            1.509,
+            2.2867,
+            1.509,
+            2.4279,
+            1.0597,
+            2.4267
+          ],
+          "span": {
+            "length": 5,
+            "offset": 319
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "Red",
+          "polygon": [
+            1.0697,
+            2.4874,
+            1.3705,
+            2.4874,
+            1.3705,
+            2.6354,
+            1.0697,
+            2.6354
+          ],
+          "span": {
+            "length": 3,
+            "offset": 325
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "Green",
+          "polygon": [
+            1.0717,
+            2.707,
+            1.5376,
+            2.7217,
+            1.537,
+            2.8541,
+            1.0687,
+            2.8535
+          ],
+          "span": {
+            "length": 5,
+            "offset": 329
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "Orange",
+          "polygon": [
+            1.0669,
+            2.9133,
+            1.614,
+            2.9228,
+            1.614,
+            3.0775,
+            1.0626,
+            3.0774
+          ],
+          "span": {
+            "length": 6,
+            "offset": 335
+          }
+        },
+        {
+          "confidence": 0.989,
+          "content": "Blue",
+          "polygon": [
+            1.0649,
+            3.1224,
+            1.4087,
+            3.1272,
+            1.4081,
+            3.2751,
+            1.0649,
+            3.2702
+          ],
+          "span": {
+            "length": 4,
+            "offset": 342
+          }
+        },
+        {
+          "confidence": 0.997,
+          "content": "Thank",
+          "polygon": [
+            0.9839,
+            4.0273,
+            1.4148,
+            4.0236,
+            1.4144,
+            4.1974,
+            0.9839,
+            4.194
+          ],
+          "span": {
+            "length": 5,
+            "offset": 347
+          }
+        },
+        {
+          "confidence": 0.996,
+          "content": "you",
+          "polygon": [
+            1.4498,
+            4.0233,
+            1.7147,
+            4.0218,
+            1.714,
+            4.1993,
+            1.4493,
+            4.1977
+          ],
+          "span": {
+            "length": 3,
+            "offset": 353
+          }
+        },
+        {
+          "confidence": 0.999,
+          "content": "for",
+          "polygon": [
+            1.7555,
+            4.0216,
+            1.9273,
+            4.0207,
+            1.9264,
+            4.2005,
+            1.7548,
+            4.1995
+          ],
+          "span": {
+            "length": 3,
+            "offset": 357
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "reading",
+          "polygon": [
+            1.9623,
+            4.0206,
+            2.5097,
+            4.0195,
+            2.5082,
+            4.2014,
+            1.9613,
+            4.2007
+          ],
+          "span": {
+            "length": 7,
+            "offset": 361
+          }
+        },
+        {
+          "confidence": 0.992,
+          "content": "this",
+          "polygon": [
+            2.5446,
+            4.0195,
+            2.8184,
+            4.0195,
+            2.8166,
+            4.2014,
+            2.5432,
+            4.2014
+          ],
+          "span": {
+            "length": 4,
+            "offset": 369
+          }
+        },
+        {
+          "confidence": 0.998,
+          "content": "simple",
+          "polygon": [
+            2.865,
+            4.0197,
+            3.3396,
+            4.0213,
+            3.3374,
+            4.2014,
+            2.8632,
+            4.2014
+          ],
+          "span": {
+            "length": 6,
+            "offset": 374
+          }
+        },
+        {
+          "confidence": 0.995,
+          "content": "document.",
+          "polygon": [
+            3.3862,
+            4.0216,
+            4.1784,
+            4.0276,
+            4.1784,
+            4.2006,
+            3.3839,
+            4.2014
+          ],
+          "span": {
+            "length": 9,
+            "offset": 381
+          }
+        }
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            0.9837,
+            1.0217,
+            2.9272,
+            1.0217,
+            2.9272,
+            1.1936,
+            0.9837,
+            1.1936
+          ]
+        }
+      ],
+      "content": "This is a sample document",
+      "spans": [
+        {
+          "length": 25,
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 1,
+          "polygon": [
+            0.9881,
+            1.714,
+            3.1708,
+            1.7092,
+            3.1712,
+            1.8858,
+            0.9885,
+            1.8906
+          ]
+        }
+      ],
+      "content": "Page 1 is pretty unexceptional.",
+      "spans": [
+        {
+          "length": 31,
+          "offset": 26
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 2,
+          "polygon": [
+            0.9837,
+            1.0217,
+            3.4525,
+            1.0217,
+            3.4525,
+            1.1936,
+            0.9837,
+            1.1936
+          ]
+        }
+      ],
+      "content": "This is page 2, it has some images.",
+      "spans": [
+        {
+          "length": 35,
+          "offset": 58
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 2,
+          "polygon": [
+            0.9837,
+            1.375,
+            2.4067,
+            1.375,
+            2.4067,
+            1.5278,
+            0.9837,
+            1.5278
+          ]
+        }
+      ],
+      "content": "This is a tuxedo cat:",
+      "spans": [
+        {
+          "length": 21,
+          "offset": 94
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 2,
+          "polygon": [
+            0.9742,
+            5.1181,
+            3.916,
+            5.1228,
+            3.9157,
+            5.2899,
+            0.9739,
+            5.2852
+          ]
+        }
+      ],
+      "content": "While this is George Clooney in a tuxedo:",
+      "spans": [
+        {
+          "length": 41,
+          "offset": 116
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 2,
+          "polygon": [
+            0.9837,
+            9.2669,
+            3.4907,
+            9.2669,
+            3.4907,
+            9.4388,
+            0.9837,
+            9.4388
+          ]
+        }
+      ],
+      "content": "This is the last sentence on page 2.",
+      "spans": [
+        {
+          "length": 36,
+          "offset": 158
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 3,
+          "polygon": [
+            0.9837,
+            1.0169,
+            4.1258,
+            1.0169,
+            4.1258,
+            1.1984,
+            0.9837,
+            1.1984
+          ]
+        }
+      ],
+      "content": "This is the beginning of page 3; it has tables.",
+      "spans": [
+        {
+          "length": 47,
+          "offset": 195
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 3,
+          "polygon": [
+            0.9789,
+            1.714,
+            5.7447,
+            1.714,
+            5.7447,
+            1.8763,
+            0.9789,
+            1.8763
+          ]
+        }
+      ],
+      "content": "This is a table of the color sequence for wire conductors in a cable.",
+      "spans": [
+        {
+          "length": 69,
+          "offset": 243
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 3,
+          "polygon": [
+            1.0522,
+            2.0625,
+            1.5042,
+            2.0673,
+            1.5025,
+            2.2249,
+            1.0506,
+            2.2201
+          ]
+        }
+      ],
+      "content": "Black",
+      "spans": [
+        {
+          "length": 5,
+          "offset": 313
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 3,
+          "polygon": [
+            1.0569,
+            2.2773,
+            1.5057,
+            2.2821,
+            1.5042,
+            2.4253,
+            1.0553,
+            2.4206
+          ]
+        }
+      ],
+      "content": "White",
+      "spans": [
+        {
+          "length": 5,
+          "offset": 319
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 3,
+          "polygon": [
+            1.0697,
+            2.4874,
+            1.3657,
+            2.4874,
+            1.3657,
+            2.6354,
+            1.0697,
+            2.6354
+          ]
+        }
+      ],
+      "content": "Red",
+      "spans": [
+        {
+          "length": 3,
+          "offset": 325
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 3,
+          "polygon": [
+            1.0679,
+            2.7022,
+            1.5329,
+            2.7118,
+            1.5298,
+            2.8598,
+            1.0649,
+            2.8503
+          ]
+        }
+      ],
+      "content": "Green",
+      "spans": [
+        {
+          "length": 5,
+          "offset": 329
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 3,
+          "polygon": [
+            1.0601,
+            2.9123,
+            1.6093,
+            2.9123,
+            1.6093,
+            3.0794,
+            1.0601,
+            3.0794
+          ]
+        }
+      ],
+      "content": "Orange",
+      "spans": [
+        {
+          "length": 6,
+          "offset": 335
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 3,
+          "polygon": [
+            1.0691,
+            3.1224,
+            1.4039,
+            3.1319,
+            1.3997,
+            3.28,
+            1.0649,
+            3.2704
+          ]
+        }
+      ],
+      "content": "Blue",
+      "spans": [
+        {
+          "length": 4,
+          "offset": 342
+        }
+      ]
+    },
+    {
+      "boundingRegions": [
+        {
+          "pageNumber": 3,
+          "polygon": [
+            0.9837,
+            4.0152,
+            4.1739,
+            4.02,
+            4.1736,
+            4.2014,
+            0.9834,
+            4.1966
+          ]
+        }
+      ],
+      "content": "Thank you for reading this simple document.",
+      "spans": [
+        {
+          "length": 43,
+          "offset": 347
+        }
+      ]
+    }
+  ],
+  "stringIndexType": "textElements",
+  "styles": [
+    {
+      "confidence": 0.95,
+      "isHandwritten": false,
+      "spans": [
+        {
+          "length": 390,
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "color": "#090909",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 7,
+          "offset": 0
+        },
+        {
+          "length": 6,
+          "offset": 10
+        },
+        {
+          "length": 4,
+          "offset": 26
+        },
+        {
+          "length": 19,
+          "offset": 43
+        },
+        {
+          "length": 5,
+          "offset": 71
+        },
+        {
+          "length": 4,
+          "offset": 94
+        },
+        {
+          "length": 4,
+          "offset": 111
+        },
+        {
+          "length": 4,
+          "offset": 122
+        },
+        {
+          "length": 17,
+          "offset": 145
+        },
+        {
+          "length": 11,
+          "offset": 175
+        },
+        {
+          "length": 2,
+          "offset": 192
+        },
+        {
+          "length": 7,
+          "offset": 220
+        },
+        {
+          "length": 15,
+          "offset": 235
+        },
+        {
+          "length": 2,
+          "offset": 259
+        },
+        {
+          "length": 3,
+          "offset": 281
+        },
+        {
+          "length": 3,
+          "offset": 325
+        },
+        {
+          "length": 9,
+          "offset": 347
+        },
+        {
+          "length": 9,
+          "offset": 381
+        }
+      ]
+    },
+    {
+      "backgroundColor": "#fefefe",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 390,
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "confidence": 1,
+      "fontStyle": "normal",
+      "spans": [
+        {
+          "length": 390,
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "confidence": 1,
+      "fontWeight": "normal",
+      "spans": [
+        {
+          "length": 390,
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "similarFontFamily": "Arial, Helvetica, sans-serif",
+      "spans": [
+        {
+          "length": 35,
+          "offset": 0
+        },
+        {
+          "length": 30,
+          "offset": 43
+        },
+        {
+          "length": 67,
+          "offset": 77
+        },
+        {
+          "length": 54,
+          "offset": 148
+        },
+        {
+          "length": 9,
+          "offset": 207
+        },
+        {
+          "length": 7,
+          "offset": 220
+        },
+        {
+          "length": 27,
+          "offset": 231
+        },
+        {
+          "length": 18,
+          "offset": 262
+        },
+        {
+          "length": 33,
+          "offset": 285
+        },
+        {
+          "length": 27,
+          "offset": 325
+        },
+        {
+          "length": 29,
+          "offset": 361
+        }
+      ]
+    },
+    {
+      "color": "#0d0d0d",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 1,
+          "offset": 8
+        },
+        {
+          "length": 8,
+          "offset": 17
+        },
+        {
+          "length": 9,
+          "offset": 33
+        },
+        {
+          "length": 2,
+          "offset": 63
+        },
+        {
+          "length": 16,
+          "offset": 77
+        },
+        {
+          "length": 6,
+          "offset": 104
+        },
+        {
+          "length": 5,
+          "offset": 116
+        },
+        {
+          "length": 17,
+          "offset": 127
+        },
+        {
+          "length": 11,
+          "offset": 163
+        },
+        {
+          "length": 24,
+          "offset": 195
+        },
+        {
+          "length": 3,
+          "offset": 231
+        },
+        {
+          "length": 7,
+          "offset": 251
+        },
+        {
+          "length": 14,
+          "offset": 266
+        },
+        {
+          "length": 15,
+          "offset": 285
+        },
+        {
+          "length": 6,
+          "offset": 306
+        },
+        {
+          "length": 5,
+          "offset": 319
+        },
+        {
+          "length": 12,
+          "offset": 329
+        },
+        {
+          "length": 23,
+          "offset": 357
+        }
+      ]
+    },
+    {
+      "color": "#151515",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 1,
+          "offset": 31
+        },
+        {
+          "length": 5,
+          "offset": 313
+        },
+        {
+          "length": 4,
+          "offset": 342
+        }
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "similarFontFamily": "Arial, Helvetica, Segoe UI, sans-serif",
+      "spans": [
+        {
+          "length": 6,
+          "offset": 36
+        },
+        {
+          "length": 2,
+          "offset": 217
+        }
+      ]
+    },
+    {
+      "color": "#111111",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 4,
+          "offset": 66
+        },
+        {
+          "length": 1,
+          "offset": 102
+        },
+        {
+          "length": 4,
+          "offset": 187
+        },
+        {
+          "length": 3,
+          "offset": 262
+        },
+        {
+          "length": 4,
+          "offset": 301
+        }
+      ]
+    },
+    {
+      "confidence": 0.6,
+      "similarFontFamily": "Arial, Helvetica, Tahoma, sans-serif",
+      "spans": [
+        {
+          "length": 2,
+          "offset": 74
+        }
+      ]
+    },
+    {
+      "color": "#050505",
+      "confidence": 0.99,
+      "spans": [
+        {
+          "length": 2,
+          "offset": 99
+        },
+        {
+          "length": 2,
+          "offset": 228
+        }
+      ]
+    },
+    {
+      "confidence": 0.95,
+      "similarFontFamily": "Arial, Helvetica, sans-serif",
+      "spans": [
+        {
+          "length": 2,
+          "offset": 145
+        },
+        {
+          "length": 3,
+          "offset": 281
+        }
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "similarFontFamily": "Arial, Helvetica, Tahoma, sans-serif",
+      "spans": [
+        {
+          "length": 3,
+          "offset": 203
+        },
+        {
+          "length": 2,
+          "offset": 259
+        }
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "similarFontFamily": "Arial, Helvetica, Segoe UI, sans-serif",
+      "spans": [
+        {
+          "length": 2,
+          "offset": 228
+        }
+      ]
+    },
+    {
+      "confidence": 0.7,
+      "similarFontFamily": "Tahoma, sans-serif",
+      "spans": [
+        {
+          "length": 5,
+          "offset": 319
+        }
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "similarFontFamily": "Segoe UI, sans-serif",
+      "spans": [
+        {
+          "length": 3,
+          "offset": 353
+        }
+      ]
+    },
+    {
+      "confidence": 0.9,
+      "similarFontFamily": "Arial, Helvetica, Tahoma, sans-serif",
+      "spans": [
+        {
+          "length": 3,
+          "offset": 357
+        }
+      ]
+    }
+  ]
+}
