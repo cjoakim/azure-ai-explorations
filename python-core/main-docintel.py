@@ -1,12 +1,13 @@
 """
 Usage:
-  TODO  - implement samples with the azure-ai-documentintelligence SDK
   python main-docintel.py <func>
   python main-docintel.py azure_sample
   python main-docintel.py explore
+  python main-docintel.py explore_async_local_file
   python main-docintel.py model_pricing_html_page
 """
 
+import asyncio
 import sys
 import os
 import traceback
@@ -18,8 +19,10 @@ import os
 from azure.core.credentials import AzureKeyCredential
 from azure.core.rest import HttpRequest
 from azure.ai.documentintelligence import DocumentIntelligenceClient
+from azure.ai.documentintelligence.aio import DocumentIntelligenceClient as DocumentIntelligenceAsyncClient
 from azure.ai.documentintelligence.models import AnalyzeResult
 from azure.ai.documentintelligence.models import AnalyzeDocumentRequest
+from azure.ai.documentintelligence.models import DocumentAnalysisFeature, AnalyzeResult
 
 from src.io.fs import FS
 from src.os.env import Env
@@ -64,17 +67,43 @@ def build_docintel_client() -> DocumentIntelligenceClient | None:
         print(traceback.format_exc())
         return None
 
+def build_async_docintel_client() -> DocumentIntelligenceAsyncClient | None:
+    try:
+        endpoint = os.environ.get("AZURE_DOCINTEL_URL")
+        key = os.environ.get("AZURE_DOCINTEL_KEY")
+        client = DocumentIntelligenceAsyncClient(
+            endpoint=endpoint, credential=AzureKeyCredential(key)
+        )
+        return client  # an instance of 'azure.ai.documentintelligence._patch.DocumentIntelligenceClient'
+    except Exception as e:
+        print("Error building Document Intelligence client:")
+        print(str(e))
+        print(traceback.format_exc())
+        return None
+    
 def explore():
     sample_url = "https://raw.githubusercontent.com/Azure-Samples/cognitive-services-REST-api-samples/master/curl/form-recognizer/sample-layout.pdf"
     nc_driver_handbook ="https://www.ncdot.gov/dmv/license-id/driver-licenses/new-drivers/Documents/driver-handbook.pdf"
     
-    docintel_client = build_docintel_client()
-    poller = docintel_client.begin_analyze_document(
+    di_client : DocumentIntelligenceClient = build_docintel_client()
+    poller = di_client.begin_analyze_document(
         "prebuilt-layout", AnalyzeDocumentRequest(url_source=sample_url))
 
     result: AnalyzeResult = poller.result()
     print("got result, type: ".format(str(type(result))))
     print(result.content)
+
+async def explore_async_local_file():
+    di_client : build_async_docintel_client = build_async_docintel_client()
+    async with di_client:
+        with open("docs/LawsOfChess.pdf", "rb") as f:
+            poller = await di_client.begin_analyze_document(
+                "prebuilt-read",
+                body=f,
+                features=[DocumentAnalysisFeature.STYLE_FONT],
+            )
+        result: AnalyzeResult = await poller.result()
+        print(result.content)
 
 
 def model_pricing_html_page():
@@ -176,6 +205,8 @@ if __name__ == "__main__":
                 azure_sample()
             elif func == "explore":
                 explore()
+            elif func == "explore_async_local_file":
+                asyncio.run(explore_async_local_file())
             elif func == "model_pricing_html_page":
                 model_pricing_html_page()
             else:
