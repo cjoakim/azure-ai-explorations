@@ -3,6 +3,8 @@ Usage:
   TODO  - implement samples with the azure-ai-documentintelligence SDK
   python main-docintel.py <func>
   python main-docintel.py azure_sample
+  python main-docintel.py explore
+  python main-docintel.py model_pricing_html_page
 """
 
 import sys
@@ -14,6 +16,7 @@ from dotenv import load_dotenv
 
 import os
 from azure.core.credentials import AzureKeyCredential
+from azure.core.rest import HttpRequest
 from azure.ai.documentintelligence import DocumentIntelligenceClient
 from azure.ai.documentintelligence.models import AnalyzeResult
 from azure.ai.documentintelligence.models import AnalyzeDocumentRequest
@@ -29,26 +32,82 @@ def print_options(msg):
     arguments = docopt(__doc__, version="1.0.0")
     print(arguments)
 
+# helper functions
+
+def get_words(page, line):
+    result = []
+    for word in page.words:
+        if _in_span(word, line.spans):
+            result.append(word)
+    return result
+
+
+def _in_span(word, spans):
+    for span in spans:
+        if word.span.offset >= span.offset and (
+            word.span.offset + word.span.length
+        ) <= (span.offset + span.length):
+            return True
+    return False
+
+def build_docintel_client() -> DocumentIntelligenceClient | None:
+    try:
+        endpoint = os.environ.get("AZURE_DOCINTEL_URL")
+        key = os.environ.get("AZURE_DOCINTEL_KEY")
+        client = DocumentIntelligenceClient(
+            endpoint=endpoint, credential=AzureKeyCredential(key)
+        )
+        return client  # an instance of 'azure.ai.documentintelligence._patch.DocumentIntelligenceClient'
+    except Exception as e:
+        print("Error building Document Intelligence client:")
+        print(str(e))
+        print(traceback.format_exc())
+        return None
+
+def explore():
+    sample_url = "https://raw.githubusercontent.com/Azure-Samples/cognitive-services-REST-api-samples/master/curl/form-recognizer/sample-layout.pdf"
+    nc_driver_handbook ="https://www.ncdot.gov/dmv/license-id/driver-licenses/new-drivers/Documents/driver-handbook.pdf"
+    
+    docintel_client = build_docintel_client()
+    poller = docintel_client.begin_analyze_document(
+        "prebuilt-layout", AnalyzeDocumentRequest(url_source=sample_url))
+
+    result: AnalyzeResult = poller.result()
+    print("got result, type: ".format(str(type(result))))
+    print(result.content)
+
+
+def model_pricing_html_page():
+    # HTML doesn't seem to be supported as a source.
+    # curl -v ...url... -> Content-Type: text/html; charset=utf-8
+    # Code: InvalidRequest
+    # Message: Invalid request.
+    # Inner error: {
+    # "code": "InvalidContent",
+    # "message": "Could not download the file from the given URL."
+    # }
+    #
+    # Also, serving files from localhost doesn't work.
+    # python -m http.server 8000 
+    # source_url = "http://localhost:8000/docs/sample-layout.pdf"
+    # "message": "Could not download the file from the given URL."
+    source_url = "https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service"
+    docintel_client : DocumentIntelligenceClient = build_docintel_client()
+    poller = docintel_client.begin_analyze_document(
+        "prebuilt-layout", AnalyzeDocumentRequest(url_source=source_url))
+    result: AnalyzeResult = poller.result()
+    print("got result, type: ".format(str(type(result))))
+    print(result)
+
 
 def azure_sample():
     # https://pypi.org/project/azure-ai-documentintelligence/
     # https://github.com/Azure/azure-sdk-for-python/tree/main/sdk
     # https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/quickstarts/get-started-sdks-rest-api?view=doc-intel-4.0.0&pivots=programming-language-python
-    # AZURE_DOCINTEL_ACCT
-    # AZURE_DOCINTEL_KEY
-    # AZURE_DOCINTEL_REGION
-    # AZURE_DOCINTEL_URL
 
-    endpoint = os.environ.get("AZURE_DOCINTEL_URL")
-    key = os.environ.get("AZURE_DOCINTEL_KEY")
-    # print(f"endpoint: {endpoint}")
-    # print(f"key:      {key}")
     sample_url = "https://raw.githubusercontent.com/Azure-Samples/cognitive-services-REST-api-samples/master/curl/form-recognizer/sample-layout.pdf"
 
-    docintel_client = DocumentIntelligenceClient(
-        endpoint=endpoint, credential=AzureKeyCredential(key)
-    )
-
+    docintel_client = build_docintel_client()
     poller = docintel_client.begin_analyze_document(
         "prebuilt-layout", AnalyzeDocumentRequest(url_source=sample_url))
 
@@ -104,23 +163,6 @@ def azure_sample():
                             f"...content on page {region.page_number} is within bounding polygon '{region.polygon}'"
                         )
 
-# helper functions
-
-def get_words(page, line):
-    result = []
-    for word in page.words:
-        if _in_span(word, line.spans):
-            result.append(word)
-    return result
-
-
-def _in_span(word, spans):
-    for span in spans:
-        if word.span.offset >= span.offset and (
-            word.span.offset + word.span.length
-        ) <= (span.offset + span.length):
-            return True
-    return False
 
 
 if __name__ == "__main__":
@@ -132,6 +174,10 @@ if __name__ == "__main__":
             func = sys.argv[1].lower()
             if func == "azure_sample":
                 azure_sample()
+            elif func == "explore":
+                explore()
+            elif func == "model_pricing_html_page":
+                model_pricing_html_page()
             else:
                 print_options("Error: invalid function: {}".format(func))
     except Exception as e:
