@@ -4,6 +4,11 @@
 
 - [GitHub azure-sdk-for-python](https://github.com/Azure/azure-sdk-for-python)
   - A monorepo for all Azure Python SDKs
+  - Subdirectories by Azure product SDK:
+    - [cosmos](https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/cosmos)
+    - [cognitiveservices](https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/cognitiveservices)
+    - [documentintelligence](https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/documentintelligence)
+    - [openai (samples)](https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/openai)
 
 ---
 
