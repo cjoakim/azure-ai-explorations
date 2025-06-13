@@ -71,3 +71,12 @@ SELECT TOP 12 c.id, c.pk, c.name, VectorDistance(
  ORDER BY VectorDistance(
     c.embedding, [-0.00011316168092889711, ... -0.054162509739398956])
 ```
+
+---
+
+## Other Topics
+
+### Chess 
+
+  - https://en.wikipedia.org/wiki/Portable_Game_Notation 
+  - https://www.pgnmentor.com/files.html
