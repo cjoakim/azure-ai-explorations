@@ -21,27 +21,31 @@ class Program
 
         switch (func)
         {
-            case "env":
-                EnvExamples();
+            case "azure_env":
+                DisplayAzureEnv();
                 break;
-            case "io":
-                IoExamples();
-                break;
-            case "paths":
-                PathsExamples();
-                break;
+            case "cosmos_install_index_policy":
+                return await CosmosInstallIndexPolicy(args);
+            case "cosmos_seq_load_container":
+                return await CosmosSeqLoadContainer(args);
+            case "cosmos_bulk_load_container":
+                return await CosmosBulkLoadContainer(args);
+            case "cosmos_queries":
+                return await CosmosQueries(args);
             default:
                 Log("Undefined function given on command-line; " + func);
                 Log("Command-line examples:");
-                Log("  dotnet run env");
-                Log("  dotnet run io");
-                Log("  dotnet run paths");
+                Log("  dotnet run azure_env");
+                Log("  dotnet run cosmos_install_index_policy");
+                Log("  dotnet run cosmos_seq_load_libraries");
+                Log("  dotnet run cosmos_bulk_load_libraries");
+                Log("  dotnet run cosmos_queries");
                 break;
         }
-        return 0;
+        return 1;
     }
 
-    private static void EnvExamples()
+    private static void DisplayAzureEnv()
     {
         Console.WriteLine("pwd:        " + App.Core.Env.Pwd());
         Console.WriteLine("home:       " + App.Core.Env.HomeDir());
@@ -52,31 +56,33 @@ class Program
         Console.WriteLine("is linux:   " + App.Core.Env.IsLinux());
     }
 
-    private static void IoExamples()
+
+    static async Task<int> CosmosInstallIndexPolicy(string[] args)
     {
-        string githubDir = Paths.GithubDir();
-        Console.WriteLine("github dir:  " + githubDir);
-
-        List<string> subpaths = new List<string> { "cj-dotnet", "Console1", "Console1" };
-        String fullpath = Paths.Normalize(githubDir, subpaths);
-        Console.WriteLine("fullpath:  " + fullpath);
-
-        //Console.WriteLine("normalized:  " + Paths.Normalize("");
-
-        FileIO fio = new FileIO();
-
-        //string infile = pwd + @"\Program.cs";
-        //Console.WriteLine("infile: " + infile);
-        //Console.WriteLine(fio.ReadText(infile));
+        // TODO - implement
+        await Task.Delay(1);
+        return 0; 
     }
 
-    private static void PathsExamples()
+    static async Task<int> CosmosSeqLoadContainer(string[] args)
     {
-        Log("norm: " + Paths.Normalize(@"\"));
-        Log("norm: " + Paths.Normalize(@"/"));
-        Log("norm: " + Paths.Normalize(@"\Users\chris\github\cj-dotnet\Console1\Console1"));
-        Log("norm: " + Paths.Normalize(@"/Users/chris/github/cj-dotnet/Console1/Console1"));
-        Log("norm: " + Paths.Normalize(@"Program.cs"));
+        // TODO - implement
+        await Task.Delay(1);
+        return 0; 
+    }
+
+    static async Task<int> CosmosBulkLoadContainer(string[] args)
+    {
+        // TODO - implement
+        await Task.Delay(1);
+        return 0; 
+    }
+
+    static async Task<int> CosmosQueries(string[] args)
+    {
+        // TODO - implement
+        await Task.Delay(1);
+        return 0; 
     }
 
     private static void Log(string msg)
