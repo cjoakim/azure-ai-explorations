@@ -1,5 +1,12 @@
 ﻿
 using DotNetEnv;
+
+using System.Text.Json;
+    
+using Microsoft.Azure.Cosmos;
+
+using App.DB;
+using App.Core;
 using App.IO;
 
 /**
@@ -12,21 +19,22 @@ class Program
 
     static async Task<int> Main(string[] args)
     {
-        cliArgs = args;
-        string func = GetRunFunction(args);
-        Log("run function: " + func);
-        Env.Load();
-
         await Task.Delay(1);
-
+        DotNetEnv.Env.Load();
+        cliArgs = args;
+        string func = args[0].ToLower();
+        Log("Program run function: " + func);
+        
         switch (func)
         {
             case "azure_env":
                 DisplayAzureEnv();
-                break;
-            case "cosmos_install_index_policy":
-                return await CosmosInstallIndexPolicy(args);
-            case "cosmos_seq_load_container":
+                return 0;
+            case "cosmos_get_index_policy":
+                return await CosmosGetIndexPolicy(args);
+            case "cosmos_update_index_policy":
+                return await CosmosUpdateIndexPolicy(args);
+            case "cosmos_seq_load_libraries":
                 return await CosmosSeqLoadContainer(args);
             case "cosmos_bulk_load_container":
                 return await CosmosBulkLoadContainer(args);
@@ -36,7 +44,8 @@ class Program
                 Log("Undefined function given on command-line; " + func);
                 Log("Command-line examples:");
                 Log("  dotnet run azure_env");
-                Log("  dotnet run cosmos_install_index_policy");
+                Log("  dotnet run cosmos_get_index_policy");
+                Log("  dotnet run cosmos_update_index_policy");
                 Log("  dotnet run cosmos_seq_load_libraries");
                 Log("  dotnet run cosmos_bulk_load_libraries");
                 Log("  dotnet run cosmos_queries");
@@ -54,35 +63,184 @@ class Program
         Console.WriteLine("is windows: " + App.Core.Env.IsWindows());
         Console.WriteLine("is macos:   " + App.Core.Env.IsMacOS());
         Console.WriteLine("is linux:   " + App.Core.Env.IsLinux());
+        
+        App.Core.Env.DisplayEnvVars();
     }
 
-
-    static async Task<int> CosmosInstallIndexPolicy(string[] args)
+    static async Task<int> CosmosGetIndexPolicy(string[] args)
     {
-        // TODO - implement
         await Task.Delay(1);
-        return 0; 
+        int returnCode = 1;
+        CosmosNoSqlUtil? cosmosUtil = null;
+        
+        try {
+            cosmosUtil = new CosmosNoSqlUtil();
+            var dbName = App.Core.Env.EnvVar("AZURE_COSMOSDB_NOSQL_DATABASE", "?");
+            var cName  = App.Core.Env.EnvVar("AZURE_COSMOSDB_NOSQL_CONTAINER", "?");
+            Console.WriteLine("dbName: " + dbName);
+            Console.WriteLine("cName:  " + cName);
+
+            IndexingPolicy? ip = await cosmosUtil.GetIndexPolicy(dbName, cName);
+            if (ip != null) {
+                Console.WriteLine("ip: " + ip.GetType().Name);
+                string jstr = JsonSerializer.Serialize(
+                    ip, new JsonSerializerOptions { WriteIndented = true });
+                Console.Write("===");
+                Console.WriteLine("Current IndexingPolicy for " + dbName + "." + cName + ":");
+                Console.WriteLine(jstr);
+            }
+            else {
+                Console.WriteLine("IndexingPolicy is null");
+            }
+
+            returnCode = 0;
+        }
+        catch (Exception ex) {
+            Console.WriteLine("Exception in CosmosInstallIndexPolicy: " + ex.Message);
+            Console.WriteLine(ex.StackTrace);
+            returnCode = 1;
+        }
+        finally {
+            if (cosmosUtil != null) {
+                cosmosUtil.Close();
+            }
+        }
+
+        return returnCode;
+
+    }
+    
+    static async Task<int> CosmosUpdateIndexPolicy(string[] args)
+    {
+        await Task.Delay(1);
+        int returnCode = 1;
+        CosmosNoSqlUtil? cosmosUtil = null;
+        
+        try {
+            cosmosUtil = new CosmosNoSqlUtil();
+            var dbName = App.Core.Env.EnvVar("AZURE_COSMOSDB_NOSQL_DATABASE", "?");
+            var cName  = App.Core.Env.EnvVar("AZURE_COSMOSDB_NOSQL_CONTAINER", "?");
+            var idxPolicyFile = App.Core.Env.EnvVar(
+                "AZURE_COSMOSDB_NOSQL_INDEX_POLICY_FILE", "cosmos/index-policy.json");
+            Console.WriteLine("dbName: " + dbName);
+            Console.WriteLine("cName:  " + cName);
+            Console.WriteLine("idxPolicyFile: " + idxPolicyFile);
+            
+            IndexingPolicy? ip0 = await cosmosUtil.GetIndexPolicy(dbName, cName);
+            if (ip0 != null) {
+                string jstr = JsonSerializer.Serialize(
+                    ip0, new JsonSerializerOptions { WriteIndented = true });
+                Console.Write("===");
+                Console.WriteLine("Current IndexingPolicy for " + dbName + "." + cName + ":");
+                Console.WriteLine(jstr);
+            }
+            
+            IndexingPolicy? ip2 = await cosmosUtil.UpdateIndexPolicy(dbName, cName, idxPolicyFile);
+            if (ip2 != null) {
+                string jstr = JsonSerializer.Serialize(
+                    ip2, new JsonSerializerOptions { WriteIndented = true });
+                Console.Write("===");
+                Console.WriteLine("Updated IndexingPolicy for " + dbName + "." + cName + ":");
+                Console.WriteLine(jstr);
+            }
+            else {
+                Console.WriteLine("IndexingPolicy is null");
+            }
+
+            returnCode = 0;
+        }
+        catch (Exception ex) {
+            Console.WriteLine("Exception in CosmosInstallIndexPolicy: " + ex.Message);
+            Console.WriteLine(ex.StackTrace);
+            returnCode = 1;
+        }
+        finally {
+            if (cosmosUtil != null) {
+                cosmosUtil.Close();
+            }
+        }
+
+        return returnCode;
+
     }
 
     static async Task<int> CosmosSeqLoadContainer(string[] args)
     {
         // TODO - implement
+
         await Task.Delay(1);
-        return 0; 
+        int returnCode = 1;
+        CosmosNoSqlUtil? cosmosUtil = null;
+        
+        try {
+            cosmosUtil = new CosmosNoSqlUtil();
+
+            returnCode = 0;
+        }
+        catch (Exception ex) {
+            Console.WriteLine("Exception in CosmosSeqLoadContainer: " + ex.Message);
+            Console.WriteLine(ex.StackTrace);
+            returnCode = 1;
+            
+        }
+        finally {
+            if (cosmosUtil != null) {
+                cosmosUtil.Close();
+            }
+        }
+
+        return returnCode;
     }
 
     static async Task<int> CosmosBulkLoadContainer(string[] args)
     {
-        // TODO - implement
         await Task.Delay(1);
-        return 0; 
+        int returnCode = 1;
+        CosmosNoSqlUtil? cosmosUtil = null;
+        
+        try {
+            cosmosUtil = new CosmosNoSqlUtil();
+
+            returnCode = 0;
+        }
+        catch (Exception ex) {
+            Console.WriteLine("Exception in CosmosBulkLoadContainer: " + ex.Message);
+            Console.WriteLine(ex.StackTrace);
+            returnCode = 1;
+            
+        }
+        finally {
+            if (cosmosUtil != null) {
+                cosmosUtil.Close();
+            }
+        }
+        return returnCode;
     }
 
     static async Task<int> CosmosQueries(string[] args)
     {
         // TODO - implement
         await Task.Delay(1);
-        return 0; 
+        int returnCode = 1;
+        CosmosNoSqlUtil? cosmosUtil = null;
+        
+        try {
+            cosmosUtil = new CosmosNoSqlUtil();
+
+            returnCode = 0;
+        }
+        catch (Exception ex) {
+            Console.WriteLine("Exception in CosmosQueries: " + ex.Message);
+            Console.WriteLine(ex.StackTrace);
+            returnCode = 1;
+            
+        }
+        finally {
+            if (cosmosUtil != null) {
+                cosmosUtil.Close();
+            }
+        }
+        return returnCode;
     }
 
     private static void Log(string msg)

@@ -15,6 +15,8 @@ Options:
 # https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/quickstarts/get-started-sdks-rest-api?view=doc-intel-4.0.0&pivots=programming-language-python
 # https://learn.microsoft.com/en-us/azure/ai-services/what-are-ai-services
 # https://azure.microsoft.com/en-us/pricing/free-services
+# https://learn.microsoft.com/en-us/samples/azure-samples/document-intelligence-code-samples/document-intelligence-code-samples/ 
+# https://github.com/Azure-Samples/document-intelligence-code-samples/tree/main/schema
 
 import sys
 import os

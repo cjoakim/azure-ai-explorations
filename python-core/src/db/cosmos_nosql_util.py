@@ -10,7 +10,7 @@ from azure.identity import ClientSecretCredential, DefaultAzureCredential
 from src.os.env import Env 
 
 # This class is used to access the Azure Cosmos DB NoSQL API
-# via the the asynchronous SDK methods.
+# via the asynchronous SDK methods.
 # Chris Joakim, 2025
 
 # See https://pypi.org/project/azure-cosmos/

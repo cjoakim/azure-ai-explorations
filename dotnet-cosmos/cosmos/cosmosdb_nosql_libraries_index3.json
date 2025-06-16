@@ -1,0 +1,31 @@
+{
+    "Automatic": true,
+    "IndexingMode": 0,
+    "IncludedPaths": [
+        {
+            "Path": "/*"
+        }
+    ],
+    "ExcludedPaths": [
+        {
+            "Path": "/\u0022_etag\u0022/?"
+        },
+        {
+            "Path": "/embedding/*"
+        }
+    ],
+    "CompositeIndexes":[
+        [
+            {
+                "path":"/pk",
+                "order":"descending"
+            },
+            {
+                "path":"/license",
+                "order":"descending"
+            }
+        ]
+    ],
+    "SpatialIndexes": [],
+    "FullTextIndexes": []
+}
