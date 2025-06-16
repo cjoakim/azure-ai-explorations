@@ -8,6 +8,7 @@ using Microsoft.Azure.Cosmos;
 using App.DB;
 using App.Core;
 using App.IO;
+using Env = App.Core.Env;
 
 /**
  * Main program and entry point for this console/CLI app.
@@ -34,6 +35,8 @@ class Program
                 return await CosmosGetIndexPolicy(args);
             case "cosmos_update_index_policy":
                 return await CosmosUpdateIndexPolicy(args);
+            case "cosmos_create_container":
+                return await CosmosCreateContainer(args);
             case "cosmos_seq_load_libraries":
                 return await CosmosSeqLoadContainer(args);
             case "cosmos_bulk_load_container":
@@ -164,6 +167,29 @@ class Program
 
     }
 
+    static async Task<int> CosmosCreateContainer(string[] args) {
+        await Task.Delay(1);
+        int returnCode = 1;
+        CosmosNoSqlUtil? cosmosUtil = null;
+
+        try {
+            cosmosUtil = new CosmosNoSqlUtil();
+            var dbName = Env.EnvVar("AZURE_COSMOSDB_NOSQL_DATABASE", "?");
+            var cName  = Env.EnvVar("AZURE_COSMOSDB_NOSQL_CONTAINER", "?");
+            var idxPolicyFile = Env.EnvVar(
+                "AZURE_COSMOSDB_NOSQL_INDEX_POLICY_FILE", "cosmos/index-policy.json");
+            Console.WriteLine("dbName: " + dbName);
+            Console.WriteLine("cName:  " + cName);
+            Console.WriteLine("idxPolicyFile: " + idxPolicyFile);
+            
+            Container? ip = await cosmosUtil.CreateVectorContainerAsync(dbName, cName);
+            returnCode = 0;
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+        }
+        return returnCode;
+    }
     static async Task<int> CosmosSeqLoadContainer(string[] args)
     {
         // TODO - implement

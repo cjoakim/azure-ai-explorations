@@ -1,39 +1,28 @@
-using System.Runtime.InteropServices.Swift;
+using App.Core;
 using App.IO;
-using Microsoft.Identity.Client;
-
-namespace App.DB;
-
 using Azure.Identity;
 using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-using App.Core;
+namespace App.DB;
 
 /**
  * This class is used to access the Azure Cosmos DB NoSQL API
  * via the asynchronous SDK methods.
  * Chris Joakim, 2025
  */
-
 public class CosmosNoSqlUtil {
-
     // Instance variables
     private CosmosClient? cosmosClient = null;
     private Database? currentDatabase = null;
     private string currentDatabaseName = "";
-    
+
     public CosmosNoSqlUtil() {
-        
         var authType = Env.EnvVar("AZURE_COSMOSDB_NOSQL_AUTH_TYPE", "key").ToLower();
         var uri = Env.EnvVar("AZURE_COSMOSDB_NOSQL_URI", "None");
         Console.WriteLine("CosmosNoSqlUtil authType: " + authType);
         Console.WriteLine("CosmosNoSqlUtil uri: " + uri);
-        
+
         // Create the CosmosClient instance
         if (authType.Equals("key")) {
             var key = Env.EnvVar("AZURE_COSMOSDB_NOSQL_KEY", "None");
@@ -44,14 +33,14 @@ public class CosmosNoSqlUtil {
             cosmosClient = new CosmosClient(uri, new DefaultAzureCredential());
         }
     }
-    
+
     public void Close() {
         if (this.cosmosClient != null) {
-            Console.Write("CosmosNoSqlUtil Disposing CosmosClient ... ");   
+            Console.Write("CosmosNoSqlUtil Disposing CosmosClient ... ");
             cosmosClient.Dispose();
         }
     }
-    
+
     public async Task<bool> SetCurrentDatabaseAsync(string dbName) {
         if (cosmosClient != null) {
             Database db = cosmosClient.GetDatabase(dbName);
@@ -60,26 +49,30 @@ public class CosmosNoSqlUtil {
             if (this.currentDatabase != null) {
                 this.currentDatabaseName = dbName;
             }
+
             return true;
         }
+
         return false;
     }
-    
+
     public async Task<Database?> GetDatabaseAsync(string dbName) {
         if (cosmosClient != null) {
             Database db = cosmosClient.GetDatabase(dbName);
             DatabaseResponse response = await db.ReadAsync();
             return response.Database;
         }
+
         return null;
     }
-    
+
     public async Task<Database?> CreateDatabaseAsync(string dbName, int dbLevelThroughput = 0) {
         if (cosmosClient != null) {
             DatabaseResponse response = await cosmosClient.CreateDatabaseIfNotExistsAsync(
                 dbName, throughput: dbLevelThroughput);
             return response.Database;
         }
+
         return null;
     }
 
@@ -91,9 +84,10 @@ public class CosmosNoSqlUtil {
             IndexingPolicy indexingPolicy = containerResponse.Resource.IndexingPolicy;
             return indexingPolicy;
         }
+
         return null;
     }
-    
+
     /**
      * The DiskANN Vector Index seems to be immutable, but the other IndexingPolicy
      * items can be updated.
@@ -103,7 +97,8 @@ public class CosmosNoSqlUtil {
      */
     public async Task<IndexingPolicy?> UpdateIndexPolicy(string dbName, string cName, string idxPolicyFile) {
         if (cosmosClient != null) {
-            Console.WriteLine($"CosmosNoSqlUtil#UpdateIndexPolicy - dbName: {dbName} cName: {cName} idxPolicyFile: {idxPolicyFile}");
+            Console.WriteLine(
+                $"CosmosNoSqlUtil#UpdateIndexPolicy - dbName: {dbName} cName: {cName} idxPolicyFile: {idxPolicyFile}");
             FileIO fio = new FileIO();
             string jstr = fio.ReadText(idxPolicyFile);
             IndexingPolicy? newPolicy = JsonConvert.DeserializeObject<IndexingPolicy>(jstr);
@@ -116,18 +111,65 @@ public class CosmosNoSqlUtil {
                         ContainerResponse cProps = await container.ReadContainerAsync();
                         cProps.Resource.IndexingPolicy = newPolicy;
                         await container.ReplaceContainerAsync(cProps.Resource);
-                        await Task.Delay(3000);  // wait for the indexing policy to be applied
+                        await Task.Delay(3000); // wait for the indexing policy to be applied
                         return await this.GetIndexPolicy(dbName, cName);
                     }
                 }
             }
             else {
-                Console.WriteLine($"CosmosNoSqlUtil#UpdateIndexPolicy - failed to deserialize IndexingPolicy from file: {idxPolicyFile}");
+                Console.WriteLine(
+                    $"CosmosNoSqlUtil#UpdateIndexPolicy - failed to deserialize IndexingPolicy from file: {idxPolicyFile}");
             }
-
-            
         }
+
         return null;
+    }
+
+    public async Task<Container?> CreateVectorContainerAsync(
+        string dbName, string containerName, string partitionKeyPath = "/pk", int throughput = 4000) {
+        if (cosmosClient == null) return null;
+
+        var vectorPolicy = new {
+            path = "/embedding",
+            type = "vector",
+            vectorIndex = new {
+                kind = "diskann",
+                dimensions = 1536 // Set to your vector dimension
+            }
+        };
+
+        var containerProperties = new ContainerProperties(containerName, partitionKeyPath) {
+            IndexingPolicy = new IndexingPolicy {
+                IncludedPaths = {
+                    new IncludedPath { Path = "/*" }
+                },
+                ExcludedPaths = {
+                    new ExcludedPath { Path = "/\"_etag\"/?" }
+                },
+                // Add the vector policy as a raw JSON extension
+                // (since SDK may not have first-class support yet)
+                // This requires using the latest SDK and may need to use RawResource
+            }
+        };
+
+        // Add the vector policy as a raw JSON extension if needed
+        // (workaround for SDK limitations)
+        //string json = Newtonsoft.Json.JsonConvert.SerializeObject(containerProperties);
+        //dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+        //jsonObj.indexingPolicy.vectorIndexes = new[] { vectorPolicy };
+        //string rawJson = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObj);
+
+        Database db = cosmosClient.GetDatabase(dbName);
+        ContainerResponse response = await db.CreateContainerIfNotExistsAsync(
+            new ContainerProperties(containerName, partitionKeyPath),
+            throughput: throughput,
+            requestOptions: new ContainerRequestOptions {
+                
+                // Use RawResource if SDK supports it, otherwise use REST API
+                // This is a placeholder for the actual implementation
+            }
+        );
+        return response.Container;
     }
 }
 
