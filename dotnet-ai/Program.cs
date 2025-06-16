@@ -3,7 +3,7 @@ using App.Plugins;
 using Azure.Monitor.OpenTelemetry.Exporter;
 using DotNetEnv;
 using Joakimsoftware.M26;
-using Joakimsoftware.SK;
+using App.SK;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
