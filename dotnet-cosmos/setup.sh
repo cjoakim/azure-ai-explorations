@@ -1,28 +1,27 @@
 #!/bin/bash
 
-# which dotnet
+# Bootstrap this project with the dotnet CLI.
+# Chris Joakim, 2025 
 
-# dotnet --version
+which dotnet
 
-# dotnet new console
+dotnet --version
 
-dotnet add package RulesEngine --version 6.0.0
+dotnet new console
 
 # See https://www.nuget.org 
-# dotnet add package Microsoft.SemanticKernel
-# dotnet add package Microsoft.Azure.Cosmos
-# dotnet add package Azure.Storage.Blobs
-# dotnet add package Newtonsoft.Json
-# dotnet add package DotNetEnv
-# dotnet add package Microsoft.SemanticKernel.Plugins.Core --version 1.53.1-preview
-# dotnet add package Microsoft.SemanticKernel.Planners 
-# dotnet add package Microsoft.SemanticKernel.Planners.Handlebars;
-# dotnet add package Microsoft.SemanticKernel.Planners.Liquid
-# dotnet add package Microsoft.SemanticKernel.Planners.OpenAI
-# dotnet add package Microsoft.SemanticKernel.PromptTemplates.Handlebars
-# dotnet add package Microsoft.SemanticKernel.PromptTemplates.Liquid
-# dotnet add package Microsoft.SemanticKernel.Yaml --version 1.54.0
-# dotnet add package Azure.Monitor.OpenTelemetry.Exporter
-# dotnet add package Joakimsoftware.M26 --version 2.0.0
+dotnet add package Microsoft.Azure.Cosmos
+dotnet add package Azure.Storage.Blobs
+dotnet add package Newtonsoft.Json
+dotnet add package DotNetEnv
 
 dotnet list package
+
+
+# Project 'dotnet-cosmos' has the following package references
+#    [net9.0]:
+#    Top-level Package             Requested   Resolved
+#    > Azure.Storage.Blobs         12.24.1     12.24.1
+#    > DotNetEnv                   3.1.1       3.1.1
+#    > Microsoft.Azure.Cosmos      3.52.0      3.52.0
+#    > Newtonsoft.Json             13.0.3      13.0.3
