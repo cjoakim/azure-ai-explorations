@@ -1,0 +1,113 @@
+{
+  "id": "/subscriptions/940a601b-5bf1-47cf-9303-810d30d2a332/resourceGroups/cjoakim-ai-research2/providers/Microsoft.DocumentDB/databaseAccounts/cjoakimaicosmos/sqlDatabases/dev/containers/v1",
+  "location": null,
+  "name": "v1",
+  "options": null,
+  "resource": {
+    "_conflicts": "conflicts/",
+    "_docs": "docs/",
+    "_self": "dbs/SQ5HAA==/colls/SQ5HANhztZk=/",
+    "_sprocs": "sprocs/",
+    "_triggers": "triggers/",
+    "_udfs": "udfs/",
+    "analyticalStorageTtl": null,
+    "clientEncryptionPolicy": null,
+    "computedProperties": [],
+    "conflictResolutionPolicy": {
+      "conflictResolutionPath": "/_ts",
+      "conflictResolutionProcedure": "",
+      "mode": "LastWriterWins"
+    },
+    "createMode": null,
+    "defaultTtl": null,
+    "etag": "\"00005305-0000-0100-0000-68516dff0000\"",
+    "fullTextPolicy": {
+      "defaultLanguage": "en-US",
+      "fullTextPaths": []
+    },
+    "geospatialConfig": {
+      "type": "Geography"
+    },
+    "id": "v1",
+    "indexingPolicy": {
+      "automatic": true,
+      "compositeIndexes": [
+        [
+          {
+            "order": "descending",
+            "path": "/pk"
+          },
+          {
+            "order": "descending",
+            "path": "/license"
+          }
+        ]
+      ],
+      "excludedPaths": [
+        {
+          "path": "/\"_etag\"/?"
+        },
+        {
+          "path": "/embedding/*"
+        }
+      ],
+      "fullTextIndexes": [],
+      "includedPaths": [
+        {
+          "indexes": null,
+          "path": "/*"
+        }
+      ],
+      "indexingMode": "consistent",
+      "spatialIndexes": null,
+      "vectorIndexes": [
+        {
+          "indexingSearchListSize": 100,
+          "path": "/embedding",
+          "quantizationByteSize": 96,
+          "type": "diskANN",
+          "vectorIndexShardKey": [
+            "/pk"
+          ]
+        }
+      ]
+    },
+    "partitionKey": {
+      "kind": "Hash",
+      "paths": [
+        "/pk"
+      ],
+      "systemKey": null,
+      "version": 2
+    },
+    "restoreParameters": null,
+    "rid": "SQ5HANhztZk=",
+    "statistics": [
+      {
+        "documentCount": 0,
+        "id": "0",
+        "partitionKeys": [],
+        "sampledDistinctPartitionKeyCount": 0,
+        "sizeInKB": 0
+      }
+    ],
+    "ts": 1750167039.0,
+    "uniqueKeyPolicy": {
+      "uniqueKeys": []
+    },
+    "vectorEmbeddingPolicy": {
+      "vectorEmbeddings": [
+        {
+          "dataType": "float32",
+          "dimensions": 1536,
+          "distanceFunction": "euclidean",
+          "path": "/embedding"
+        }
+      ]
+    }
+  },
+  "resourceGroup": "cjoakim-ai-research2",
+  "tags": null,
+  "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers"
+}
+

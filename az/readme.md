@@ -1,11 +1,14 @@
-# az CLI commands relating to Azure OpenAI and Azure AI Foundry 
+# az cli readme
+
+## Installation
+
+See https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-macos?view=azure-cli-latest#install-with-homebrew
+
+```
+brew update && brew install azure-cli
+```
 
 ## Links
 
-- https://learn.microsoft.com/en-us/azure/ai-services/multi-service-resource?pivots=azcli
+- https://learn.microsoft.com/en-us/cli/azure/?view=azure-cli-latest
 
-## Miscellaneous
-
-```
-az cognitiveservices account create --name foundry-multi-service-resource --resource-group ai-services-resource-group  --kind AIServices --sku S0 --location westus2 --yes
-```

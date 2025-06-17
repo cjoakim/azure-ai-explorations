@@ -1,0 +1,41 @@
+{
+    "indexingMode": "consistent",
+    "automatic": true,
+    "includedPaths": [
+        {
+            "path": "/*"
+        }
+    ],
+    "excludedPaths": [
+        {
+            "path": "/\"_etag\"/?"
+        },
+        {
+            "path": "/embedding/*"
+        }
+    ],
+    "fullTextIndexes": [],
+    "vectorIndexes": [
+        {
+            "path": "/embedding",
+            "type": "diskANN",
+            "quantizationByteSize": 96,
+            "indexingSearchListSize": 100,
+            "vectorIndexShardKey": [
+                "/pk"
+            ]
+        }
+    ],
+    "compositeIndexes":[
+        [
+            {
+                "path":"/pk",
+                "order":"descending"
+            },
+            {
+                "path":"/license",
+                "order":"descending"
+            }
+        ]
+    ]
+}

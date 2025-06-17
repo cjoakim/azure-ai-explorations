@@ -1,0 +1,8 @@
+[
+  {
+    "path": "/embedding",
+    "datatype": "float32",
+    "dimensions": 1536,
+    "distancefunction": "euclidean"
+  }
+]

@@ -1,0 +1,49 @@
+{
+    "indexingMode": "consistent",
+    "automatic": true,
+    "includedPaths": [
+        {
+            "path": "/*"
+        }
+    ],
+    "excludedPaths": [
+        {
+            "path": "/\"_etag\"/?"
+        },
+        {
+            "path": "/embeddings/*"
+        }
+    ],
+    "fullTextIndexes": [],
+    "vectorEmbeddings": [
+        {
+            "path": "/embeddings",
+            "dataType": "float32",
+            "distanceFunction": "euclidean",
+            "dimensions": 1536
+        }
+    ],
+    "vectorIndexes": [
+        {
+            "path": "/embeddings",
+            "type": "diskANN",
+            "quantizationByteSize": 96,
+            "indexingSearchListSize": 100,
+            "vectorIndexShardKey": [
+                "/pk"
+            ]
+        }
+    ],
+    "compositeIndexes":[
+        [
+            {
+                "path":"/pk",
+                "order":"descending"
+            },
+            {
+                "path":"/license",
+                "order":"descending"
+            }
+        ]
+    ]
+}
