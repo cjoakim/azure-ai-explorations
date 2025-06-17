@@ -452,15 +452,21 @@ class Program
             };
             
             Dictionary<string, object> doc1 = new Dictionary<string, object>();
+            //CosmosDocument doc1 = new CosmosDocument();
             var pk = "NC";
-            doc1.Add("id", Guid.NewGuid().ToString());
+            //doc1.Add("id", Guid.NewGuid().ToString());
             doc1.Add("pk", pk);
             doc1.Add("city", "Davidson");
             doc1.Add("population", 9876);
             doc1.Add("lat", 35.492543);
             doc1.Add("lng", -80.854912);
             doc1.Add("attractions", attractions);
-            ItemResponse<dynamic>? resp = await cosmosUtil.UpsertItemAsync(doc1, pk, null);
+            
+            CosmosDocument doc2 = new CosmosDocument(doc1);
+            doc2.EnsureId();
+            Console.WriteLine("CosmosDocument HasAttribute pk: " + doc2.HasAttribute("pk"));
+            Console.WriteLine("CosmosDocument HasAttribute xx: " + doc2.HasAttribute("xx"));
+            ItemResponse<dynamic>? resp = await cosmosUtil.UpsertItemAsync(doc2, pk, null);
             if (resp != null) {
                 Console.WriteLine("UpsertItemAsync returned: " + resp.StatusCode);
                 //Console.WriteLine("UpsertItemAsync item: " + JsonSerializer.Serialize(resp));
