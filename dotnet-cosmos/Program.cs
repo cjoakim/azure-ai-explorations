@@ -28,7 +28,7 @@ class Program
         if (args.Length > 0) {
             func = args[0].ToLower();
         }
-        Log("Program run function: " + func);
+        Console.WriteLine("Program run function: " + func);
         
         switch (func)
         {
@@ -52,17 +52,17 @@ class Program
             case "cosmos_test":
                 return await CosmosTest(args);
             default:
-                Log("Undefined function given on command-line; " + func);
-                Log("Command-line examples:");
-                Log("  dotnet run azure_env");
-                Log("  dotnet run cosmos_get_index_policy");
-                Log("  dotnet run cosmos_create_container");
-                Log("  dotnet run cosmos_create_container_with_vector_index");
-                Log("  dotnet run cosmos_update_index_policy");
-                Log("  dotnet run cosmos_seq_load_libraries");
-                Log("  dotnet run cosmos_bulk_load_libraries");
-                Log("  dotnet run cosmos_queries");
-                Log("  dotnet run cosmos_test");
+                Console.WriteLine("Undefined function given on command-line; " + func);
+                Console.WriteLine("Command-line examples:");
+                Console.WriteLine("  dotnet run azure_env");
+                Console.WriteLine("  dotnet run cosmos_get_index_policy");
+                Console.WriteLine("  dotnet run cosmos_create_container");
+                Console.WriteLine("  dotnet run cosmos_create_container_with_vector_index");
+                Console.WriteLine("  dotnet run cosmos_update_index_policy");
+                Console.WriteLine("  dotnet run cosmos_seq_load_libraries");
+                Console.WriteLine("  dotnet run cosmos_bulk_load_libraries");
+                Console.WriteLine("  dotnet run cosmos_queries");
+                Console.WriteLine("  dotnet run cosmos_test");
                 break;
         }
         return 1;
@@ -446,29 +446,6 @@ class Program
             }
         }
         return returnCode;
-    }
-    
-    private static void Log(string msg)
-    {
-        Console.WriteLine(msg);
-    }
-
-    private static void LogConsoleHeader(string msg)
-    {
-        Console.WriteLine("========================================");
-        Console.WriteLine(msg);
-    }
-
-    private static string GetRunFunction(string[] args)
-    {
-        if ((args != null) && (args.Length > 0))
-        {
-            return args[0].ToLower();
-        }
-        else
-        {
-            return "";
-        }
     }
 
     private static bool CliFlagPresent(string flag)
