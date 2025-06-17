@@ -49,6 +49,8 @@ class Program
                 return await CosmosBulkLoadContainer(args);
             case "cosmos_queries":
                 return await CosmosQueries(args);
+            case "cosmos_test":
+                return await CosmosTest(args);
             default:
                 Log("Undefined function given on command-line; " + func);
                 Log("Command-line examples:");
@@ -60,6 +62,7 @@ class Program
                 Log("  dotnet run cosmos_seq_load_libraries");
                 Log("  dotnet run cosmos_bulk_load_libraries");
                 Log("  dotnet run cosmos_queries");
+                Log("  dotnet run cosmos_test");
                 break;
         }
         return 1;
@@ -329,6 +332,7 @@ class Program
         try {
             cosmosUtil = new CosmosNoSqlUtil();
 
+
             returnCode = 0;
         }
         catch (Exception ex) {
@@ -345,6 +349,105 @@ class Program
         return returnCode;
     }
 
+    static async Task<int> CosmosTest(string[] args)
+    {
+        // TODO - implement
+        await Task.Delay(1);
+        int returnCode = 1;
+        CosmosNoSqlUtil? cosmosUtil = null;
+        string testDbName = "test" + App.Core.Env.Epoch();
+        Console.WriteLine("testDbName: " + testDbName);
+        
+        try {
+            Console.WriteLine("CosmosNoSqlUtil constructor...");
+            cosmosUtil = new CosmosNoSqlUtil();
+            
+            Console.WriteLine("CreateDatabaseAsync: " + testDbName);
+            await cosmosUtil.CreateDatabaseAsync(testDbName);
+            await Task.Delay(2000);
+            
+            List<string>? dbList = await cosmosUtil.ListDatabasesAsync();
+            if (dbList != null) {
+                Console.WriteLine("Databases in Cosmos DB account:");
+                foreach (string dbName in dbList) {
+                    Console.WriteLine("  " + dbName);
+                }
+            }
+            else {
+                Console.WriteLine("No databases found.");
+            }
+
+            Console.WriteLine("SetCurrentDatabaseAsync to: " + testDbName);
+            await cosmosUtil.SetCurrentDatabaseAsync(testDbName);
+            Console.WriteLine("GetCurrentDatabaseName: " + cosmosUtil.GetCurrentDatabaseName());
+            
+            Console.WriteLine("Creating container c1 in database " + testDbName);
+            ContainerResponse? cResp1 = 
+                await cosmosUtil.CreateContainerAsync(testDbName, "c1");
+            if (cResp1 != null) {
+                Console.WriteLine("Container created: " + cResp1.Resource.Id);
+                Console.WriteLine("Container StatusCode: " + cResp1.StatusCode);
+            }
+            else {
+                Console.WriteLine("Container c1 creation failed.");
+            }
+            
+            Console.WriteLine("Creating container v1 in database " + testDbName);
+            ContainerResponse? cResp2 = 
+                await cosmosUtil.CreateContainerWithVectorIndexAsync(testDbName, "v1");
+            if (cResp2 != null) {
+                Console.WriteLine("Container created: " + cResp2.Resource.Id);
+                Console.WriteLine("Container StatusCode: " + cResp2.StatusCode);
+            }
+            else {
+                Console.WriteLine("Container v1 creation failed.");
+            }
+
+            List<string>? cList = await cosmosUtil.ListContainersAsync(testDbName);
+            if (cList != null) {
+                Console.WriteLine("Containers in database: " + testDbName);
+                foreach (string c in cList) {
+                    Console.WriteLine("  " + c);
+                }
+            }
+            else {
+                Console.WriteLine("No databases found.");
+            }
+            
+            IndexingPolicy? idxPolicy = await cosmosUtil.GetIndexPolicy(testDbName, "v1");
+            if (idxPolicy != null) {
+                Console.WriteLine("IndexingPolicy for v1: " + idxPolicy.GetType().Name);
+                string jstr = JsonSerializer.Serialize(
+                    idxPolicy, new JsonSerializerOptions { WriteIndented = true });
+                Console.WriteLine("IndexingPolicy JSON: " + jstr);
+            }
+            else {
+                Console.WriteLine("IndexingPolicy for v1 is null");
+            }
+
+        }
+        catch (Exception ex) {
+            Console.WriteLine("Exception in CosmosTest: " + ex.Message);
+            Console.WriteLine(ex.StackTrace);
+            returnCode = 1;
+            
+        }
+        finally {
+            if (cosmosUtil != null) {
+                Console.WriteLine("Pausing for 60 seconds before deleting the test database...");
+                await Task.Delay(60 * 1000);
+                
+                HttpStatusCode? statusCode = await cosmosUtil.DeleteContainerAsync(testDbName, "c1");
+                Console.WriteLine("DeleteContainerAsync c1 returned: " + statusCode);
+                
+                statusCode = await cosmosUtil.DeleteDatabaseAsync(testDbName);
+                Console.WriteLine("DeleteDatabaseAsync returned: " + statusCode);
+                cosmosUtil.Close();
+            }
+        }
+        return returnCode;
+    }
+    
     private static void Log(string msg)
     {
         Console.WriteLine(msg);

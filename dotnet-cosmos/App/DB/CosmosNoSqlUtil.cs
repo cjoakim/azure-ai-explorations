@@ -9,6 +9,8 @@ using Azure.ResourceManager.CosmosDB;
 using Azure.ResourceManager.CosmosDB.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net;
+
 namespace App.DB;
 
 /**
@@ -20,8 +22,14 @@ public class CosmosNoSqlUtil {
     // Instance variables
     private CosmosClient? cosmosClient = null;
     private Database? currentDatabase = null;
+    private Container? currentContainer = null;
     private string currentDatabaseName = "";
+    private string currentContainerName = "";
 
+    /**
+     * Constructor method for CosmosNoSqlUtil.
+     * All parameters are read from environment variables.
+     */
     public CosmosNoSqlUtil() {
         var authType = Env.EnvVar("AZURE_COSMOSDB_NOSQL_AUTH_TYPE", "key").ToLower();
         var uri = Env.EnvVar("AZURE_COSMOSDB_NOSQL_URI", "None");
@@ -39,28 +47,75 @@ public class CosmosNoSqlUtil {
         }
     }
 
-    public void Close() {
-        if (this.cosmosClient != null) {
+    /**
+     * Close the cosmosClient.  Invoke this method before application exit.
+     */
+    public bool Close() {
+        if (cosmosClient != null) {
             Console.Write("CosmosNoSqlUtil Disposing CosmosClient ... ");
             cosmosClient.Dispose();
-        }
-    }
-
-    public async Task<bool> SetCurrentDatabaseAsync(string dbName) {
-        if (cosmosClient != null) {
-            Database db = cosmosClient.GetDatabase(dbName);
-            DatabaseResponse response = await db.ReadAsync();
-            this.currentDatabase = response.Database;
-            if (this.currentDatabase != null) {
-                this.currentDatabaseName = dbName;
-            }
-
             return true;
         }
-
         return false;
     }
 
+    // ========== Simple Getters and Setters  ==========
+    
+    public string GetCurrentDatabaseName() {
+        return currentDatabaseName;
+    }
+    
+    public string GetCurrentContainerName() {
+        return currentContainerName;
+    }
+    
+    //  ========== Database Methods  ==========
+    
+    public async Task<List<string>?> ListDatabasesAsync() {
+        List<string>? dbList = null;
+        if (cosmosClient != null) {
+            dbList = new List<string>();
+            using (FeedIterator<DatabaseProperties> iterator = 
+                   cosmosClient.GetDatabaseQueryIterator<DatabaseProperties>()) {
+                while (iterator.HasMoreResults) {
+                    foreach (DatabaseProperties db in await iterator.ReadNextAsync()) {
+                        dbList.Add(db.Id);
+                    }
+                }
+            }
+        }
+        return dbList;
+    }
+
+    public async Task<Database?> CreateDatabaseAsync(string dbName, int dbLevelThroughput = 0) {
+        if (cosmosClient != null) {
+            if (dbLevelThroughput > 0) {
+                DatabaseResponse response = await cosmosClient.CreateDatabaseIfNotExistsAsync(
+                    dbName, throughput: dbLevelThroughput);
+                return response.Database;
+            }
+            else {
+                DatabaseResponse response = await cosmosClient.CreateDatabaseIfNotExistsAsync(
+                    dbName);
+                return response.Database; 
+            }
+        }
+        return null;
+    }
+    
+    public async Task<string?> SetCurrentDatabaseAsync(string dbName) {
+        if (cosmosClient != null) {
+            Database db = cosmosClient.GetDatabase(dbName);
+            DatabaseResponse response = await db.ReadAsync();
+            currentDatabase = response.Database;
+            if (currentDatabase != null) {
+                currentDatabaseName = dbName;
+            }
+            return GetCurrentDatabaseName();
+        }
+        return null;
+    }
+    
     public async Task<Database?> GetDatabaseAsync(string dbName) {
         if (cosmosClient != null) {
             Database db = cosmosClient.GetDatabase(dbName);
@@ -70,66 +125,39 @@ public class CosmosNoSqlUtil {
 
         return null;
     }
-
-    public async Task<Database?> CreateDatabaseAsync(string dbName, int dbLevelThroughput = 0) {
+    
+    public async Task<HttpStatusCode?> DeleteDatabaseAsync(string dbName) {
         if (cosmosClient != null) {
-            DatabaseResponse response = await cosmosClient.CreateDatabaseIfNotExistsAsync(
-                dbName, throughput: dbLevelThroughput);
-            return response.Database;
+            Database? db = await GetDatabaseAsync(dbName);
+            if (db != null) {
+                DatabaseResponse resp = await db.DeleteAsync();
+                return resp.StatusCode;
+            }
         }
-
         return null;
     }
+    
+    //  ========== Container Methods  ==========
 
-    public async Task<IndexingPolicy?> GetIndexPolicy(string dbName, string cName) {
+    public async Task<List<string>?> ListContainersAsync(string dbName) {
+        List<string>? cList = null;
         if (cosmosClient != null) {
-            Console.WriteLine($"CosmosNoSqlUtil#GetIndexPolicy - dbName: {dbName} cName: {cName}");
-            ContainerResponse containerResponse =
-                await cosmosClient.GetContainer(dbName, cName).ReadContainerAsync();
-            IndexingPolicy indexingPolicy = containerResponse.Resource.IndexingPolicy;
-            return indexingPolicy;
-        }
-
-        return null;
-    }
-
-    /**
-     * The DiskANN Vector Index seems to be immutable, but the other IndexingPolicy
-     * items can be updated.
-     *
-     * See https://docs.azure.cn/en-us/cosmos-db/nosql/how-to-manage-indexing-policy
-     * "Currently, vector policies and vector indexes are immutable after creation. To make changes, please create a new collection"
-     */
-    public async Task<IndexingPolicy?> UpdateIndexPolicy(string dbName, string cName, string idxPolicyFile) {
-        if (cosmosClient != null) {
-            Console.WriteLine(
-                $"CosmosNoSqlUtil#UpdateIndexPolicy - dbName: {dbName} cName: {cName} idxPolicyFile: {idxPolicyFile}");
-            FileIO fio = new FileIO();
-            string jstr = fio.ReadText(idxPolicyFile);
-            IndexingPolicy? newPolicy = JsonConvert.DeserializeObject<IndexingPolicy>(jstr);
-            if (newPolicy != null) {
-                Console.WriteLine($"CosmosNoSqlUtil#UpdateIndexPolicy - newPolicy: {newPolicy}");
-                Database? database = await this.GetDatabaseAsync(dbName);
-                if (database != null) {
-                    Container container = database.GetContainer(cName);
-                    if (container != null) {
-                        ContainerResponse cProps = await container.ReadContainerAsync();
-                        cProps.Resource.IndexingPolicy = newPolicy;
-                        await container.ReplaceContainerAsync(cProps.Resource);
-                        await Task.Delay(3000); // wait for the indexing policy to be applied
-                        return await this.GetIndexPolicy(dbName, cName);
+            cList = new List<string>();
+            Database? db = await GetDatabaseAsync(dbName);
+            if (db != null) {
+                FeedIterator<ContainerProperties> containerIterator = 
+                    db.GetContainerQueryIterator<ContainerProperties>();
+                while (containerIterator.HasMoreResults) {
+                    FeedResponse<ContainerProperties> response = await containerIterator.ReadNextAsync();
+                    foreach (ContainerProperties container in response) {
+                        cList.Add(container.Id);
                     }
                 }
             }
-            else {
-                Console.WriteLine(
-                    $"CosmosNoSqlUtil#UpdateIndexPolicy - failed to deserialize IndexingPolicy from file: {idxPolicyFile}");
-            }
         }
-
-        return null;
+        return cList;
     }
-
+    
     /**
     * Create a Cosmos DB NoSQL container per the given parameters.
     * See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/how-to-dotnet-vector-index-query
@@ -225,7 +253,6 @@ public class CosmosNoSqlUtil {
                     }
                 },
             };
-            
             ThroughputProperties throughputProperties = 
                 ThroughputProperties.CreateAutoscaleThroughput(throughput); 
             containerProperties.IndexingPolicy.IncludedPaths.Add(new IncludedPath { Path = "/*" });    
@@ -235,23 +262,88 @@ public class CosmosNoSqlUtil {
         }
         return null;
     }
+
+    public async Task<string?> SetCurrentContainerAsync(string dbName, string cName) {
+        if (cosmosClient != null) {
+            Database db = cosmosClient.GetDatabase(dbName);
+            DatabaseResponse dbResponse = await db.ReadAsync();
+            currentDatabase = dbResponse.Database;
+            if (currentDatabase != null) {
+                currentDatabaseName = dbName;
+                currentDatabase.GetContainer(cName);
+                ContainerResponse cResponse = await db.GetContainer(cName).ReadContainerAsync();
+                if (cResponse != null) {
+                    currentContainerName = cName;
+                    currentContainer = cResponse.Container;
+                    return GetCurrentContainerName();
+                }
+            }
+        }
+        return null;
+    }
+
+    public async Task<HttpStatusCode?> DeleteContainerAsync(string dbName, string cName) {
+        if (cosmosClient != null) {
+            Database? db = await GetDatabaseAsync(dbName);
+            if (db != null) {
+                Container c = db.GetContainer("containerId");
+                ContainerResponse resp = await c.DeleteContainerAsync();
+                return resp.StatusCode;
+            }
+        }
+        return null;
+    }
+
+    public async Task<IndexingPolicy?> GetIndexPolicy(string dbName, string cName) {
+        if (cosmosClient != null) {
+            Console.WriteLine($"CosmosNoSqlUtil#GetIndexPolicy - dbName: {dbName} cName: {cName}");
+            ContainerResponse containerResponse =
+                await cosmosClient.GetContainer(dbName, cName).ReadContainerAsync();
+            IndexingPolicy indexingPolicy = containerResponse.Resource.IndexingPolicy;
+            return indexingPolicy;
+        }
+
+        return null;
+    }
+    
+    public async Task<IndexingPolicy?> UpdateIndexPolicy(string dbName, string cName, string idxPolicyFile) {
+        if (cosmosClient != null) {
+            Console.WriteLine(
+                $"CosmosNoSqlUtil#UpdateIndexPolicy - dbName: {dbName} cName: {cName} idxPolicyFile: {idxPolicyFile}");
+            FileIO fio = new FileIO();
+            string jstr = fio.ReadText(idxPolicyFile);
+            IndexingPolicy? newPolicy = JsonConvert.DeserializeObject<IndexingPolicy>(jstr);
+            if (newPolicy != null) {
+                Console.WriteLine($"CosmosNoSqlUtil#UpdateIndexPolicy - newPolicy: {newPolicy}");
+                Database? database = await GetDatabaseAsync(dbName);
+                if (database != null) {
+                    Container container = database.GetContainer(cName);
+                    if (container != null) {
+                        ContainerResponse cProps = await container.ReadContainerAsync();
+                        cProps.Resource.IndexingPolicy = newPolicy;
+                        await container.ReplaceContainerAsync(cProps.Resource);
+                        await Task.Delay(3000); // wait for the indexing policy to be applied
+                        return await GetIndexPolicy(dbName, cName);
+                    }
+                }
+            }
+            else {
+                Console.WriteLine(
+                    $"CosmosNoSqlUtil#UpdateIndexPolicy - failed to deserialize IndexingPolicy from file: {idxPolicyFile}");
+            }
+        }
+
+        return null;
+    }
+
 }
 
 /**
 Python class CosmosNoSqlUtil method signatures:
-async def close(self):
-async def create_database(self, dbname, db_level_throughput=0):
-async def delete_database(self, dbname):
-async def delete_container(self, cname):
-async def create_container(self, cname: str, c_ru: int, pkpath: str):
+
 async def list_databases(self):
-def set_db(self, dbname):
-def get_current_dbname(self):
-def get_current_cname(self):
-def set_container(self, cname):
-def get_database_link(self):
+
 async def get_database_throughput(self):
-def get_container_link(self):
 async def get_container_throughput(self):
 async def get_container_properties(self) -> dict:
 async def list_containers(self):
