@@ -49,8 +49,8 @@ class Program
                 return await CosmosBulkLoadContainer(args);
             case "cosmos_queries":
                 return await CosmosQueries(args);
-            case "cosmos_test":
-                return await CosmosTest(args);
+            case "cosmos_smoketest":
+                return await CosmosSmokeTest(args);
             default:
                 Console.WriteLine("Undefined function given on command-line; " + func);
                 Console.WriteLine("Command-line examples:");
@@ -62,7 +62,7 @@ class Program
                 Console.WriteLine("  dotnet run cosmos_seq_load_libraries");
                 Console.WriteLine("  dotnet run cosmos_bulk_load_libraries");
                 Console.WriteLine("  dotnet run cosmos_queries");
-                Console.WriteLine("  dotnet run cosmos_test");
+                Console.WriteLine("  dotnet run cosmos_smoketest");
                 break;
         }
         return 1;
@@ -349,14 +349,15 @@ class Program
         return returnCode;
     }
 
-    static async Task<int> CosmosTest(string[] args)
+    static async Task<int> CosmosSmokeTest(string[] args)
     {
-        // TODO - implement
         await Task.Delay(1);
         int returnCode = 1;
         CosmosNoSqlUtil? cosmosUtil = null;
         string testDbName = "test" + App.Core.Env.Epoch();
         Console.WriteLine("testDbName: " + testDbName);
+        ContainerResponse? cResp = null;
+        HttpStatusCode? statusCode = null;
         
         try {
             Console.WriteLine("CosmosNoSqlUtil constructor...");
@@ -382,22 +383,30 @@ class Program
             Console.WriteLine("GetCurrentDatabaseName: " + cosmosUtil.GetCurrentDatabaseName());
             
             Console.WriteLine("Creating container c1 in database " + testDbName);
-            ContainerResponse? cResp1 = 
-                await cosmosUtil.CreateContainerAsync(testDbName, "c1");
-            if (cResp1 != null) {
-                Console.WriteLine("Container created: " + cResp1.Resource.Id);
-                Console.WriteLine("Container StatusCode: " + cResp1.StatusCode);
+            cResp = await cosmosUtil.CreateContainerAsync(testDbName, "c1");
+            if (cResp != null) {
+                Console.WriteLine("Container created: " + cResp.Resource.Id);
+                Console.WriteLine("Container StatusCode: " + cResp.StatusCode);
             }
             else {
                 Console.WriteLine("Container c1 creation failed.");
             }
             
+            Console.WriteLine("Creating container c2 in database " + testDbName);
+            cResp = await cosmosUtil.CreateContainerAsync(testDbName, "c2");
+            if (cResp != null) {
+                Console.WriteLine("Container created: " + cResp.Resource.Id);
+                Console.WriteLine("Container StatusCode: " + cResp.StatusCode);
+            }
+            else {
+                Console.WriteLine("Container c3 creation failed.");
+            }
+            
             Console.WriteLine("Creating container v1 in database " + testDbName);
-            ContainerResponse? cResp2 = 
-                await cosmosUtil.CreateContainerWithVectorIndexAsync(testDbName, "v1");
-            if (cResp2 != null) {
-                Console.WriteLine("Container created: " + cResp2.Resource.Id);
-                Console.WriteLine("Container StatusCode: " + cResp2.StatusCode);
+            cResp = await cosmosUtil.CreateContainerWithVectorIndexAsync(testDbName, "v1");
+            if (cResp != null) {
+                Console.WriteLine("Container created: " + cResp.Resource.Id);
+                Console.WriteLine("Container StatusCode: " + cResp.StatusCode);
             }
             else {
                 Console.WriteLine("Container v1 creation failed.");
@@ -424,7 +433,41 @@ class Program
             else {
                 Console.WriteLine("IndexingPolicy for v1 is null");
             }
+            
+            Console.WriteLine("SetCurrentDatabaseAsync to: c1");
+            await cosmosUtil.SetCurrentContainerAsync(testDbName, "c1");
+            Console.WriteLine("GetCurrentContainerName: " + cosmosUtil.GetCurrentContainerName());
 
+            var neighborhoods = new List<String>() { "river_run", "st_albans", "lake" };
+            var restaurants = new Dictionary<string, int>
+            {
+                ["Brickhouse"] = 91,
+                ["Sabi"] = 83,
+                ["KingCanary"] = 77
+            };
+            var attractions = new Dictionary<string, object>
+            {
+                ["neighborhoods"] = neighborhoods,
+                ["restaurants"] = restaurants
+            };
+            
+            Dictionary<string, object> doc1 = new Dictionary<string, object>();
+            var pk = "NC";
+            doc1.Add("id", Guid.NewGuid().ToString());
+            doc1.Add("pk", pk);
+            doc1.Add("city", "Davidson");
+            doc1.Add("population", 9876);
+            doc1.Add("lat", 35.492543);
+            doc1.Add("lng", -80.854912);
+            doc1.Add("attractions", attractions);
+            ItemResponse<dynamic>? resp = await cosmosUtil.UpsertItemAsync(doc1, pk, null);
+            if (resp != null) {
+                Console.WriteLine("UpsertItemAsync returned: " + resp.StatusCode);
+                //Console.WriteLine("UpsertItemAsync item: " + JsonSerializer.Serialize(resp));
+            }
+            
+            statusCode = await cosmosUtil.DeleteContainerAsync(testDbName, "c2");
+            Console.WriteLine("DeleteContainerAsync c2 returned: " + statusCode);
         }
         catch (Exception ex) {
             Console.WriteLine("Exception in CosmosTest: " + ex.Message);
@@ -434,11 +477,8 @@ class Program
         }
         finally {
             if (cosmosUtil != null) {
-                Console.WriteLine("Pausing for 60 seconds before deleting the test database...");
+                Console.WriteLine("Pausing for 60 seconds before deleting the test database: " + testDbName);
                 await Task.Delay(60 * 1000);
-                
-                HttpStatusCode? statusCode = await cosmosUtil.DeleteContainerAsync(testDbName, "c1");
-                Console.WriteLine("DeleteContainerAsync c1 returned: " + statusCode);
                 
                 statusCode = await cosmosUtil.DeleteDatabaseAsync(testDbName);
                 Console.WriteLine("DeleteDatabaseAsync returned: " + statusCode);

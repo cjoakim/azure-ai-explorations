@@ -10,6 +10,9 @@ using Azure.ResourceManager.CosmosDB.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
+using System.Runtime.InteropServices.Swift;
+
+using Newtonsoft.Json.Linq;
 
 namespace App.DB;
 
@@ -286,7 +289,7 @@ public class CosmosNoSqlUtil {
         if (cosmosClient != null) {
             Database? db = await GetDatabaseAsync(dbName);
             if (db != null) {
-                Container c = db.GetContainer("containerId");
+                Container c = db.GetContainer(cName);
                 ContainerResponse resp = await c.DeleteContainerAsync();
                 return resp.StatusCode;
             }
@@ -336,25 +339,51 @@ public class CosmosNoSqlUtil {
         return null;
     }
 
+    //  ========== CRUD Methods  ==========
+
+    public async Task<ItemResponse<dynamic>?> UpsertItemAsync(dynamic doc, string pk, ItemRequestOptions? options) {
+        await Task.Delay(1);
+
+        if (cosmosClient == null) return null;
+        if (currentContainer == null) return null;
+
+        try {
+            if (options == null) {
+                return await currentContainer.UpsertItemAsync<dynamic>(
+                    item: doc,
+                    partitionKey: new PartitionKey(pk)
+                );
+            }
+            else {
+                return await currentContainer.UpsertItemAsync<dynamic>(
+                    item: doc,
+                    partitionKey: new PartitionKey(pk),
+                    requestOptions: options
+                );
+            }
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+        }
+        return null;
+    }
+
 }
 
 /**
 Python class CosmosNoSqlUtil method signatures:
 
-async def list_databases(self):
-
-async def get_database_throughput(self):
-async def get_container_throughput(self):
-async def get_container_properties(self) -> dict:
-async def list_containers(self):
 async def point_read(self, id, pk):
 async def create_item(self, doc):
 async def upsert_item(self, doc):
 async def delete_item(self, id, pk):
 async def count_documents(self):
 async def execute_item_batch(self, item_operations: list, pk: str):
+
 async def query_items(self, sql, cross_partition=False, pk=None, max_items=100):
 async def parameterized_query(
-def last_response_headers(self) -> dict:
-def last_request_charge(self):
+
+async def get_database_throughput(self):
+async def get_container_throughput(self):
+async def get_container_properties(self) -> dict:
 */
