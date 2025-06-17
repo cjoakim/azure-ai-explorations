@@ -129,7 +129,33 @@ public class CosmosNoSqlUtil {
 
         return null;
     }
-    
+
+    /**
+    * Create a Cosmos DB NoSQL container per the given parameters.
+    * See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/how-to-dotnet-vector-index-query
+    */
+    public async Task<ContainerResponse?> CreateContainerAsync(
+        string dbName, 
+        string cName, 
+        string pkPath = "/pk", 
+        int    throughput = 4000
+    ) {
+        
+        if (cosmosClient == null) return null;
+        Database? db = await GetDatabaseAsync(dbName);
+        if (db != null) {
+            ContainerProperties containerProperties = new ContainerProperties(
+                id: cName, partitionKeyPath: pkPath);
+            
+            ThroughputProperties throughputProperties = 
+                ThroughputProperties.CreateAutoscaleThroughput(throughput); 
+            containerProperties.IndexingPolicy.IncludedPaths.Add(new IncludedPath { Path = "/*" });    
+
+            return await db.CreateContainerAsync(containerProperties, throughputProperties);
+        }
+        return null;
+
+    }
     /**
     * Create a Cosmos DB NoSQL container with vector index per the given parameters.
     * See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/how-to-dotnet-vector-index-query
@@ -175,7 +201,6 @@ public class CosmosNoSqlUtil {
                 break;
         }
         
-        // https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/how-to-dotnet-vector-index-query
         Database? db = await GetDatabaseAsync(dbName);
         if (db != null) {
             List<Embedding> embeddingList = new List<Embedding>() {

@@ -39,6 +39,8 @@ class Program
                 return await CosmosGetIndexPolicy(args);
             case "cosmos_update_index_policy":
                 return await CosmosUpdateIndexPolicy(args);
+            case "cosmos_create_container":
+                return await CosmosCreateContainer(args);
             case "cosmos_create_container_with_vector_index":
                 return await CosmosCreateContainerWithVectorIndex(args);
             case "cosmos_seq_load_libraries":
@@ -52,6 +54,7 @@ class Program
                 Log("Command-line examples:");
                 Log("  dotnet run azure_env");
                 Log("  dotnet run cosmos_get_index_policy");
+                Log("  dotnet run cosmos_create_container");
                 Log("  dotnet run cosmos_create_container_with_vector_index");
                 Log("  dotnet run cosmos_update_index_policy");
                 Log("  dotnet run cosmos_seq_load_libraries");
@@ -172,6 +175,50 @@ class Program
 
     }
 
+    
+    /**
+     * Create a Cosmos DB NoSQL container.
+     * The parameters are read from environment variables, some have sensible defaults.
+     */
+    static async Task<int> CosmosCreateContainer(string[] args) {
+        await Task.Delay(1);
+        int returnCode = 1;
+        CosmosNoSqlUtil? cosmosUtil = null;
+
+        try {
+            cosmosUtil = new CosmosNoSqlUtil();
+            var dbName = Env.EnvVar("AZURE_COSMOSDB_NOSQL_DATABASE", "?");
+            var cName  = Env.EnvVar("AZURE_COSMOSDB_NOSQL_CONTAINER", "?");
+            var pkPath = Env.EnvVar("AZURE_COSMOSDB_NOSQL_PK_PATH", "/pk");
+            var throughput= Int32.Parse(Env.EnvVar("AZURE_COSMOSDB_NOSQL_CONTAINER_RU", "4000"));
+
+            Console.WriteLine("CosmosCreateVectorContainer parameters:");
+            Console.WriteLine("  dbName:     " + dbName);
+            Console.WriteLine("  cName:      " + cName);
+            Console.WriteLine("  pkPath:     " + pkPath);
+            Console.WriteLine("  throughput: " + throughput);
+
+            ContainerResponse? resp = await cosmosUtil.CreateContainerAsync(
+                dbName, cName, pkPath, throughput);
+
+            if (resp != null) {
+                Console.WriteLine("Response StatusCode: " + resp.StatusCode);
+                if (resp.StatusCode < HttpStatusCode.Ambiguous) {  // Ambiguous = 300
+                    returnCode = 0;
+                }
+            }
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+        }
+        return returnCode;
+    }
+    
+    
+    
+    
+    
+    
     /**
      * Create a Cosmos DB NoSQL container with vector index.
      * The parameters are read from environment variables, some have sensible defaults.
