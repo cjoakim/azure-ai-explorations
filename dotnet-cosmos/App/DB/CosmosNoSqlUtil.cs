@@ -3,7 +3,12 @@ using App.IO;
 using Azure.Identity;
 using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json;
-
+using Azure.ResourceManager;
+using Azure.ResourceManager.Resources;
+using Azure.ResourceManager.CosmosDB;
+using Azure.ResourceManager.CosmosDB.Models;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 namespace App.DB;
 
 /**
@@ -124,52 +129,86 @@ public class CosmosNoSqlUtil {
 
         return null;
     }
-
-    public async Task<Container?> CreateVectorContainerAsync(
-        string dbName, string containerName, string partitionKeyPath = "/pk", int throughput = 4000) {
+    
+    /**
+    * Create a Cosmos DB NoSQL container with vector index per the given parameters.
+    * See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/how-to-dotnet-vector-index-query
+    */
+    public async Task<ContainerResponse?> CreateContainerWithVectorIndexAsync(
+        string dbName, 
+        string cName, 
+        string pkPath = "/pk", 
+        int    throughput = 4000,
+        string embeddingPath = "/embedding", 
+        int    embeddingDimensions = 1536,
+        string distanceFunction = "cosine",  // "euclidean", "dotproduct", or "cosine"
+        string indexType = "diskann"         // "flat", "quantizedflat", or "diskann"
+        ) {
+        
         if (cosmosClient == null) return null;
 
-        var vectorPolicy = new {
-            path = "/embedding",
-            type = "vector",
-            vectorIndex = new {
-                kind = "diskann",
-                dimensions = 1536 // Set to your vector dimension
-            }
-        };
-
-        var containerProperties = new ContainerProperties(containerName, partitionKeyPath) {
-            IndexingPolicy = new IndexingPolicy {
-                IncludedPaths = {
-                    new IncludedPath { Path = "/*" }
+        string dfName = ("" + distanceFunction).ToLower().Trim();
+        DistanceFunction df = DistanceFunction.Cosine;
+        switch (dfName) {
+            case "euclidean":
+                df = DistanceFunction.Euclidean;
+                break;
+            case "dotproduct":
+                df = DistanceFunction.DotProduct;
+                break;
+            default:
+                df = DistanceFunction.Cosine;
+                break;
+        }
+        
+        string indexTypeName = ("" + indexType).ToLower().Trim();
+        VectorIndexType vIdxType = VectorIndexType.DiskANN;
+        switch (indexTypeName) {
+            case "flat":
+                vIdxType = VectorIndexType.Flat;
+                break;
+            case "quantizedflat":
+                vIdxType = VectorIndexType.QuantizedFlat;
+                break;
+            default:
+                vIdxType = VectorIndexType.DiskANN;
+                break;
+        }
+        
+        // https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/how-to-dotnet-vector-index-query
+        Database? db = await GetDatabaseAsync(dbName);
+        if (db != null) {
+            List<Embedding> embeddingList = new List<Embedding>() {
+                new Embedding() {
+                    Path = embeddingPath,
+                    DataType = VectorDataType.Float32,
+                    DistanceFunction = df,
+                    Dimensions = embeddingDimensions
+                }
+            };
+            
+            Collection<Embedding> collection = new Collection<Embedding>(embeddingList);
+            ContainerProperties containerProperties = new ContainerProperties(
+                id: cName, partitionKeyPath: pkPath) {   
+                VectorEmbeddingPolicy = new(collection),
+                IndexingPolicy = new IndexingPolicy() {
+                    VectorIndexes = new() {
+                        new VectorIndexPath() {
+                            Path = embeddingPath,
+                            Type = vIdxType,
+                        }
+                    }
                 },
-                ExcludedPaths = {
-                    new ExcludedPath { Path = "/\"_etag\"/?" }
-                },
-                // Add the vector policy as a raw JSON extension
-                // (since SDK may not have first-class support yet)
-                // This requires using the latest SDK and may need to use RawResource
-            }
-        };
-
-        // Add the vector policy as a raw JSON extension if needed
-        // (workaround for SDK limitations)
-        //string json = Newtonsoft.Json.JsonConvert.SerializeObject(containerProperties);
-        //dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
-        //jsonObj.indexingPolicy.vectorIndexes = new[] { vectorPolicy };
-        //string rawJson = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObj);
-
-        Database db = cosmosClient.GetDatabase(dbName);
-        ContainerResponse response = await db.CreateContainerIfNotExistsAsync(
-            new ContainerProperties(containerName, partitionKeyPath),
-            throughput: throughput,
-            requestOptions: new ContainerRequestOptions {
-                
-                // Use RawResource if SDK supports it, otherwise use REST API
-                // This is a placeholder for the actual implementation
-            }
-        );
-        return response.Container;
+            };
+            
+            ThroughputProperties throughputProperties = 
+                ThroughputProperties.CreateAutoscaleThroughput(throughput); 
+            containerProperties.IndexingPolicy.IncludedPaths.Add(new IncludedPath { Path = "/*" });    
+            containerProperties.IndexingPolicy.ExcludedPaths.Add(new ExcludedPath { Path = embeddingPath + "/*" });
+            
+            return await db.CreateContainerAsync(containerProperties, throughputProperties);
+        }
+        return null;
     }
 }
 

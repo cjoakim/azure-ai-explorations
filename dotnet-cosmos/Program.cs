@@ -1,4 +1,5 @@
 ﻿
+using System.Net;
 using DotNetEnv;
 
 using System.Text.Json;
@@ -23,7 +24,10 @@ class Program
         await Task.Delay(1);
         DotNetEnv.Env.Load();
         cliArgs = args;
-        string func = args[0].ToLower();
+        string func = "none";
+        if (args.Length > 0) {
+            func = args[0].ToLower();
+        }
         Log("Program run function: " + func);
         
         switch (func)
@@ -35,8 +39,8 @@ class Program
                 return await CosmosGetIndexPolicy(args);
             case "cosmos_update_index_policy":
                 return await CosmosUpdateIndexPolicy(args);
-            case "cosmos_create_container":
-                return await CosmosCreateContainer(args);
+            case "cosmos_create_container_with_vector_index":
+                return await CosmosCreateContainerWithVectorIndex(args);
             case "cosmos_seq_load_libraries":
                 return await CosmosSeqLoadContainer(args);
             case "cosmos_bulk_load_container":
@@ -48,6 +52,7 @@ class Program
                 Log("Command-line examples:");
                 Log("  dotnet run azure_env");
                 Log("  dotnet run cosmos_get_index_policy");
+                Log("  dotnet run cosmos_create_container_with_vector_index");
                 Log("  dotnet run cosmos_update_index_policy");
                 Log("  dotnet run cosmos_seq_load_libraries");
                 Log("  dotnet run cosmos_bulk_load_libraries");
@@ -167,7 +172,11 @@ class Program
 
     }
 
-    static async Task<int> CosmosCreateContainer(string[] args) {
+    /**
+     * Create a Cosmos DB NoSQL container with vector index.
+     * The parameters are read from environment variables, some have sensible defaults.
+     */
+    static async Task<int> CosmosCreateContainerWithVectorIndex(string[] args) {
         await Task.Delay(1);
         int returnCode = 1;
         CosmosNoSqlUtil? cosmosUtil = null;
@@ -176,14 +185,34 @@ class Program
             cosmosUtil = new CosmosNoSqlUtil();
             var dbName = Env.EnvVar("AZURE_COSMOSDB_NOSQL_DATABASE", "?");
             var cName  = Env.EnvVar("AZURE_COSMOSDB_NOSQL_CONTAINER", "?");
-            var idxPolicyFile = Env.EnvVar(
-                "AZURE_COSMOSDB_NOSQL_INDEX_POLICY_FILE", "cosmos/index-policy.json");
-            Console.WriteLine("dbName: " + dbName);
-            Console.WriteLine("cName:  " + cName);
-            Console.WriteLine("idxPolicyFile: " + idxPolicyFile);
+            var pkPath = Env.EnvVar("AZURE_COSMOSDB_NOSQL_PK_PATH", "/pk");
+            var throughput= Int32.Parse(Env.EnvVar("AZURE_COSMOSDB_NOSQL_CONTAINER_RU", "4000"));
+            var embeddingPath = Env.EnvVar("AZURE_COSMOSDB_NOSQL_EMBEDDING_PATH", "/embedding");
+            var embeddingDimensions= Int32.Parse(Env.EnvVar("AZURE_COSMOSDB_NOSQL_EMBEDDING_DIMENSIONS", "1536"));
+            var distanceFunction = Env.EnvVar("AZURE_COSMOSDB_NOSQL_DISTANCE_FUNCTION", "cosine");
+            var indexType = Env.EnvVar("AZURE_COSMOSDB_NOSQL_VECTOR_INDEX_TYPE", "diskann");
             
-            Container? ip = await cosmosUtil.CreateVectorContainerAsync(dbName, cName);
-            returnCode = 0;
+            Console.WriteLine("CosmosCreateVectorContainer parameters:");
+            Console.WriteLine("  dbName:              " + dbName);
+            Console.WriteLine("  cName:               " + cName);
+            Console.WriteLine("  pkPath:              " + pkPath);
+            Console.WriteLine("  throughput:          " + throughput);
+            Console.WriteLine("  embeddingPath:       " + embeddingPath);
+            Console.WriteLine("  embeddingDimensions: " + embeddingDimensions);
+            Console.WriteLine("  distanceFunction:    " + distanceFunction);
+            Console.WriteLine("  indexType:           " + indexType);
+
+            ContainerResponse? resp = await cosmosUtil.CreateContainerWithVectorIndexAsync(
+                dbName, cName, pkPath, throughput, 
+                embeddingPath, embeddingDimensions,
+                distanceFunction, indexType);
+
+            if (resp != null) {
+                Console.WriteLine("Response StatusCode: " + resp.StatusCode);
+                if (resp.StatusCode < HttpStatusCode.Ambiguous) {  // Ambiguous = 300
+                    returnCode = 0;
+                }
+            }
         }
         catch (Exception e) {
             Console.WriteLine(e);
