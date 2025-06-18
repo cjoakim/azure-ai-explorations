@@ -459,7 +459,8 @@ class Program
             
             Dictionary<string, object> doc1 = new Dictionary<string, object>();
             var pk = "NC";
-            doc1.Add("id", Guid.NewGuid().ToString());
+            var id1 = Guid.NewGuid().ToString();
+            doc1.Add("id", id1);
             doc1.Add("pk", pk);
             doc1.Add("city", "Davidson");
             doc1.Add("population", 9876);
@@ -488,6 +489,32 @@ class Program
                 Console.WriteLine("PointReadAsync Resource:\n" + AsJson(pointReadResp.Resource));
             }
             
+            string sql = "SELECT * FROM c WHERE c.pk = 'NC' and c.city = \"Davidson\"";
+            Console.WriteLine("SQL Query 1: " + sql);
+            List<dynamic> docs = await cosmosUtil.Query(sql, "NC");
+            Console.WriteLine("Query Document count: " + docs.Count);
+            docs.ForEach(doc => Console.WriteLine(AsJson(doc)));
+            
+            sql = "SELECT * FROM c WHERE c.city = \"Davidson\"";
+            Console.WriteLine("SQL Query 2: " + sql);
+            docs = await cosmosUtil.Query(sql);
+            Console.WriteLine("Query Document count: " + docs.Count);
+            docs.ForEach(doc => Console.WriteLine(AsJson(doc)));
+            
+            Console.WriteLine("Document count: " + await cosmosUtil.CountDocumentsInCurrentContainer());
+            ItemResponse<dynamic>? deleteResp1 = await cosmosUtil.DeleteItemAsync(id1, pk);
+            if (deleteResp1 != null) {
+                Console.WriteLine("DeleteItemAsync 1 StatusCode:    " + deleteResp1.StatusCode);
+                Console.WriteLine("DeleteItemAsync 1 RequestCharge: " + deleteResp1.RequestCharge);
+            }
+            ItemResponse<dynamic>? deleteResp2 = await cosmosUtil.DeleteItemAsync(id1, pk);
+            if (deleteResp2 != null) {
+                Console.WriteLine("DeleteItemAsync 2 StatusCode:    " + deleteResp2.StatusCode);
+                Console.WriteLine("DeleteItemAsync 2 RequestCharge: " + deleteResp2.RequestCharge);
+            }
+            Console.WriteLine("Document count: " + await cosmosUtil.CountDocumentsInCurrentContainer());
+
+
             statusCode = await cosmosUtil.DeleteContainerAsync(testDbName, "c2");
             Console.WriteLine("DeleteContainerAsync c2 returned: " + statusCode);
         }
@@ -504,7 +531,7 @@ class Program
         return returnCode;
     }
 
-    private static string AsJson(object obj, bool pretty = true) {
+    private static string AsJson(object? obj, bool pretty = true) {
         if (obj == null) {
             return "null";
         }
@@ -515,6 +542,7 @@ class Program
             return JsonConvert.SerializeObject(obj);
         }
     }
+    
     private static bool CliFlagPresent(string flag)
     {
         foreach (string arg in cliArgs)

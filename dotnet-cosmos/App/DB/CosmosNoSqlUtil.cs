@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Runtime.InteropServices.Swift;
-
+using Microsoft.Extensions.Azure;
 using Newtonsoft.Json.Linq;
 
 namespace App.DB;
@@ -68,8 +68,16 @@ public class CosmosNoSqlUtil {
         return currentDatabaseName;
     }
     
+    public Database? GetCurrentDatabase() {
+        return currentDatabase;
+    }
+    
     public string GetCurrentContainerName() {
         return currentContainerName;
+    }
+    
+    public Container? GetCurrentContainer() {
+        return currentContainer;
     }
     
     //  ========== Database Methods  ==========
@@ -184,8 +192,8 @@ public class CosmosNoSqlUtil {
             return await db.CreateContainerAsync(containerProperties, throughputProperties);
         }
         return null;
-
     }
+    
     /**
     * Create a Cosmos DB NoSQL container with vector index per the given parameters.
     * Only the dbName and cName parameters are required; the others have sensible defaults.
@@ -303,7 +311,6 @@ public class CosmosNoSqlUtil {
             IndexingPolicy indexingPolicy = containerResponse.Resource.IndexingPolicy;
             return indexingPolicy;
         }
-
         return null;
     }
     
@@ -333,7 +340,6 @@ public class CosmosNoSqlUtil {
                     $"CosmosNoSqlUtil#UpdateIndexPolicy - failed to deserialize IndexingPolicy from file: {idxPolicyFile}");
             }
         }
-
         return null;
     }
 
@@ -359,11 +365,80 @@ public class CosmosNoSqlUtil {
             }
         }
         catch (Exception e) {
-            Console.WriteLine(e);
+            Console.WriteLine("CosmosNoSqlUtil#UpsertItemAsync - Exception: " + e.Message);
+        }
+        return null;
+    }
+    
+    public async Task<ItemResponse<dynamic>?> DeleteItemAsync(string id, string pk) {
+        if (cosmosClient == null) return null;
+        if (currentContainer == null) return null;
+
+        try {
+            return await currentContainer.DeleteItemAsync<object>(
+                id, new PartitionKey(pk));
+        }
+        catch (Exception e) {
+            Console.WriteLine("CosmosNoSqlUtil#DeleteItemAsync - Exception: " + e.Message);
         }
         return null;
     }
 
+    //  ========== Query Methods  ==========
+
+    /**
+     * Return the number of documents in the current container.
+     */
+    public async Task<int> CountDocumentsInCurrentContainer() {
+        int count = -1;
+        if (currentContainer != null) {
+            try {
+                QueryDefinition query = new QueryDefinition("SELECT VALUE COUNT(1) FROM c");
+                FeedIterator<int> feedIterator = currentContainer.GetItemQueryIterator<int>(query);
+                while (feedIterator.HasMoreResults) {
+                    FeedResponse<int> response = await feedIterator.ReadNextAsync();
+                    count += response.First();
+                }
+            }
+            catch (Exception e) {
+                Console.WriteLine("CosmosNoSqlUtil#CountDocumentsInCurrentContainer - Exception: " + e.Message);
+            }
+        }
+        return count;
+    }
+    
+    public async Task<List<dynamic>> Query(
+        string sql, 
+        string? pk = null,
+        int maxItems = 100,
+        string continuationToken = "") {
+        
+        List<dynamic> documentsList = new List<dynamic>();
+        QueryRequestOptions requestOptions = new QueryRequestOptions() {
+            MaxItemCount = maxItems
+        };
+        if (pk != null) {
+            requestOptions.PartitionKey = new PartitionKey(pk);
+        }
+        
+        if (currentContainer != null) {
+            try {
+                QueryDefinition query = new QueryDefinition(sql);
+                FeedIterator<dynamic> feedIterator = 
+                    currentContainer.GetItemQueryIterator<dynamic>(
+                        query, null, requestOptions);
+                while (feedIterator.HasMoreResults) {
+                    FeedResponse<dynamic> response = await feedIterator.ReadNextAsync();
+                    response.ToList().ForEach(doc => documentsList.Add(doc));
+                }
+            }
+            catch (Exception e) {
+                Console.WriteLine("CosmosNoSqlUtil#Query - Exception: " + e.Message);
+            }
+        }
+        return documentsList;
+    }
+    
     public async Task<ItemResponse<dynamic>?> PointReadAsync(string id, string pk) {
         if (cosmosClient == null) return null;
         if (currentContainer == null) return null;
@@ -384,10 +459,6 @@ public class CosmosNoSqlUtil {
 /**
 Python class CosmosNoSqlUtil method signatures:
 
-async def point_read(self, id, pk):
-async def create_item(self, doc):
-async def upsert_item(self, doc):
-async def delete_item(self, id, pk):
 async def count_documents(self):
 async def execute_item_batch(self, item_operations: list, pk: str):
 
