@@ -3,10 +3,10 @@ using App.IO;
 using Azure.Identity;
 using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json;
-using Azure.ResourceManager;
-using Azure.ResourceManager.Resources;
-using Azure.ResourceManager.CosmosDB;
-using Azure.ResourceManager.CosmosDB.Models;
+//using Azure.ResourceManager;
+//using Azure.ResourceManager.Resources;
+//using Azure.ResourceManager.CosmosDB;
+//using Azure.ResourceManager.CosmosDB.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
@@ -36,6 +36,7 @@ public class CosmosNoSqlUtil {
     public CosmosNoSqlUtil() {
         var authType = Env.EnvVar("AZURE_COSMOSDB_NOSQL_AUTH_TYPE", "key").ToLower();
         var uri = Env.EnvVar("AZURE_COSMOSDB_NOSQL_URI", "None");
+        var opts = new CosmosClientOptions() { AllowBulkExecution = true };
         Console.WriteLine("CosmosNoSqlUtil authType: " + authType);
         Console.WriteLine("CosmosNoSqlUtil uri: " + uri);
 
@@ -43,10 +44,10 @@ public class CosmosNoSqlUtil {
         if (authType.Equals("key")) {
             var key = Env.EnvVar("AZURE_COSMOSDB_NOSQL_KEY", "None");
             Console.WriteLine("CosmosNoSqlUtil key: " + key);
-            cosmosClient = new CosmosClient(uri, key);
+            cosmosClient = new CosmosClient(uri, key, opts);
         }
         else {
-            cosmosClient = new CosmosClient(uri, new DefaultAzureCredential());
+            cosmosClient = new CosmosClient(uri, new DefaultAzureCredential(), opts);
         }
     }
 
@@ -382,6 +383,49 @@ public class CosmosNoSqlUtil {
             Console.WriteLine("CosmosNoSqlUtil#DeleteItemAsync - Exception: " + e.Message);
         }
         return null;
+    }
+
+    /**
+     *
+     * See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/tutorial-dotnet-bulk-import
+     */
+    public async Task<List<HttpStatusCode>?> BulkUpsertDocumentsAsync(
+        List<CosmosDocument> docs, string pkAttr = "pk") {
+        
+        if (cosmosClient == null) return null;
+        if (currentContainer == null) return null;
+        Container container = currentContainer;
+        List<Task> tasks = new List<Task>();
+        List<HttpStatusCode> statusCodes = new List<HttpStatusCode>();
+        
+        try {
+            for (int i = 0; i < docs.Count; i++) {
+                CosmosDocument doc = docs[i];
+                doc.EnsureId();
+                PartitionKey pk = new PartitionKey(doc.GetStringAttribute(pkAttr));
+                Console.WriteLine($"bulk upsert doc: {doc.GetId()} pk: {pk.ToString()}");
+                Task t = container.UpsertItemAsync<CosmosDocument>(doc, pk);
+                //container.UpsertItemAsync()
+                // .ContinueWith(itemResponse => {
+                //     HttpStatusCode statusCode = itemResponse.Result.StatusCode;
+                //     Console.WriteLine($"bulk upsert sc: {statusCode} id: {doc.GetId()}");
+                //     statusCodes.Add(statusCode);
+                // });
+                tasks.Add(t);
+                
+                // tasks.Add(currentContainer.CreateItemAsync(doc, pk).ContinueWith(
+                //     itemResponse => 
+                //         Console.WriteLine($"bulk load sc: {itemResponse.Result.StatusCode}")
+                //         //statusCodes.Add(itemResponse.Result.StatusCode)
+                //         ));
+            }
+            await Task.WhenAll(tasks);
+        }
+        catch (Exception e) {
+            Console.WriteLine("CosmosNoSqlUtil#BulkLoadDocumentsAsync - Exception: " + e.Message);
+            Console.WriteLine(e.StackTrace);
+        }
+        return statusCodes;
     }
 
     //  ========== Query Methods  ==========

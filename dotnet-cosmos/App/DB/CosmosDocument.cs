@@ -11,11 +11,11 @@ using System.Collections.Generic;
  */
 public class CosmosDocument : Dictionary<string, object> {
     public CosmosDocument() : base() {
-        EnsureId();
+        //EnsureId();
     }
 
     public CosmosDocument(IDictionary<string, object> dictionary) : base(dictionary) {
-        EnsureId();
+        //EnsureId();
     }
 
     /**
@@ -42,7 +42,7 @@ public class CosmosDocument : Dictionary<string, object> {
     
     public string GetStringAttribute(string name, string defaultValue = "") {
         if (this.ContainsKey(name)) {
-            return "" + this["id"];
+            return "" + this[name];
         }
         return defaultValue;
     }

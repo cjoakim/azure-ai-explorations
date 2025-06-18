@@ -1,11 +1,15 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Net;
-using DotNetEnv;
-
-//using System.Text.Json;
-    
+using System.Text.Json;
+using System.Threading.Tasks;
 using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json;
+
+using DotNetEnv;
 
 using App.DB;
 using App.Core;
@@ -175,7 +179,6 @@ class Program
         return returnCode;
 
     }
-
     
     /**
      * Create a Cosmos DB NoSQL container.
@@ -214,12 +217,7 @@ class Program
         }
         return returnCode;
     }
-    
-    
-    
-    
-    
-    
+
     /**
      * Create a Cosmos DB NoSQL container with vector index.
      * The parameters are read from environment variables, some have sensible defaults.
@@ -514,7 +512,26 @@ class Program
             }
             Console.WriteLine("Document count: " + await cosmosUtil.CountDocumentsInCurrentContainer());
 
-
+            await cosmosUtil.SetCurrentContainerAsync(testDbName, "c1");
+            List<CosmosDocument> bulkLoadDocs = new List<CosmosDocument>();
+            for (int i = 1; i <= 3; i++) {
+                CosmosDocument doc = new CosmosDocument();
+                if (i <= 10) {
+                    doc["pk"] = "NC";
+                }
+                else {
+                    doc["pk"] = "NC";
+                }
+                doc["city"] = "TestCity" + i;
+                doc["population"] = 1000 + i;
+                doc.EnsureId();
+                bulkLoadDocs.Add(doc);
+            }
+            Console.WriteLine("Bulk loading " + bulkLoadDocs.Count + " documents into container c1");
+            List<HttpStatusCode>? statusCodes = 
+                await cosmosUtil.BulkUpsertDocumentsAsync(bulkLoadDocs, "pk");
+            Console.WriteLine(AsJson(statusCodes));
+            
             statusCode = await cosmosUtil.DeleteContainerAsync(testDbName, "c2");
             Console.WriteLine("DeleteContainerAsync c2 returned: " + statusCode);
         }

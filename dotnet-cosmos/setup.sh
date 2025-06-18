@@ -17,6 +17,7 @@ dotnet add package DotNetEnv
 
 dotnet add package Azure.Identity 
 dotnet add package Azure.ResourceManager.CosmosDB
+dotnet add package Microsoft.Azure.CosmosDB.BulkExecutor --version 1.8.9
 
 dotnet list package
 
