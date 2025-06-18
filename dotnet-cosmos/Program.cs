@@ -2,9 +2,10 @@
 using System.Net;
 using DotNetEnv;
 
-using System.Text.Json;
+//using System.Text.Json;
     
 using Microsoft.Azure.Cosmos;
+using Newtonsoft.Json;
 
 using App.DB;
 using App.Core;
@@ -97,8 +98,7 @@ class Program
             IndexingPolicy? ip = await cosmosUtil.GetIndexPolicy(dbName, cName);
             if (ip != null) {
                 Console.WriteLine("ip: " + ip.GetType().Name);
-                string jstr = JsonSerializer.Serialize(
-                    ip, new JsonSerializerOptions { WriteIndented = true });
+                string jstr = AsJson(ip);
                 Console.Write("===");
                 Console.WriteLine("Current IndexingPolicy for " + dbName + "." + cName + ":");
                 Console.WriteLine(jstr);
@@ -142,8 +142,7 @@ class Program
             
             IndexingPolicy? ip0 = await cosmosUtil.GetIndexPolicy(dbName, cName);
             if (ip0 != null) {
-                string jstr = JsonSerializer.Serialize(
-                    ip0, new JsonSerializerOptions { WriteIndented = true });
+                string jstr = AsJson(ip0);
                 Console.Write("===");
                 Console.WriteLine("Current IndexingPolicy for " + dbName + "." + cName + ":");
                 Console.WriteLine(jstr);
@@ -151,8 +150,7 @@ class Program
             
             IndexingPolicy? ip2 = await cosmosUtil.UpdateIndexPolicy(dbName, cName, idxPolicyFile);
             if (ip2 != null) {
-                string jstr = JsonSerializer.Serialize(
-                    ip2, new JsonSerializerOptions { WriteIndented = true });
+                string jstr = AsJson(ip2);
                 Console.Write("===");
                 Console.WriteLine("Updated IndexingPolicy for " + dbName + "." + cName + ":");
                 Console.WriteLine(jstr);
@@ -354,7 +352,7 @@ class Program
         await Task.Delay(1);
         int returnCode = 1;
         CosmosNoSqlUtil? cosmosUtil = null;
-        string testDbName = "test" + App.Core.Env.Epoch();
+        string testDbName = "smoketest"; // ""test" + App.Core.Env.Epoch();
         Console.WriteLine("testDbName: " + testDbName);
         ContainerResponse? cResp = null;
         HttpStatusCode? statusCode = null;
@@ -362,6 +360,16 @@ class Program
         try {
             Console.WriteLine("CosmosNoSqlUtil constructor...");
             cosmosUtil = new CosmosNoSqlUtil();
+
+            try {
+                statusCode = await cosmosUtil.DeleteDatabaseAsync(testDbName);
+                Console.WriteLine("DeleteDatabaseAsync returned: " + statusCode);
+                await Task.Delay(2000);
+            }
+            catch (Exception ex) {
+                // ignore the exception if the database does not exist
+                Console.WriteLine("Exception in DeleteDatabaseAsync: " + ex.Message);
+            }
             
             Console.WriteLine("CreateDatabaseAsync: " + testDbName);
             await cosmosUtil.CreateDatabaseAsync(testDbName);
@@ -385,8 +393,8 @@ class Program
             Console.WriteLine("Creating container c1 in database " + testDbName);
             cResp = await cosmosUtil.CreateContainerAsync(testDbName, "c1");
             if (cResp != null) {
-                Console.WriteLine("Container created: " + cResp.Resource.Id);
-                Console.WriteLine("Container StatusCode: " + cResp.StatusCode);
+                Console.WriteLine("Container Resource.Id: " + cResp.Resource.Id);
+                Console.WriteLine("Container StatusCode:  " + cResp.StatusCode);
             }
             else {
                 Console.WriteLine("Container c1 creation failed.");
@@ -395,8 +403,8 @@ class Program
             Console.WriteLine("Creating container c2 in database " + testDbName);
             cResp = await cosmosUtil.CreateContainerAsync(testDbName, "c2");
             if (cResp != null) {
-                Console.WriteLine("Container created: " + cResp.Resource.Id);
-                Console.WriteLine("Container StatusCode: " + cResp.StatusCode);
+                Console.WriteLine("Container Resource.Id: " + cResp.Resource.Id);
+                Console.WriteLine("Container StatusCode:  " + cResp.StatusCode);
             }
             else {
                 Console.WriteLine("Container c3 creation failed.");
@@ -405,8 +413,8 @@ class Program
             Console.WriteLine("Creating container v1 in database " + testDbName);
             cResp = await cosmosUtil.CreateContainerWithVectorIndexAsync(testDbName, "v1");
             if (cResp != null) {
-                Console.WriteLine("Container created: " + cResp.Resource.Id);
-                Console.WriteLine("Container StatusCode: " + cResp.StatusCode);
+                Console.WriteLine("Container Resource.Id: " + cResp.Resource.Id);
+                Console.WriteLine("Container StatusCode:  " + cResp.StatusCode);
             }
             else {
                 Console.WriteLine("Container v1 creation failed.");
@@ -426,35 +434,32 @@ class Program
             IndexingPolicy? idxPolicy = await cosmosUtil.GetIndexPolicy(testDbName, "v1");
             if (idxPolicy != null) {
                 Console.WriteLine("IndexingPolicy for v1: " + idxPolicy.GetType().Name);
-                string jstr = JsonSerializer.Serialize(
-                    idxPolicy, new JsonSerializerOptions { WriteIndented = true });
+                string jstr = AsJson(idxPolicy);
                 Console.WriteLine("IndexingPolicy JSON: " + jstr);
             }
             else {
                 Console.WriteLine("IndexingPolicy for v1 is null");
             }
             
-            Console.WriteLine("SetCurrentDatabaseAsync to: c1");
+            Console.WriteLine("SetCurrentContainerAsync to: c1");
             await cosmosUtil.SetCurrentContainerAsync(testDbName, "c1");
             Console.WriteLine("GetCurrentContainerName: " + cosmosUtil.GetCurrentContainerName());
 
+            // Create a document with nested objects
             var neighborhoods = new List<String>() { "river_run", "st_albans", "lake" };
-            var restaurants = new Dictionary<string, int>
-            {
+            var restaurants = new Dictionary<string, int> {
                 ["Brickhouse"] = 91,
                 ["Sabi"] = 83,
                 ["KingCanary"] = 77
             };
-            var attractions = new Dictionary<string, object>
-            {
+            var attractions = new Dictionary<string, object> {
                 ["neighborhoods"] = neighborhoods,
                 ["restaurants"] = restaurants
             };
             
             Dictionary<string, object> doc1 = new Dictionary<string, object>();
-            //CosmosDocument doc1 = new CosmosDocument();
             var pk = "NC";
-            //doc1.Add("id", Guid.NewGuid().ToString());
+            doc1.Add("id", Guid.NewGuid().ToString());
             doc1.Add("pk", pk);
             doc1.Add("city", "Davidson");
             doc1.Add("population", 9876);
@@ -464,12 +469,23 @@ class Program
             
             CosmosDocument doc2 = new CosmosDocument(doc1);
             doc2.EnsureId();
+            doc2.SetId();
             Console.WriteLine("CosmosDocument HasAttribute pk: " + doc2.HasAttribute("pk"));
             Console.WriteLine("CosmosDocument HasAttribute xx: " + doc2.HasAttribute("xx"));
-            ItemResponse<dynamic>? resp = await cosmosUtil.UpsertItemAsync(doc2, pk, null);
-            if (resp != null) {
-                Console.WriteLine("UpsertItemAsync returned: " + resp.StatusCode);
-                //Console.WriteLine("UpsertItemAsync item: " + JsonSerializer.Serialize(resp));
+            ItemResponse<dynamic>? itemResp = await cosmosUtil.UpsertItemAsync(doc1, pk, null);
+            itemResp = await cosmosUtil.UpsertItemAsync(doc2, pk, null);
+            if (itemResp != null) {
+                Console.WriteLine("UpsertItemAsync StatusCode:    " + itemResp.StatusCode);
+                Console.WriteLine("UpsertItemAsync RequestCharge: " + itemResp.RequestCharge);
+                Console.WriteLine("UpsertItemAsync Resource:\n" + AsJson(itemResp.Resource));
+            }
+            
+            string id = doc2.GetId();
+            ItemResponse<dynamic>? pointReadResp = await cosmosUtil.PointReadAsync(id, pk);
+            if (pointReadResp != null) {
+                Console.WriteLine("PointReadAsync StatusCode:    " + pointReadResp.StatusCode);
+                Console.WriteLine("PointReadAsync RequestCharge: " + pointReadResp.RequestCharge);
+                Console.WriteLine("PointReadAsync Resource:\n" + AsJson(pointReadResp.Resource));
             }
             
             statusCode = await cosmosUtil.DeleteContainerAsync(testDbName, "c2");
@@ -479,21 +495,26 @@ class Program
             Console.WriteLine("Exception in CosmosTest: " + ex.Message);
             Console.WriteLine(ex.StackTrace);
             returnCode = 1;
-            
         }
         finally {
             if (cosmosUtil != null) {
-                Console.WriteLine("Pausing for 60 seconds before deleting the test database: " + testDbName);
-                await Task.Delay(60 * 1000);
-                
-                statusCode = await cosmosUtil.DeleteDatabaseAsync(testDbName);
-                Console.WriteLine("DeleteDatabaseAsync returned: " + statusCode);
                 cosmosUtil.Close();
             }
         }
         return returnCode;
     }
 
+    private static string AsJson(object obj, bool pretty = true) {
+        if (obj == null) {
+            return "null";
+        }
+        if (pretty) {
+            return JsonConvert.SerializeObject(obj, Formatting.Indented);  
+        }
+        else {
+            return JsonConvert.SerializeObject(obj);
+        }
+    }
     private static bool CliFlagPresent(string flag)
     {
         foreach (string arg in cliArgs)

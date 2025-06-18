@@ -163,6 +163,7 @@ public class CosmosNoSqlUtil {
     
     /**
     * Create a Cosmos DB NoSQL container per the given parameters.
+    * Only the dbName and cName parameters are required; the others have sensible defaults.
     * See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/how-to-dotnet-vector-index-query
     */
     public async Task<ContainerResponse?> CreateContainerAsync(
@@ -171,17 +172,15 @@ public class CosmosNoSqlUtil {
         string pkPath = "/pk", 
         int    throughput = 4000
     ) {
-        
         if (cosmosClient == null) return null;
+        
         Database? db = await GetDatabaseAsync(dbName);
         if (db != null) {
             ContainerProperties containerProperties = new ContainerProperties(
                 id: cName, partitionKeyPath: pkPath);
-            
             ThroughputProperties throughputProperties = 
                 ThroughputProperties.CreateAutoscaleThroughput(throughput); 
             containerProperties.IndexingPolicy.IncludedPaths.Add(new IncludedPath { Path = "/*" });    
-
             return await db.CreateContainerAsync(containerProperties, throughputProperties);
         }
         return null;
@@ -189,6 +188,7 @@ public class CosmosNoSqlUtil {
     }
     /**
     * Create a Cosmos DB NoSQL container with vector index per the given parameters.
+    * Only the dbName and cName parameters are required; the others have sensible defaults.
     * See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/how-to-dotnet-vector-index-query
     */
     public async Task<ContainerResponse?> CreateContainerWithVectorIndexAsync(
@@ -201,9 +201,8 @@ public class CosmosNoSqlUtil {
         string distanceFunction = "cosine",  // "euclidean", "dotproduct", or "cosine"
         string indexType = "diskann"         // "flat", "quantizedflat", or "diskann"
         ) {
-        
         if (cosmosClient == null) return null;
-
+        
         string dfName = ("" + distanceFunction).ToLower().Trim();
         DistanceFunction df = DistanceFunction.Cosine;
         switch (dfName) {
@@ -242,7 +241,6 @@ public class CosmosNoSqlUtil {
                     Dimensions = embeddingDimensions
                 }
             };
-            
             Collection<Embedding> collection = new Collection<Embedding>(embeddingList);
             ContainerProperties containerProperties = new ContainerProperties(
                 id: cName, partitionKeyPath: pkPath) {   
@@ -342,8 +340,6 @@ public class CosmosNoSqlUtil {
     //  ========== CRUD Methods  ==========
 
     public async Task<ItemResponse<dynamic>?> UpsertItemAsync(dynamic doc, string pk, ItemRequestOptions? options) {
-        await Task.Delay(1);
-
         if (cosmosClient == null) return null;
         if (currentContainer == null) return null;
 
@@ -361,6 +357,21 @@ public class CosmosNoSqlUtil {
                     requestOptions: options
                 );
             }
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+        }
+        return null;
+    }
+
+    public async Task<ItemResponse<dynamic>?> PointReadAsync(string id, string pk) {
+        if (cosmosClient == null) return null;
+        if (currentContainer == null) return null;
+        try {
+            return await currentContainer.ReadItemAsync<dynamic>(
+                id: id,
+                partitionKey: new PartitionKey(pk)
+            );
         }
         catch (Exception e) {
             Console.WriteLine(e);
