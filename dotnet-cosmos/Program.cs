@@ -514,9 +514,9 @@ class Program
 
             await cosmosUtil.SetCurrentContainerAsync(testDbName, "c1");
             List<CosmosDocument> bulkLoadDocs = new List<CosmosDocument>();
-            for (int i = 1; i <= 40; i++) {
+            for (int i = 1; i <= 1000; i++) {
                 CosmosDocument doc = new CosmosDocument();
-                if (i <= 10) {
+                if (i <= 25) {
                     doc["pk"] = "NC";
                 }
                 else {
@@ -531,6 +531,7 @@ class Program
             List<Dictionary<string, object>> results = 
                 await cosmosUtil.BulkUpsertDocumentsAsync(bulkLoadDocs, "pk");
             Console.WriteLine(AsJson(results));
+            Console.WriteLine(AsJson(results.Count));
             
             statusCode = await cosmosUtil.DeleteContainerAsync(testDbName, "c2");
             Console.WriteLine("DeleteContainerAsync c2 returned: " + statusCode);

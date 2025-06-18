@@ -386,7 +386,8 @@ public class CosmosNoSqlUtil {
     }
 
     /**
-     *
+     * Execute a UpsertItemAsync operation for each given document in a "Bulk" manner.
+     * Return a Dictionary of entries for each document that wasn't successfully upserted.
      * See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/tutorial-dotnet-bulk-import
      */
     public async Task<List<Dictionary<string, object>>> BulkUpsertDocumentsAsync(
@@ -406,16 +407,19 @@ public class CosmosNoSqlUtil {
                 PartitionKey pk = new PartitionKey(doc.GetStringAttribute(pkAttr));
                 Task t = container.UpsertItemAsync<CosmosDocument>(doc, pk)
                     .ContinueWith(itemResponse => {
-                        Dictionary<string, object> docResult = new Dictionary<string, object>();
-                        docResult.Add("id", doc.GetId());
-                        docResult.Add("pk", pk.ToString());
-                        docResult.Add("sc", itemResponse.Result.StatusCode);
-                        docResult.Add("ru", itemResponse.Result.RequestCharge);
-                        results.Add(docResult);
+                        if (!itemResponse.IsCompletedSuccessfully) {
+                            Dictionary<string, object> docResult = new Dictionary<string, object>();
+                            docResult.Add("id", doc.GetId());
+                            docResult.Add("pk", pk.ToString());
+                            docResult.Add("sc", itemResponse.Result.StatusCode);
+                            //docResult.Add("ru", itemResponse.Result.RequestCharge);
+                            results.Add(docResult);
+                        }
                     });
                 tasks.Add(t);
             }
             await Task.WhenAll(tasks);
+            await Task.Delay(2000);  // let the ContinueWith tasks complete
         }
         catch (Exception e) {
             Console.WriteLine("CosmosNoSqlUtil#BulkLoadDocumentsAsync - Exception: " + e.Message);
