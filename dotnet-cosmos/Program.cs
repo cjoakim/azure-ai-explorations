@@ -48,7 +48,7 @@ class Program
                 return await CosmosCreateContainer(args);
             case "cosmos_create_container_with_vector_index":
                 return await CosmosCreateContainerWithVectorIndex(args);
-            case "cosmos_seq_load_libraries":
+            case "cosmos_seq_load_container":
                 return await CosmosSeqLoadContainer(args);
             case "cosmos_bulk_load_container":
                 return await CosmosBulkLoadContainer(args);
@@ -64,8 +64,9 @@ class Program
                 Console.WriteLine("  dotnet run cosmos_create_container");
                 Console.WriteLine("  dotnet run cosmos_create_container_with_vector_index");
                 Console.WriteLine("  dotnet run cosmos_update_index_policy");
-                Console.WriteLine("  dotnet run cosmos_seq_load_libraries");
-                Console.WriteLine("  dotnet run cosmos_bulk_load_libraries");
+                //Console.WriteLine("  dotnet run cosmos_seq_load_container");
+                Console.WriteLine("  dotnet run cosmos_bulk_load_container <dataDir> <filePattern> <db> <container> <partitionKeyPath> <batchSize>");
+                Console.WriteLine("  dotnet run cosmos_bulk_load_container CosmosAIGraph *.json dev pythonlibs pk 20");
                 Console.WriteLine("  dotnet run cosmos_queries");
                 Console.WriteLine("  dotnet run cosmos_smoketest");
                 break;
@@ -297,11 +298,83 @@ class Program
     {
         await Task.Delay(1);
         int returnCode = 1;
+        bool doLoad = true;
         CosmosNoSqlUtil? cosmosUtil = null;
-        
         try {
+            if (args.Length < 7) {
+                Console.WriteLine("Usage: CosmosBulkLoadContainer <dataDir> <filePattern> <db> <container> <partitionKeyPath> <batchSize>");
+                return 1;
+            }
+            Console.WriteLine("CosmosBulkLoadContainer args: " + AsJson(args, false));
+            // ["cosmos_bulk_load_container","CosmosAIGraph","*.json","dev","pythonlibs","pk","20"]
+            string dataDir = args[1];
+            string filePattern = args[2];
+            string dbName = args[3];
+            string cName = args[4];
+            string partitionKeyPath = args[5];
+            int batchSize = Int32.Parse(args[6]);
+            
+            if (dataDir.Equals("CosmosAIGraph")) { // shorthand alias for the following path
+                dataDir = "../../CosmosAIGraph/data/pypi/wrangled_libs/";
+            }
+            Console.WriteLine("CosmosBulkLoadContainer parameters:");
+            Console.WriteLine("  dataDir:           " + dataDir);
+            Console.WriteLine("  filePattern:       " + filePattern);
+            Console.WriteLine("  dbName:            " + dbName);
+            Console.WriteLine("  cName:             " + cName);
+            Console.WriteLine("  partitionKeyPath:  " + partitionKeyPath);
+            Console.WriteLine("  batchSize:         " + batchSize);
+            
+            string yesNo = PromptUser("Enter 'y' to continue").ToLower();
+            if (yesNo.Equals("y") || yesNo.Equals("yes")) {
+                // continue
+            }
+            else {
+                return returnCode;
+            }
             cosmosUtil = new CosmosNoSqlUtil();
+            await cosmosUtil.SetCurrentDatabaseAsync(dbName);
+            await cosmosUtil.SetCurrentContainerAsync(dbName, cName); 
+            Console.WriteLine("Current database: " + cosmosUtil.GetCurrentDatabaseName());
+            Console.WriteLine("Current container: " + cosmosUtil.GetCurrentContainerName());
+            await Task.Delay(5 * 1000);
+            
+            FileIO fileIO = new FileIO();
+            string[] files = fileIO.ListFilesInDirctory(dataDir, filePattern, false);
+            Console.WriteLine("File count: " + files.Length);
+            List<CosmosDocument> currentBatch = new List<CosmosDocument>();
+            
+            for (int i = 0; i < files.Length; i++) {
+                string filename = files[i];
+                //Console.WriteLine("  " + filename);
+                Dictionary<string, object>? dict = fileIO.ReadParseJsonDictionary(filename);
+                if (dict != null) {
+                    CosmosDocument doc = new CosmosDocument(dict);
+                    doc.EnsureId();
+                    doc["pk"] = "pypi";
+                    currentBatch.Add(doc);
+                    if (currentBatch.Count == 1) {
+                        //Console.WriteLine(AsJson(doc.Keys.ToArray()));
+                        Console.WriteLine(AsJson(doc, true));
+                    }
+                }
+                if (currentBatch.Count >= batchSize) {
+                    Console.WriteLine("Processing batch of " + currentBatch.Count);
+                    if (doLoad) {
+                        List<Dictionary<string, object>> results = 
+                            await cosmosUtil.BulkUpsertDocumentsAsync(currentBatch, "pk");
+                        Console.WriteLine(AsJson(results));
+                        Console.WriteLine(AsJson(results.Count));
+                    }
+                    currentBatch = new List<CosmosDocument>();
+                }
+            }
 
+            if (currentBatch.Count > 0) {
+                Console.WriteLine("Processing last batch of " + currentBatch.Count);
+                
+            }
+            
             returnCode = 0;
         }
         catch (Exception ex) {
@@ -554,10 +627,13 @@ class Program
             return "null";
         }
         if (pretty) {
-            return JsonConvert.SerializeObject(obj, Formatting.Indented);  
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            return System.Text.Json.JsonSerializer.Serialize(obj, options);
+            //return JsonConvert.SerializeObject(obj, Formatting.Indented);  
         }
         else {
-            return JsonConvert.SerializeObject(obj);
+            return System.Text.Json.JsonSerializer.Serialize(obj);
+            //return JsonConvert.SerializeObject(obj);
         }
     }
     

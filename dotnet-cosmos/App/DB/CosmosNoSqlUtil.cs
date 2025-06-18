@@ -320,7 +320,7 @@ public class CosmosNoSqlUtil {
             Console.WriteLine(
                 $"CosmosNoSqlUtil#UpdateIndexPolicy - dbName: {dbName} cName: {cName} idxPolicyFile: {idxPolicyFile}");
             FileIO fio = new FileIO();
-            string jstr = fio.ReadText(idxPolicyFile);
+            string jstr = "" + fio.ReadText(idxPolicyFile);
             IndexingPolicy? newPolicy = JsonConvert.DeserializeObject<IndexingPolicy>(jstr);
             if (newPolicy != null) {
                 Console.WriteLine($"CosmosNoSqlUtil#UpdateIndexPolicy - newPolicy: {newPolicy}");

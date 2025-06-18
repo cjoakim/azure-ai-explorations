@@ -1,6 +1,7 @@
 namespace App.DB;
 
 using System.Collections.Generic;
+using System.Text.Json;
 
 /**
  * Generic class that can be used to represent Cosmos DB documents.
@@ -45,5 +46,15 @@ public class CosmosDocument : Dictionary<string, object> {
             return "" + this[name];
         }
         return defaultValue;
+    }
+    
+    public string AsJson(bool pretty = true) {
+        if (pretty) {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            return System.Text.Json.JsonSerializer.Serialize(this, options);
+        }
+        else {
+            return System.Text.Json.JsonSerializer.Serialize(this);
+        }
     }
 }
