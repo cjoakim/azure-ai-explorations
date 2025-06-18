@@ -389,35 +389,31 @@ public class CosmosNoSqlUtil {
      *
      * See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/tutorial-dotnet-bulk-import
      */
-    public async Task<List<HttpStatusCode>?> BulkUpsertDocumentsAsync(
-        List<CosmosDocument> docs, string pkAttr = "pk") {
+    public async Task<List<Dictionary<string, object>>> BulkUpsertDocumentsAsync(
+        List<CosmosDocument> docs, string pkAttr = "pk") {          
+        List<Dictionary<string, object>> results = 
+            new List<Dictionary<string, object>>();
         
-        if (cosmosClient == null) return null;
-        if (currentContainer == null) return null;
+        if (cosmosClient == null) return results;
+        if (currentContainer == null) return results;
         Container container = currentContainer;
         List<Task> tasks = new List<Task>();
-        List<HttpStatusCode> statusCodes = new List<HttpStatusCode>();
         
         try {
             for (int i = 0; i < docs.Count; i++) {
                 CosmosDocument doc = docs[i];
                 doc.EnsureId();
                 PartitionKey pk = new PartitionKey(doc.GetStringAttribute(pkAttr));
-                Console.WriteLine($"bulk upsert doc: {doc.GetId()} pk: {pk.ToString()}");
-                Task t = container.UpsertItemAsync<CosmosDocument>(doc, pk);
-                //container.UpsertItemAsync()
-                // .ContinueWith(itemResponse => {
-                //     HttpStatusCode statusCode = itemResponse.Result.StatusCode;
-                //     Console.WriteLine($"bulk upsert sc: {statusCode} id: {doc.GetId()}");
-                //     statusCodes.Add(statusCode);
-                // });
+                Task t = container.UpsertItemAsync<CosmosDocument>(doc, pk)
+                    .ContinueWith(itemResponse => {
+                        Dictionary<string, object> docResult = new Dictionary<string, object>();
+                        docResult.Add("id", doc.GetId());
+                        docResult.Add("pk", pk.ToString());
+                        docResult.Add("sc", itemResponse.Result.StatusCode);
+                        docResult.Add("ru", itemResponse.Result.RequestCharge);
+                        results.Add(docResult);
+                    });
                 tasks.Add(t);
-                
-                // tasks.Add(currentContainer.CreateItemAsync(doc, pk).ContinueWith(
-                //     itemResponse => 
-                //         Console.WriteLine($"bulk load sc: {itemResponse.Result.StatusCode}")
-                //         //statusCodes.Add(itemResponse.Result.StatusCode)
-                //         ));
             }
             await Task.WhenAll(tasks);
         }
@@ -425,7 +421,7 @@ public class CosmosNoSqlUtil {
             Console.WriteLine("CosmosNoSqlUtil#BulkLoadDocumentsAsync - Exception: " + e.Message);
             Console.WriteLine(e.StackTrace);
         }
-        return statusCodes;
+        return results;
     }
 
     //  ========== Query Methods  ==========
