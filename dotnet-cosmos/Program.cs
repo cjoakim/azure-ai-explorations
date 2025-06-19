@@ -65,8 +65,7 @@ class Program
                 Console.WriteLine("  dotnet run cosmos_create_container_with_vector_index");
                 Console.WriteLine("  dotnet run cosmos_update_index_policy");
                 //Console.WriteLine("  dotnet run cosmos_seq_load_container");
-                Console.WriteLine("  dotnet run cosmos_bulk_load_container <dataDir> <filePattern> <db> <container> <partitionKeyPath> <batchSize>");
-                Console.WriteLine("  dotnet run cosmos_bulk_load_container CosmosAIGraph *.json dev pythonlibs pk 20");
+                Console.WriteLine("  dotnet run cosmos_bulk_load_container");
                 Console.WriteLine("  dotnet run cosmos_queries");
                 Console.WriteLine("  dotnet run cosmos_smoketest");
                 break;
@@ -294,6 +293,9 @@ class Program
         return returnCode;
     }
 
+    /**
+     * Sample harded method; adapt it per your needs.
+     */
     static async Task<int> CosmosBulkLoadContainer(string[] args)
     {
         await Task.Delay(1);
@@ -301,93 +303,50 @@ class Program
         bool doLoad = true;
         CosmosNoSqlUtil? cosmosUtil = null;
         try {
-            if (args.Length < 7) {
-                Console.WriteLine("Usage: CosmosBulkLoadContainer <dataDir> <filePattern> <db> <container> <partitionKeyPath> <batchSize>");
-                return 1;
-            }
-            Console.WriteLine("CosmosBulkLoadContainer args: " + AsJson(args, false));
-            // ["cosmos_bulk_load_container","CosmosAIGraph","*.json","dev","pythonlibs","pk","20"]
-            string dataDir = args[1];
-            string filePattern = args[2];
-            string dbName = args[3];
-            string cName = args[4];
-            string partitionKeyPath = args[5];
-            int batchSize = Int32.Parse(args[6]);
-            
-            if (dataDir.Equals("CosmosAIGraph")) { // shorthand alias for the following path
-                dataDir = "../../CosmosAIGraph/data/pypi/wrangled_libs/";
-            }
-            Console.WriteLine("CosmosBulkLoadContainer parameters:");
-            Console.WriteLine("  dataDir:           " + dataDir);
-            Console.WriteLine("  filePattern:       " + filePattern);
-            Console.WriteLine("  dbName:            " + dbName);
-            Console.WriteLine("  cName:             " + cName);
-            Console.WriteLine("  partitionKeyPath:  " + partitionKeyPath);
-            Console.WriteLine("  batchSize:         " + batchSize);
-            
-            string yesNo = PromptUser("Enter 'y' to continue").ToLower();
-            if (yesNo.Equals("y") || yesNo.Equals("yes")) {
-                // continue
-            }
-            else {
-                return returnCode;
-            }
-            cosmosUtil = new CosmosNoSqlUtil();
-            await cosmosUtil.SetCurrentDatabaseAsync(dbName);
-            await cosmosUtil.SetCurrentContainerAsync(dbName, cName); 
-            Console.WriteLine("Current database: " + cosmosUtil.GetCurrentDatabaseName());
-            Console.WriteLine("Current container: " + cosmosUtil.GetCurrentContainerName());
-            await Task.Delay(5 * 1000);
-            
+            string infile = "../data/misc/nc_zipcodes.json";
             FileIO fileIO = new FileIO();
-            string[] files = fileIO.ListFilesInDirctory(dataDir, filePattern, false);
-            Console.WriteLine("File count: " + files.Length);
-            List<CosmosDocument> currentBatch = new List<CosmosDocument>();
-            
-            for (int i = 0; i < files.Length; i++) {
-                string filename = files[i];
-                //Console.WriteLine("  " + filename);
-                Dictionary<string, object>? dict = fileIO.ReadParseJsonDictionary(filename);
-                if (dict != null) {
-                    CosmosDocument doc = new CosmosDocument(dict);
-                    doc.EnsureId();
-                    doc["pk"] = "pypi";
-                    currentBatch.Add(doc);
-                    if (currentBatch.Count == 1) {
-                        //Console.WriteLine(AsJson(doc.Keys.ToArray()));
-                        Console.WriteLine(AsJson(doc, true));
-                    }
-                }
-                if (currentBatch.Count >= batchSize) {
-                    Console.WriteLine("Processing batch of " + currentBatch.Count);
-                    if (doLoad) {
-                        List<Dictionary<string, object>> results = 
-                            await cosmosUtil.BulkUpsertDocumentsAsync(currentBatch, "pk");
-                        Console.WriteLine(AsJson(results));
-                        Console.WriteLine(AsJson(results.Count));
-                    }
-                    currentBatch = new List<CosmosDocument>();
-                }
-            }
+            List<Dictionary<string, object>>? dicts = fileIO.ReadParseJsonDictionaryList(infile);
+            if (dicts != null) {
+                Console.WriteLine("Read " + dicts.Count + " dictionaries from file: " + infile);
 
-            if (currentBatch.Count > 0) {
-                Console.WriteLine("Processing last batch of " + currentBatch.Count);
-                
+                cosmosUtil = new CosmosNoSqlUtil();
+                await cosmosUtil.SetCurrentDatabaseAsync("smoketest");
+                await cosmosUtil.SetCurrentContainerAsync("smoketest", "c1");
+                Console.WriteLine("GetCurrentDatabaseName:  " + cosmosUtil.GetCurrentDatabaseName());
+                Console.WriteLine("GetCurrentContainerName: " + cosmosUtil.GetCurrentContainerName());
+
+                List<Task> tasks = new List<Task>();
+                Container? container = cosmosUtil.GetCurrentContainer();
+                if (container != null) {
+                    for (int i = 0; i < dicts.Count; i++) {
+                        var dict = dicts[i];
+                        dict["id"] = Guid.NewGuid().ToString();
+                        dict["pk"] = dict["state_abbrv"];
+                        //Console.WriteLine(AsJson(dict));
+                        ZipCode zipCode = new ZipCode();
+                        zipCode.city = dict["city_name"].ToString();
+                        zipCode.pk = dict["state_abbrv"].ToString();
+                        zipCode.population = 10000 + 1;
+                        PartitionKey pk = new PartitionKey(zipCode.pk);
+                        tasks.Add(container.CreateItemAsync(zipCode, pk));
+                    }
+                }
+                await Task.WhenAll(tasks);
+                await Task.Delay(2000); // let the ContinueWith tasks complete
+                returnCode = 0;
             }
-            
-            returnCode = 0;
         }
         catch (Exception ex) {
             Console.WriteLine("Exception in CosmosBulkLoadContainer: " + ex.Message);
             Console.WriteLine(ex.StackTrace);
             returnCode = 1;
-            
         }
         finally {
             if (cosmosUtil != null) {
                 cosmosUtil.Close();
             }
         }
+
         return returnCode;
     }
 
@@ -586,19 +545,26 @@ class Program
             Console.WriteLine("Document count: " + await cosmosUtil.CountDocumentsInCurrentContainer());
 
             await cosmosUtil.SetCurrentContainerAsync(testDbName, "c1");
-            List<CosmosDocument> bulkLoadDocs = new List<CosmosDocument>();
-            for (int i = 1; i <= 1000; i++) {
-                CosmosDocument doc = new CosmosDocument();
-                if (i <= 25) {
-                    doc["pk"] = "NC";
+            List<dynamic> bulkLoadDocs = new List<dynamic>();
+            string infile = "../data/misc/nc_zipcodes.json";
+            FileIO fileIO = new FileIO();
+            List<Dictionary<string, object>>? dicts = fileIO.ReadParseJsonDictionaryList(infile);
+            if (dicts != null) {
+                for (int i = 0; i < dicts.Count; i++) {
+                    var dict = dicts[i];
+                    dict["id"] = Guid.NewGuid().ToString();
+                    dict["pk"] = "NC"; //dict["state_abbrv"];
+                    ZipCode zipCode = new ZipCode();
+                    zipCode.city = dict["city_name"].ToString();
+                    zipCode.pk   = dict["state_abbrv"].ToString();
+                    zipCode.population = 10000 + 1;
+                    // zipCode.latitude  = Convert.ToDouble(dict["latitude"]);
+                    // zipCode.longitude  = Convert.ToDouble(dict["longitude"]);
+                    if (i < 10) {
+                        bulkLoadDocs.Add(zipCode);
+                        Console.WriteLine(AsJson(zipCode));
+                    }
                 }
-                else {
-                    doc["pk"] = "NC";
-                }
-                doc["city"] = "TestCity" + i;
-                doc["population"] = 1000 + i;
-                doc.EnsureId();
-                bulkLoadDocs.Add(doc);
             }
             Console.WriteLine("Bulk loading " + bulkLoadDocs.Count + " documents into container c1");
             List<Dictionary<string, object>> results = 

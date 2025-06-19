@@ -44,7 +44,7 @@ public class CosmosNoSqlUtil {
         if (authType.Equals("key")) {
             var key = Env.EnvVar("AZURE_COSMOSDB_NOSQL_KEY", "None");
             Console.WriteLine("CosmosNoSqlUtil key: " + key);
-            cosmosClient = new CosmosClient(uri, key, opts);
+            cosmosClient = new CosmosClient(uri, key);
         }
         else {
             cosmosClient = new CosmosClient(uri, new DefaultAzureCredential(), opts);
@@ -391,7 +391,8 @@ public class CosmosNoSqlUtil {
      * See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/tutorial-dotnet-bulk-import
      */
     public async Task<List<Dictionary<string, object>>> BulkUpsertDocumentsAsync(
-        List<CosmosDocument> docs, string pkAttr = "pk") {          
+        List<dynamic> docs,
+        string pkAttr = "pk") {          
         List<Dictionary<string, object>> results = 
             new List<Dictionary<string, object>>();
         
@@ -402,21 +403,15 @@ public class CosmosNoSqlUtil {
         
         try {
             for (int i = 0; i < docs.Count; i++) {
-                CosmosDocument doc = docs[i];
-                doc.EnsureId();
-                PartitionKey pk = new PartitionKey(doc.GetStringAttribute(pkAttr));
-                Task t = container.UpsertItemAsync<CosmosDocument>(doc, pk)
-                    .ContinueWith(itemResponse => {
-                        if (!itemResponse.IsCompletedSuccessfully) {
-                            Dictionary<string, object> docResult = new Dictionary<string, object>();
-                            docResult.Add("id", doc.GetId());
-                            docResult.Add("pk", pk.ToString());
-                            docResult.Add("sc", itemResponse.Result.StatusCode);
-                            //docResult.Add("ru", itemResponse.Result.RequestCharge);
-                            results.Add(docResult);
-                        }
-                    });
-                tasks.Add(t);
+                var doc = docs[i];
+                PartitionKey pk = new PartitionKey("" + doc[pkAttr]);
+                //Console.WriteLine($"id: {doc["id"]} pk: {pk.ToString()}");
+                
+                tasks.Add(container.CreateItemAsync(doc, pk));
+                    // .ContinueWith(itemResponse =>
+                    // {
+                    //     //Console.WriteLine("" + itemResponse.IsCompletedSuccessfully);
+                    // }));
             }
             await Task.WhenAll(tasks);
             await Task.Delay(2000);  // let the ContinueWith tasks complete

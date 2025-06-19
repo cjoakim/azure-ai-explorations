@@ -18,6 +18,16 @@ public class CosmosDocument : Dictionary<string, object> {
     public CosmosDocument(IDictionary<string, object> dictionary) : base(dictionary) {
         //EnsureId();
     }
+    
+    public void MergeDictionary(IDictionary<string, object> dict) {
+        foreach (var kvp in dict) {
+            if (this.ContainsKey(kvp.Key)) {
+                this[kvp.Key] = kvp.Value; // Update existing key
+            } else {
+                this.Add(kvp.Key, kvp.Value); // Add new key
+            }
+        }
+    }
 
     /**
      * Ensure that the document has an 'id' property.
@@ -39,6 +49,10 @@ public class CosmosDocument : Dictionary<string, object> {
 
     public bool HasAttribute(string name) {
         return this.ContainsKey(name);
+    }
+    
+    public void SetAttribute(string name, object value) {
+        this[name] = value;
     }
     
     public string GetStringAttribute(string name, string defaultValue = "") {
