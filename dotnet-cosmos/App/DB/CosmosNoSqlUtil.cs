@@ -43,7 +43,7 @@ public class CosmosNoSqlUtil {
         // Create the CosmosClient instance
         if (authType.Equals("key")) {
             var key = Env.EnvVar("AZURE_COSMOSDB_NOSQL_KEY", "None");
-            Console.WriteLine("CosmosNoSqlUtil key: " + key);
+            Console.WriteLine("CosmosNoSqlUtil key: " + key.Substring(0, 4) + "...");
             cosmosClient = new CosmosClient(uri, key);
         }
         else {
@@ -384,45 +384,7 @@ public class CosmosNoSqlUtil {
         }
         return null;
     }
-
-    /**
-     * Execute a UpsertItemAsync operation for each given document in a "Bulk" manner.
-     * Return a Dictionary of entries for each document that wasn't successfully upserted.
-     * See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/tutorial-dotnet-bulk-import
-     */
-    public async Task<List<Dictionary<string, object>>> BulkUpsertDocumentsAsync(
-        List<dynamic> docs,
-        string pkAttr = "pk") {          
-        List<Dictionary<string, object>> results = 
-            new List<Dictionary<string, object>>();
-        
-        if (cosmosClient == null) return results;
-        if (currentContainer == null) return results;
-        Container container = currentContainer;
-        List<Task> tasks = new List<Task>();
-        
-        try {
-            for (int i = 0; i < docs.Count; i++) {
-                var doc = docs[i];
-                PartitionKey pk = new PartitionKey("" + doc[pkAttr]);
-                //Console.WriteLine($"id: {doc["id"]} pk: {pk.ToString()}");
-                
-                tasks.Add(container.CreateItemAsync(doc, pk));
-                    // .ContinueWith(itemResponse =>
-                    // {
-                    //     //Console.WriteLine("" + itemResponse.IsCompletedSuccessfully);
-                    // }));
-            }
-            await Task.WhenAll(tasks);
-            await Task.Delay(2000);  // let the ContinueWith tasks complete
-        }
-        catch (Exception e) {
-            Console.WriteLine("CosmosNoSqlUtil#BulkLoadDocumentsAsync - Exception: " + e.Message);
-            Console.WriteLine(e.StackTrace);
-        }
-        return results;
-    }
-
+    
     //  ========== Query Methods  ==========
 
     /**

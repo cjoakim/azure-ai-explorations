@@ -14,6 +14,7 @@ using DotNetEnv;
 using App.DB;
 using App.Core;
 using App.IO;
+using Microsoft.Azure.Cosmos.Serialization.HybridRow;
 using Env = App.Core.Env;
 
 /**
@@ -295,13 +296,16 @@ class Program
 
     /**
      * Sample harded method; adapt it per your needs.
+     * See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/tutorial-dotnet-bulk-import
      */
     static async Task<int> CosmosBulkLoadContainer(string[] args)
     {
         await Task.Delay(1);
         int returnCode = 1;
-        bool doLoad = true;
         CosmosNoSqlUtil? cosmosUtil = null;
+        List<Dictionary<string, object>> bulkOperationResults = 
+            new List<Dictionary<string, object>>();
+        
         try {
             string infile = "../data/misc/nc_zipcodes.json";
             FileIO fileIO = new FileIO();
@@ -324,15 +328,52 @@ class Program
                         dict["pk"] = dict["state_abbrv"];
                         //Console.WriteLine(AsJson(dict));
                         ZipCode zipCode = new ZipCode();
-                        zipCode.city = dict["city_name"].ToString();
-                        zipCode.pk = dict["state_abbrv"].ToString();
+                        zipCode.city = "" + dict["city_name"];
+                        zipCode.pk = "" + dict["state_abbrv"];
+                        zipCode.latitude = Convert.ToDouble(dict["latitude"].ToString());
+                        zipCode.longitude = Convert.ToDouble(dict["longitude"].ToString());
                         zipCode.population = 10000 + 1;
+                       
+                        var restaurants = new Dictionary<string, int> {
+                            ["Brickhouse"] = 91,
+                            ["Sabi"] = 83,
+                            ["KingCanary"] = 77
+                        };
+
+                        Dictionary<string,object> nestedData = new Dictionary<string, object>();
+                        List<string> beatles = new List<string>();
+                        beatles.Add("John");
+                        beatles.Add("Paul");
+                        beatles.Add("George");
+                        beatles.Add("Ringo");
+                        nestedData["list"] = beatles;
+                        nestedData["int"] = 42;
+                        nestedData["double"] = 26.2;
+                        nestedData["fun"] = true;
+                        nestedData["restaurants"] = restaurants;
+                        zipCode.nested = nestedData;
                         PartitionKey pk = new PartitionKey(zipCode.pk);
-                        tasks.Add(container.CreateItemAsync(zipCode, pk));
+                        
+                        if (i < 2000) {
+                            Console.WriteLine(AsJson(zipCode));
+                            tasks.Add(container.CreateItemAsync(zipCode, pk)
+                                .ContinueWith(itemResponse => {
+                                    Dictionary<string, object> docResult = new Dictionary<string, object>();
+                                    docResult["id"] = zipCode.id;
+                                    docResult["pk"] = zipCode.pk;
+                                    docResult["successful"] = itemResponse.IsCompletedSuccessfully;
+                                    docResult["statusCode"] = itemResponse.Result.StatusCode;
+                                    docResult["requestCharge"] = itemResponse.Result.RequestCharge;
+                                    bulkOperationResults.Add(docResult);
+                                }));
+                        }
                     }
                 }
                 await Task.WhenAll(tasks);
-                await Task.Delay(2000); // let the ContinueWith tasks complete
+                await Task.Delay(5000); // let the ContinueWith tasks complete
+                Console.WriteLine(AsJson(bulkOperationResults));
+                Console.WriteLine("tasks count: " + tasks.Count);
+                Console.WriteLine("bulkOperationResults count: " + bulkOperationResults.Count);
                 returnCode = 0;
             }
         }
@@ -346,7 +387,6 @@ class Program
                 cosmosUtil.Close();
             }
         }
-
         return returnCode;
     }
 
@@ -555,8 +595,8 @@ class Program
                     dict["id"] = Guid.NewGuid().ToString();
                     dict["pk"] = "NC"; //dict["state_abbrv"];
                     ZipCode zipCode = new ZipCode();
-                    zipCode.city = dict["city_name"].ToString();
-                    zipCode.pk   = dict["state_abbrv"].ToString();
+                    zipCode.city = "" + dict["city_name"];
+                    zipCode.pk = "" + dict["state_abbrv"];
                     zipCode.population = 10000 + 1;
                     // zipCode.latitude  = Convert.ToDouble(dict["latitude"]);
                     // zipCode.longitude  = Convert.ToDouble(dict["longitude"]);
@@ -566,11 +606,6 @@ class Program
                     }
                 }
             }
-            Console.WriteLine("Bulk loading " + bulkLoadDocs.Count + " documents into container c1");
-            List<Dictionary<string, object>> results = 
-                await cosmosUtil.BulkUpsertDocumentsAsync(bulkLoadDocs, "pk");
-            Console.WriteLine(AsJson(results));
-            Console.WriteLine(AsJson(results.Count));
             
             statusCode = await cosmosUtil.DeleteContainerAsync(testDbName, "c2");
             Console.WriteLine("DeleteContainerAsync c2 returned: " + statusCode);
