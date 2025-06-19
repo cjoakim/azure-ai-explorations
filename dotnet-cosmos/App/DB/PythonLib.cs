@@ -61,16 +61,10 @@ public class PythonLib {
                     // Convert the JsonElement to an array of doubles
                     this.embedding = jsonElement.EnumerateArray().Select(e => e.GetDouble()).ToArray();
                 }
-                else {
-                    Console.WriteLine("PythonLib#SetEmbeddings - jsonElement isn't an array");
-                }
             }
             catch (Exception e) {
                 Console.WriteLine("PythonLib#SetEmbeddings - Exception: " + e.Message);
             }
-        }
-        else {
-            Console.WriteLine("PythonLib#SetEmbeddings - method arg is null");
         }
     }
 }

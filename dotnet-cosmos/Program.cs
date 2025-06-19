@@ -362,6 +362,12 @@ class Program
         return returnCode;
     }
 
+    /**
+     * This method loads vectorized Python libraries into a Cosmos DB NoSQL container.
+     * It assumes that you have this repo cloned to the same parent directory as this project:
+     * https://github.com/AzureCosmosDB/CosmosAIGraph
+     * It also assumes that the target container has a vector index on the "embedding" field.
+     */
     static async Task<int> CosmosBulkVectorizedPythonLibs(string[] args)
     {
         int returnCode = 1;
@@ -370,31 +376,29 @@ class Program
             new List<Dictionary<string, object>>();
         
         try {
-            // Assumes that you have this repo cloned to the same parent directory as this project.
-            // https://github.com/AzureCosmosDB/CosmosAIGraph
-            
             cosmosUtil = new CosmosNoSqlUtil();
             await cosmosUtil.SetCurrentDatabaseAsync("dev");
             await cosmosUtil.SetCurrentContainerAsync("dev", "pythonlibs");
             Console.WriteLine("GetCurrentDatabaseName:  " + cosmosUtil.GetCurrentDatabaseName());
             Console.WriteLine("GetCurrentContainerName: " + cosmosUtil.GetCurrentContainerName());
-
             Container? container = cosmosUtil.GetCurrentContainer();
+            
             if (container != null) {
                 List<Task> tasks = new List<Task>();
+                int maxFiles = 20 * 1000;
                 int batchSize = 25;
-                
                 string dataDir = "../../CosmosAIGraph/data/pypi/wrangled_libs/";
                 FileIO fileIO = new FileIO();
                 string[] files = fileIO.ListFilesInDirctory(dataDir, "*.json", false);
                 List<PythonLib> libs = new List<PythonLib>();
-                int maxFiles = 100;
+                
                 for (int i = 0; i < maxFiles; i++) {
-                    Console.WriteLine("File[" + i + "]: " + files[i]);
+                    Console.WriteLine("processing file " + i + ": " + files[i]);
                     Dictionary<string, object>? dict = fileIO.ReadParseJsonDictionary(files[i]);
                     if (dict != null) {
                         PythonLib lib = new PythonLib();
                         lib.id = "" + dict["id"];
+                        lib.id = lib.id.Replace("pypi_", ""); // remove the prefix
                         lib.pk = "" + dict["libtype"];
                         lib.packageUrl = "" + dict["package_url"];
                         lib.keywords = "" + dict["kwds"];
@@ -410,7 +414,7 @@ class Program
                         if (dict.ContainsKey("embedding")) {
                             lib.SetEmbeddings(dict["embedding"]);
                         }
-                        Console.WriteLine("===\n" + AsJson(lib));
+                        //Console.WriteLine("===\n" + AsJson(lib));
 
                         PartitionKey pk = new PartitionKey(lib.pk);
                         tasks.Add(container.CreateItemAsync(lib, pk)
@@ -430,6 +434,13 @@ class Program
                             tasks.Clear();
                         }
                     }
+                }
+                
+                // Execute the last batch of Tasks, if any.
+                if (tasks.Count > 0) {
+                    await Task.WhenAll(tasks);
+                    Console.WriteLine("Last batch of " + tasks.Count + " completed.");
+                    tasks.Clear();
                 }
             }
             returnCode = 0;
