@@ -49,10 +49,10 @@ class Program
                 return await CosmosCreateContainer(args);
             case "cosmos_create_container_with_vector_index":
                 return await CosmosCreateContainerWithVectorIndex(args);
-            case "cosmos_seq_load_container":
-                return await CosmosSeqLoadContainer(args);
-            case "cosmos_bulk_load_container":
-                return await CosmosBulkLoadContainer(args);
+            case "cosmos_bulk_load_zip_codes":
+                return await CosmosBulkLoadZipCodes(args);
+            case "cosmos_load_vectorized_python_libs":
+                return await CosmosBulkVectorizedPythonLibs(args);
             case "cosmos_queries":
                 return await CosmosQueries(args);
             case "cosmos_smoketest":
@@ -65,8 +65,8 @@ class Program
                 Console.WriteLine("  dotnet run cosmos_create_container");
                 Console.WriteLine("  dotnet run cosmos_create_container_with_vector_index");
                 Console.WriteLine("  dotnet run cosmos_update_index_policy");
-                //Console.WriteLine("  dotnet run cosmos_seq_load_container");
-                Console.WriteLine("  dotnet run cosmos_bulk_load_container");
+                Console.WriteLine("  dotnet run cosmos_bulk_load_zip_codes");
+                Console.WriteLine("  dotnet run cosmos_load_vectorized_python_libs");
                 Console.WriteLine("  dotnet run cosmos_queries");
                 Console.WriteLine("  dotnet run cosmos_smoketest");
                 break;
@@ -266,39 +266,12 @@ class Program
         }
         return returnCode;
     }
-    static async Task<int> CosmosSeqLoadContainer(string[] args)
-    {
-        // TODO - implement
-
-        await Task.Delay(1);
-        int returnCode = 1;
-        CosmosNoSqlUtil? cosmosUtil = null;
-        
-        try {
-            cosmosUtil = new CosmosNoSqlUtil();
-
-            returnCode = 0;
-        }
-        catch (Exception ex) {
-            Console.WriteLine("Exception in CosmosSeqLoadContainer: " + ex.Message);
-            Console.WriteLine(ex.StackTrace);
-            returnCode = 1;
-            
-        }
-        finally {
-            if (cosmosUtil != null) {
-                cosmosUtil.Close();
-            }
-        }
-
-        return returnCode;
-    }
 
     /**
      * Sample harded method; adapt it per your needs.
      * See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/tutorial-dotnet-bulk-import
      */
-    static async Task<int> CosmosBulkLoadContainer(string[] args)
+    static async Task<int> CosmosBulkLoadZipCodes(string[] args)
     {
         await Task.Delay(1);
         int returnCode = 1;
@@ -378,7 +351,7 @@ class Program
             }
         }
         catch (Exception ex) {
-            Console.WriteLine("Exception in CosmosBulkLoadContainer: " + ex.Message);
+            Console.WriteLine("Exception in CosmosBulkLoadZipCodes: " + ex.Message);
             Console.WriteLine(ex.StackTrace);
             returnCode = 1;
         }
@@ -387,6 +360,66 @@ class Program
                 cosmosUtil.Close();
             }
         }
+        return returnCode;
+    }
+
+    static async Task<int> CosmosBulkVectorizedPythonLibs(string[] args)
+    {
+        await Task.Delay(1);
+        int returnCode = 1;
+        CosmosNoSqlUtil? cosmosUtil = null;
+        
+        try {
+            // Assumes that you have this repo cloned to the same parent directory as this project.
+            // https://github.com/AzureCosmosDB/CosmosAIGraph
+            
+            string dataDir = "../../CosmosAIGraph/data/pypi/wrangled_libs/";
+            FileIO fileIO = new FileIO();
+            string[] files = fileIO.ListFilesInDirctory(dataDir, "*.json", false);
+            List<PythonLib> libs = new List<PythonLib>();
+            int maxFiles = 20;
+            for (int i = 0; i < maxFiles; i++) {
+                Console.WriteLine("File[" + i + "]: " + files[i]);
+                Dictionary<string, object>? dict = fileIO.ReadParseJsonDictionary(files[i]);
+                if (dict != null) {
+                    PythonLib lib = new PythonLib();
+                    lib.id = "" + dict["id"];
+                    lib.pk = "" + dict["libtype"];
+                    lib.packageUrl = "" + dict["package_url"];
+                    lib.keywords = "" + dict["kwds"];
+                    if (dict.ContainsKey("description")) {
+                        lib.SetDescription(dict["description"]);
+                    }
+                    if (dict.ContainsKey("developers")) {
+                        lib.SetDevelopers(dict["developers"]);
+                    }
+                    else {
+                        lib.developers = new string[0];
+                    }
+                    if (dict.ContainsKey("embedding")) {
+                        lib.SetEmbeddings(dict["embedding"]);
+                    }
+                    Console.WriteLine("===\n" + AsJson(lib));
+                    libs.Add(lib);
+                }
+            }
+            
+            cosmosUtil = new CosmosNoSqlUtil();
+
+            returnCode = 0;
+        }
+        catch (Exception ex) {
+            Console.WriteLine("Exception in CosmosBulkVectorizedPythonLibs: " + ex.Message);
+            Console.WriteLine(ex.StackTrace);
+            returnCode = 1;
+            
+        }
+        finally {
+            if (cosmosUtil != null) {
+                cosmosUtil.Close();
+            }
+        }
+
         return returnCode;
     }
 
