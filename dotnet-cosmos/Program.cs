@@ -273,7 +273,6 @@ class Program
      */
     static async Task<int> CosmosBulkLoadZipCodes(string[] args)
     {
-        await Task.Delay(1);
         int returnCode = 1;
         CosmosNoSqlUtil? cosmosUtil = null;
         List<Dictionary<string, object>> bulkOperationResults = 
@@ -365,47 +364,74 @@ class Program
 
     static async Task<int> CosmosBulkVectorizedPythonLibs(string[] args)
     {
-        await Task.Delay(1);
         int returnCode = 1;
         CosmosNoSqlUtil? cosmosUtil = null;
+        List<Dictionary<string, object>> bulkOperationResults = 
+            new List<Dictionary<string, object>>();
         
         try {
             // Assumes that you have this repo cloned to the same parent directory as this project.
             // https://github.com/AzureCosmosDB/CosmosAIGraph
             
-            string dataDir = "../../CosmosAIGraph/data/pypi/wrangled_libs/";
-            FileIO fileIO = new FileIO();
-            string[] files = fileIO.ListFilesInDirctory(dataDir, "*.json", false);
-            List<PythonLib> libs = new List<PythonLib>();
-            int maxFiles = 20;
-            for (int i = 0; i < maxFiles; i++) {
-                Console.WriteLine("File[" + i + "]: " + files[i]);
-                Dictionary<string, object>? dict = fileIO.ReadParseJsonDictionary(files[i]);
-                if (dict != null) {
-                    PythonLib lib = new PythonLib();
-                    lib.id = "" + dict["id"];
-                    lib.pk = "" + dict["libtype"];
-                    lib.packageUrl = "" + dict["package_url"];
-                    lib.keywords = "" + dict["kwds"];
-                    if (dict.ContainsKey("description")) {
-                        lib.SetDescription(dict["description"]);
+            cosmosUtil = new CosmosNoSqlUtil();
+            await cosmosUtil.SetCurrentDatabaseAsync("dev");
+            await cosmosUtil.SetCurrentContainerAsync("dev", "pythonlibs");
+            Console.WriteLine("GetCurrentDatabaseName:  " + cosmosUtil.GetCurrentDatabaseName());
+            Console.WriteLine("GetCurrentContainerName: " + cosmosUtil.GetCurrentContainerName());
+
+            Container? container = cosmosUtil.GetCurrentContainer();
+            if (container != null) {
+                List<Task> tasks = new List<Task>();
+                int batchSize = 25;
+                
+                string dataDir = "../../CosmosAIGraph/data/pypi/wrangled_libs/";
+                FileIO fileIO = new FileIO();
+                string[] files = fileIO.ListFilesInDirctory(dataDir, "*.json", false);
+                List<PythonLib> libs = new List<PythonLib>();
+                int maxFiles = 100;
+                for (int i = 0; i < maxFiles; i++) {
+                    Console.WriteLine("File[" + i + "]: " + files[i]);
+                    Dictionary<string, object>? dict = fileIO.ReadParseJsonDictionary(files[i]);
+                    if (dict != null) {
+                        PythonLib lib = new PythonLib();
+                        lib.id = "" + dict["id"];
+                        lib.pk = "" + dict["libtype"];
+                        lib.packageUrl = "" + dict["package_url"];
+                        lib.keywords = "" + dict["kwds"];
+                        if (dict.ContainsKey("description")) {
+                            lib.SetDescription(dict["description"]);
+                        }
+                        if (dict.ContainsKey("developers")) {
+                            lib.SetDevelopers(dict["developers"]);
+                        }
+                        else {
+                            lib.developers = new string[0];
+                        }
+                        if (dict.ContainsKey("embedding")) {
+                            lib.SetEmbeddings(dict["embedding"]);
+                        }
+                        Console.WriteLine("===\n" + AsJson(lib));
+
+                        PartitionKey pk = new PartitionKey(lib.pk);
+                        tasks.Add(container.CreateItemAsync(lib, pk)
+                            .ContinueWith(itemResponse => {
+                                Dictionary<string, object> docResult = new Dictionary<string, object>();
+                                docResult["id"] = lib.id;
+                                docResult["pk"] = lib.pk;
+                                docResult["successful"] = itemResponse.IsCompletedSuccessfully;
+                                docResult["statusCode"] = itemResponse.Result.StatusCode;
+                                docResult["requestCharge"] = itemResponse.Result.RequestCharge;
+                                bulkOperationResults.Add(docResult);
+                            }));
+                        
+                        if (tasks.Count >= batchSize) {
+                            await Task.WhenAll(tasks);
+                            Console.WriteLine("Batch of " + tasks.Count + " completed.");
+                            tasks.Clear();
+                        }
                     }
-                    if (dict.ContainsKey("developers")) {
-                        lib.SetDevelopers(dict["developers"]);
-                    }
-                    else {
-                        lib.developers = new string[0];
-                    }
-                    if (dict.ContainsKey("embedding")) {
-                        lib.SetEmbeddings(dict["embedding"]);
-                    }
-                    Console.WriteLine("===\n" + AsJson(lib));
-                    libs.Add(lib);
                 }
             }
-            
-            cosmosUtil = new CosmosNoSqlUtil();
-
             returnCode = 0;
         }
         catch (Exception ex) {
@@ -415,11 +441,13 @@ class Program
             
         }
         finally {
+            await Task.Delay(5000); // let the ContinueWith tasks complete
+            Console.WriteLine(AsJson(bulkOperationResults));
+            Console.WriteLine("bulkOperationResults count: " + bulkOperationResults.Count);
             if (cosmosUtil != null) {
                 cosmosUtil.Close();
             }
         }
-
         return returnCode;
     }
 
