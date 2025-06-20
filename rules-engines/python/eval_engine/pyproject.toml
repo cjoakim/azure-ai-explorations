@@ -1,0 +1,32 @@
+[project]
+name = "rules-eval-engine"
+version = "0.1.0"
+dependencies = [
+  "black",
+  "docopt",
+  "psutil",
+  "pydantic",
+  "pytest-asyncio",
+  "pytest-cov",
+  "pytest",
+  "python-dotenv"
+]
+requires-python = ">=3.13"
+authors = [
+  {name = "Chris Joakim", email = "christopher.joakim@gmail.com"}
+]
+maintainers = [
+  {name = "Chris Joakim", email = "christopher.joakim@gmail.com"}
+]
+description = "A POC rules engine based on the built-in eval() method"
+readme = "readme.md"
+license = "MIT"
+license-files = ["LICEN[CS]E.*"]
+keywords = ["python", "pyproject.toml", "uv", "ruff", "rules"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+
+[project.urls]
+Homepage = "https://github.com/cjoakim/azure-ai-explorations/"
