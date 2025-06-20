@@ -4,7 +4,7 @@
 # with code coverage reporting.
 # Chris Joakim, 2025
 
-source venv/bin/activate
+source .venv/bin/activate
 python --version
 
 rm -rf htmlcov
