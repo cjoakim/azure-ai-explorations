@@ -6,6 +6,28 @@ such as uv and ruff.
 See the O'Reilly book of this title at:
 https://www.oreilly.com/library/view/hypermodern-python-tooling/9781098139575/
 
+## TOML and pyproject.toml
+
+**pyproject.toml** is a configuration file used by packaging tools, as well as
+other tools such as linters, type checkers, etc. 
+
+### TOML 
+
+Tom's Obvious Minimal Language
+
+- https://toml.io/en/
+- https://toml.io/en/v1.0.0
+
+### pyproject.toml 
+
+- https://packaging.python.org/en/latest/specifications/pyproject-toml/
+- https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#writing-pyproject-toml
+- https://realpython.com/python-pyproject-toml/
+- https://docs.python.org/3/library/tomllib.html
+  - python standard library for reading/parsing a TOML 1.0.0 file
+
+---
+
 ## Astral
 
 Astral’s mission is to make the Python ecosystem more productive
@@ -17,14 +39,19 @@ See https://astral.sh
 
 An extremely fast Python package and project manager, written in Rust.
 
-- https://github.com/astral-sh/uv
+See https://github.com/astral-sh/uv
 
 ### Ruff
 
 An extremely fast Python linter, written in Rust.
 
-- https://docs.astral.sh/ruff/
+See https://docs.astral.sh/ruff/
 
+### pipx
+
+Install and Run Python Applications in Isolated Environments
+
+See https://github.com/pypa/pipx
 
 ---
 
@@ -79,3 +106,111 @@ $ which ruff
 $ ruff --version
 ruff 0.12.0
 ```
+
+### pipx
+
+```
+$ brew install pipx
+
+$ which pipx
+/opt/homebrew/bin/pipx
+
+$ pipx --version
+1.7.1
+
+$ pipx ensurepath
+
+above ensures that ~/.local/bin is in the PATH environment variable
+```
+
+---
+
+## Tool Use: pipx
+
+Creates an isolated shared environment for CLI tools.
+
+```
+$ pipx install black
+  installed package black 25.1.0, installed using Python 3.13.5
+  These apps are now globally available
+    - black
+    - blackd
+done! ✨ 🌟 ✨
+
+$ ls -al ~/.local/bin/
+lrwxr-xr-x@ 1 cjoakim  staff   48 Jun 20 12:41 black -> /Users/cjoakim/.local/pipx/venvs/black/bin/black
+lrwxr-xr-x@ 1 cjoakim  staff   49 Jun 20 12:41 blackd -> /Users/cjoakim/.local/pipx/venvs/black/bin/blackd
+
+$ black .
+No Python files are present to be formatted. Nothing to do 😴
+
+$ pipx list
+venvs are in /Users/cjoakim/.local/pipx/venvs
+apps are exposed on your $PATH at /Users/cjoakim/.local/bin
+manual pages are exposed at /Users/cjoakim/.local/share/man
+   package black 25.1.0, installed using Python 3.13.5
+    - black
+    - blackd
+
+$ pipx install httpx
+$ pipx install httpx[cli] --force
+
+$ pipx list
+venvs are in /Users/cjoakim/.local/pipx/venvs
+apps are exposed on your $PATH at /Users/cjoakim/.local/bin
+manual pages are exposed at /Users/cjoakim/.local/share/man
+   package black 25.1.0, installed using Python 3.13.5
+    - black
+    - blackd
+   package httpx 0.28.1, installed using Python 3.13.5
+    - httpx
+
+$ httpx https://cosmos.azure.com/
+
+$ pipx install uv  (alternatively, install wuth homebrew)
+```
+
+---
+
+## Tool Use: uv
+
+```
+$ uv --help
+An extremely fast Python package manager.
+
+Usage: uv [OPTIONS] <COMMAND>
+
+Commands:
+  run      Run a command or script
+  init     Create a new project
+  add      Add dependencies to the project
+  remove   Remove dependencies from the project
+  version  Read or update the project's version
+  sync     Update the project's environment
+  lock     Update the project's lockfile
+  export   Export the project's lockfile to an alternate format
+  tree     Display the project's dependency tree
+  tool     Run and install commands provided by Python packages
+  python   Manage Python versions and installations
+  pip      Manage Python packages with a pip-compatible interface
+  venv     Create a virtual environment
+  build    Build Python packages into source distributions and wheels
+  publish  Upload distributions to an index
+  cache    Manage uv's cache
+  self     Manage the uv executable
+  help     Display documentation for a command
+...
+```
+
+Bootstrap a project in the current directory:
+
+```
+$ uv init .
+
+$ ls -al
+-rw-r--r--@ 1 cjoakim  staff    5 Jun 20 13:02 .python-version
+-rw-r--r--@ 1 cjoakim  staff   85 Jun 20 13:02 main.py
+-rw-r--r--@ 1 cjoakim  staff  153 Jun 20 13:02 pyproject.toml
+-rw-r--r--@ 1 cjoakim  staff   79 Jun 20 13:03 README.md
+```
+---
