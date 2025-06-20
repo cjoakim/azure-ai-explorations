@@ -1,7 +1,58 @@
 [project]
-name = "uv-init"
+name = "aax-example"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
+dependencies = [
+  "aiohttp",
+  "azure-ai-documentintelligence>=1.0.2",
+  "azure-ai-projects",
+  "azure-cosmos>=4.9.0",
+  "azure-identity",
+  "azure-storage-blob",
+  "docopt",
+  "duckdb",
+  "Faker",
+  "httpx",
+  "Jinja2",
+  "openai",
+  "psutil",
+  "pytest>=8.4.0",
+  "pytest-asyncio>=1.0.0",
+  "pytest-cov>=6.1.1",
+  "python-dotenv",
+  "pytz",
+  "redis"
+]
 requires-python = ">=3.13"
-dependencies = []
+authors = [
+  {name = "Chris Joakim", email = "christopher.joakim@gmail.com"},
+  {name = "Elsa Joakim"}
+]
+maintainers = [
+  {name = "Chris Joakim", email = "christopher.joakim@gmail.com"}
+]
+description = "A sample python project with pyproject.toml, uf, and ruff"
+readme = "readme.md"
+license = "MIT"
+license-files = ["LICEN[CS]E.*"]
+keywords = ["python", "pyproject.toml", "uv", "ruff"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+
+[project.urls]
+Homepage = "https://github.com/cjoakim/azure-ai-explorations/python-uv-ruff"
+
+[project.scripts]
+spam-cli = "spam:main_cli"
+
+[project.gui-scripts]
+spam-gui = "spam:main_gui"
+
+[project.entry-points."spam.magical"]
+tomatoes = "spam:main_tomatoes"
+
+[tool.uv.workspace]
+members = [
+    "uv_init",
+]
