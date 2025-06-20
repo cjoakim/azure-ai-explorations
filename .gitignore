@@ -24,6 +24,7 @@
 **/out/
 **/tmp/
 **/Scripts/
+**/.venv/
 **/venv/
 
 **/*.class
