@@ -5,6 +5,7 @@ from src.util.template import Template
 
 # pytest -v tests/test_template.py
 
+
 def test_template_lookup_and_rendering():
     values = dict()
     values["group"] = "Dire Straits"

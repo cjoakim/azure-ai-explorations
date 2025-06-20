@@ -9,13 +9,15 @@ from src.util.tz import Tz
 
 # pytest -v tests/test_tz.py
 
+
 def test_common_timezone_list():
     zones = Tz.common_timezone_list()
     FS.write_json(zones, "tmp/common_timezone_list.json")
     expected = 432
     assert len(zones) > (expected - 10)
     assert len(zones) < (expected + 10)
-    assert 'GMT' in zones
+    assert "GMT" in zones
+
 
 def test_all_timezones():
     zones = Tz.all_timezones()
@@ -23,7 +25,8 @@ def test_all_timezones():
     expected = 596
     assert len(zones) > (expected - 10)
     assert len(zones) < (expected + 10)
-    assert 'GMT' in zones
+    assert "GMT" in zones
+
 
 def test_specific_timesones():
     zone = Tz.gmt_tz()

@@ -5,8 +5,14 @@
 # rather than pip and requirements.in.
 # Chris Joakim, 2025
 
+echo "Prune/ensure directories..."
 rm -rf venv    # legacy directory 
 rm -rf .venv
+rm -rf .coverage
+rm -rf .pytest_cache
+rm -rf htmlcov
+mkdir -p out 
+mkdir -p tmp 
 
 echo "Creating a new virtual environment in .venv..."
 uv venv

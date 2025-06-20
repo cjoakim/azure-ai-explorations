@@ -26,7 +26,7 @@ class RCache:
         """Get the str cache value for the given cache key, or None."""
         value = self.redis_client.get(key)
         if value is not None:
-            return value.decode('utf-8')
+            return value.decode("utf-8")
         else:
             return None
 

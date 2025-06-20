@@ -4,6 +4,7 @@ from src.util.counter import Counter
 
 # pytest -v tests/test_counter.py
 
+
 def test_all():
     c = Counter()
 
@@ -40,14 +41,13 @@ def test_all():
 
     for n in range(10):
         c.increment("Elsa")
-    assert c.most_frequent() == 'Elsa'
+    assert c.most_frequent() == "Elsa"
 
     for n in range(10):
         c.decrement("Elsa")
-    assert c.most_frequent() != 'Elsa'
+    assert c.most_frequent() != "Elsa"
 
     c2 = Counter()
     c2.merge(c)
     assert c2.get_data()["Bell"] == 4
     assert c2.get_data()["Elsa"] == 0
-    

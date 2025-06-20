@@ -37,10 +37,7 @@ def explore():
     print("Azure OpenAI URL:", url)
     print("Azure OpenAI Key:", key)
 
-    client = AzureOpenAI(
-        api_key=key,  
-        api_version="2024-10-21",
-        azure_endpoint = url)
+    client = AzureOpenAI(api_key=key, api_version="2024-10-21", azure_endpoint=url)
     print(str(type(client)))  # <class 'openai.lib.azure.AzureOpenAI'>
     print(client)
 
@@ -52,6 +49,7 @@ def explore():
         print(f"Total models: {len(models.data)}")
     except Exception as e:
         print(f"An error occurred: {e}")
+
 
 if __name__ == "__main__":
     try:

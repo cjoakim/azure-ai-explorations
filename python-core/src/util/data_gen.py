@@ -14,7 +14,7 @@ class DataGenerator:
         self.created_at = int(Env.epoch())
         self.fake = Faker()
 
-    def random_person_document(self, id = None, pk = None):
+    def random_person_document(self, id=None, pk=None):
         doc_id, doc_pk, state = id, pk, self.fake.state()
         if doc_id == None:
             doc_id = str(uuid.uuid4())
@@ -30,5 +30,5 @@ class DataGenerator:
             "email": self.fake.email(),
             "phone": self.fake.phone_number(),
             "proglang": "python",
-            "doctype": "sample"
+            "doctype": "sample",
         }

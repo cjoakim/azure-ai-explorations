@@ -14,7 +14,7 @@ import sys
 import os
 import traceback
 
-import duckdb 
+import duckdb
 
 from docopt import docopt
 from dotenv import load_dotenv
@@ -36,7 +36,7 @@ def check_env():
     for name in sorted(os.environ.keys()):
         if name.startswith("AZURE_"):
             if "PERSONAL" in name:
-                pass 
+                pass
             else:
                 print("{}: {}".format(name, os.environ[name]))
     print("username: {}".format(Env.username()))
@@ -46,13 +46,13 @@ def duck1_csv():
     infile = "../data/misc/postal_codes_nc.csv"
     data = duckdb.read_csv(infile)
     print(data)
-    print(str(type(data))) # <class 'duckdb.duckdb.DuckDBPyRelation'>
+    print(str(type(data)))  # <class 'duckdb.duckdb.DuckDBPyRelation'>
 
 
 def duck2_imdb():
     data = duckdb.read_csv("https://datasets.imdbws.com/name.basics.tsv.gz")
     print(data)
-    print(str(type(data))) # <class 'duckdb.duckdb.DuckDBPyRelation'>
+    print(str(type(data)))  # <class 'duckdb.duckdb.DuckDBPyRelation'>
 
     # name.basics.tsv.gz
     # title.akas.tsv.gz
@@ -62,7 +62,7 @@ def duck2_imdb():
     # title.principals.tsv.gz
     # title.ratings.tsv.gz
 
-        
+
 if __name__ == "__main__":
     try:
         if len(sys.argv) < 2:

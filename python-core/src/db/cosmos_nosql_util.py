@@ -7,7 +7,7 @@ from azure.cosmos.partition_key import PartitionKey
 
 from azure.identity import ClientSecretCredential, DefaultAzureCredential
 
-from src.os.env import Env 
+from src.os.env import Env
 
 # This class is used to access the Azure Cosmos DB NoSQL API
 # via the asynchronous SDK methods.
@@ -69,16 +69,20 @@ class CosmosNoSqlUtil:
     async def create_database(self, dbname, db_level_throughput=0):
         created = False
         if self._client is not None:
-            databases = await self.list_databases();
+            databases = await self.list_databases()
             if dbname in databases:
-                logging.info("CosmosNoSqlUtil - database already exists: {}".format(dbname))
+                logging.info(
+                    "CosmosNoSqlUtil - database already exists: {}".format(dbname)
+                )
             else:
                 if int(db_level_throughput) > 0:
                     await self._client.create_database(
                         id=dbname,
                         offer_throughput=ThroughputProperties(
                             auto_scale_max_throughput=db_level_throughput,
-                            auto_scale_increment_percent=0))
+                            auto_scale_increment_percent=0,
+                        ),
+                    )
                 else:
                     await self._client.create_database(id=dbname)
                 logging.info("CosmosNoSqlUtil - database created: {}".format(dbname))
@@ -109,23 +113,26 @@ class CosmosNoSqlUtil:
     async def create_container(self, cname: str, c_ru: int, pkpath: str):
         created = False
         if self._client is not None:
-            containers = await self.list_containers();
+            containers = await self.list_containers()
             if cname in containers:
-                logging.info("CosmosNoSqlUtil - containers already exists: {}".format(cname))
+                logging.info(
+                    "CosmosNoSqlUtil - containers already exists: {}".format(cname)
+                )
             else:
-                partition_key = PartitionKey(path=pkpath, kind='Hash')
+                partition_key = PartitionKey(path=pkpath, kind="Hash")
                 if c_ru > 0:
                     throughput = ThroughputProperties(
-                        auto_scale_max_throughput=c_ru,
-                        auto_scale_increment_percent=0)
+                        auto_scale_max_throughput=c_ru, auto_scale_increment_percent=0
+                    )
                     await self._dbproxy.create_container(
                         id=cname,
                         partition_key=partition_key,
-                        offer_throughput=throughput)
+                        offer_throughput=throughput,
+                    )
                 else:
                     await self._dbproxy.create_container(
-                        id=cname,
-                        partition_key=partition_key)
+                        id=cname, partition_key=partition_key
+                    )
                 logging.info("CosmosNoSqlUtil - container created: {}".format(cname))
                 created = True
         return created
@@ -145,7 +152,7 @@ class CosmosNoSqlUtil:
 
     def get_current_dbname(self):
         return self._dbname
-    
+
     def get_current_cname(self):
         return self._cname
 
@@ -163,7 +170,7 @@ class CosmosNoSqlUtil:
 
     def get_container_link(self):
         return self._ctrproxy.container_link
-    
+
     async def get_container_throughput(self):
         try:
             return await self._ctrproxy.get_throughput()
@@ -173,7 +180,7 @@ class CosmosNoSqlUtil:
             return None
 
     async def get_container_properties(self) -> dict:
-        #<class 'azure.cosmos._cosmos_responses.CosmosDict'>
+        # <class 'azure.cosmos._cosmos_responses.CosmosDict'>
         simple_props = dict()
         cosmos_dict = await self._ctrproxy.read()
         for key in cosmos_dict.keys():

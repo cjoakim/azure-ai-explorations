@@ -54,7 +54,7 @@ class System:
     def cwd(cls) -> str:
         """Return the current working directory; os.getcwd()"""
         return cls.pwd()
-    
+
     @classmethod
     def pwd(cls) -> str:
         """Return the current working directory; os.getcwd()"""

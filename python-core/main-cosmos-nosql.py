@@ -34,16 +34,22 @@ from src.util.data_gen import DataGenerator
 
 fake = Faker()
 
+
 def print_options(msg):
     print(msg)
     arguments = docopt(__doc__, version="1.0.0")
     print(arguments)
 
-async def test_cosmos_nosql(
-    dbname: str, db_ru: int, cname: str, c_ru: int, pkpath: str):
 
-    logging.info("test_cosmos_nosql, dbname: {}, db_ru: {}, cname: {}, c_ru: {}, pk: {}".format(
-        dbname, db_ru, cname, c_ru, pkpath))
+async def test_cosmos_nosql(
+    dbname: str, db_ru: int, cname: str, c_ru: int, pkpath: str
+):
+
+    logging.info(
+        "test_cosmos_nosql, dbname: {}, db_ru: {}, cname: {}, c_ru: {}, pk: {}".format(
+            dbname, db_ru, cname, c_ru, pkpath
+        )
+    )
     try:
         opts = dict()
         opts["enable_diagnostics_logging"] = True
@@ -52,11 +58,12 @@ async def test_cosmos_nosql(
 
         dbs = await nosql_util.list_databases()
         logging.info("===== databases: {}".format(dbs))
-        
+
         try:
             result = await nosql_util.create_database(dbname, db_ru)
-            logging.info("===== create_database: {} {} {}".format(
-                dbname, db_ru, result))
+            logging.info(
+                "===== create_database: {} {} {}".format(dbname, db_ru, result)
+            )
         except Exception as e:
             logging.info(str(e))
             logging.info(traceback.format_exc())
@@ -69,8 +76,11 @@ async def test_cosmos_nosql(
 
         try:
             result = await nosql_util.create_container(cname, c_ru, pkpath)
-            logging.info("===== create_container: {} {} {} {}".format(
-                cname, c_ru, pkpath, result))
+            logging.info(
+                "===== create_container: {} {} {} {}".format(
+                    cname, c_ru, pkpath, result
+                )
+            )
         except Exception as e:
             logging.info(str(e))
             logging.info(traceback.format_exc())
@@ -78,7 +88,7 @@ async def test_cosmos_nosql(
         ctrproxy = nosql_util.set_container(cname)
         print("ctrproxy: {}".format(ctrproxy))
 
-        #throw_exception_here()
+        # throw_exception_here()
 
         ctrproxy = nosql_util.set_container(cname)
         print("ctrproxy: {}".format(ctrproxy))
@@ -139,6 +149,7 @@ async def test_cosmos_nosql(
     await nosql_util.close()
     logging.info("end of test_cosmos_service")
 
+
 async def load_python_libraries(dbname: str, cname: str):
     """
     Load the CosmosAIGraph Python libraries documents into the given
@@ -153,7 +164,7 @@ async def load_python_libraries(dbname: str, cname: str):
         # See the repo at: https://github.com/AzureCosmosDB/CosmosAIGraph
         # Clone the CosmosAIGraph repo to the same parent directory as this repo.
         input_dir = "../../CosmosAIGraph/data/pypi/wrangled_libs/"
-        entries = FS.walk(input_dir, include_dirs=[], include_types=['json'])
+        entries = FS.walk(input_dir, include_dirs=[], include_types=["json"])
 
         # For DiskANN Vector Search, first enable the Feature as described here:
         # https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/vector-search#enable-the-vector-indexing-and-search-feature
@@ -173,19 +184,25 @@ async def load_python_libraries(dbname: str, cname: str):
                     logging.info(traceback.format_exc())
                     time.sleep(0.1)  # to avoid throttling and 429 errors
 
-        print("entry count: {}".format(len(entries)))  # 10855 docs, 10761 loaded on 6/10
+        print(
+            "entry count: {}".format(len(entries))
+        )  # 10855 docs, 10761 loaded on 6/10
         await nosql_util.close()
 
     except Exception as e:
         logging.info(str(e))
         logging.info(traceback.format_exc())
 
+
 async def vector_search_similar_libs(dbname: str, cname: str, id: str):
     nosql_util = await initialize_cosmos_nosql_util(dbname, cname)
     try:
-        sql = ("SELECT c.id, c.pk, c.name, c.embedding FROM c where c.id = '{}' and c.pk = 'pypi' offset 0 limit 1").format(id)
+        sql = (
+            "SELECT c.id, c.pk, c.name, c.embedding FROM c where c.id = '{}' and c.pk = 'pypi' offset 0 limit 1"
+        ).format(id)
         docs = await nosql_util.query_items(
-            sql, cross_partition=False, pk="/pk", max_items=1)
+            sql, cross_partition=False, pk="/pk", max_items=1
+        )
         if len(docs) == 0:
             print("No document found with id: {}".format(id))
         else:
@@ -216,12 +233,16 @@ async def vector_search_similar_libs(dbname: str, cname: str, id: str):
         logging.info(traceback.format_exc())
     await nosql_util.close()
 
+
 def vector_search_sql(top_n: int, embedding: list):
     return """
 SELECT TOP {} c.id, c.pk, c.name, VectorDistance(c.embedding, {}) AS SimilarityScore
  FROM c
  ORDER BY VectorDistance(c.embedding, {})
-""".format(top_n, embedding, embedding).lstrip()
+""".format(
+        top_n, embedding, embedding
+    ).lstrip()
+
 
 async def initialize_cosmos_nosql_util(dbname: str, cname: str):
     opts = dict()
@@ -232,9 +253,11 @@ async def initialize_cosmos_nosql_util(dbname: str, cname: str):
     nosql_util.set_container(cname)
     return nosql_util
 
+
 def create_random_document(id, pk):
     dg = DataGenerator()
     return dg.random_person_document(id, pk)
+
 
 def throw_exception_here():
     # intentionally throw an exception
@@ -254,18 +277,18 @@ if __name__ == "__main__":
             func = sys.argv[1].lower()
             if func == "test_cosmos_nosql":
                 dbname = sys.argv[2]
-                db_ru  = int(sys.argv[3])
-                cname  = sys.argv[4]
-                c_ru   = int(sys.argv[5])
+                db_ru = int(sys.argv[3])
+                cname = sys.argv[4]
+                c_ru = int(sys.argv[5])
                 pkpath = sys.argv[6]
                 asyncio.run(test_cosmos_nosql(dbname, db_ru, cname, c_ru, pkpath))
             elif func == "load_python_libraries":
                 dbname = sys.argv[2]
-                cname  = sys.argv[3]
+                cname = sys.argv[3]
                 asyncio.run(load_python_libraries(dbname, cname))
             elif func == "vector_search_similar_libs":
                 dbname = sys.argv[2]
-                cname  = sys.argv[3]
+                cname = sys.argv[3]
                 libname = sys.argv[4]
                 asyncio.run(vector_search_similar_libs(dbname, cname, libname))
         except Exception as e:

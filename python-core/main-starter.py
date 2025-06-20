@@ -29,7 +29,7 @@ def check_env():
     for name in sorted(os.environ.keys()):
         if name.startswith("AZURE_"):
             if "PERSONAL" in name:
-                pass 
+                pass
             else:
                 print("{}: {}".format(name, os.environ[name]))
     print("username: {}".format(Env.username()))

@@ -34,10 +34,11 @@ def explore():
     print(endpoint)
     project = AIProjectClient(
         endpoint="your_project_endpoint",  # Replace with your endpoint
-        credential=DefaultAzureCredential())
+        credential=DefaultAzureCredential(),
+    )
     print(str(type(project)))  # <class 'azure.ai.projects._patch.AIProjectClient'>
     print(project)
-    #print("Project ID:", project.project_id)
+    # print("Project ID:", project.project_id)
 
 
 if __name__ == "__main__":

@@ -19,7 +19,9 @@ import os
 from azure.core.credentials import AzureKeyCredential
 from azure.core.rest import HttpRequest
 from azure.ai.documentintelligence import DocumentIntelligenceClient
-from azure.ai.documentintelligence.aio import DocumentIntelligenceClient as DocumentIntelligenceAsyncClient
+from azure.ai.documentintelligence.aio import (
+    DocumentIntelligenceClient as DocumentIntelligenceAsyncClient,
+)
 from azure.ai.documentintelligence.models import AnalyzeResult
 from azure.ai.documentintelligence.models import AnalyzeDocumentRequest
 from azure.ai.documentintelligence.models import DocumentAnalysisFeature, AnalyzeResult
@@ -35,7 +37,9 @@ def print_options(msg):
     arguments = docopt(__doc__, version="1.0.0")
     print(arguments)
 
+
 # helper functions
+
 
 def get_words(page, line):
     result = []
@@ -53,6 +57,7 @@ def _in_span(word, spans):
             return True
     return False
 
+
 def build_docintel_client() -> DocumentIntelligenceClient | None:
     try:
         endpoint = os.environ.get("AZURE_DOCINTEL_URL")
@@ -67,6 +72,7 @@ def build_docintel_client() -> DocumentIntelligenceClient | None:
         print(traceback.format_exc())
         return None
 
+
 def build_async_docintel_client() -> DocumentIntelligenceAsyncClient | None:
     try:
         endpoint = os.environ.get("AZURE_DOCINTEL_URL")
@@ -80,21 +86,24 @@ def build_async_docintel_client() -> DocumentIntelligenceAsyncClient | None:
         print(str(e))
         print(traceback.format_exc())
         return None
-    
+
+
 def explore():
     sample_url = "https://raw.githubusercontent.com/Azure-Samples/cognitive-services-REST-api-samples/master/curl/form-recognizer/sample-layout.pdf"
-    nc_driver_handbook ="https://www.ncdot.gov/dmv/license-id/driver-licenses/new-drivers/Documents/driver-handbook.pdf"
-    
-    di_client : DocumentIntelligenceClient = build_docintel_client()
+    nc_driver_handbook = "https://www.ncdot.gov/dmv/license-id/driver-licenses/new-drivers/Documents/driver-handbook.pdf"
+
+    di_client: DocumentIntelligenceClient = build_docintel_client()
     poller = di_client.begin_analyze_document(
-        "prebuilt-layout", AnalyzeDocumentRequest(url_source=sample_url))
+        "prebuilt-layout", AnalyzeDocumentRequest(url_source=sample_url)
+    )
 
     result: AnalyzeResult = poller.result()
     print("got result, type: ".format(str(type(result))))
     print(result.content)
 
+
 async def explore_async_local_file():
-    di_client : build_async_docintel_client = build_async_docintel_client()
+    di_client: build_async_docintel_client = build_async_docintel_client()
     sos_lyrics = "../data/docs/dire-straits-sultans-of-swing-lyrics.pdf"
     constitution = "../data/docs/us-constitution.pdf"
     laws_of_chess = "../data/docs/LawsOfChess.pdf"
@@ -135,6 +144,7 @@ async def explore_async_local_file():
                         if line.spans:
                             print(f"line spans: {line.spans}")
 
+
 def model_pricing_html_page():
     # HTML doesn't seem to be supported as a source.
     # curl -v ...url... -> Content-Type: text/html; charset=utf-8
@@ -146,13 +156,14 @@ def model_pricing_html_page():
     # }
     #
     # Also, serving files from localhost doesn't work.
-    # python -m http.server 8000 
+    # python -m http.server 8000
     # source_url = "http://localhost:8000/docs/sample-layout.pdf"
     # "message": "Could not download the file from the given URL."
     source_url = "https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service"
-    docintel_client : DocumentIntelligenceClient = build_docintel_client()
+    docintel_client: DocumentIntelligenceClient = build_docintel_client()
     poller = docintel_client.begin_analyze_document(
-        "prebuilt-layout", AnalyzeDocumentRequest(url_source=source_url))
+        "prebuilt-layout", AnalyzeDocumentRequest(url_source=source_url)
+    )
     result: AnalyzeResult = poller.result()
     print("got result, type: ".format(str(type(result))))
     print(result)
@@ -167,7 +178,8 @@ def azure_sample():
 
     docintel_client = build_docintel_client()
     poller = docintel_client.begin_analyze_document(
-        "prebuilt-layout", AnalyzeDocumentRequest(url_source=sample_url))
+        "prebuilt-layout", AnalyzeDocumentRequest(url_source=sample_url)
+    )
 
     result: AnalyzeResult = poller.result()
     print("got result, type: ".format(str(type(result))))
@@ -222,7 +234,6 @@ def azure_sample():
                         )
 
 
-
 if __name__ == "__main__":
     try:
         load_dotenv(override=True)
@@ -243,7 +254,6 @@ if __name__ == "__main__":
     except Exception as e:
         print(str(e))
         print(traceback.format_exc())
-
 
 
 # SDK snippets below:

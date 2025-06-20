@@ -8,6 +8,7 @@ from src.os.env import Env
 
 # pytest -v tests/test_rcache.py
 
+
 @pytest.mark.skip(reason="this test is currently disabled")
 def test_ping_and_client():
     host = Env.redis_host()
@@ -17,6 +18,7 @@ def test_ping_and_client():
     assert p == True
     assert r.client().ping() == True
 
+
 @pytest.mark.skip(reason="this test is currently disabled")
 def test_get_and_set():
     host = Env.redis_host()
@@ -25,7 +27,7 @@ def test_get_and_set():
     r = RCache(host, port)
     r.set("CAT", value)
 
-    assert value == r.get("CAT").decode('utf-8')
+    assert value == r.get("CAT").decode("utf-8")
     assert None == r.get("not-there")
 
     assert value == r.get_str("CAT")
