@@ -1,53 +1,48 @@
 [project]
-name = "aax-example"
+name = "python-fastapi"
 version = "0.1.0"
 dependencies = [
-  "aiohttp",
-  "azure-ai-documentintelligence>=1.0.2",
-  "azure-ai-projects",
-  "azure-cosmos>=4.9.0",
+  "aiohttp>=3.10.2",
+  "azure-cosmos==4.9.0",
+  "six==1.17.0",
+  "Faker",
+  "Jinja2",
   "azure-identity",
-  "azure-storage-blob",
+  "black",
+  "certifi>=2025.1.31",
+  "dnspython",
   "docopt",
   "duckdb",
-  "Faker",
+  "fastapi",
+  "h11>=0.14.0",
   "httpx",
-  "Jinja2",
-  "openai",
+  "hypercorn",
   "psutil",
-  "pytest>=8.4.0",
-  "pytest-asyncio>=1.0.0",
-  "pytest-cov>=6.1.1",
+  "pymongo",
+  "pytest>= 8.3.5",
+  "pytest-asyncio>=0.25.3",
+  "pytest-cov>=6.0.0",
   "python-dotenv",
   "pytz",
-  "redis"
+  "redis",
+  "uvicorn"
 ]
 requires-python = ">=3.13"
 authors = [
-  {name = "Chris Joakim", email = "christopher.joakim@gmail.com"},
-  {name = "Elsa Joakim"}
+  {name = "Chris Joakim", email = "christopher.joakim@gmail.com"}
 ]
 maintainers = [
   {name = "Chris Joakim", email = "christopher.joakim@gmail.com"}
 ]
-description = "A sample python project with pyproject.toml, uf, and ruff"
+description = "An example web project using fastapi"
 readme = "readme.md"
 license = "MIT"
 license-files = ["LICEN[CS]E.*"]
-keywords = ["python", "pyproject.toml", "uv", "ruff"]
+keywords = ["python", "pyproject.toml", "uv", "ruff", "fastapi"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python"
 ]
 
 [project.urls]
-Homepage = "https://github.com/cjoakim/azure-ai-explorations/python-uv-ruff"
-
-[project.scripts]
-spam-cli = "spam:main_cli"
-
-[project.gui-scripts]
-spam-gui = "spam:main_gui"
-
-[project.entry-points."spam.magical"]
-tomatoes = "spam:main_tomatoes"
+Homepage = "https://github.com/cjoakim/azure-ai-explorations/"
