@@ -2,30 +2,39 @@
 name = "python-ai"
 version = "0.1.0"
 dependencies = [
-  "aiohttp",
-  "azure-ai-documentintelligence>=1.0.2",
-  "azure-ai-projects",
-  "azure-cosmos>=4.9.0",
+  "aiohttp>=3.11.18",
+  "azure-ai-documentintelligence==1.0.2",
+  "azure-cosmos==4.9.0",
   "azure-identity",
-  "azure-storage-blob",
+  "azure-search-documents==11.5.2",
+  "black>=24.3.0",
+  "certifi>=2022.12.07",
   "docopt",
   "duckdb",
   "Faker",
+  "h11>=0.14.0",
   "httpx",
-  "Jinja2",
-  "openai",
+  "Jinja2>= 3.1.4",
+  "huggingface_hub",
+  "openai>=1.78.1",
+  "promptflow",
+  "promptflow-tools",
   "psutil",
-  "pytest>=8.4.0",
-  "pytest-asyncio>=1.0.0",
-  "pytest-cov>=6.1.1",
+  "pymongo>=4.6.3",
+  "pypistats",
+  "pytest-asyncio>=0.25.3",
+  "pytest-cov>=6.0.0",
+  "pytest>= 8.3.5",
   "python-dotenv",
   "pytz",
-  "redis"
+  "redis",
+  "semantic-kernel",
+  "six==1.17.0",
+  "tiktoken"
 ]
 requires-python = ">=3.13"
 authors = [
-  {name = "Chris Joakim", email = "christopher.joakim@gmail.com"},
-  {name = "Elsa Joakim"}
+  {name = "Chris Joakim", email = "christopher.joakim@gmail.com"}
 ]
 maintainers = [
   {name = "Chris Joakim", email = "christopher.joakim@gmail.com"}
@@ -34,7 +43,7 @@ description = "A collection of exploratory Python AI projects and tools."
 readme = "readme.md"
 license = "MIT"
 license-files = ["LICEN[CS]E.*"]
-keywords = ["python", "pyproject.toml", "uv", "ruff"]
+keywords = ["python", "pyproject.toml", "uv", "ruff", "AI"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python"
@@ -42,12 +51,3 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/cjoakim/azure-ai-explorations/"
-
-[project.scripts]
-spam-cli = "spam:main_cli"
-
-[project.gui-scripts]
-spam-gui = "spam:main_gui"
-
-[project.entry-points."spam.magical"]
-tomatoes = "spam:main_tomatoes"
