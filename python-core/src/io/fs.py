@@ -71,14 +71,14 @@ class FS:
                 else:
                     include_this_dir = True
 
-                if include_this_dir == True:
+                if include_this_dir:
                     for base_name in base_names:
                         suffix = base_name.split(".")[-1]
                         include_this_file = False
                         if len(include_types) > 0:
                             if suffix in include_types:
                                 include_this_file = True
-                        if include_this_file == True:
+                        if include_this_file:
                             seq = seq + 1
                             full_name = f"{dir_name}/{base_name}"
                             entry = {}

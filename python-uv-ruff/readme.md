@@ -628,3 +628,11 @@ yarl==1.20.1
 ```
 
 ---
+
+## Tool Use: ruff
+
+```
+$ ruff check > tmp/ruff-check.txt
+```
+
+Then address the issues in your code listed in tmp/ruff-check.txt.
