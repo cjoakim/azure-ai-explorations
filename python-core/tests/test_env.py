@@ -15,8 +15,8 @@ def setup_before_all_tests():
 
 def test_boolean_arg():
     print(sys.argv)
-    assert Env.boolean_arg("--some-flag") == True
-    assert Env.boolean_arg("--some-other-flag") == False
+    assert Env.boolean_arg("--some-flag") is True
+    assert Env.boolean_arg("--some-other-flag") is False
 
 
 def test_cosmosdb_emulator_mongo_conn_str():
@@ -78,7 +78,7 @@ def test_epoch():
 
 
 def test_log_standard_env_vars():
-    assert Env.log_standard_env_vars() == True
+    assert Env.log_standard_env_vars() is True
 
 
 def test_mongodb_conn_str():
@@ -118,4 +118,4 @@ def test_username():
 
 
 def test_verbose():
-    assert Env.verbose() == True
+    assert Env.verbose() is True

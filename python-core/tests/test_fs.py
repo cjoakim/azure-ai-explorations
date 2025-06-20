@@ -8,7 +8,7 @@ from src.io.fs import FS
 
 
 def test_as_unix_filename():
-    assert FS.as_unix_filename(None) == None
+    assert FS.as_unix_filename(None) is None
     assert FS.as_unix_filename("  ") == ""
     assert (
         FS.as_unix_filename("C:\\Users\\cjoakim\\some_file.txt")
@@ -31,12 +31,12 @@ def test_list_directories_in_dir():
     assert len(dirs) > 4
     assert len(dirs) < 12
 
-    assert FS.list_directories_in_dir("/not_there") == None
+    assert FS.list_directories_in_dir("/not_there") is None
 
 
 def test_list_files_in_dir():
     files = FS.list_files_in_dir("horse")
-    assert files == None
+    assert files is None
 
     files = FS.list_files_in_dir("src/io")
     assert str(type(files)) == "<class 'list'>"
@@ -60,7 +60,7 @@ def test_read():
     assert len(s) == 304618
 
     s = FS.read("../data/TYPO/nc_zipcodes.json")
-    assert s == None
+    assert s is None
 
 
 def test_read_lines():
@@ -72,7 +72,7 @@ def test_read_lines():
     assert lines[-1] == "12028,28909,US,Warne,NC,35.0118070000,-83.9188180000\n"
 
     lines = FS.read_lines("../data/TYPO/postal_codes_nc.csv")
-    assert lines == None
+    assert lines is None
 
 
 def test_read_json():
@@ -82,10 +82,10 @@ def test_read_json():
     assert len(obj) == 1075
 
     obj = FS.read_json("../data/TYPO/nc_zipcodes.json")
-    assert obj == None
+    assert obj is None
 
     obj = FS.read_json("requirements.txt")
-    assert obj == None
+    assert obj is None
 
 
 def test_read_csv_as_rows_with_header():
@@ -162,7 +162,7 @@ def test_text_file_iterator():
 
 def test_walk():
     entries = FS.walk("not_there", include_dirs=[], include_types=[])
-    assert entries == None
+    assert entries is None
 
     entries = FS.walk(
         "../data", include_dirs=["../data/openflights/json"], include_types=["xml"]
@@ -176,14 +176,14 @@ def test_walk():
 
     entries = FS.walk("src", include_dirs=[], include_types=["py"])
     print(json.dumps(entries, sort_keys=True, indent=2))
-    result = FS.write_json(entries, "tmp/test_walk.json")
+    FS.write_json(entries, "tmp/test_walk.json")
     assert len(entries) > 10
     assert len(entries) < 20
     fs_found = False
     for e in entries:
         if e["base"] == "fs.py":
             fs_found = True
-    assert fs_found == True
+    assert fs_found is True
 
     entries = FS.walk("src", include_dirs=[], include_types=["py"])
     print(json.dumps(entries, sort_keys=True, indent=2))
@@ -192,21 +192,21 @@ def test_walk():
     for e in entries:
         if e["base"] == "bytes.py":
             bytes_found = True
-    assert bytes_found == True
+    assert bytes_found is True
 
 
 def test_write():
     testfile = "tmp/test_write.txt"
     s1 = "line 1\nline2\ncreated at {}".format(datetime.datetime.now())
     result = FS.write(s1, testfile)
-    assert result == True
+    assert result is True
     s2 = FS.read(testfile)
     assert s1 == s2
 
     testfile = "TYPO/test_write.txt"
     s1 = "line 1\nline2\ncreated at {}".format(datetime.datetime.now())
     result = FS.write(s1, testfile)
-    assert result == False
+    assert result is False
 
 
 def test_write_json():
@@ -218,7 +218,7 @@ def test_write_json():
     things.append(data)
     FS.write_json(things, filename, pretty=False)
     result = FS.write_json(things, filename)
-    assert result == True
+    assert result is True
 
     objects = FS.read_json(filename)
     assert str(type(objects)) == "<class 'list'>"
@@ -226,7 +226,7 @@ def test_write_json():
     assert objects[0]["epoch"] == now
 
     result = FS.write_json(things, "TYPO/test_write_json.json")
-    assert result == False
+    assert result is False
 
 
 def test_write_lines():
@@ -237,7 +237,7 @@ def test_write_lines():
     lines.append(str(now))
     lines.append("pears")
     result = FS.write_lines(lines, filename)
-    assert result == True
+    assert result is True
 
     lines = FS.read_lines(filename)
     assert lines[0].strip() == "apples"
@@ -245,4 +245,4 @@ def test_write_lines():
     assert lines[2].strip() == "pears"
 
     result = FS.write_lines(lines, "TYPO/test_write_lines.txt")
-    assert result == False
+    assert result is False

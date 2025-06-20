@@ -15,8 +15,8 @@ def test_ping_and_client():
     port = Env.redis_port()
     r = RCache(host, port)
     p = r.ping()
-    assert p == True
-    assert r.client().ping() == True
+    assert p is True
+    assert r.client().ping() is True
 
 
 @pytest.mark.skip(reason="this test is currently disabled")
@@ -28,7 +28,7 @@ def test_get_and_set():
     r.set("CAT", value)
 
     assert value == r.get("CAT").decode("utf-8")
-    assert None == r.get("not-there")
+    assert r.get("not-there") is None
 
     assert value == r.get_str("CAT")
-    assert r.get_str("Dog") == None
+    assert r.get_str("Dog") is None

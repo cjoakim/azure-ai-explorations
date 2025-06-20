@@ -17,14 +17,12 @@ def test_platform_is_windows_is_mac():
     print("platform is: {}".format(p))
 
     if System.is_windows():
-        assert System.is_mac() == False
+        assert System.is_mac() is False
         assert "win" in p
 
     if System.is_mac():
-        assert System.is_windows() == False
+        assert System.is_windows() is False
         assert "darwin" in p
-
-    # assert System.is_mac()
 
 
 def test_cpu_count():
@@ -92,7 +90,7 @@ def test_process_name():
 
 def test_sleep():
     e1 = Env.epoch()
-    n = System.sleep(0.5)
+    System.sleep(0.5)
     e2 = Env.epoch()
     elapsed = e2 - e1
     print("e1 {} e2 {} elapsed {}".format(e1, e2, elapsed))

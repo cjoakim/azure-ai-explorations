@@ -21,7 +21,7 @@ class FS:
                 return filename[2:].replace("\\", "/")
             else:
                 return filename.replace("\\", "/").strip()
-        except Exception as e:
+        except:
             print(traceback.format_exc())
             return filename
 
@@ -103,7 +103,7 @@ class FS:
             if os.path.isfile(infile):
                 with open(file=infile, encoding=encoding, mode=mode) as file:
                     return file.read()
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return None
 
@@ -125,7 +125,7 @@ class FS:
             if os.path.isfile(infile):
                 with open(file=infile, encoding=encoding, mode=mode) as file:
                     return json.loads(file.read())
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return None
 
@@ -145,7 +145,7 @@ class FS:
                     for row in rdr:
                         rows.append(row)
                 return rows
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return None
 
@@ -166,7 +166,7 @@ class FS:
                         if idx >= skip:
                             rows.append(row)
                 return rows
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return None
 
@@ -193,7 +193,7 @@ class FS:
                         if verbose is True:
                             logging.warning(f"file written: {outfile}")
                     return True
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return False
 
@@ -215,7 +215,7 @@ class FS:
                     if verbose is True:
                         logging.warning(f"file written: {outfile}")
                 return True
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return False
 
@@ -230,7 +230,7 @@ class FS:
                     if verbose is True:
                         logging.warning(f"file written: {outfile}")
                 return True
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return False
 
@@ -242,7 +242,7 @@ class FS:
                 os.remove(filename)
                 logging.warning(f"file deleted: {filename}")
                 return True
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return False
 
@@ -254,6 +254,6 @@ class FS:
                 os.rmdir(dirname)
                 logging.warning(f"directory deleted: {dirname}")
                 return True
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return False

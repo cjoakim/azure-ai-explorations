@@ -16,9 +16,9 @@ class DataGenerator:
 
     def random_person_document(self, id=None, pk=None):
         doc_id, doc_pk, state = id, pk, self.fake.state()
-        if doc_id == None:
+        if doc_id is None:
             doc_id = str(uuid.uuid4())
-        if doc_pk == None:
+        if doc_pk is None:
             doc_pk = state
         return {
             "id": doc_id,

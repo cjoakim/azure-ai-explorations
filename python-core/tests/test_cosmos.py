@@ -57,11 +57,10 @@ async def test_all(cosmos_util):
     # test expected failures before db or container is set, or operatons executed
     assert cosmos_util.last_response_headers() == dict()
     assert cosmos_util.last_request_charge() == -1
-    assert await cosmos_util.delete_database("does_not_exist") == False
-    # assert await cosmos_util.delete_container("does_not_exist") == False
+    assert await cosmos_util.delete_database("does_not_exist") is False
 
     # test create_database
-    b = await cosmos_util.create_database(dbname, 1000)
+    await cosmos_util.create_database(dbname, 1000)
     databases = await cosmos_util.list_databases()
     print("databases after creation: {}".format(databases))
     assert str(type(databases)) == "<class 'list'>"
