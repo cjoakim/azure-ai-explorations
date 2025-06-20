@@ -1,7 +1,4 @@
 import json
-import uuid
-
-from faker import Faker
 
 from src.db.doc_filter import DocFilter
 from src.util.data_gen import DataGenerator

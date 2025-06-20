@@ -1,5 +1,3 @@
-import pytest
-
 from src.util.counter import Counter
 
 # pytest -v tests/test_counter.py

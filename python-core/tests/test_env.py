@@ -1,10 +1,8 @@
-import argparse
 import sys
 
 import pytest
 
 from src.os.env import Env
-from src.os.system import System
 
 # pytest -v tests/test_env.py
 

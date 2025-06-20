@@ -1,5 +1,3 @@
-import pytest
-
 from src.os.system import System
 from src.util.template import Template
 

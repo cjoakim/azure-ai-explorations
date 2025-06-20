@@ -19,11 +19,6 @@ from dotenv import load_dotenv
 
 from openai import AzureOpenAI
 
-from src.io.fs import FS
-from src.os.env import Env
-from src.os.system import System
-from src.util.counter import Counter
-
 
 def print_options(msg):
     print(msg)

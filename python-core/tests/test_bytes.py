@@ -1,5 +1,3 @@
-import pytest
-
 from src.util.bytes import Bytes
 
 # pytest -v tests/test_bytes.py

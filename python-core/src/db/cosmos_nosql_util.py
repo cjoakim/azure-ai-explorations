@@ -5,7 +5,8 @@ from azure.cosmos.aio import CosmosClient
 from azure.cosmos import ThroughputProperties
 from azure.cosmos.partition_key import PartitionKey
 
-from azure.identity import ClientSecretCredential, DefaultAzureCredential
+#from azure.identity import ClientSecretCredential
+from azure.identity import DefaultAzureCredential
 
 from src.os.env import Env
 

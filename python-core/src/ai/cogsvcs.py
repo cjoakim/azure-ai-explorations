@@ -4,11 +4,9 @@ import time
 import traceback
 import uuid
 
-import httpx
 import requests
 
 from src.env import Env
-from src.fs import FS
 
 
 # This class is used to invoke Azure Cognitive Services via HTTP.
@@ -147,7 +145,7 @@ class CogSvcsClient:
     # "private" methods below
 
     def get_cogsvcs_rest_endpoint(self, alt_env_var_name=None):
-        if alt_env_var_name == None:
+        if alt_env_var_name is None:
             return Env.var("AZURE_COGSVCS_ALLIN1_URL")
         else:
             return Env.var(alt_env_var_name)
@@ -159,7 +157,7 @@ class CogSvcsClient:
             return "{}/{}".format(self.get_cogsvcs_rest_endpoint(), path)
 
     def get_face_rest_endpoint(self, alt_env_var_name=None):
-        if alt_env_var_name == None:
+        if alt_env_var_name is None:
             return Env.var("AZURE_COGSVCS_FACE_URL")
         else:
             return Env.var(alt_env_var_name)
@@ -172,7 +170,7 @@ class CogSvcsClient:
 
     def get_cogsvcs_headers(self, alt_env_var_name=None):
         key = None
-        if alt_env_var_name == None:
+        if alt_env_var_name is None:
             key = Env.var("AZURE_COGSVCS_ALLIN1_KEY")
         else:
             key = Env.var(alt_env_var_name)
@@ -184,7 +182,7 @@ class CogSvcsClient:
 
     def get_texttranslator_headers(self, alt_env_var_name=None):
         key = None
-        if alt_env_var_name == None:
+        if alt_env_var_name is None:
             key = Env.var("AZURE_COGSVCS_TEXTTRAN_KEY")
         else:
             key = Env.var(alt_env_var_name)
@@ -197,7 +195,7 @@ class CogSvcsClient:
 
     def get_face_headers(self, alt_env_var_name=None):
         key = None
-        if alt_env_var_name == None:
+        if alt_env_var_name is None:
             key = Env.var("AZURE_COGSVCS_FACE_KEY")
         else:
             key = Env.var(alt_env_var_name)

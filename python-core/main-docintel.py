@@ -15,21 +15,17 @@ import traceback
 from docopt import docopt
 from dotenv import load_dotenv
 
-import os
 from azure.core.credentials import AzureKeyCredential
-from azure.core.rest import HttpRequest
+#from azure.core.rest import HttpRequest
 from azure.ai.documentintelligence import DocumentIntelligenceClient
 from azure.ai.documentintelligence.aio import (
     DocumentIntelligenceClient as DocumentIntelligenceAsyncClient,
 )
 from azure.ai.documentintelligence.models import AnalyzeResult
 from azure.ai.documentintelligence.models import AnalyzeDocumentRequest
-from azure.ai.documentintelligence.models import DocumentAnalysisFeature, AnalyzeResult
+from azure.ai.documentintelligence.models import DocumentAnalysisFeature
 
 from src.io.fs import FS
-from src.os.env import Env
-from src.os.system import System
-from src.util.counter import Counter
 
 
 def print_options(msg):
@@ -90,7 +86,7 @@ def build_async_docintel_client() -> DocumentIntelligenceAsyncClient | None:
 
 def explore():
     sample_url = "https://raw.githubusercontent.com/Azure-Samples/cognitive-services-REST-api-samples/master/curl/form-recognizer/sample-layout.pdf"
-    nc_driver_handbook = "https://www.ncdot.gov/dmv/license-id/driver-licenses/new-drivers/Documents/driver-handbook.pdf"
+    #nc_driver_handbook = "https://www.ncdot.gov/dmv/license-id/driver-licenses/new-drivers/Documents/driver-handbook.pdf"
 
     di_client: DocumentIntelligenceClient = build_docintel_client()
     poller = di_client.begin_analyze_document(
@@ -98,16 +94,16 @@ def explore():
     )
 
     result: AnalyzeResult = poller.result()
-    print("got result, type: ".format(str(type(result))))
+    print("got result, type: {}".format(str(type(result))))
     print(result.content)
 
 
 async def explore_async_local_file():
     di_client: build_async_docintel_client = build_async_docintel_client()
-    sos_lyrics = "../data/docs/dire-straits-sultans-of-swing-lyrics.pdf"
-    constitution = "../data/docs/us-constitution.pdf"
+    # sos_lyrics = "../data/docs/dire-straits-sultans-of-swing-lyrics.pdf"
+    # constitution = "../data/docs/us-constitution.pdf"
+    # simple_sample = "../data/docs/simple-sample-doc.pdf"
     laws_of_chess = "../data/docs/LawsOfChess.pdf"
-    simple_sample = "../data/docs/simple-sample-doc.pdf"
 
     infile = laws_of_chess
     print(f"Analyzing file: {infile} ...")
@@ -165,7 +161,7 @@ def model_pricing_html_page():
         "prebuilt-layout", AnalyzeDocumentRequest(url_source=source_url)
     )
     result: AnalyzeResult = poller.result()
-    print("got result, type: ".format(str(type(result))))
+    print("got result, type: {}".format(str(type(result))))
     print(result)
 
 
@@ -182,7 +178,7 @@ def azure_sample():
     )
 
     result: AnalyzeResult = poller.result()
-    print("got result, type: ".format(str(type(result))))
+    print("got result, type: {}".format(str(type(result))))
 
     if result.styles and any([style.is_handwritten for style in result.styles]):
         print("Document contains handwritten content")

@@ -15,7 +15,6 @@ Options:
 """
 
 import asyncio
-import json
 import sys
 import time
 import logging
@@ -115,14 +114,6 @@ async def test_cosmos_nosql(
         response = await nosql_util.delete_item(id, pk)
         print("delete_item response: {}".format(response))
 
-        if False:
-            try:
-                print("===== point_read of deleted doc ...")
-                doc = await nosql_util.point_read(id, pk)
-                print("point_read of deleted doc: {}".format(doc))
-            except Exception as e:
-                print("point_read of deleted doc threw an exception")
-
         operations, pk = list(), "bulk_pk"
         for n in range(3):
             # example: ("create", (get_sales_order("create_item"),))
@@ -174,7 +165,7 @@ async def load_python_libraries(dbname: str, cname: str):
                 print("processing file index {}: {}".format(idx, abspath))
                 try:
                     doc = FS.read_json(abspath)
-                    if doc != None:
+                    if doc is not None:
                         # There is approx 600MB in this dataset, so it will fit in a
                         # 20GB physical partition; the partition key value is "pypi".
                         doc["pk"] = "pypi"
@@ -262,6 +253,7 @@ def create_random_document(id, pk):
 def throw_exception_here():
     # intentionally throw an exception
     intentional_exception = 1 / 0
+    print("{}".format(intentional_exception))
 
 
 if __name__ == "__main__":

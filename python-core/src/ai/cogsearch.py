@@ -4,10 +4,8 @@ import sys
 import time
 import traceback
 
-import httpx
 import requests
 
-from src.env import Env
 from src.fs import FS
 
 # This class is used to invoke Azure Cognitive Search via HTTP.
@@ -244,9 +242,9 @@ class CogSearchClient:
         if self.verbose:
             print("lookup_doc: {} {}".format(index_name, doc_key))
         url = self.lookup_doc_url(index_name, doc_key)
-        headers = self.query_headers
+        #headers = self.query_headers
         function = "lookup_doc_{}_{}".format(index_name, doc_key)
-        r = self.http_request(function, "get", url, self.query_headers)
+        return self.http_request(function, "get", url, self.query_headers)
 
     def http_request(self, function_name, method, url, headers={}, json_body={}):
         """
@@ -307,11 +305,12 @@ class CogSearchClient:
                     data["resp_status_code"] = r.status_code
                     try:
                         data["resp_obj"] = r.json()
-                    except:
-                        pass  # this is expected as some requests don't return a response, like http 204
+                    except Exception as ex:
+                        print("{} {}".format(r.status_code, ex.message))
+                        # pass  # this is expected as some requests don't return a response, like http 204
                     self.write_json_file(data, outfile)
                 except Exception as e:
-                    print("exception saving http response".format(e))
+                    print("exception saving http response; {}".format(e))
                     print(traceback.format_exc())
             return r
 
@@ -329,9 +328,6 @@ class CogSearchClient:
         return "AccountEndpoint=https://{}.documents.azure.com;AccountKey={};Database={}".format(
             acct, key, dbname
         )
-
-    def cosmos_nosql_datasource_name(self, dbname, container):
-        return "cosmosdb-nosql-{}-{}".format(dbname, container)
 
     # URL methods below:
 
@@ -461,18 +457,18 @@ class CogSearchClient:
         }
         return body
 
-    def cosmosdb_nosql_datasource_post_body(self):
-        schema = {
-            "name": "... populate me ...",
-            "type": "cosmosdb",
-            "credentials": {"connectionString": "... populate me ..."},
-            "container": {"name": "... populate me ...", "query": None},
-            "dataChangeDetectionPolicy": {
-                "@odata.type": "#Microsoft.Azure.Search.HighWaterMarkChangeDetectionPolicy",
-                "highWaterMarkColumnName": "_ts",
-            },
-        }
-        return schema
+    # def cosmosdb_nosql_datasource_post_body(self):
+    #     schema = {
+    #         "name": "... populate me ...",
+    #         "type": "cosmosdb",
+    #         "credentials": {"connectionString": "... populate me ..."},
+    #         "container": {"name": "... populate me ...", "query": None},
+    #         "dataChangeDetectionPolicy": {
+    #             "@odata.type": "#Microsoft.Azure.Search.HighWaterMarkChangeDetectionPolicy",
+    #             "highWaterMarkColumnName": "_ts",
+    #         },
+    #     }
+    #     return schema
 
     def cosmosdb_nosql_datasource_post_body(self):
         schema = {
