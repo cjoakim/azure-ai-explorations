@@ -1,5 +1,11 @@
 # Python with uv, ruff, etc
 
+This directory explores using **"hypermodern python tooling"**
+such as uv and ruff.
+
+See the O'Reilly book of this title at:
+https://www.oreilly.com/library/view/hypermodern-python-tooling/9781098139575/
+
 ## Astral
 
 Astral’s mission is to make the Python ecosystem more productive
