@@ -8,6 +8,9 @@ export user=$USER
 export primary_region="eastus"
 export primary_rg="cjoakim-ai-research2"
 
+export ai_search_name="cjoakimaisearch"
+export ai_search_rg=$primary_rg
+
 export storage_region=$primary_region
 export storage_rg=$primary_rg
 export storage_name="cjoakimaistorage"
