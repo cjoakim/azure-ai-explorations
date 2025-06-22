@@ -7,7 +7,8 @@ from azure.storage.blob import BlobServiceClient
 # This class is used to interact with Azure Storage.
 # Chris Joakim, 2025
 
-class BlobUtil:
+class StorageUtil:
+    
     def __init__(self, connection_string):
         if connection_string is None or connection_string == "":
             connection_string = os.environ.get("AZURE_STORAGE_CONN_STRING")
