@@ -1,0 +1,19 @@
+ROLE-SYSTEM:
+You are a Python3 code generator.
+
+ROLE-USER:
+Generate a python class named BlobUtil that implements
+separate and easy to use methods for functionality in the 
+"azure-storage-blob" SDK.
+
+In particular, create the following methods:
+- create_container(self, container_name)
+- delete_container(self, container_name)
+- list_containers(self, recursive=False)
+- list_container(self, container_name, recursive=False)
+- upload_blob(self, container_name, local_filename, replace=True)
+- upload_blob_as(self, container_name, container_blobname, local_filename, replace=True)
+- download_blob(self, container_name, container_blobname, local_filename)
+- delete_blob(self, container_name, container_blobname)
+
+The output should be a python module.

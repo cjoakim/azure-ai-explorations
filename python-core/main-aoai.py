@@ -5,6 +5,8 @@ Usage:
   python main-aoai.py generate_completion <promptfile>
   python main-aoai.py generate_completion prompts/sample-prompt.txt
   python main-aoai.py generate_completion prompts/gen-aisearch-util.txt
+  python main-aoai.py generate_completion prompts/gen-blob-util.txt
+  python main-aoai.py generate_completion prompts/gen-foundry-util.txt
 """
 
 import json
