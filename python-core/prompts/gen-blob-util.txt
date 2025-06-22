@@ -2,7 +2,7 @@ ROLE-SYSTEM:
 You are a Python3 code generator.
 
 ROLE-USER:
-Generate a python class named BlobUtil that implements
+Generate a python class named StorageUtil that implements
 separate and easy to use methods for functionality in the 
 "azure-storage-blob" SDK.
 
