@@ -30,3 +30,9 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/cjoakim/azure-ai-explorations/"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+ignore = ["E722"]

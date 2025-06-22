@@ -10,16 +10,10 @@ Options:
   --version     Show version.
 """
 
-import base64
 import json
-import logging
 import sys
 import time
-import os
 import traceback
-import typing
-
-from pprint import pprint
 
 from datetime import datetime
 from datetime import timedelta
@@ -31,7 +25,6 @@ from pydantic import BaseModel
 
 from src.os.env import Env
 from src.io.fs import FS
-from src.os.system import System
 
 # Inline Pydantic model and other classes for demonstration purposes
 

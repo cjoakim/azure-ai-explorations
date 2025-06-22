@@ -3,7 +3,7 @@ import os
 import sys
 import time
 
-from src.os.system import System 
+from src.os.system import System
 
 # This class is used to read the host environment variables.
 # It also has methods for command-line flag argument processing.
@@ -43,7 +43,7 @@ class Env:
     @classmethod
     def verbose(cls) -> bool:
         """Return a boolean indicating if --verbose is in the command-line."""
-        return '--verbose' in sys.argv
+        return "--verbose" in sys.argv
 
     @classmethod
     def cosmosdb_nosql_acct(cls) -> str:
@@ -65,7 +65,7 @@ class Env:
             return "http://localhost:8081"
         else:
             return "https://localhost:8081"
-    
+
     @classmethod
     def cosmosdb_nosql_key(cls) -> str:
         value = cls.envvar("AZURE_COSMOSDB_NOSQL_KEY", None)
@@ -77,18 +77,18 @@ class Env:
     @classmethod
     def cosmosdb_emulator_nosql_key(cls) -> str:
         return "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="
-    
+
     @classmethod
     def cosmosdb_nosql_authtype(cls) -> str:
-        return cls.envvar("AZURE_COSMOSDB_NOSQL_AUTHTYPE", 'key')
+        return cls.envvar("AZURE_COSMOSDB_NOSQL_AUTHTYPE", "key")
 
     @classmethod
     def cosmosdb_nosql_default_database(cls) -> str:
-        return cls.envvar("AZURE_COSMOSDB_NOSQL_DEFAULT_DB", 'dev')
+        return cls.envvar("AZURE_COSMOSDB_NOSQL_DEFAULT_DB", "dev")
 
     @classmethod
     def cosmosdb_nosql_default_container(cls) -> str:
-        return cls.envvar("AZURE_COSMOSDB_NOSQL_DEFAULT_CONTAINER", 'test')
+        return cls.envvar("AZURE_COSMOSDB_NOSQL_DEFAULT_CONTAINER", "test")
 
     @classmethod
     def cosmosdb_emulator_mongo_conn_str(cls) -> str:
@@ -123,23 +123,17 @@ class Env:
         d["AZURE_COSMOSDB_NOSQL_ACCT"] = "AZURE_COSMOS DB NoSQL account name"
         d["AZURE_COSMOSDB_NOSQL_URI"] = "AZURE_COSMOS DB NoSQL account URI"
         d["AZURE_COSMOSDB_NOSQL_KEY"] = "AZURE_COSMOS DB NoSQL account key"
-        d["AZURE_COSMOSDB_NOSQL_AUTHTYPE"] = (
-            "Authentication mechanism; key or rbac."
-        )
+        d["AZURE_COSMOSDB_NOSQL_AUTHTYPE"] = "Authentication mechanism; key or rbac."
         d["AZURE_COSMOSDB_NOSQL_DEFAULT_DB"] = "AZURE_COSMOS DB NoSQL default database"
-        d["AZURE_COSMOSDB_NOSQL_DEFAULT_CONTAINER"] = "AZURE_COSMOS DB NoSQL default container"
-        d["LOG_LEVEL"] = (
-            "A standard python or java logging level name."
+        d["AZURE_COSMOSDB_NOSQL_DEFAULT_CONTAINER"] = (
+            "AZURE_COSMOS DB NoSQL default container"
         )
+        d["LOG_LEVEL"] = "A standard python or java logging level name."
         d["MONGO_CONN_STR"] = (
             "MongoDB connection string for MongoDB or Cosmos DB Mongo vCore, or the emulator"
         )
-        d["REDIS_HOST"] = (
-            "Redis Cache host, defaults to 127.0.0.1"
-        )
-        d["REDIS_PORT"] = (
-            "Redis Cache port, defaults to 6379"
-        )
+        d["REDIS_HOST"] = "Redis Cache host, defaults to 127.0.0.1"
+        d["REDIS_PORT"] = "Redis Cache port, defaults to 6379"
         return d
 
     @classmethod
@@ -157,11 +151,11 @@ class Env:
         os.environ["REDIS_HOST"] = "127.0.0.1"
         os.environ["REDIS_PORT"] = "6379"
 
-        sys.argv.append('--some-flag')
-        sys.argv.append('--some-int')
-        sys.argv.append('42')
-        sys.argv.append('--some-float')
-        sys.argv.append('3.1415926')
-        sys.argv.append('--some-float')
-        sys.argv.append('--verbose')
+        sys.argv.append("--some-flag")
+        sys.argv.append("--some-int")
+        sys.argv.append("42")
+        sys.argv.append("--some-float")
+        sys.argv.append("3.1415926")
+        sys.argv.append("--some-float")
+        sys.argv.append("--verbose")
         return True

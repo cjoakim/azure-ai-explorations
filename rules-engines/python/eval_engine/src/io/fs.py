@@ -10,23 +10,24 @@ from typing import Iterator
 # such as reading and writing text, csv, and json files.
 # Chris Joakim, 2025
 
+
 class FS:
 
     @classmethod
     def as_unix_filename(cls, filename: str) -> str:
-        """ Return the given filename with unix slashes, and without Windows C: """
+        """Return the given filename with unix slashes, and without Windows C:"""
         try:
             if filename.upper().startswith("C:"):
                 return filename[2:].replace("\\", "/")
             else:
                 return filename.replace("\\", "/").strip()
-        except Exception as e:
+        except:
             print(traceback.format_exc())
             return filename
 
     @classmethod
     def list_files_in_dir(cls, basedir: str) -> list[str] | None:
-        """ Return a list of files in the given directory, or None """
+        """Return a list of files in the given directory, or None"""
         if os.path.isdir(basedir):
             files = []
             for file in os.listdir(basedir):
@@ -40,7 +41,7 @@ class FS:
 
     @classmethod
     def list_directories_in_dir(cls, basedir: str) -> list[str] | None:
-        """ Return a list of directories in the given directory, or None """
+        """Return a list of directories in the given directory, or None"""
         if os.path.isdir(basedir):
             files = []
             for file in os.listdir(basedir):
@@ -51,7 +52,9 @@ class FS:
         return None
 
     @classmethod
-    def walk(cls, directory: str, include_dirs=[], include_types=[]) -> list[dict] | None:
+    def walk(
+        cls, directory: str, include_dirs=[], include_types=[]
+    ) -> list[dict] | None:
         """
         Recursively walk the given directory and return a list of dicts;
         one for each file that matches the given include_dirs and include_types.
@@ -68,14 +71,14 @@ class FS:
                 else:
                     include_this_dir = True
 
-                if include_this_dir == True:
+                if include_this_dir:
                     for base_name in base_names:
-                        suffix = base_name.split('.')[-1]
+                        suffix = base_name.split(".")[-1]
                         include_this_file = False
                         if len(include_types) > 0:
                             if suffix in include_types:
                                 include_this_file = True
-                        if include_this_file == True:
+                        if include_this_file:
                             seq = seq + 1
                             full_name = f"{dir_name}/{base_name}"
                             entry = {}
@@ -94,19 +97,19 @@ class FS:
         """
         Read the given file, return the contents as a str or None.
         The encoding param defaults to 'utf-8'. but 'cp1252' is common on Windows.
-        The mode defaults to 'rt'. 'r' and 'rb' (binary) are possible values.  
+        The mode defaults to 'rt'. 'r' and 'rb' (binary) are possible values.
         """
         try:
             if os.path.isfile(infile):
                 with open(file=infile, encoding=encoding, mode=mode) as file:
                     return file.read()
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return None
 
     @classmethod
     def read_lines(cls, infile: str, encoding="utf-8", mode="rt") -> list[str] | None:
-        """ Read the given file, return an array of lines(strings) or None """
+        """Read the given file, return an array of lines(strings) or None"""
         if os.path.isfile(infile):
             lines = []
             with open(file=infile, encoding=encoding, mode=mode) as file:
@@ -117,19 +120,19 @@ class FS:
 
     @classmethod
     def read_json(cls, infile: str, encoding="utf-8", mode="rt") -> dict | list | None:
-        """ Read the given JSON file, return either a list, a dict, or None """
+        """Read the given JSON file, return either a list, a dict, or None"""
         try:
             if os.path.isfile(infile):
                 with open(file=infile, encoding=encoding, mode=mode) as file:
                     return json.loads(file.read())
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return None
 
     @classmethod
     def read_csv_as_dicts(
-        cls, infile: str, delim=",", dialect="excel",
-        encoding="utf-8", mode="rt") -> list[str] | None:
+        cls, infile: str, delim=",", dialect="excel", encoding="utf-8", mode="rt"
+    ) -> list[str] | None:
         """
         Read the given csv filename, return an array of dicts or None.
         Implementation uses csv.DictReader.
@@ -142,12 +145,14 @@ class FS:
                     for row in rdr:
                         rows.append(row)
                 return rows
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return None
 
     @classmethod
-    def read_csv_as_rows(cls, infile: str, delim=",", skip=0, encoding="utf-8", mode="rt") -> list[str] | None:
+    def read_csv_as_rows(
+        cls, infile: str, delim=",", skip=0, encoding="utf-8", mode="rt"
+    ) -> list[str] | None:
         """
         Read the given csv filename, return an array of csv rows or None.
         Implementation uses csv.reader.
@@ -161,14 +166,15 @@ class FS:
                         if idx >= skip:
                             rows.append(row)
                 return rows
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return None
 
-
     @classmethod
-    def text_file_iterator(cls, infile: str, encoding="utf-8", mode="rt") -> Iterator[str] | None:
-        """ Return a line generator that can be iterated with iterate() """
+    def text_file_iterator(
+        cls, infile: str, encoding="utf-8", mode="rt"
+    ) -> Iterator[str] | None:
+        """Return a line generator that can be iterated with iterate()"""
         if os.path.isfile(infile):
             with open(file=infile, encoding=encoding, mode=mode) as file:
                 for line in file:
@@ -178,7 +184,7 @@ class FS:
 
     @classmethod
     def write(cls, string_value: str, outfile: str, verbose=True) -> bool:
-        """ Write the given str to the given file """
+        """Write the given str to the given file"""
         try:
             if outfile is not None:
                 if string_value is not None:
@@ -187,13 +193,15 @@ class FS:
                         if verbose is True:
                             logging.warning(f"file written: {outfile}")
                     return True
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return False
-    
+
     @classmethod
-    def write_json(cls, obj: object, outfile: str, pretty=True, sort_keys=True, verbose=True) -> None:
-        """ Write the given object to the given file as JSON """
+    def write_json(
+        cls, obj: object, outfile: str, pretty=True, sort_keys=True, verbose=True
+    ) -> None:
+        """Write the given object to the given file as JSON"""
         try:
             if obj is not None:
                 jstr = None
@@ -207,13 +215,13 @@ class FS:
                     if verbose is True:
                         logging.warning(f"file written: {outfile}")
                 return True
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return False
-    
+
     @classmethod
     def write_lines(cls, lines: list[str], outfile: str, verbose=True) -> bool:
-        """ Write the given str lines to the given file """
+        """Write the given str lines to the given file"""
         try:
             if lines is not None:
                 with open(file=outfile, encoding="utf-8", mode="w") as file:
@@ -222,7 +230,30 @@ class FS:
                     if verbose is True:
                         logging.warning(f"file written: {outfile}")
                 return True
-        except Exception as e:
+        except:
             print(traceback.format_exc())
         return False
 
+    @classmethod
+    def delete_file(cls, filename: str) -> bool:
+        """Delete the given file, return True if successful"""
+        try:
+            if os.path.isfile(filename):
+                os.remove(filename)
+                logging.warning(f"file deleted: {filename}")
+                return True
+        except:
+            print(traceback.format_exc())
+        return False
+
+    @classmethod
+    def delete_dir(cls, dirname: str) -> bool:
+        """Delete the given directory, return True if successful"""
+        try:
+            if os.path.isdir(dirname):
+                os.rmdir(dirname)
+                logging.warning(f"directory deleted: {dirname}")
+                return True
+        except:
+            print(traceback.format_exc())
+        return False
