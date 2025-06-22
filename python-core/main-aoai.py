@@ -16,7 +16,6 @@ from docopt import docopt
 from dotenv import load_dotenv
 
 from openai import AzureOpenAI
-from azure.core.credentials import AzureKeyCredential
 
 from src.io.fs import FS
 
@@ -25,18 +24,6 @@ def print_options(msg):
     print(msg)
     arguments = docopt(__doc__, version="1.0.0")
     print(arguments)
-
-
-def list_models():
-    try:
-        client = build_client()
-        models = client.models.list()
-        for midx, model in enumerate(models.data):
-            print(f"=== model {midx} {model.id}")
-            print(model)
-        print(f"Total models: {len(models.data)}")
-    except Exception as e:
-        print(f"An error occurred: {e}")
 
 
 def generate_completion(promptfile):

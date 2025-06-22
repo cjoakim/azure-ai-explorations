@@ -7,8 +7,6 @@ separate and easy to use methods for functionality in the
 "azure-search-documents" SDK.
 
 In particular, create the following methods:
-- blob_datasource_name(self, container)
-- blob_datasource_post_body(self)
 - cosmos_nosql_datasource_name_conn_str(self, acct, key, database_name)
 - cosmos_nosql_datasource_name(self, database_name, container_name)
 - create_cosmos_nosql_datasource(self, acct_envvar, key_envvar, database_name, container_name)

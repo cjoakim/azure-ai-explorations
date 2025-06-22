@@ -16,17 +16,6 @@ class AISearchUtil:
             'api-key': admin_key
         }
 
-    def blob_datasource_name(self, container):
-        return f"azureblob-{container}"
-
-    def blob_datasource_post_body(self):
-        return {
-            "name": self.blob_datasource_name(container),
-            "type": "azureblob",
-            "credentials": {"connectionString": os.getenv("AZURE_STORAGE_CONNECTION_STRING")},
-            "container": {"name": container}
-        }
-
     def cosmos_nosql_datasource_name_conn_str(self, acct, key, database_name):
         return f"AccountEndpoint=https://{acct}.documents.azure.com:443/;AccountKey={key};Database={database_name}"
 

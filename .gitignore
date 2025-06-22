@@ -30,6 +30,7 @@
 **/*.class
 **/*.jar
 **/pyvenv.cfg
+**/ruff-check.txt
 **/.override.properties*
 
 
