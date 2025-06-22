@@ -1,0 +1,57 @@
+ROLE-SYSTEM:
+You are a Python3 code generator.
+
+ROLE-USER:
+Generate a python class named AISearchUtil that implements
+separate and easy to use methods for functionality in the 
+"azure-search-documents" SDK.
+
+In particular, create the following methods:
+- blob_datasource_name(self, container)
+- blob_datasource_post_body(self)
+- cosmos_nosql_datasource_name_conn_str(self, acct, key, database_name)
+- cosmos_nosql_datasource_name(self, database_name, container_name)
+- create_cosmos_nosql_datasource(self, acct_envvar, key_envvar, database_name, container_name)
+- create_datasource_url(self)
+- create_index_url(self)
+- create_index(self, name, schema_json_file)
+- create_indexer_url(self)
+- create_indexer(self, name, schema_json_file)
+- delete_datasource(self, name)
+- delete_index(self, name)
+- delete_indexer(self, name)
+- get_datasource_url(self, name)
+- get_datasource(self, name)
+- get_index_url(self, name)
+- get_index(self, name)
+- get_indexer_status_url(self, name)
+- get_indexer_status(self, name)
+- get_indexer_url(self, name)
+- get_indexer(self, name)
+- http_request(self, function_name, method, url, headers={}, json_body={})
+- indexer_schema(self, indexer_name, index_name, datasource_name)
+- list_datasources_url(self)
+- list_datasources(self)
+- list_indexers_url(self)
+- list_indexers(self)
+- list_indexes_url(self)
+- list_indexes(self)
+- lookup_doc_url(self, index_name, doc_key)
+- lookup_doc(self, index_name, doc_key)
+- modify_datasource_url(self, name)
+- modify_index_url(self, name)
+- modify_index(self, action, name, schema_json_file)
+- modify_indexer_url(self, name)
+- modify_indexer(self, action, name, schema_json_file)
+- reset_indexer_url(self, name)
+- reset_indexer(self, name)
+- run_indexer_url(self, name)
+- run_indexer(self, name)
+- search_index_url(self, idx_name)
+- search_index(self, idx_name, search_name, search_params)
+- update_index(self, name, schema_json_file)
+- update_indexer(self, name, schema_json_file)
+
+The http_request method should use the httpx library and not the requests library.
+
+The output should be a python module.
