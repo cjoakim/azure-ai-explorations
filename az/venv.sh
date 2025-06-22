@@ -1,40 +1,34 @@
 #!/bin/bash
 
-# Recreate the python virtual environment and reinstall libs on macOS.
+# Recreate the python virtual environment and reinstall libs on mac/linux
+# using a "modern" python toolchain which includes uv and pyproject.toml
+# rather than pip and requirements.in.
 # Chris Joakim, 2025
 
-# delete previous venv directory
-mkdir -p venv 
-rm -rf venv 
+echo "Prune/ensure directories..."
+rm -rf venv    # legacy directory 
+rm -rf .venv
+rm -rf .coverage
+rm -rf .pytest_cache
+rm -rf htmlcov
+mkdir -p out 
+mkdir -p tmp 
 
-echo 'creating new python3 virtual environment in the venv directory ...'
-/opt/homebrew/bin/python3 -m venv venv
-#python3 -m venv venv
+echo "Creating a new virtual environment in .venv..."
+uv venv
 
-echo 'activating new venv ...'
-source venv/bin/activate
+echo "Activating the virtual environment..."
+source .venv/bin/activate
 
-echo 'upgrading pip ...'
-python -m pip install --upgrade pip 
+echo "Installing libraries..."
+uv pip install --editable .
 
-echo 'install pip-tools ...'
-pip install --upgrade pip-tools
+echo "Creating a requirements.txt file..."
+uv pip compile pyproject.toml -o requirements.txt
 
-echo 'displaying python location and version'
-which python
-python --version
+# uv tree
 
-echo 'displaying pip location and version'
-which pip
-pip --version
+echo "Activating the virtual environment..."
+source .venv/bin/activate
 
-echo 'pip-compile requirements.in ...'
-pip-compile --output-file requirements.txt requirements.in
-
-echo 'pip install requirements.txt ...'
-pip install -q -r requirements.txt
-
-echo 'pip list ...'
-pip list
-
-echo 'done; next -> source venv/bin/activate'
+echo "next: source .venv/bin/activate"

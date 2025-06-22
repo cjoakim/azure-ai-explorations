@@ -1,0 +1,33 @@
+[project]
+name = "az-output-parsing"
+version = "0.1.0"
+dependencies = [
+  "docopt",
+  "duckdb",
+  "python-dotenv"
+]
+requires-python = ">=3.13"
+authors = [
+  {name = "Chris Joakim", email = "christopher.joakim@gmail.com"}
+]
+maintainers = [
+  {name = "Chris Joakim", email = "christopher.joakim@gmail.com"}
+]
+description = "Parse and process the output of the various az scripts in this directory"
+readme = "readme.md"
+license = "MIT"
+license-files = ["LICEN[CS]E.*"]
+keywords = ["python", "pyproject.toml", "uv", "ruff"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+
+[project.urls]
+Homepage = "https://github.com/cjoakim/"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+ignore = ["E722"]
