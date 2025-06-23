@@ -9,6 +9,7 @@ Usage:
 import os
 import sys
 import time
+import tomllib
 import traceback
 
 from docopt import docopt
@@ -93,9 +94,22 @@ def smoketest():
     FS.write_json(blobs, "tmp/storage-blobs.json", pretty=True, sort_keys=True)
     time.sleep(1) 
 
-    print("===== download blob")
-    blobs = storage_util.download_blob(container_name, "pyproject.toml", "pyproject_downloaded.toml")
-    print(f"Blobs in '{container_name}': {blobs}")
+    print("===== download_blob_to_file")
+    result = storage_util.download_blob_to_file(
+        container_name, "pyproject.toml", "tmp/pyproject_downloaded.toml")
+    print(f"Download result: {result}")
+    time.sleep(1)
+
+    print("===== tomllib.load() downloaded file")
+    with open("tmp/pyproject_downloaded.toml", "rb") as f:
+        data = tomllib.load(f)
+    print(data)
+    FS.write_json(data, "tmp/pyproject_downloaded.json", pretty=True, sort_keys=True)
+    time.sleep(1)
+
+    print("===== download_blob_as_string")
+    txt = storage_util.download_blob_as_string(container_name, "pyproject.toml")
+    print(f"txt: \n{txt}")
     time.sleep(1) 
 
 

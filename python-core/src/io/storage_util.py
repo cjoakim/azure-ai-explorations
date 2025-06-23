@@ -77,17 +77,25 @@ class StorageUtil:
             logging.error(f"Failed to upload blob '{container_blobname}': {str(e)}")
             return False
 
-    def download_blob(self, container_name: str, container_blobname: str, local_filename: str) -> bool:
+    def download_blob_to_file(self, container_name: str, container_blobname: str, local_filename: str) -> bool:
         try:
             blob_client = self.blob_service_client.get_blob_client(container=container_name, blob=container_blobname)
             with open(local_filename, "wb") as download_file:
                 download_file.write(blob_client.download_blob().readall())
-            logging.info(f"Blob '{container_blobname}' downloaded to '{local_filename}'.")
             return True
         except Exception as e:
             logging.error(f"Failed to download blob '{container_blobname}': {str(e)}")
             return False
 
+    def download_blob_as_string(self, container_name: str, container_blobname: str) -> str | None:
+        try:
+            blob_client = self.blob_service_client.get_blob_client(container=container_name, blob=container_blobname)
+            downloader = blob_client.download_blob(max_concurrency=1, encoding='UTF-8')
+            return downloader.readall()
+        except Exception as e:
+            logging.error(f"Failed to download blob '{container_blobname}': {str(e)}")
+            return None
+        
     def delete_blob(self, container_name: str, container_blobname: str) -> bool:
         try:
             blob_client = self.blob_service_client.get_blob_client(container=container_name, blob=container_blobname)
