@@ -1,6 +1,7 @@
 """
 Usage:
   Example use of the Cosmos NoSQL API.
+  python main-cosmos-nosql.py load_airports dev airports pk
   python main-cosmos-nosql.py test_cosmos_nosql dbname, db_ru, cname, c_ru, pkpath
   python main-cosmos-nosql.py test_cosmos_nosql dev 1000 test 0 /pk
   python main-cosmos-nosql.py test_cosmos_nosql dev 1000 app 0 /pk
@@ -15,6 +16,7 @@ Options:
 """
 
 import asyncio
+import json
 import sys
 import time
 import logging
@@ -40,10 +42,66 @@ def print_options(msg):
     print(arguments)
 
 
-async def test_cosmos_nosql(
-    dbname: str, db_ru: int, cname: str, c_ru: int, pkpath: str
-):
+async def load_airports(dbname: str, cname: str, pkpath: str):
+    # See the dotnet-cosmos/ directory in this repo for a faster
+    # implementation based on bulk-loading.
+    try:
+        infile = "../data/openflights/json/airports.json"
+        json_lines = FS.read_lines(infile)
+        documents = list()
+        for line in json_lines:
+            if len(line) > 10:
+                try:
+                    rawdoc = json.loads(line)
+                    newdoc = dict()
+                    for key in sorted(rawdoc.keys()):
+                        value = rawdoc[key]
+                        newkey = key.lower()
+                        newdoc[newkey] = value
+                    newdoc["id"] = str(uuid.uuid4())
+                    newdoc[pkpath] = newdoc["country"]
+                    # TODO - reformat to GeoJSON for Geospatial search
+                    newdoc["latitude"] = float(newdoc["latitude"])
+                    newdoc["longitude"] = float(newdoc["longitude"])
+                    newdoc["altitude"] = float(newdoc["altitude"])
+                    newdoc["airportid"] = int(newdoc["airportid"])
 
+                    if newdoc[pkpath] != "\\N":
+                        if newdoc["iata"] != "\\N":
+                            print(json.dumps(newdoc, sort_keys=False, indent=2))
+                            documents.append(newdoc)
+                except:
+                    print("bad json on line: {}".format(line))
+        print("{} documents parsed and filtered from {} file lines".format(
+            len(documents), len(json_lines)))
+
+        opts = dict()
+        opts["enable_diagnostics_logging"] = True
+        nosql_util = CosmosNoSqlUtil(opts)
+        await nosql_util.initialize()
+
+        dbproxy = nosql_util.set_db(dbname)
+        print("dbproxy: {}".format(dbproxy))
+
+        ctrproxy = nosql_util.set_container(cname)
+        print("ctrproxy: {}".format(ctrproxy))
+
+        if True:
+            for doc in documents:
+                try:
+                    cdb_doc = await nosql_util.upsert_item(doc)
+                    print("upserted doc: {}".format(json.dumps(cdb_doc, indent=2)))
+                    time.sleep(0.05)
+                except Exception as e:
+                    logging.info("Error upserting doc: {}".format(str(e)))
+                    logging.info(traceback.format_exc())
+                    time.sleep(1.0)
+    except Exception as e:
+        logging.info(str(e))
+        logging.info(traceback.format_exc())
+
+async def test_cosmos_nosql(
+    dbname: str, db_ru: int, cname: str, c_ru: int, pkpath: str):
     logging.info(
         "test_cosmos_nosql, dbname: {}, db_ru: {}, cname: {}, c_ru: {}, pk: {}".format(
             dbname, db_ru, cname, c_ru, pkpath
@@ -267,7 +325,10 @@ if __name__ == "__main__":
     else:
         try:
             func = sys.argv[1].lower()
-            if func == "test_cosmos_nosql":
+            if func == "load_airports":
+                dbname, cname, pk = sys.argv[2], sys.argv[3], sys.argv[4]
+                asyncio.run(load_airports(dbname, cname, pk))
+            elif func == "test_cosmos_nosql":
                 dbname = sys.argv[2]
                 db_ru = int(sys.argv[3])
                 cname = sys.argv[4]

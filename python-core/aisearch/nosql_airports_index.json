@@ -44,7 +44,15 @@
       "facetable": "true"
     },
     {
-      "name": "iata_code",
+      "name": "iata",
+      "type": "Edm.String",
+      "searchable": "true",
+      "filterable": "true",
+      "sortable": "true",
+      "facetable": "true"
+    },
+      {
+      "name": "icao",
       "type": "Edm.String",
       "searchable": "true",
       "filterable": "true",
@@ -67,6 +75,14 @@
       "sortable": "true",
       "facetable": "true"
     },
+        {
+      "name": "altitude",
+      "type": "Edm.Double",
+      "searchable": "false",
+      "filterable": "true",
+      "sortable": "true",
+      "facetable": "true"
+    },
     {
       "name": "tz",
       "type": "Edm.String",
@@ -76,15 +92,7 @@
       "facetable": "true"
     },
     {
-      "name": "epoch",
-      "type": "Edm.Double",
-      "searchable": "false",
-      "filterable": "true",
-      "sortable": "true",
-      "facetable": "false"
-    },
-    {
-      "name": "note",
+      "name": "timezone",
       "type": "Edm.String",
       "searchable": "true",
       "filterable": "true",
