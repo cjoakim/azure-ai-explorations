@@ -48,16 +48,23 @@ def smoketest():
     storage_util = StorageUtil(connection_string, logging_level=None)
     time.sleep(1) 
 
-    container_name = "smoketest{}".format(int(Env.epoch()))
-    print(f"Container name: {container_name}")
-    time.sleep(1)
-
-    print("===== deleting the container")
-    if storage_util.delete_container(container_name):
-        print(f"Container '{container_name}' deleted successfully.")
-    else:
-        print(f"Container '{container_name}' does not exist or could not be deleted.")
+    print("===== initial listing and deletion of smoketest containers")
+    containers = storage_util.list_containers()
+    print(f"Containers: {containers} {str(type(containers))}")
+    for container in containers:
+        if container.startswith("smoketest"):
+            print(f"Deleting container: {container}")
+            if storage_util.delete_container(container):
+                print(f"Container '{container}' deleted successfully.")
+            else:
+                print(f"Container '{container}' does not exist or could not be deleted.")
+        else:
+            print(f"Retaining container: {container} (not a smoketest container)")
     time.sleep(1) 
+    
+    container_name = "smoketest{}".format(int(Env.epoch()))
+    print(f"New container name: {container_name}")
+    time.sleep(1)
 
     print("===== creating the container")
     created_container = storage_util.create_container(container_name)
