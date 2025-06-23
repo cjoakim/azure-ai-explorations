@@ -1,0 +1,8 @@
+{
+  "name": "nosql-airports",
+  "dataSourceName": "cosmosdb-nosql-dev-airports",
+  "targetIndexName": "nosql-airports",
+  "schedule": {
+    "interval": "PT12H"
+  }
+}

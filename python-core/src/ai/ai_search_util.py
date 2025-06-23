@@ -1,186 +1,330 @@
-import httpx
+
 import json
 import os
+import logging
+import traceback
+
+import httpx
 
 # This class is used to invoke Azure AI Search via HTTP.
 # Chris Joakim, 2025
 
 class AISearchUtil:
-    def __init__(self, service_name, admin_key):
-        self.service_name = service_name
-        self.admin_key = admin_key
-        self.base_url = f"https://{service_name}.search.windows.net"
-        self.api_version = "2020-06-30"
+
+    def __init__(self, verbose: bool = False):
+        self.service_name = os.getenv("AZURE_AI_SEARCH_NAME")
+        self.service_key = os.getenv("AZURE_AI_SEARCH_KEY")
+        self.api_version = "2024-07-01"  # 2020-06-30
+        self.base_url = f"https://{self.service_name}.search.windows.net/"
         self.headers = {
-            'Content-Type': 'application/json',
-            'api-key': admin_key
+            "Content-Type": "application/json",
+            "api-key": self.service_key
         }
+        if verbose:
+            print(f"AISearchUtil initialized; service_name: {self.service_name}")
+            print(f"AISearchUtil initialized; service_key:  {self.service_key}")
+            print(f"AISearchUtil initialized; api_version:  {self.api_version}")
+            print(f"AISearchUtil initialized; base_url:     {self.base_url}")
+            print(f"AISearchUtil initialized; headers:      {self.headers}")
 
-    def cosmos_nosql_datasource_name_conn_str(self, acct, key, database_name):
-        return f"AccountEndpoint=https://{acct}.documents.azure.com:443/;AccountKey={key};Database={database_name}"
+    def _http_request(self, function_name: str, method: str, url: str, headers={}, json_body={}):
+        try:
+            with httpx.Client() as client:
+                if headers is None:
+                    headers = self.headers
+                if headers == {}:
+                    headers = self.headers
+                response = client.request(method, url, headers=headers, json=json_body)
+                print(f"response.status_code: {response.status_code}")
+                data = dict()
+                data["url"] = url
+                data["method"] = method
+                data["headers"] = headers
+                data["status_code"] = response.status_code
+                if response.content is not None:
+                    data["content"] = response.json()
+                return data
+        except Exception as e:
+            logging.error(f"Exception in {function_name}: {str(e)}")
+            traceback.print_stack()
+            return None
 
-    def cosmos_nosql_datasource_name(self, database_name, container_name):
-        return f"cosmosdb-{database_name}-{container_name}"
+    # TODO - remove these getter methods; inline them where used instead
 
-    def create_cosmos_nosql_datasource(self, acct_envvar, key_envvar, database_name, container_name):
-        connection_string = self.cosmos_nosql_datasource_name_conn_str(os.getenv(acct_envvar), os.getenv(key_envvar), database_name)
-        datasource_name = self.cosmos_nosql_datasource_name(database_name, container_name)
-        return {
-            "name": datasource_name,
-            "type": "cosmosdb",
-            "credentials": {"connectionString": connection_string},
-            "container": {"name": container_name, "query": None}
-        }
+    def get_cosmos_nosql_datasource_conn_string(self, acct_name: str, key: str, database_name: str) -> str:
+        return f"AccountName={acct_name};AccountKey={key};Database={database_name};"
 
-    def create_datasource_url(self):
-        return f"{self.base_url}/datasources?api-version={self.api_version}"
+    def get_cosmos_nosql_datasource_name(self, database_name: str, container_name: str) -> str:
+        return f"{database_name}-{container_name}"
 
-    def create_index_url(self):
-        return f"{self.base_url}/indexes?api-version={self.api_version}"
+    def get_create_datasource_url(self) -> str:
+        return f"{self.base_url}datasources?api-version={self.api_version}"
 
-    def create_index(self, name, schema_json_file):
-        with open(schema_json_file, 'r') as file:
-            schema = json.load(file)
-        url = self.create_index_url()
-        return self.http_request("create_index", "POST", url, json_body=schema)
+    def get_create_index_url(self) -> str:
+        return f"{self.base_url}indexes?api-version={self.api_version}"
 
-    def create_indexer_url(self):
-        return f"{self.base_url}/indexers?api-version={self.api_version}"
+    def get_create_indexer_url(self) -> str:
+        return f"{self.base_url}indexers?api-version={self.api_version}"
 
-    def create_indexer(self, name, schema_json_file):
-        with open(schema_json_file, 'r') as file:
-            schema = json.load(file)
-        url = self.create_indexer_url()
-        return self.http_request("create_indexer", "POST", url, json_body=schema)
+    def get_datasource_url(self, name: str) -> str:
+        return f"{self.base_url}datasources/{name}?api-version={self.api_version}"
 
-    def delete_datasource(self, name):
-        url = f"{self.base_url}/datasources/{name}?api-version={self.api_version}"
-        return self.http_request("delete_datasource", "DELETE", url)
+    def get_index_url(self, name: str) -> str:
+        return f"{self.base_url}indexes/{name}?api-version={self.api_version}"
 
-    def delete_index(self, name):
-        url = f"{self.base_url}/indexes/{name}?api-version={self.api_version}"
-        return self.http_request("delete_index", "DELETE", url)
+    def get_indexer_status_url(self, name: str) -> str:
+        return f"{self.base_url}indexers/{name}/status?api-version={self.api_version}"
 
-    def delete_indexer(self, name):
-        url = f"{self.base_url}/indexers/{name}?api-version={self.api_version}"
-        return self.http_request("delete_indexer", "DELETE", url)
-
-    def get_datasource_url(self, name):
-        return f"{self.base_url}/datasources/{name}?api-version={self.api_version}"
-
-    def get_datasource(self, name):
-        url = self.get_datasource_url(name)
-        return self.http_request("get_datasource", "GET", url)
-
-    def get_index_url(self, name):
-        return f"{self.base_url}/indexes/{name}?api-version={self.api_version}"
-
-    def get_index(self, name):
-        url = self.get_index_url(name)
-        return self.http_request("get_index", "GET", url)
-
-    def get_indexer_status_url(self, name):
-        return f"{self.base_url}/indexers/{name}/status?api-version={self.api_version}"
-
-    def get_indexer_status(self, name):
+    def get_indexer_status(self, name: str) -> str:
         url = self.get_indexer_status_url(name)
-        return self.http_request("get_indexer_status", "GET", url)
+        return self._http_request("get_indexer_status", "GET", url, headers=self.headers)
 
-    def get_indexer_url(self, name):
-        return f"{self.base_url}/indexers/{name}?api-version={self.api_version}"
+    def get_indexer_url(self, name: str) -> str:
+        return f"{self.base_url}indexers/{name}?api-version={self.api_version}"
 
-    def get_indexer(self, name):
-        url = self.get_indexer_url(name)
-        return self.http_request("get_indexer", "GET", url)
+    def get_lookup_doc_url(self, index_name: str, doc_key: str) -> str:
+        return f"{self.base_url}indexes/{index_name}/docs/{doc_key}?api-version={self.api_version}"
 
-    def http_request(self, function_name, method, url, headers={}, json_body={}):
-        if not headers:
-            headers = self.headers
-        with httpx.Client() as client:
-            response = client.request(method, url, headers=headers, json=json_body)
-        return response.json()
+    def get_modify_datasource_url(self, name: str) -> str:
+        return f"{self.base_url}datasources/{name}?api-version={self.api_version}"
 
-    def indexer_schema(self, indexer_name, index_name, datasource_name):
-        return {
-            "name": indexer_name,
-            "dataSourceName": datasource_name,
-            "targetIndexName": index_name,
-            "schedule": {"interval": "PT2H"}
-        }
+    def get_modify_index_url(self, name: str) -> str:
+        return f"{self.base_url}indexes/{name}?api-version={self.api_version}"
 
-    def list_datasources_url(self):
-        return f"{self.base_url}/datasources?api-version={self.api_version}"
+    def get_modify_indexer_url(self, name: str) -> str:
+        return f"{self.base_url}indexers/{name}?api-version={self.api_version}"
 
-    def list_datasources(self):
-        url = self.list_datasources_url()
-        return self.http_request("list_datasources", "GET", url)
+    def get_run_indexer_url(self, name: str) -> str:
+        return f"{self.base_url}indexers/{name}/run?api-version={self.api_version}"
 
-    def list_indexers_url(self):
-        return f"{self.base_url}/indexers?api-version={self.api_version}"
+    def get_search_index_url(self, idx_name: str) -> str:
+        return f"{self.base_url}indexes/{idx_name}/docs/search?api-version={self.api_version}"
 
-    def list_indexers(self):
-        url = self.list_indexers_url()
-        return self.http_request("list_indexers", "GET", url)
+    def create_cosmos_nosql_datasource(self, database_name: str, container_name: str) -> dict | None:  # main
+        try:
+            base_conn_str = os.getenv("AZURE_COSMOSDB_NOSQL_CONN_STR")
+            db_conn_str = f"{base_conn_str};Database={database_name};"
+            datasource_definition = {
+                "name": f"cosmosdb-nosql-{database_name}-{container_name}",
+                "type": "cosmosdb",
+                "credentials": {
+                    "connectionString": db_conn_str
+                },
+                "container": {
+                    "name": container_name,
+                    "query": None
+                },
+                "dataChangeDetectionPolicy": {
+                    "@odata.type": "#Microsoft.Azure.Search.HighWaterMarkChangeDetectionPolicy",
+                    "highWaterMarkColumnName": "_ts"
+                }
+            }
+            url = f"{self.base_url}/datasources?api-version={self.api_version}"
+            return self._http_request(
+                "create_cosmos_nosql_datasource", "POST", url, json_body=datasource_definition)
+        except Exception as e:
+            logging.error(f"Error in create_cosmos_nosql_datasource: {str(e)}")
+            traceback.print_stack()
+            return None
 
-    def list_indexes_url(self):
-        return f"{self.base_url}/indexes?api-version={self.api_version}"
+    def create_index(self, name, schema_json_filename: str) -> dict | None:  # main
+        try:
+            with open(schema_json_filename, 'r') as file:
+                schema = json.load(file)
+            schema["name"] = name  # override the name in the schema file
+            url = f"{self.base_url}/indexes/{name}?api-version={self.api_version}"
+            return self._http_request("create_index", "PUT", url, json_body=schema)
+        except Exception as e:
+            logging.error(f"Error in create_index: {str(e)}")
+            traceback.print_stack()
+            return False
 
-    def list_indexes(self):
-        url = self.list_indexes_url()
-        return self.http_request("list_indexes", "GET", url)
+    def create_indexer(self, name, schema_json_filename: str) -> dict | None:  # main
+        try:
+            with open(schema_json_filename, 'r') as file:
+                schema = json.load(file)
+            schema["name"] = name  # override the name in the schema file
+            url = f"{self.base_url}/indexers/{name}?api-version={self.api_version}"
+            return self._http_request("create_indexer", "PUT", url, json_body=schema)
+        except Exception as e:
+            logging.error(f"Error in create_indexer: {str(e)}")
+            traceback.print_stack()
+            return False
 
-    def lookup_doc_url(self, index_name, doc_key):
-        return f"{self.base_url}/indexes/{index_name}/docs/{doc_key}?api-version={self.api_version}"
+    def delete_datasource(self, name: str) -> bool:
+        try:
+            url = f"{self.base_url}/datasources/{name}?api-version={self.api_version}"
+            return self._http_request("delete_datasource", "DELETE", url)
+        except Exception as e:
+            logging.error(f"Error in delete_datasource: {str(e)}")
+            traceback.print_stack()
+            return False
 
-    def lookup_doc(self, index_name, doc_key):
-        url = self.lookup_doc_url(index_name, doc_key)
-        return self.http_request("lookup_doc", "GET", url)
+    def delete_index(self, name: str) -> bool:  # main
+        try:
+            url = f"{self.base_url}/indexes/{name}?api-version={self.api_version}"
+            return self._http_request("delete_index", "DELETE", url)
+        except Exception as e:
+            logging.error(f"Error in delete_index: {str(e)}")
+            traceback.print_stack()
+            return False
 
-    def modify_datasource_url(self, name):
-        return f"{self.base_url}/datasources/{name}?api-version={self.api_version}"
+    def delete_indexer(self, name: str) -> dict | None:  # main
+        try:
+            url = f"{self.base_url}/indexers/{name}?api-version={self.api_version}"
+            return self._http_request("delete_indexer", "DELETE", url)
+        except Exception as e:
+            logging.error(f"Error in delete_indexer: {str(e)}")
+            traceback.print_stack()
+            return None
 
-    def modify_index_url(self, name):
-        return f"{self.base_url}/indexes/{name}?api-version={self.api_version}"
+    def list_datasources(self) -> dict | None:  # main
+        try:
+            url = f"{self.base_url}datasources?api-version={self.api_version}"
+            return self._http_request("list_datasources", "GET", url)
+        except Exception as e:
+            logging.error(f"Error in list_datasources: {str(e)}")
+            traceback.print_stack()
+            return None
 
-    def modify_index(self, action, name, schema_json_file):
-        url = self.modify_index_url(name)
-        with open(schema_json_file, 'r') as file:
-            schema = json.load(file)
-        return self.http_request(f"modify_index_{action}", "PUT", url, json_body=schema)
+    def list_indexers(self) -> dict | None:  # main
+        try:
+            url = f"{self.base_url}indexers?api-version={self.api_version}"
+            return self._http_request("list_indexers", "GET", url)
+        except Exception as e:
+            logging.error(f"Error in list_indexers: {str(e)}")
+            traceback.print_stack()
+            return 
 
-    def modify_indexer_url(self, name):
-        return f"{self.base_url}/indexers/{name}?api-version={self.api_version}"
+    def list_indexes(self) -> dict | None:  # main
+        try:
+            url = f"{self.base_url}indexes?api-version={self.api_version}"
+            return self._http_request("list_indexes", "GET", url)
+        except Exception as e:
+            logging.error(f"Error in list_indexes: {str(e)}")
+            traceback.print_stack()
+            return []
 
-    def modify_indexer(self, action, name, schema_json_file):
-        url = self.modify_indexer_url(name)
-        with open(schema_json_file, 'r') as file:
-            schema = json.load(file)
-        return self.http_request(f"modify_indexer_{action}", "PUT", url, json_body=schema)
+    def lookup_datasource(self, name: str):
+        try:
+            url = f"{self.base_url}/datasources/{name}?api-version={self.api_version}"
+            return self._http_request("lookup_datasource", "GET", url)
+        except Exception as e:
+            logging.error(f"Error in lookup_datasource: {str(e)}")
+            traceback.print_stack()
+            return None
 
-    def reset_indexer_url(self, name):
-        return f"{self.base_url}/indexers/{name}/reset?api-version={self.api_version}"
+    def lookup_doc(self, index_name: str, doc_key: str):
+        try:
+            url = f"{self.base_url}/indexes/{index_name}/docs/{doc_key}?api-version={self.api_version}"
+            return self._http_request("lookup_doc", "GET", url)
+        except Exception as e:
+            logging.error(f"Error in lookup_doc: {str(e)}")
+            traceback.print_stack()
+            return None
 
-    def reset_indexer(self, name):
-        url = self.reset_indexer_url(name)
-        return self.http_request("reset_indexer", "POST", url)
+    def lookup_index(self, name: str):
+        try:
+            url = f"{self.base_url}/indexes/{name}?api-version={self.api_version}"
+            return self._http_request("lookup_index", "GET", url)
+        except Exception as e:
+            logging.error(f"Error in lookup_index: {str(e)}")
+            traceback.print_stack()
+            return None
 
-    def run_indexer_url(self, name):
-        return f"{self.base_url}/indexers/{name}/run?api-version={self.api_version}"
+    def lookup_indexer_schema(self, indexer_name: str, index_name: str, datasource_name: str):
+        try:
+            indexer = self.lookup_indexer(indexer_name)
+            index = self.lookup_index(index_name)
+            datasource = self.lookup_datasource(datasource_name)
+            return {
+                "indexer": indexer,
+                "index": index,
+                "datasource": datasource
+            }
+        except Exception as e:
+            logging.error(f"Error in lookup_indexer_schema: {str(e)}")
+            traceback.print_stack()
+            return None
 
-    def run_indexer(self, name):
-        url = self.run_indexer_url(name)
-        return self.http_request("run_indexer", "POST", url)
+    def lookup_indexer(self, name: str):
+        try:
+            url = f"{self.base_url}/indexers/{name}?api-version={self.api_version}"
+            return self._http_request("lookup_indexer", "GET", url)
+        except Exception as e:
+            logging.error(f"Error in lookup_indexer: {str(e)}")
+            traceback.print_stack()
+            return None
 
-    def search_index_url(self, idx_name):
-        return f"{self.base_url}/indexes/{idx_name}/docs/search?api-version={self.api_version}"
+    def modify_index(self, action, name: str, schema_json_filename: str):
+        try:
+            with open(schema_json_filename, 'r') as file:
+                schema = json.load(file)
+            url = f"{self.base_url}/indexes/{name}?api-version={self.api_version}"
+            return self._http_request("modify_index", action, url, json_body=schema)
+        except Exception as e:
+            logging.error(f"Error in modify_index: {str(e)}")
+            traceback.print_stack()
+            return None
 
-    def search_index(self, idx_name, search_text, search_params={}):
-        url = self.search_index_url(idx_name)
-        body = {"search": search_text, **search_params}
-        return self.http_request("search_index", "POST", url, json_body=body)
+    def modify_indexer(self, action: str, name: str, schema_json_filename: str):
+        try:
+            with open(schema_json_filename, 'r') as file:
+                schema = json.load(file)
+            url = f"{self.base_url}/indexers/{name}?api-version={self.api_version}"
+            return self._http_request("modify_indexer", action, url, json_body=schema)
+        except Exception as e:
+            logging.error(f"Error in modify_indexer: {str(e)}")
+            traceback.print_stack()
+            return None
 
-    def update_index(self, name, schema_json_file):
-        return self.modify_index("update", name, schema_json_file)
+    def reset_indexer_url(self, name: str) -> str:
+        try:
+            url = f"{self.base_url}/indexers/{name}/reset?api-version={self.api_version}"
+            result = self._http_request("reset_indexer_url", "POST", url)
+            return url if result else ""
+        except Exception as e:
+            logging.error(f"Error in reset_indexer_url: {str(e)}")
+            traceback.print_stack()
+            return ""
 
-    def update_indexer(self, name, schema_json_file):
-        return self.modify_indexer("update", name, schema_json_file)
+    def reset_indexer(self, name: str) -> str:
+        try:
+            url = f"{self.base_url}/indexers/{name}/reset?api-version={self.api_version}"
+            result = self._http_request("reset_indexer", "POST", url)
+            return "Reset successful" if result else "Reset failed"
+        except Exception as e:
+            logging.error(f"Error in reset_indexer: {str(e)}")
+            traceback.print_stack()
+            return "Reset failed"
+
+    def run_indexer(self, name: str) -> bool:
+        try:
+            url = f"{self.base_url}/indexers/{name}/run?api-version={self.api_version}"
+            result = self._http_request("run_indexer", "POST", url)
+            return result is not None
+        except Exception as e:
+            logging.error(f"Error in run_indexer: {str(e)}")
+            traceback.print_stack()
+            return False
+
+    def search_index(self, idx_name: str, search_name: str, search_params: object) -> list[object] | None:
+        try:
+            url = f"{self.base_url}/indexes/{idx_name}/docs/search?api-version={self.api_version}"
+            search_body = {
+                "search": search_name,
+                **search_params
+            }
+            result = self._http_request("search_index", "POST", url, json_body=search_body)
+            return result['value'] if result else None
+        except Exception as e:
+            logging.error(f"Error in search_index: {str(e)}")
+            traceback.print_stack()
+            return None
+
+    def update_index(self, name, schema_json_filename: str) -> bool:
+        return self.modify_index("PUT", name, schema_json_filename)
+
+    def update_indexer(self, name, schema_json_filename: str) -> bool:
+        return self.modify_indexer("PUT", name, schema_json_filename)
+    
