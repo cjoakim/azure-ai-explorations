@@ -77,7 +77,7 @@ if __name__ == "__main__":
             print("=== CLI function: {}".format(func))
             client = AISearchUtil()
             time.sleep(1)
-            
+
             if func == "env":
                 check_env()
             elif func == 'list_indexes':
@@ -114,6 +114,11 @@ if __name__ == "__main__":
             elif func == 'create_indexer':
                 name, schema_json_filename = sys.argv[2], sys.argv[3]
                 result = client.create_indexer(name, schema_json_filename)
+                print(json.dumps(result, sort_keys=False, indent=2))
+
+            elif func == 'get_indexer_status':
+                name = sys.argv[2]
+                result = client.get_indexer_status(name)
                 print(json.dumps(result, sort_keys=False, indent=2))
             else:
                 print_options("Error: invalid function: {}".format(func))

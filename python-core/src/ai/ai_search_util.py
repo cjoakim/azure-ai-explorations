@@ -41,8 +41,10 @@ class AISearchUtil:
                 data["method"] = method
                 data["headers"] = headers
                 data["status_code"] = response.status_code
+                data["content"] = None
                 if response.content is not None:
-                    data["content"] = response.json()
+                    if len(response.content) > 0:
+                        data["content"] = response.json()
                 return data
         except Exception as e:
             logging.error(f"Exception in {function_name}: {str(e)}")
@@ -72,12 +74,6 @@ class AISearchUtil:
     def get_index_url(self, name: str) -> str:
         return f"{self.base_url}indexes/{name}?api-version={self.api_version}"
 
-    def get_indexer_status_url(self, name: str) -> str:
-        return f"{self.base_url}indexers/{name}/status?api-version={self.api_version}"
-
-    def get_indexer_status(self, name: str) -> str:
-        url = self.get_indexer_status_url(name)
-        return self._http_request("get_indexer_status", "GET", url, headers=self.headers)
 
     def get_indexer_url(self, name: str) -> str:
         return f"{self.base_url}indexers/{name}?api-version={self.api_version}"
@@ -148,6 +144,15 @@ class AISearchUtil:
             return self._http_request("create_indexer", "PUT", url, json_body=schema)
         except Exception as e:
             logging.error(f"Error in create_indexer: {str(e)}")
+            traceback.print_stack()
+            return False
+
+    def get_indexer_status(self, name: str) -> dict | None:
+        try:
+            url = f"{self.base_url}indexers/{name}/status?api-version={self.api_version}"
+            return self._http_request("get_indexer_status", "GET", url, headers=self.headers)
+        except Exception as e:
+            logging.error(f"Error in get_indexer_status: {str(e)}")
             traceback.print_stack()
             return False
 
