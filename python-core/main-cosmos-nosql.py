@@ -60,11 +60,20 @@ async def load_airports(dbname: str, cname: str, pkpath: str):
                         newdoc[newkey] = value
                     newdoc["id"] = str(uuid.uuid4())
                     newdoc[pkpath] = newdoc["country"]
-                    # TODO - reformat to GeoJSON for Geospatial search
                     newdoc["latitude"] = float(newdoc["latitude"])
                     newdoc["longitude"] = float(newdoc["longitude"])
                     newdoc["altitude"] = float(newdoc["altitude"])
                     newdoc["airportid"] = int(newdoc["airportid"])
+
+                    # See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/query/geospatial?tabs=javascript
+                    # Google: "azure ai search index nested geojson attributes"
+                    geojson = dict()
+                    geojson["type"] = "Point"
+                    geojson["coordinates"] = [
+                        newdoc["longitude"],
+                        newdoc["latitude"]
+                    ]
+                    newdoc["location"] = geojson
 
                     if newdoc[pkpath] != "\\N":
                         if newdoc["iata"] != "\\N":
