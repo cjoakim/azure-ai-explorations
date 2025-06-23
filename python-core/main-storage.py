@@ -109,7 +109,7 @@ def smoketest():
 
     print("===== download_blob_as_string")
     txt = storage_util.download_blob_as_string(container_name, "pyproject.toml")
-    print(f"txt: \n{txt}")
+    print(f"txt: \n{txt}\n{len(txt)}")
     time.sleep(1) 
 
 
