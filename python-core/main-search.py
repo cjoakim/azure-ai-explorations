@@ -116,6 +116,34 @@ if __name__ == "__main__":
                 result = client.create_indexer(name, schema_json_filename)
                 print(json.dumps(result, sort_keys=False, indent=2))
 
+            elif func == 'lookup_datasource':
+                name = sys.argv[2]
+                result = client.lookup_datasource(name)
+                print(json.dumps(result, sort_keys=False, indent=2))
+            elif func == 'lookup_index':
+                name = sys.argv[2]
+                result = client.lookup_index(name)
+                print(json.dumps(result, sort_keys=False, indent=2))
+            elif func == 'lookup_indexer':
+                name = sys.argv[2]
+                result = client.lookup_indexer(name)
+                print(json.dumps(result, sort_keys=False, indent=2))
+            elif func == 'lookup_indexer_schema':
+                indexer_name = sys.argv[2]
+                index_name = sys.argv[3]
+                datasource_name = sys.argv[4]
+                result = client.lookup_indexer_schema(
+                    indexer_name, index_name, datasource_name)
+                print(json.dumps(result, sort_keys=False, indent=2))
+
+            elif func == 'run_indexer':
+                name = sys.argv[2]
+                result = client.run_indexer(name)
+                print(json.dumps(result, sort_keys=False, indent=2))
+            elif func == 'reset_indexer':
+                name = sys.argv[2]
+                result = client.reset_indexer(name)
+                print(json.dumps(result, sort_keys=False, indent=2))
             elif func == 'get_indexer_status':
                 name = sys.argv[2]
                 result = client.get_indexer_status(name)

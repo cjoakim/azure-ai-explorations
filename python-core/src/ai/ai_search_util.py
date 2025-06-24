@@ -51,52 +51,7 @@ class AISearchUtil:
             traceback.print_stack()
             return None
 
-    # TODO - remove these getter methods; inline them where used instead
-
-    def get_cosmos_nosql_datasource_conn_string(self, acct_name: str, key: str, database_name: str) -> str:
-        return f"AccountName={acct_name};AccountKey={key};Database={database_name};"
-
-    def get_cosmos_nosql_datasource_name(self, database_name: str, container_name: str) -> str:
-        return f"{database_name}-{container_name}"
-
-    def get_create_datasource_url(self) -> str:
-        return f"{self.base_url}datasources?api-version={self.api_version}"
-
-    def get_create_index_url(self) -> str:
-        return f"{self.base_url}indexes?api-version={self.api_version}"
-
-    def get_create_indexer_url(self) -> str:
-        return f"{self.base_url}indexers?api-version={self.api_version}"
-
-    def get_datasource_url(self, name: str) -> str:
-        return f"{self.base_url}datasources/{name}?api-version={self.api_version}"
-
-    def get_index_url(self, name: str) -> str:
-        return f"{self.base_url}indexes/{name}?api-version={self.api_version}"
-
-
-    def get_indexer_url(self, name: str) -> str:
-        return f"{self.base_url}indexers/{name}?api-version={self.api_version}"
-
-    def get_lookup_doc_url(self, index_name: str, doc_key: str) -> str:
-        return f"{self.base_url}indexes/{index_name}/docs/{doc_key}?api-version={self.api_version}"
-
-    def get_modify_datasource_url(self, name: str) -> str:
-        return f"{self.base_url}datasources/{name}?api-version={self.api_version}"
-
-    def get_modify_index_url(self, name: str) -> str:
-        return f"{self.base_url}indexes/{name}?api-version={self.api_version}"
-
-    def get_modify_indexer_url(self, name: str) -> str:
-        return f"{self.base_url}indexers/{name}?api-version={self.api_version}"
-
-    def get_run_indexer_url(self, name: str) -> str:
-        return f"{self.base_url}indexers/{name}/run?api-version={self.api_version}"
-
-    def get_search_index_url(self, idx_name: str) -> str:
-        return f"{self.base_url}indexes/{idx_name}/docs/search?api-version={self.api_version}"
-
-    def create_cosmos_nosql_datasource(self, database_name: str, container_name: str) -> dict | None:  # main
+    def create_cosmos_nosql_datasource(self, database_name: str, container_name: str) -> dict | None:
         try:
             base_conn_str = os.getenv("AZURE_COSMOSDB_NOSQL_CONN_STR")
             db_conn_str = f"{base_conn_str};Database={database_name};"
@@ -123,7 +78,7 @@ class AISearchUtil:
             traceback.print_stack()
             return None
 
-    def create_index(self, name, schema_json_filename: str) -> dict | None:  # main
+    def create_index(self, name, schema_json_filename: str) -> dict | None:
         try:
             with open(schema_json_filename, 'r') as file:
                 schema = json.load(file)
@@ -135,7 +90,7 @@ class AISearchUtil:
             traceback.print_stack()
             return False
 
-    def create_indexer(self, name, schema_json_filename: str) -> dict | None:  # main
+    def create_indexer(self, name, schema_json_filename: str) -> dict | None:
         try:
             with open(schema_json_filename, 'r') as file:
                 schema = json.load(file)
@@ -165,7 +120,7 @@ class AISearchUtil:
             traceback.print_stack()
             return False
 
-    def delete_index(self, name: str) -> bool:  # main
+    def delete_index(self, name: str) -> bool:
         try:
             url = f"{self.base_url}/indexes/{name}?api-version={self.api_version}"
             return self._http_request("delete_index", "DELETE", url)
@@ -174,7 +129,7 @@ class AISearchUtil:
             traceback.print_stack()
             return False
 
-    def delete_indexer(self, name: str) -> dict | None:  # main
+    def delete_indexer(self, name: str) -> dict | None:
         try:
             url = f"{self.base_url}/indexers/{name}?api-version={self.api_version}"
             return self._http_request("delete_indexer", "DELETE", url)
@@ -183,7 +138,7 @@ class AISearchUtil:
             traceback.print_stack()
             return None
 
-    def list_datasources(self) -> dict | None:  # main
+    def list_datasources(self) -> dict | None:
         try:
             url = f"{self.base_url}datasources?api-version={self.api_version}"
             return self._http_request("list_datasources", "GET", url)
@@ -192,7 +147,7 @@ class AISearchUtil:
             traceback.print_stack()
             return None
 
-    def list_indexers(self) -> dict | None:  # main
+    def list_indexers(self) -> dict | None:
         try:
             url = f"{self.base_url}indexers?api-version={self.api_version}"
             return self._http_request("list_indexers", "GET", url)
@@ -201,7 +156,7 @@ class AISearchUtil:
             traceback.print_stack()
             return 
 
-    def list_indexes(self) -> dict | None:  # main
+    def list_indexes(self) -> dict | None:
         try:
             url = f"{self.base_url}indexes?api-version={self.api_version}"
             return self._http_request("list_indexes", "GET", url)
@@ -210,7 +165,7 @@ class AISearchUtil:
             traceback.print_stack()
             return []
 
-    def lookup_datasource(self, name: str):
+    def lookup_datasource(self, name: str) -> dict | None:
         try:
             url = f"{self.base_url}/datasources/{name}?api-version={self.api_version}"
             return self._http_request("lookup_datasource", "GET", url)
@@ -219,7 +174,7 @@ class AISearchUtil:
             traceback.print_stack()
             return None
 
-    def lookup_doc(self, index_name: str, doc_key: str):
+    def lookup_doc(self, index_name: str, doc_key: str) -> dict | None:
         try:
             url = f"{self.base_url}/indexes/{index_name}/docs/{doc_key}?api-version={self.api_version}"
             return self._http_request("lookup_doc", "GET", url)
@@ -228,7 +183,7 @@ class AISearchUtil:
             traceback.print_stack()
             return None
 
-    def lookup_index(self, name: str):
+    def lookup_index(self, name: str) -> dict | None:
         try:
             url = f"{self.base_url}/indexes/{name}?api-version={self.api_version}"
             return self._http_request("lookup_index", "GET", url)
@@ -237,7 +192,7 @@ class AISearchUtil:
             traceback.print_stack()
             return None
 
-    def lookup_indexer_schema(self, indexer_name: str, index_name: str, datasource_name: str):
+    def lookup_indexer_schema(self, indexer_name: str, index_name: str, datasource_name: str) -> dict | None:
         try:
             indexer = self.lookup_indexer(indexer_name)
             index = self.lookup_index(index_name)
@@ -252,7 +207,7 @@ class AISearchUtil:
             traceback.print_stack()
             return None
 
-    def lookup_indexer(self, name: str):
+    def lookup_indexer(self, name: str) -> dict | None:
         try:
             url = f"{self.base_url}/indexers/{name}?api-version={self.api_version}"
             return self._http_request("lookup_indexer", "GET", url)
@@ -283,35 +238,23 @@ class AISearchUtil:
             traceback.print_stack()
             return None
 
-    def reset_indexer_url(self, name: str) -> str:
+    def reset_indexer(self, name: str) -> dict | None:
         try:
             url = f"{self.base_url}/indexers/{name}/reset?api-version={self.api_version}"
-            result = self._http_request("reset_indexer_url", "POST", url)
-            return url if result else ""
-        except Exception as e:
-            logging.error(f"Error in reset_indexer_url: {str(e)}")
-            traceback.print_stack()
-            return ""
-
-    def reset_indexer(self, name: str) -> str:
-        try:
-            url = f"{self.base_url}/indexers/{name}/reset?api-version={self.api_version}"
-            result = self._http_request("reset_indexer", "POST", url)
-            return "Reset successful" if result else "Reset failed"
+            return self._http_request("reset_indexer", "POST", url)
         except Exception as e:
             logging.error(f"Error in reset_indexer: {str(e)}")
             traceback.print_stack()
-            return "Reset failed"
+            return None
 
-    def run_indexer(self, name: str) -> bool:
+    def run_indexer(self, name: str) -> dict | None:
         try:
             url = f"{self.base_url}/indexers/{name}/run?api-version={self.api_version}"
-            result = self._http_request("run_indexer", "POST", url)
-            return result is not None
+            return self._http_request("run_indexer", "POST", url)
         except Exception as e:
             logging.error(f"Error in run_indexer: {str(e)}")
             traceback.print_stack()
-            return False
+            return None
 
     def search_index(self, idx_name: str, search_name: str, search_params: object) -> list[object] | None:
         try:
@@ -327,9 +270,9 @@ class AISearchUtil:
             traceback.print_stack()
             return None
 
-    def update_index(self, name, schema_json_filename: str) -> bool:
+    def update_index(self, name, schema_json_filename: str) -> dict | None:
         return self.modify_index("PUT", name, schema_json_filename)
 
-    def update_indexer(self, name, schema_json_filename: str) -> bool:
+    def update_indexer(self, name, schema_json_filename: str) -> dict | None:
         return self.modify_indexer("PUT", name, schema_json_filename)
     

@@ -23,12 +23,21 @@ python main-search.py create_cosmos_nosql_datasource dev airports
 python main-search.py create_index nosql-airports aisearch/nosql_airports_index.json
 python main-search.py create_indexer nosql-airports aisearch/nosql_airports_indexer.json
 
-echo "=== SHELL indexer status ==="
-python main-search.py get_indexer_status nosql-airports
-
 echo "=== SHELL listing indexes, indexers, datasources (eoj) ==="
 python main-search.py list_indexes
 python main-search.py list_indexers
 python main-search.py list_datasources
+
+echo "=== SHELL lookups ==="
+python main-search.py lookup_datasource cosmosdb-nosql-dev-airports
+python main-search.py lookup_index nosql-airports
+python main-search.py lookup_indexer nosql-airports
+python main-search.py lookup_indexer_schema nosql-airports nosql-airports cosmosdb-nosql-dev-airports
+
+echo "=== SHELL reset and run indexer, get indexer status ==="
+python main-search.py reset_indexer nosql-airports
+python main-search.py run_indexer nosql-airports
+python main-search.py get_indexer_status nosql-airports
+
 
 echo "done"
