@@ -39,5 +39,10 @@ python main-search.py reset_indexer nosql-airports
 python main-search.py run_indexer nosql-airports
 python main-search.py get_indexer_status nosql-airports
 
+echo "=== SHELL execute several searches ==="
+python main-search.py search_index nosql-airports airports_clt aisearch/searches.json
+python main-search.py search_index nosql-airports airports_atl aisearch/searches.json
+python main-search.py search_index nosql-airports airports_lucene_east_cl_south aisearch/searches.json
+
 
 echo "done"

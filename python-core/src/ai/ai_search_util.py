@@ -256,15 +256,14 @@ class AISearchUtil:
             traceback.print_stack()
             return None
 
-    def search_index(self, idx_name: str, search_name: str, search_params: object) -> list[object] | None:
+    def search_index(self, idx_name: str, search_name: str, search_params: object) -> dict | None:
         try:
             url = f"{self.base_url}/indexes/{idx_name}/docs/search?api-version={self.api_version}"
             search_body = {
                 "search": search_name,
                 **search_params
             }
-            result = self._http_request("search_index", "POST", url, json_body=search_body)
-            return result['value'] if result else None
+            return self._http_request("search_index", "POST", url, json_body=search_body)
         except Exception as e:
             logging.error(f"Error in search_index: {str(e)}")
             traceback.print_stack()

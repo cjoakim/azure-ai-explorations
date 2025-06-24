@@ -148,6 +148,19 @@ if __name__ == "__main__":
                 name = sys.argv[2]
                 result = client.get_indexer_status(name)
                 print(json.dumps(result, sort_keys=False, indent=2))
+
+            elif func == 'search_index':
+                index_name = sys.argv[2]
+                search_name = sys.argv[3]
+                searches_json_filename = sys.argv[4]
+                search_params = FS.read_json(searches_json_filename)[search_name]
+                print("Index name:  {}".format(index_name))
+                print("Search name: {}".format(search_name))
+                print("Search params:\n{}".format(
+                    json.dumps(search_params, sort_keys=False, indent=2)))
+                result = client.search_index(index_name, search_name, search_params)
+                print(json.dumps(result, sort_keys=False, indent=2))
+                FS.write_json(result, "tmp/search_result.json", pretty=True, sort_keys=False)
             else:
                 print_options("Error: invalid function: {}".format(func))
     except Exception as e:
