@@ -23,8 +23,6 @@ python main-search.py create_cosmos_nosql_datasource dev airports
 python main-search.py create_index nosql-airports aisearch/nosql_airports_index.json
 python main-search.py create_indexer nosql-airports aisearch/nosql_airports_indexer.json
 
-# python main-search.py create_index nc-zipcodes aisearch/nc_zipcodes_index.json
-
 echo "=== SHELL listing indexes, indexers, datasources (eoj) ==="
 python main-search.py list_indexes
 python main-search.py list_indexers
@@ -46,5 +44,9 @@ python main-search.py search_index nosql-airports airports_clt aisearch/searches
 python main-search.py search_index nosql-airports airports_atl aisearch/searches.json
 python main-search.py search_index nosql-airports airports_lucene_east_cl_south aisearch/searches.json
 
-
 echo "done"
+
+
+# python main-search.py delete_index nc-zipcodes
+# python main-search.py create_index nc-zipcodes aisearch/nc_zipcodes_index.json
+

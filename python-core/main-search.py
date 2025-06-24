@@ -37,6 +37,9 @@ Usage:
     python main-search.py search_index nosql-airports airports_lucene_east_cl_south 
     -
     python main-search.py lookup_doc nosql-airports eVBWc0FPdExvZzJYQXdBQUFBQUFBQT090
+    -
+    python main-search.py direct_load_index <index_name> <data_json_filename>
+    python main-search.py direct_load_index zipcodes ../data/zipcodes/nc_zipcodes.json --load
 """
 
 # TODO - implement 
@@ -46,6 +49,7 @@ import os
 import sys
 import time
 import traceback
+import uuid
 
 from docopt import docopt
 from dotenv import load_dotenv
@@ -66,6 +70,44 @@ def check_env():
     for name in sorted(os.environ.keys()):
         if name.startswith("AZURE_AI_SEARCH"):
             print("{}: {}".format(name, os.environ[name]))
+
+def direct_load_index(index_name, input_json_file_or_dir):
+    docs = list()
+    if input_json_file_or_dir.endswith(".json"):
+        # it's a file, assumed to be a JSON array of documents
+        # example file: python-ai/data/nc_zipcodes.json in this repo
+        docs = FS.read_json(input_json_file_or_dir)
+    else:
+        # it's a directory.  implement this later if necessary
+        pass
+
+    for doc in docs:
+        doc["id"] = str(uuid.uuid4())
+        print(doc)
+
+    if "--load" in sys.argv:
+        client = AISearchUtil()
+        batch, batch_size = list(), 100
+        # Azure AI Search has a limit of 1000 documents per batch;
+        # see https://learn.microsoft.com/en-us/azure/search/search-what-is-data-import
+        for idx, doc in enumerate(docs):
+            if idx < 100000:
+                del doc["location"] # remove location nested object for now
+                print("Document idx {}: id: {}".format(idx, doc["id"]))
+                batch.append(doc)
+                if len(batch) > batch_size:
+                    print("Adding batch of {} documents".format(len(batch)))
+                    result = client.add_documents_to_index(index_name, batch)
+                    print(json.dumps(result, sort_keys=False, indent=2))
+                    batch = list()
+                    time.sleep(1.0)  # sleep to avoid possible throttling
+
+        if len(batch) > 0:
+            print("Adding last batch of {} documents".format(len(batch)))
+            result = client.add_documents_to_index(index_name, batch)
+            print(json.dumps(result, sort_keys=False, indent=2))
+        
+        print("{} documents were in the list to load".format(len(docs)))
 
 
 if __name__ == "__main__":
@@ -161,6 +203,11 @@ if __name__ == "__main__":
                 result = client.search_index(index_name, search_name, search_params)
                 print(json.dumps(result, sort_keys=False, indent=2))
                 FS.write_json(result, "tmp/search_result.json", pretty=True, sort_keys=False)
+
+            elif func == 'direct_load_index':
+                index_name = sys.argv[2]
+                input_json_file_or_dir = sys.argv[3]
+                direct_load_index(index_name, input_json_file_or_dir)
             else:
                 print_options("Error: invalid function: {}".format(func))
     except Exception as e:

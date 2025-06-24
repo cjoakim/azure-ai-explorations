@@ -27,30 +27,30 @@ class AISearchUtil:
             print(f"AISearchUtil initialized; base_url:     {self.base_url}")
             print(f"AISearchUtil initialized; headers:      {self.headers}")
 
-    def _http_request(self, function_name: str, method: str, url: str, headers={}, json_body={}):
+    def add_document_to_index(self, index_name: str, document: dict) -> dict | None:
         try:
-            with httpx.Client() as client:
-                if headers is None:
-                    headers = self.headers
-                if headers == {}:
-                    headers = self.headers
-                response = client.request(method, url, headers=headers, json=json_body)
-                print(f"response.status_code: {response.status_code}")
-                data = dict()
-                data["url"] = url
-                data["method"] = method
-                data["headers"] = headers
-                data["status_code"] = response.status_code
-                data["content"] = None
-                if response.content is not None:
-                    if len(response.content) > 0:
-                        data["content"] = response.json()
-                return data
+            url = f"{self.base_url}/indexes/{index_name}/docs/index?api-version={self.api_version}"
+            body = {
+                "value": [document]
+            }
+            return self._http_request("add_document_to_index", "POST", url, json_body=body)
         except Exception as e:
-            logging.error(f"Exception in {function_name}: {str(e)}")
+            logging.error(f"Error in add_document_to_index: {str(e)}")
             traceback.print_stack()
             return None
-
+    
+    def add_documents_to_index(self, index_name: str, documents: list) -> dict | None:
+        try:
+            url = f"{self.base_url}/indexes/{index_name}/docs/index?api-version={self.api_version}"
+            body = {
+                "value": documents
+            }
+            return self._http_request("add_document_to_index", "POST", url, json_body=body)
+        except Exception as e:
+            logging.error(f"Error in add_document_to_index: {str(e)}")
+            traceback.print_stack()
+            return None
+        
     def create_cosmos_nosql_datasource(self, database_name: str, container_name: str) -> dict | None:
         try:
             base_conn_str = os.getenv("AZURE_COSMOSDB_NOSQL_CONN_STR")
@@ -275,3 +275,26 @@ class AISearchUtil:
     def update_indexer(self, name, schema_json_filename: str) -> dict | None:
         return self.modify_indexer("PUT", name, schema_json_filename)
     
+    def _http_request(self, function_name: str, method: str, url: str, headers={}, json_body={}):
+        try:
+            with httpx.Client() as client:
+                if headers is None:
+                    headers = self.headers
+                if headers == {}:
+                    headers = self.headers
+                response = client.request(method, url, headers=headers, json=json_body)
+                print(f"response.status_code: {response.status_code}")
+                data = dict()
+                data["url"] = url
+                data["method"] = method
+                data["headers"] = headers
+                data["status_code"] = response.status_code
+                data["content"] = None
+                if response.content is not None:
+                    if len(response.content) > 0:
+                        data["content"] = response.json()
+                return data
+        except Exception as e:
+            logging.error(f"Exception in {function_name}: {str(e)}")
+            traceback.print_stack()
+            return None
