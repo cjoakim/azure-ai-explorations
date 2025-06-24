@@ -75,7 +75,7 @@
       "sortable": "true",
       "facetable": "true"
     },
-        {
+    {
       "name": "altitude",
       "type": "Edm.Double",
       "searchable": "false",
