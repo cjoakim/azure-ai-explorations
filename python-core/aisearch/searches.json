@@ -120,7 +120,21 @@
     "top": 3,
     "orderby": "epoch desc"
   },
-  "vector_search_fastapi": {
+  "vector_search_m26_text": {
+    "count": true,
+    "queryType": "simple",
+    "top": 10,
+    "vectorQueries": [
+      {
+        "kind": "text",
+        "text": "running calculator ppm speed - TODO Field 'embedding' does not have a vectorizer defined in it's vector profile.",
+        "fields": "embedding",
+        "k": 5,
+        "exhaustive": false
+      }
+    ]
+  },
+  "vector_search_fastapi_vector": {
     "count": true,
     "queryType": "simple",
     "top": 10,

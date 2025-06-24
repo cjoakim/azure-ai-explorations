@@ -33,7 +33,7 @@ Usage:
     python main-search.py search_index nosql-airports airports_clt aisearch/searches.json
     python main-search.py search_index nosql-airports airports_atl aisearch/searches.json
     python main-search.py search_index nosql-airports airports_lucene_east_cl_south aisearch/searches.json
-    python main-search.py search_index pythonlibs vector_search_fastapi aisearch/searches.json
+    python main-search.py search_index pythonlibs vector_search_fastapi_vector aisearch/searches.json
     -
     python main-search.py lookup_doc nosql-airports eVBWc0FPdExvZzJYQXdBQUFBQUFBQT090
     -
