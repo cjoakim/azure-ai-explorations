@@ -39,7 +39,8 @@ Usage:
     python main-search.py lookup_doc nosql-airports eVBWc0FPdExvZzJYQXdBQUFBQUFBQT090
     -
     python main-search.py direct_load_index <index_name> <data_json_filename>
-    python main-search.py direct_load_index zipcodes ../data/zipcodes/nc_zipcodes.json --load
+    python main-search.py direct_load_index zipcodes ../data/zipcodes/us_zipcodes.json --load
+    python main-search.py direct_load_index pythonlibs ../../CosmosAIGraph/data/pypi/wrangled_libs --load
 """
 
 # TODO - implement 
@@ -82,44 +83,50 @@ def direct_load_index(index_name, input_json_file_or_dir):
         files = FS.list_files_in_dir(input_json_file_or_dir)
         print("Found {} files in directory {}".format(len(files), input_json_file_or_dir))
         for file in files:
-            if len(docs) < 300:
-                if file.endswith(".json"):
-                    fq_filename = "{}/{}".format(input_json_file_or_dir, file)
-                    doc = FS.read_json(fq_filename)
-                    if isinstance(doc, dict):
-                        if "CosmosAIGraph" in input_json_file_or_dir:
-                            doc = transform_pythonlib_doc(doc)
-                        docs.append(doc)
-                        
-        print("Loaded {} documents from directory {}".format(len(docs), input_json_file_or_dir))
-
+            if file.endswith(".json"):
+                fq_filename = "{}/{}".format(input_json_file_or_dir, file)
+                doc = FS.read_json(fq_filename)
+                if isinstance(doc, dict):
+                    if "CosmosAIGraph" in input_json_file_or_dir:
+                        doc = transform_pythonlib_doc(doc)
+                    docs.append(doc)      
+        print("Read {} documents from directory {}".format(len(docs), input_json_file_or_dir))
     for doc in docs:
         doc["id"] = str(uuid.uuid4())
-        print(json.dumps(doc, sort_keys=False, indent=2))
+        #print(json.dumps(doc, sort_keys=False, indent=2))
 
     if "--load" in sys.argv:
         client = AISearchUtil()
-        batch, batch_size = list(), 100
+        batch, batch_size, batch_num = list(), 100, 0
         # Azure AI Search has a limit of 1000 documents per batch;
         # see https://learn.microsoft.com/en-us/azure/search/search-what-is-data-import
         for idx, doc in enumerate(docs):
             if idx < 100000:
-                del doc["location"] # remove location nested object for now
+                if "location" in doc.keys():
+                    del doc["location"] # remove the 'location' nested object for now
                 print("Document idx {}: id: {}".format(idx, doc["id"]))
                 batch.append(doc)
-                if len(batch) > batch_size:
-                    print("Adding batch of {} documents".format(len(batch)))
-                    result = client.add_documents_to_index(index_name, batch)
-                    print(json.dumps(result, sort_keys=False, indent=2))
+                if len(batch) >= batch_size:
+                    batch_num = batch_num + 1
+                    print("Adding batch {} of {} documents".format(
+                        batch_num, len(batch)))
+                    try:
+                        result = client.add_documents_to_index(index_name, batch)
+                        print(json.dumps(result, sort_keys=False, indent=2))
+                    except Exception as e:
+                        print("Error adding batch: {}".format(str(e)))
+                        print(traceback.format_exc())
                     batch = list()
                     time.sleep(1.0)  # sleep to avoid possible throttling
 
         if len(batch) > 0:
-            print("Adding last batch of {} documents".format(len(batch)))
+            batch_num = batch_num + 1
+            print("Adding last batch {} of {} documents".format(batch_num, len(batch)))
             result = client.add_documents_to_index(index_name, batch)
             print(json.dumps(result, sort_keys=False, indent=2))
         
         print("{} documents were in the list to load".format(len(docs)))
+
 
 def transform_pythonlib_doc(doc):
     newdoc = dict()

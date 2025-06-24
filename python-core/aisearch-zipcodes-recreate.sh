@@ -7,8 +7,11 @@
 
 source .venv/bin/activate
 
+echo "=== SHELL delete index ==="
 python main-search.py delete_index zipcodes
 
+echo "=== SHELL create index ==="
 python main-search.py create_index zipcodes aisearch/zipcodes_index.json
 
+echo "=== SHELL populate index ==="
 python main-search.py direct_load_index zipcodes ../data/zipcodes/us_zipcodes.json --load
