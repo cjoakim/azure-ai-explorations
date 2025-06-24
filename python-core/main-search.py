@@ -30,11 +30,10 @@ Usage:
     python main-search.py delete_indexer nosql-airports
     python main-search.py run_indexer nosql-airports
     -
-    python main-search.py search_index nosql-airports all_airports
-    python main-search.py search_index nosql-airports airports_charl
-    python main-search.py search_index nosql-airports airports_clt
-    python main-search.py search_index nosql-airports airports_campy
-    python main-search.py search_index nosql-airports airports_lucene_east_cl_south 
+    python main-search.py search_index nosql-airports airports_clt aisearch/searches.json
+    python main-search.py search_index nosql-airports airports_atl aisearch/searches.json
+    python main-search.py search_index nosql-airports airports_lucene_east_cl_south aisearch/searches.json
+    python main-search.py search_index pythonlibs vector_search_fastapi aisearch/searches.json
     -
     python main-search.py lookup_doc nosql-airports eVBWc0FPdExvZzJYQXdBQUFBQUFBQT090
     -
