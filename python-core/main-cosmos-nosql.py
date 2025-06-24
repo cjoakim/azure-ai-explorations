@@ -1,7 +1,7 @@
 """
 Usage:
   Example use of the Cosmos NoSQL API.
-  python main-cosmos-nosql.py load_airports dev airports pk
+  python main-cosmos-nosql.py load_airports dev airports pk --load
   python main-cosmos-nosql.py test_cosmos_nosql dbname, db_ru, cname, c_ru, pkpath
   python main-cosmos-nosql.py test_cosmos_nosql dev 1000 test 0 /pk
   python main-cosmos-nosql.py test_cosmos_nosql dev 1000 app 0 /pk
@@ -9,10 +9,6 @@ Usage:
   python main-cosmos-nosql.py load_python_libraries dev python_libraries
   python main-cosmos-nosql.py vector_search_similar_libs <dbname> <cname> <id>
   python main-cosmos-nosql.py vector_search_similar_libs dev python_libraries pypi_flask
-  See https://cosmos.azure.com/ for ad-hoc queries
-Options:
-  -h --help     Show this screen.
-  --version     Show version.
 """
 
 import asyncio
@@ -59,20 +55,19 @@ async def load_airports(dbname: str, cname: str, pkpath: str):
                         newkey = key.lower()
                         newdoc[newkey] = value
                     newdoc["id"] = str(uuid.uuid4())
-                    newdoc[pkpath] = newdoc["country"]
-                    newdoc["latitude"] = float(newdoc["latitude"])
-                    newdoc["longitude"] = float(newdoc["longitude"])
-                    newdoc["altitude"] = float(newdoc["altitude"])
                     newdoc["airportid"] = int(newdoc["airportid"])
+                    newdoc[pkpath] = newdoc["country"]
+                    newdoc["altitude"] = float(newdoc["altitude"])
+                    latitude = float(newdoc["latitude"])
+                    longitude = float(newdoc["longitude"])
+                    newdoc["latitude"] = latitude
+                    newdoc["longitude"] = longitude
 
                     # See https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/query/geospatial?tabs=javascript
                     # Google: "azure ai search index nested geojson attributes"
                     geojson = dict()
                     geojson["type"] = "Point"
-                    geojson["coordinates"] = [
-                        newdoc["longitude"],
-                        newdoc["latitude"]
-                    ]
+                    geojson["coordinates"] = [ longitude, latitude]
                     newdoc["location"] = geojson
 
                     if newdoc[pkpath] != "\\N":
@@ -95,7 +90,7 @@ async def load_airports(dbname: str, cname: str, pkpath: str):
         ctrproxy = nosql_util.set_container(cname)
         print("ctrproxy: {}".format(ctrproxy))
 
-        if True:
+        if "--load" in sys.argv:
             for doc in documents:
                 try:
                     cdb_doc = await nosql_util.upsert_item(doc)
