@@ -1,0 +1,127 @@
+{
+  "name": "pythonlibs",
+  "fields": [
+    {
+      "name": "id",
+      "key": "true",
+      "type": "Edm.String",
+      "searchable": "true",
+      "filterable": "true",
+      "sortable": "true",
+      "facetable": "true"
+    },
+    {
+      "name": "name",
+      "type": "Edm.String",
+      "searchable": "true",
+      "filterable": "true",
+      "sortable": "true",
+      "facetable": "true"
+    },
+    {
+      "name": "description",
+      "type": "Edm.String",
+      "searchable": "true",
+      "filterable": "true",
+      "sortable": "true",
+      "facetable": "true"
+    },
+    {
+      "name": "summary",
+      "type": "Edm.String",
+      "searchable": "true",
+      "filterable": "true",
+      "sortable": "true",
+      "facetable": "true"
+    },
+    {
+      "name": "kwds",
+      "type": "Edm.String",
+      "searchable": "true",
+      "filterable": "true",
+      "sortable": "true",
+      "facetable": "true"
+    },
+    {
+      "name": "project_url",
+      "type": "Edm.String",
+      "searchable": "true",
+      "filterable": "true",
+      "sortable": "true",
+      "facetable": "true"
+    },
+    {
+      "name": "developers",
+      "type": "Collection(Edm.String)",
+      "searchable": "true",
+      "filterable": "true",
+      "sortable": "false",
+      "facetable": "true"
+    },
+    {
+        "name": "embedding",
+        "type": "Collection(Edm.Single)",
+        "searchable": true,
+        "retrievable": false,
+        "stored": false,
+        "dimensions": 1536,
+        "vectorSearchProfile": "vector-profile-hnsw-scalar"
+    }
+  ],
+  "vectorSearch": {
+     "compressions": [
+         {
+             "name": "scalar-quantization",
+             "kind": "scalarQuantization",
+             "rerankWithOriginalVectors": true,
+             "defaultOversampling": 10.0,
+                 "scalarQuantizationParameters": {
+                     "quantizedDataType": "int8"
+                 }
+         },
+         {
+             "name": "binary-quantization",
+             "kind": "binaryQuantization",
+             "rerankWithOriginalVectors": true,
+             "defaultOversampling": 10.0
+         }
+     ],
+     "algorithms": [
+         {
+             "name": "hnsw-1",
+             "kind": "hnsw",
+             "hnswParameters": {
+                 "m": 4,
+                 "efConstruction": 400,
+                 "efSearch": 500,
+                 "metric": "cosine"
+             }
+         },
+         {
+             "name": "hnsw-2",
+             "kind": "hnsw",
+             "hnswParameters": {
+                 "m": 8,
+                 "efConstruction": 800,
+                 "efSearch": 800,
+                 "metric": "hamming"
+             }
+         },
+         {
+             "name": "eknn",
+             "kind": "exhaustiveKnn",
+             "exhaustiveKnnParameters": {
+                 "metric": "euclidean"
+             }
+         }
+
+     ],
+     "profiles": [
+       {
+         "name": "vector-profile-hnsw-scalar",
+         "compression": "scalar-quantization",
+         "algorithm": "hnsw-1"
+       }
+     ]
+  }
+}

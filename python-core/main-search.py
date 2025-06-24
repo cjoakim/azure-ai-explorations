@@ -78,12 +78,24 @@ def direct_load_index(index_name, input_json_file_or_dir):
         # example file: python-ai/data/nc_zipcodes.json in this repo
         docs = FS.read_json(input_json_file_or_dir)
     else:
-        # it's a directory.  implement this later if necessary
-        pass
+        # it's a directory, assumed to have one JSON file per document
+        files = FS.list_files_in_dir(input_json_file_or_dir)
+        print("Found {} files in directory {}".format(len(files), input_json_file_or_dir))
+        for file in files:
+            if len(docs) < 300:
+                if file.endswith(".json"):
+                    fq_filename = "{}/{}".format(input_json_file_or_dir, file)
+                    doc = FS.read_json(fq_filename)
+                    if isinstance(doc, dict):
+                        if "CosmosAIGraph" in input_json_file_or_dir:
+                            doc = transform_pythonlib_doc(doc)
+                        docs.append(doc)
+                        
+        print("Loaded {} documents from directory {}".format(len(docs), input_json_file_or_dir))
 
     for doc in docs:
         doc["id"] = str(uuid.uuid4())
-        print(doc)
+        print(json.dumps(doc, sort_keys=False, indent=2))
 
     if "--load" in sys.argv:
         client = AISearchUtil()
@@ -108,6 +120,16 @@ def direct_load_index(index_name, input_json_file_or_dir):
             print(json.dumps(result, sort_keys=False, indent=2))
         
         print("{} documents were in the list to load".format(len(docs)))
+
+def transform_pythonlib_doc(doc):
+    newdoc = dict()
+    for key in "name,description,summary,kwds,project_url,developers,embedding".split(","):
+        if key in doc.keys():
+            value = doc[key]
+            if isinstance(value, str):
+                value = value.strip().replace("\n", " ")[0:500].strip()
+            newdoc[key] = value
+    return newdoc
 
 
 if __name__ == "__main__":
