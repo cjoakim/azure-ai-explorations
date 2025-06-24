@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# Invoke Azure AI Search Service, smoketest class AISearchUtil.
+# Delete and recreate the Azure Search index, indexer, and datasource
+# for the Cosmos DB NoSQL dev/airports collection.
 # Chris Joakim, 2025
 
 source .venv/bin/activate
