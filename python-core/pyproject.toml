@@ -7,6 +7,7 @@ dependencies = [
   "azure-ai-projects",
   "azure-cosmos>=4.9.0",
   "azure-identity",
+  "azure-mgmt-cognitiveservices",
   "azure-storage-blob",
   "black",
   "docopt",

@@ -20,6 +20,8 @@ azure-ai-documentintelligence==1.0.2
     # via python-core (pyproject.toml)
 azure-ai-projects==1.0.0b11
     # via python-core (pyproject.toml)
+azure-common==1.1.28
+    # via azure-mgmt-cognitiveservices
 azure-core==1.34.0
     # via
     #   azure-ai-agents
@@ -27,11 +29,16 @@ azure-core==1.34.0
     #   azure-ai-projects
     #   azure-cosmos
     #   azure-identity
+    #   azure-mgmt-core
     #   azure-storage-blob
 azure-cosmos==4.9.0
     # via python-core (pyproject.toml)
 azure-identity==1.23.0
     # via python-core (pyproject.toml)
+azure-mgmt-cognitiveservices==13.6.0
+    # via python-core (pyproject.toml)
+azure-mgmt-core==1.5.0
+    # via azure-mgmt-cognitiveservices
 azure-storage-blob==12.25.1
     # via
     #   python-core (pyproject.toml)
@@ -90,6 +97,7 @@ isodate==0.7.2
     #   azure-ai-agents
     #   azure-ai-documentintelligence
     #   azure-ai-projects
+    #   azure-mgmt-cognitiveservices
     #   azure-storage-blob
 jinja2==3.1.6
     # via python-core (pyproject.toml)
@@ -174,6 +182,7 @@ typing-extensions==4.14.0
     #   azure-core
     #   azure-cosmos
     #   azure-identity
+    #   azure-mgmt-cognitiveservices
     #   azure-storage-blob
     #   openai
     #   pydantic
