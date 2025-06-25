@@ -10,7 +10,8 @@ from src.env import Env
 
 
 # This class is used to invoke Azure Cognitive Services via HTTP.
-# TODO - refactor to use httpx and test
+# TODO - refactor to use httpx and test.  This original code was
+# written in ~2022.
 # Chris Joakim, 2025
 
 
