@@ -116,9 +116,12 @@ def extract_aoai_env_vars(env_dict):
     
 def extract_foundry_env_vars(env_dict):
     try:
-        # TODO - implement
         show_data = FS.read_json("tmp/foundry-account-show.json")
         keys_data = FS.read_json("tmp/foundry-account-keys.json")
+        env_dict["AZURE_FOUNDRY_NAME"] = show_data["name"]
+        env_dict["AZURE_FOUNDRY_URL"] = show_data["properties"]["endpoint"]
+        env_dict["AZURE_FOUNDRY_RG"]  = show_data["resourceGroup"]
+        env_dict["AZURE_FOUNDRY_KEY"] = keys_data["key1"]
     except Exception as e:
         print("Error in extract_foundry_env_vars: {}".format(str(e)))
         print(traceback.format_exc())
