@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "CosmosDB Node.js MCP": {
+      "type": "stdio",
+      "command": "/Users/cjoakim/github/azure-ai-explorations/mcp/microsoft/azure-cosmos-mcp-server-samples/javascript/start-server.sh"
+    }
+  }
+}

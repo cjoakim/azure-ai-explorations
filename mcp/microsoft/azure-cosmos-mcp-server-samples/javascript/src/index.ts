@@ -91,6 +91,7 @@ const QUERY_CONTAINER_TOOL: Tool = {
 
 async function updateItem(params: any) {
   try {
+	console.error("updateItem: " + params);
     const { id, updates } = params;
     const { resource } = await container.item(id).read();
     
@@ -117,6 +118,7 @@ async function updateItem(params: any) {
 
 async function putItem(params: any) {
   try {
+	console.error("putItem: " + params);
     const { item } = params;
     const { resource } = await container.items.create(item);
 
@@ -136,6 +138,7 @@ async function putItem(params: any) {
 
 async function getItem(params: any) {
   try {
+	console.error("getItem: " + params);
     const { id } = params;
     const { resource } = await container.item(id).read();
 
@@ -155,6 +158,7 @@ async function getItem(params: any) {
 
 async function queryContainer(params: any) {
   try {
+	console.error("queryContainer: " + params);
     const { query, parameters } = params;
     const { resources } = await container.items.query({ query, parameters }).fetchAll();
 
@@ -195,6 +199,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
   try {
     let result;
+	console.error("setRequestHandler: " + name);
     switch (name) {
       case "put_item":
         result = await putItem(args);

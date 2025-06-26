@@ -38,6 +38,9 @@ This directory contains a copy of the sample code here:
 
 - https://code.visualstudio.com/docs/copilot/chat/mcp-servers
 
+### VSC Insiders Build
+
+- https://code.visualstudio.com/docs/?dv=darwinarm64&build=insiders 
 
 ### Cosmos DB Example
 
@@ -46,6 +49,34 @@ This directory contains a copy of the sample code here:
 
 ```
 git clone https://github.com/AzureCosmosDB/azure-cosmos-mcp-server-samples.git
+```
+
+- https://github.com/AzureCosmosDB/azure-cosmos-mcp-server-samples/tree/main/javascript
+  - VSC Insiders version: https://code.visualstudio.com/insiders/
+
+---
+
+## Anthropic Claude Desktop
+
+See https://github.com/AzureCosmosDB/azure-cosmos-mcp-server-samples/tree/main/javascript
+
+/Users/cjoakim/Library/Application Support/Claude/claude_desktop_config.json
+
+```
+{
+  "mcpServers": {
+    "cosmosdb": {
+      "command": "node",
+      "args": [ "/Users/cjoakim/github/azure-ai-explorations/mcp/microsoft/azure-cosmos-mcp-server-samples/javascript/dist/index.js" ]for the Azure Cosmos DB MCP server file,
+      "env": {
+        "COSMOSDB_URI": "Your Cosmos DB Account URI",
+        "COSMOSDB_KEY": "Your Cosmos DB KEY",
+        "COSMOS_DATABASE_ID": "dev",
+        "COSMOS_CONTAINER_ID": "airports"
+      }
+    }
+  }
+}
 ```
 
 ---
