@@ -1,0 +1,32 @@
+[project]
+name = "python-mcp"
+version = "0.1.0"
+dependencies = [
+  "httpx",
+  "mcp[cli]>=1.10.1",
+]
+requires-python = ">=3.13"
+authors = [
+  {name = "Chris Joakim", email = "christopher.joakim@gmail.com"}
+]
+maintainers = [
+  {name = "Chris Joakim", email = "christopher.joakim@gmail.com"}
+]
+description = "First-steps with MCP with python"
+readme = "readme.md"
+license = "MIT"
+license-files = ["LICEN[CS]E.*"]
+keywords = ["python", "pyproject.toml", "mcp"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+
+[project.urls]
+Homepage = "https://github.com/cjoakim/azure-ai-explorations/"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+ignore = ["E722"]
