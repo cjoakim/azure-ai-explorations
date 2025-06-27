@@ -1,15 +1,29 @@
 import json
 import os
+import platform
+import socket
+import time
+import uuid
 from typing import Any
+from typing import Optional
 import m26
 
 from fastmcp import FastMCP
-
-# Note, this is based on the sample file from Anthropic found here:
-# https://github.com/modelcontextprotocol/quickstart-resources/blob/main/weather-server-python/weather.py
+from pydantic import BaseModel
 
 # m26 is my pypi package for running/swimming/cycling calculations:
 # https://pypi.org/project/m26/
+
+
+class MetaResponse(BaseModel):
+    epoch: float = 0.0
+    id: str = ""
+    port: str = "0"
+    file: str = ""
+    pwd: str = ""
+    platform: str = ""
+    hostname: str = ""
+    exception: Optional[str] = None 
 
 
 # Initialize FastMCP server
@@ -55,13 +69,31 @@ Miles: {miles} miles
 Kilometers: {km}
 """
 
+@mcp.tool()
+def meta() -> MetaResponse:
+    """
+    Return information about the FastMCP server as a MetaResponse model
+    which gets automatically serialized to JSON
+    """
+    resp = MetaResponse()
+    try:
+        resp.epoch = time.time(),
+        resp.id = str(uuid.uuid4()),
+        resp.port = os.getenv("FASTMCP_PORT"),
+        resp.file = os.path.basename(__file__),
+        resp.pwd = os.getcwd(),
+        resp.platform = platform.system().lower(),
+        resp.hostname = socket.gethostname()
+    except Exception as e:
+        resp.exception = str(e)
+    return resp
+
+
 # fastmcp dev m26-server.py
 # fastmcp run m26-server.py
-# FASTMCP_PORT
+# fastmcp run m26-server.py --transport http --port 9001
 if __name__ == "__main__":
-    print("starting {}".format(os.path.basename(__file__)))
     mcp.run(transport="stdio")  # stdio is the default
-    #mcp.run(transport="http", host="127.0.0.1", port=8888, path="/m26")
 
 
 # $ fastmcp dev m26-server.py
@@ -75,3 +107,4 @@ if __name__ == "__main__":
 #    (Auto-open is disabled when authentication is enabled)
 
 # 🔍 MCP Inspector is up and running at http://127.0.0.1:6274
+
