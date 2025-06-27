@@ -8,15 +8,10 @@
 - https://github.com/modelcontextprotocol/modelcontextprotocol
 - https://modelcontextprotocol.io/specification/2025-06-18
 
-#### MCP GitHub Repo
+#### MCP Repos
 
-This directory contains a copy of the sample code here:
-- See https://github.com/modelcontextprotocol/modelcontextprotocol
-- See the mcp/anthropic/modelcontextprotocol/ directory in this repo where the following was copied:
-
-```
-- git clone git@github.com:modelcontextprotocol/modelcontextprotocol.git
-```
+- https://github.com/modelcontextprotocol/modelcontextprotocol
+- https://github.com/modelcontextprotocol/quickstart-resources
 
 ---
 
