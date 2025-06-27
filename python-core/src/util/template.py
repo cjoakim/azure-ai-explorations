@@ -31,5 +31,5 @@ class Template:
         given root_dir.
         """
         return jinja2.Environment(
-            loader=jinja2.FileSystemLoader(root_dir), autoescape=True
+            loader=jinja2.FileSystemLoader(root_dir), autoescape=False
         )
