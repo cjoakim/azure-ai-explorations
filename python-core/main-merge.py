@@ -4,8 +4,7 @@ Usage:
   python main-merge.py merge
 """
 
-import asyncio
-import json
+import datetime
 import sys
 import os
 import traceback
@@ -29,7 +28,6 @@ def merge():
     # Collect file inventories
     for line in gls_lines:
         line = line.strip()
-        print(line)
         if line.startswith("python-ai/"):
             filename = line[10:]
             ai_dict[filename] = read_file(line)
@@ -49,11 +47,24 @@ def merge():
                 pass
                 #print("Same size: {} {}".format(ai_size, key))
             else:
-                pass
-                # print("Diff size - ai: {} core: {} file: {}".format(
-                #     ai_size, core_size, key))
+                if ("tests" in key):
+                    pass
+                else:
+                    print("Diff size - ai: {} core: {} file: {}".format(
+                        ai_size, core_size, key))
+                    
+                    ai_path = "/Users/cjoakim/github/azure-ai-explorations/python-ai/{}".format(key)
+                    core_path = "/Users/cjoakim/github/azure-ai-explorations/python-core/{}".format(key)
+                    ai_time = os.path.getmtime(ai_path) 
+                    core_time = os.path.getmtime(core_path)
+                    ai_ts = datetime.datetime.fromtimestamp(ai_time)
+                    core_ts = datetime.datetime.fromtimestamp(core_time)
+
+                    print("ai_time:   {} size: {}".format(ai_ts, ai_size))
+                    print("core_time: {} size: {}".format(core_ts, core_size))
         else:
-            print("Not in core: {}".format(key))
+            pass
+            #print("Not in core: {}".format(key))
 
 
 

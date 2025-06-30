@@ -1,25 +1,34 @@
 """
 Usage:
   python main-aoai.py <func>
-  python main-aoai.py list_models
-  python main-aoai.py generate_completion <promptfile>
-  python main-aoai.py generate_completion prompts/sample-prompt.txt
-  python main-aoai.py generate_completion prompts/gen-aisearch-util.txt
-  python main-aoai.py generate_completion prompts/gen-blob-util.txt
-  python main-aoai.py generate_completion prompts/gen-foundry-util.txt
+  python main-aoai.py check_env
+  python main-aoai.py generate_embedding
+  python main-aoai.py generate_completion
+  python main-aoai.py generate_completion_with_md_prompt
+  python main-aoai.py generate_completion_with_chatml_prompt
+Options: 
+  -h --help     Show this screen.
+  --version     Show version.
 """
 
-import json
 import sys
 import os
 import traceback
 
+from pprint import pprint
+
 from docopt import docopt
 from dotenv import load_dotenv
 
+import openai
 from openai import AzureOpenAI
+from openai.types import CreateEmbeddingResponse
+from openai.types.chat.chat_completion import ChatCompletion
 
 from src.io.fs import FS
+
+# https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/chat-markup-language
+# https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/prompt-engineering?tabs=chat
 
 
 def print_options(msg):
@@ -28,134 +37,181 @@ def print_options(msg):
     print(arguments)
 
 
-def generate_completion(promptfile):
-    try:
-        with open(promptfile, "r") as f:
-            prompt = f.read()
-        if prompt is None:
-            print(f"Error: prompt file {promptfile} not found or empty.")
-            return
-        else:
-            print(f"Prompt file {promptfile} loaded successfully.")
-            print(f"Prompt content:\n==========\n{prompt}\n==========")
-
-        client = build_client()
-        deployment = completion_DEP()
-        print(f"Using deployment: {deployment}")
-        messages = parse_promptfile(promptfile)
-        print("Parsed messages:\n{}".format(json.dumps(messages, indent=2)))
-
-        response = client.chat.completions.create(
-            messages=messages,
-            model=deployment,
-            temperature=0.0,
-            max_tokens=4096
-        )
-
-        #     model=deployment,
-        #     prompt=prompt,
-        #     max_tokens=200,
-        #     temperature=0.1,
-        #     top_p=1.0,
-        #     n=1,
-        #     stop=None
-        # )
-        print("Completion response:")
-        content = response.choices[0].message.content
-        print(content)
-        FS.write(content, "tmp/generate_completion_output.txt", content)
-        FS.write(response.model_dump_json(indent=2), "tmp/generate_completion.json")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+def check_env():
+    load_dotenv(override=True)
+    for name in sorted(os.environ.keys()):
+        if "_OPENAI_" in name:
+            print("{}: {}".format(name, os.environ[name]))
 
 
-def list_models():
-    try:
-        client = build_client()
-        models = client.models.list()
-        for midx, model in enumerate(models.data):
-            print(f"=== model {midx} {model.id}")
-            print(model)
-        print(f"Total models: {len(models.data)}")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+def generate_embedding():
+    # See https://platform.openai.com/docs/guides/embeddings
+    # See https://github.com/openai/openai-python/blob/main/src/openai/types/create_embedding_response.py
 
+    url = os.getenv("AZURE_OPENAI_EMBEDDINGS_URL")
+    key = os.getenv("AZURE_OPENAI_EMBEDDINGS_KEY")
+    dep = os.getenv("AZURE_OPENAI_EMBEDDINGS_DEP")
 
-def parse_promptfile(promptfile):
-    """
-    Parse the given delimited prompt txt file and return a JSON list 
-    of system and user messages as required by the completions API.
-    """
-    messages = []
-    lines = FS.read_lines(promptfile)
-    system_prompt_lines, user_prompt_lines = [], []
-    current_role = None
-    for line in lines:
-        line = line.strip()
-        if line.startswith("ROLE-SYSTEM:"):
-            current_role = "system"
-        elif line.startswith("ROLE-USER:"):
-            current_role = "user"
-        elif current_role == "system":
-            system_prompt_lines.append(line.replace('"', "'"))
-        elif current_role == "user":
-            user_prompt_lines.append(line.replace('"', "'"))
+    client = AzureOpenAI(azure_endpoint=url, api_key=key, api_version="2024-10-21")
 
-    messages.append({
-        "role": "system",
-        "content": "\n".join(system_prompt_lines).strip()
-    })
-    messages.append({
-        "role": "user",
-        "content": "\n".join(user_prompt_lines).strip()
-    })
-    return messages
-
-
-def build_client():
-    url = openai_url()
-    key = openai_key()
-    print("Azure OpenAI URL:", url)
-    print("Azure OpenAI Key:", key[0:4] + "..." if key else "Not set")
-    return AzureOpenAI(
-        api_version="2024-12-01-preview",
-        azure_endpoint=url,
-        api_key=key
+    embedding: CreateEmbeddingResponse = client.embeddings.create(
+        model=dep,  # your model deployment name
+        input="Running marathons and ultramarathons",
+        encoding_format="float",
     )
 
-def openai_url():
-    if "--personal" in sys.argv:
-        return os.environ.get("AZURE_PERSONAL_OPENAI_URL")
-    else:
-        return os.environ.get("AZURE_OPENAI_URL")
+    print(embedding)
+    vector = embedding.data[0].embedding
+    print("Embedding: {}".format(vector))
+    print("Model:  {}".format(embedding.model))
+    print("Usage:  {}".format(embedding.usage))
+    print("Length: {}".format(len(vector)))
 
-def openai_key():
-    if "--personal" in sys.argv:
-        return os.environ.get("AZURE_PERSONAL_OPENAI_KEY")
-    else:
-        return os.environ.get("AZURE_OPENAI_KEY")
+    FS.write_json(vector, "tmp/embedding.json")
 
-def completion_DEP():
-    if "--personal" in sys.argv:
-        return os.environ.get("AZURE_PERSONAL_OPENAI_COMPLETIONS_DEP")
-    else:
-        return os.environ.get("AZURE_OPENAI_COMPLETIONS_DEP")
+    # [ ... , -0.014864896]
+    # Model:  text-embedding-ada-002
+    # Usage:  Usage(prompt_tokens=9, total_tokens=9)
+    # Length: 1536
+
+
+def generate_completion():
+    url = os.getenv("AZURE_OPENAI_COMPLETIONS_URL")
+    key = os.getenv("AZURE_OPENAI_COMPLETIONS_KEY")
+    dep = os.getenv("AZURE_OPENAI_COMPLETIONS_DEP")
+
+    client = AzureOpenAI(azure_endpoint=url, api_key=key, api_version="2024-10-21")
+
+    # <class 'openai.types.chat.chat_completion.ChatCompletion'>
+    completion: ChatCompletion = client.chat.completions.create(
+        model=dep,
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful assistant who knows Major League Baseball.",
+            },
+            {"role": "user", "content": "What uniform number did Mickey Mantle wear?"},
+        ],
+    )
+
+    print("=== completion type ===")
+    print(str(type(completion)))
+
+    print("=== message ===")
+    print(completion.choices[0].message)
+
+    print("=== content ===")
+    print(completion.choices[0].message.content)
+    # Mickey Mantle wore the uniform number 7 for the New York Yankees throughout his Hall of Fame career.
+
+    print("=== model_dump_json ===")
+    print(completion.model_dump_json(indent=2))
+
+
+def generate_completion_with_md_prompt():
+    url = os.getenv("AZURE_OPENAI_COMPLETIONS_URL")
+    key = os.getenv("AZURE_OPENAI_COMPLETIONS_KEY")
+    dep = os.getenv("AZURE_OPENAI_COMPLETIONS_DEP")
+
+    client = AzureOpenAI(azure_endpoint=url, api_key=key, api_version="2024-10-21")
+
+    # <class 'openai.types.chat.chat_completion.ChatCompletion'>
+    completion: ChatCompletion = client.chat.completions.create(
+        model=dep,
+        temperature=0.0,
+        max_tokens=1000,
+        messages=[
+            {"role": "system", "content": text_summarization_md()},
+            {"role": "user", "content": gettysburg_address_user_md()},
+        ],
+    )
+
+    print("=== completion type ===")
+    print(str(type(completion)))
+
+    print("=== message ===")
+    print(completion.choices[0].message)
+
+    print("=== content ===")
+    print(completion.choices[0].message.content)
+
+    print("=== model_dump_json ===")
+    print(completion.model_dump_json(indent=2))
+
+
+def generate_completion_with_chatml_prompt():
+    # NOTE: ChatML is in PREVIEW MODE in Azure OpenAI.
+    # THIS METHOD IS NOT CURRENTLY WORKING.
+    # See https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/chat-markup-language
+
+    url = os.getenv("AZURE_OPENAI_CHAT_URL")
+    key = os.getenv("AZURE_OPENAI_CHAT_KEY")
+    dep = os.getenv("AZURE_OPENAI_CHAT_DEP")
+
+    client = AzureOpenAI(
+        azure_endpoint=url, api_key=key, api_version="2024-10-21"  # 2024-02-01
+    )
+
+    response = client.chat.completions.create(
+        model=dep,  # The deployment name you chose when you deployed the GPT-35-Turbo model
+        prompt="<|im_start|>system\nAssistant is a large language model trained by OpenAI.\n<|im_end|>\n<|im_start|>user\nWho were the founders of Microsoft?\n<|im_end|>\n<|im_start|>assistant\n",
+        stop=["<|im_end|>"],
+    )
+
+    print(response["choices"][0]["text"])
+
+
+def text_summarization_md():
+    return """
+## Purpose
+
+You are a helpful assistant who summarizes text.
+
+Summarize the following text into bullet points.
+
+"""
+
+
+def gettysburg_address_user_md():
+    text = FS.read("../data/misc/gettysburg-address.txt").strip()
+    return """
+## Text to summarize
+
+{}
+
+""".format(
+        text
+    ).lstrip()
+
+
+def industrial_disease_lyrics_md():
+    text = FS.read("../data/text/industrial_disease_lyrics.txt").strip()
+    return """
+## Text to summarize
+
+{}
+
+""".format(
+        text
+    ).lstrip()
 
 
 if __name__ == "__main__":
     try:
         load_dotenv(override=True)
-        if len(sys.argv) < 2:
-            print_options("Error: no CLI args provided")
+        func = sys.argv[1].lower()
+        if func == "check_env":
+            check_env()
+        elif func == "generate_embedding":
+            generate_embedding()
+        elif func == "generate_completion":
+            generate_completion()
+        elif func == "generate_completion_with_md_prompt":
+            generate_completion_with_md_prompt()
+        elif func == "generate_completion_with_chatml_prompt":
+            generate_completion_with_chatml_prompt()
         else:
-            func = sys.argv[1].lower()
-            if func == "list_models":
-                list_models()
-            elif func == "generate_completion":
-                promptfile = sys.argv[2]
-                generate_completion(promptfile)
-            else:
-                print_options("Error: invalid function: {}".format(func))
+            print_options("Error: invalid function: {}".format(func))
     except Exception as e:
         print(str(e))
         print(traceback.format_exc())

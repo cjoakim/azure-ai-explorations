@@ -1,9 +1,9 @@
 """
 Usage:
   CLI app for Azure Storage.
-  python main_storage.py <func>
-  python main_storage.py env
-  python main_storage.py smoketest
+  python main-storage.py <func>
+  python main-storage.py env
+  python main-storage.py smoketest
 """
 
 import os

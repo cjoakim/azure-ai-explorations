@@ -23,8 +23,8 @@ source .venv/bin/activate
 echo "Installing libraries..."
 uv pip install --editable .
 
-echo "Creating a requirements.txt file..."
-uv pip compile pyproject.toml -o requirements.txt
+# echo "Creating a requirements.txt file..."
+# uv pip compile pyproject.toml -o requirements.txt
 
 # uv tree
 
