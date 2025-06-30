@@ -22,7 +22,8 @@ dependencies = [
   "pytest-cov>=6.1.1",
   "python-dotenv",
   "pytz",
-  "redis"
+  "redis",
+  "semantic-kernel"
 ]
 requires-python = ">=3.13"
 authors = [
