@@ -40,7 +40,7 @@ def check_env():
 
 
 def duck1_csv():
-    infile = "../data/misc/postal_codes_nc.csv"
+    infile = "../data/zipcodes/postal_codes_nc.csv"
     data = duckdb.read_csv(infile)
     print(data)
     print(str(type(data)))  # <class 'duckdb.duckdb.DuckDBPyRelation'>

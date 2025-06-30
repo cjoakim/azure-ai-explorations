@@ -3,12 +3,10 @@ Usage:
   Example use of the Cosmos NoSQL API.
   python main-cosmos-nosql.py load_airports dev airports pk --load
   python main-cosmos-nosql.py test_cosmos_nosql dbname, db_ru, cname, c_ru, pkpath
-  python main-cosmos-nosql.py test_cosmos_nosql dev 1000 test 0 /pk
-  python main-cosmos-nosql.py test_cosmos_nosql dev 1000 app 0 /pk
-  python main-cosmos-nosql.py test_cosmos_nosql dev 0 test 400 /pk
+  python main-cosmos-nosql.py test_cosmos_nosql dev 0 test 1000 /pk
   python main-cosmos-nosql.py load_python_libraries dev python_libraries
   python main-cosmos-nosql.py vector_search_similar_libs <dbname> <cname> <id>
-  python main-cosmos-nosql.py vector_search_similar_libs dev python_libraries pypi_flask
+  python main-cosmos-nosql.py vector_search_similar_libs dev pythonlibs fastai
 """
 
 import asyncio
