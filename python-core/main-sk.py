@@ -2,17 +2,18 @@
 Usage:
   python main-sk.py <func>
   python main-sk.py check_env
-  python main-sk.py generate_embedding
+  python main-sk.py smoketest
   python main-sk.py run_semantic_function
 Options: 
   -h --help     Show this screen.
   --version     Show version.
 """
 
-# main entry-point program for Semantic Kernel API examples.
+# Entry-point program for Semantic Kernel API examples.
 # Chris Joakim, 2025 
 
 import asyncio
+import logging
 import os
 import sys
 import traceback
@@ -58,38 +59,8 @@ from semantic_kernel.prompt_template import (
     InputVariable,
 )
 
+from src.ai.sk_util import SKUtil
 from src.io.fs import FS
-
-
-class Service(Enum):
-    # This class was copied from
-    # https://github.com/microsoft/semantic-kernel/blob/main/python/samples/getting_started/services.py
-    """
-    Attributes:
-    OpenAI (str): Represents the OpenAI service.
-    AzureOpenAI (str): Represents the Azure OpenAI service.
-    HuggingFace (str): Represents the HuggingFace service.
-    """
-    OpenAI = "openai"
-    AzureOpenAI = "azureopenai"
-    HuggingFace = "huggingface"
-
-class ServiceSettings(KernelBaseSettings):
-    # This class was copied from
-    # https://github.com/microsoft/semantic-kernel/blob/main/python/samples/service_settings.py
-    """
-    The Learn Resources Service Settings.
-    The settings are first loaded from environment variables. If the
-    environment variables are not found, the settings can be loaded from a .env file with the
-    encoding 'utf-8' as default or the specific encoding. If the settings are not found in the
-    .env file, the settings are ignored; however, validation will fail alerting that the settings
-    are missing.
-    Args:
-        global_llm_service: The LLM service to use for the samples, either "OpenAI" or "AzureOpenAI"
-            If not provided, defaults to "AzureOpenAI".
-    """
-
-    global_llm_service: Literal["OpenAI", "AzureOpenAI"] = "AzureOpenAI"
 
 
 def print_options(msg):
@@ -110,26 +81,27 @@ def check_env():
             print("{}: {}".format(name, os.environ[name]))
 
 
-async def generate_embedding():
-    # https://github.com/microsoft/semantic-kernel/tree/main/python/samples
-    # https://learn.microsoft.com/en-us/python/api/semantic-kernel/semantic_kernel
-    # https://learn.microsoft.com/en-us/python/api/semantic-kernel/semantic_kernel.connectors.ai.open_ai.services.azure_text_embedding.azuretextembedding
-    kernel = Kernel()
-    url = os.environ["AZURE_OPENAI_URL"]
-    key = os.environ["AZURE_OPENAI_KEY"]
-    dep = os.environ["AZURE_OPENAI_EMBEDDINGS_DEP"]
-    text = FS.read("../data/misc/gettysburg-address.txt").strip()
+async def smoketest():
+    completions_dep = os.getenv("AZURE_OPENAI_COMPLETIONS_DEP")
+    embedding_dep = os.getenv("AZURE_OPENAI_EMBEDDINGS_DEP")
+    opts = dict()
+    opts["chat_completion"] = completions_dep
+    opts["text_embedding"] = embedding_dep
+    opts["kernel_log_level"] = "DEBUG"
+    plugins = list()
 
-    embedding_service = AzureTextEmbedding(
-        api_key=key, endpoint=url, deployment_name=dep)
-    embedding = await embedding_service.generate_embeddings(text)
+    print("main generate_embedding opts: {}".format(opts))
+    print("main generate_embedding plugins: {}".format(plugins))
+    sk_util = SKUtil(opts, plugins, True)
+    sk_util.build_kernel()
+    text = FS.read("../data/text/gettysburg-address.txt").strip()
+    #await asyncio.sleep(3)
 
-    print(str(type(embedding)))  # <class 'numpy.ndarray'>.
-    print(str(type(embedding[0])))
-    print(embedding[0].shape)  # (1536,)
-    array = embedding[0].tolist()
-    FS.write_json(array, "tmp/embedding.json")
-    return array
+    embedding_array = await sk_util.generate_embedding(text, embedding_dep)
+    print(str(type(embedding_array)))  # <class 'numpy.ndarray'>.
+    if embedding_array is not None:
+        print(len(embedding_array))
+        FS.write_json(embedding_array, "tmp/embedding.json")
 
 async def run_semantic_function():
     # This method was adapted from the SK sample at:
@@ -219,8 +191,8 @@ if __name__ == "__main__":
         func = sys.argv[1].lower()
         if func == "check_env":
             check_env()
-        elif func == "generate_embedding":
-            asyncio.run(generate_embedding())
+        elif func == "smoketest":
+            asyncio.run(smoketest())
         elif func == "run_semantic_function":
             asyncio.run(run_semantic_function())
         else:
