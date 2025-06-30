@@ -40,7 +40,7 @@ def generate_completion(promptfile):
             print(f"Prompt content:\n==========\n{prompt}\n==========")
 
         client = build_client()
-        deployment = completion_deployment()
+        deployment = completion_DEP()
         print(f"Using deployment: {deployment}")
         messages = parse_promptfile(promptfile)
         print("Parsed messages:\n{}".format(json.dumps(messages, indent=2)))
@@ -135,11 +135,11 @@ def openai_key():
     else:
         return os.environ.get("AZURE_OPENAI_KEY")
 
-def completion_deployment():
+def completion_DEP():
     if "--personal" in sys.argv:
-        return os.environ.get("AZURE_PERSONAL_OPENAI_COMPLETIONS_DEPLOYMENT")
+        return os.environ.get("AZURE_PERSONAL_OPENAI_COMPLETIONS_DEP")
     else:
-        return os.environ.get("AZURE_OPENAI_COMPLETIONS_DEPLOYMENT")
+        return os.environ.get("AZURE_OPENAI_COMPLETIONS_DEP")
 
 
 if __name__ == "__main__":

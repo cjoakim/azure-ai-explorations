@@ -50,7 +50,7 @@ def generate_embedding():
 
     url = os.getenv("AZURE_OPENAI_EMBEDDINGS_URL")
     key = os.getenv("AZURE_OPENAI_EMBEDDINGS_KEY")
-    dep = os.getenv("AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT")
+    dep = os.getenv("AZURE_OPENAI_EMBEDDINGS_DEP")
 
     client = AzureOpenAI(azure_endpoint=url, api_key=key, api_version="2024-10-21")
 
@@ -78,7 +78,7 @@ def generate_embedding():
 def generate_completion():
     url = os.getenv("AZURE_OPENAI_COMPLETIONS_URL")
     key = os.getenv("AZURE_OPENAI_COMPLETIONS_KEY")
-    dep = os.getenv("AZURE_OPENAI_COMPLETIONS_DEPLOYMENT")
+    dep = os.getenv("AZURE_OPENAI_COMPLETIONS_DEP")
 
     client = AzureOpenAI(azure_endpoint=url, api_key=key, api_version="2024-10-21")
 
@@ -111,7 +111,7 @@ def generate_completion():
 def generate_completion_with_md_prompt():
     url = os.getenv("AZURE_OPENAI_COMPLETIONS_URL")
     key = os.getenv("AZURE_OPENAI_COMPLETIONS_KEY")
-    dep = os.getenv("AZURE_OPENAI_COMPLETIONS_DEPLOYMENT")
+    dep = os.getenv("AZURE_OPENAI_COMPLETIONS_DEP")
 
     client = AzureOpenAI(azure_endpoint=url, api_key=key, api_version="2024-10-21")
 
@@ -146,7 +146,7 @@ def generate_completion_with_chatml_prompt():
 
     url = os.getenv("AZURE_OPENAI_CHAT_URL")
     key = os.getenv("AZURE_OPENAI_CHAT_KEY")
-    dep = os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT")
+    dep = os.getenv("AZURE_OPENAI_CHAT_DEP")
 
     client = AzureOpenAI(
         azure_endpoint=url, api_key=key, api_version="2024-10-21"  # 2024-02-01

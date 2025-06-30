@@ -37,9 +37,15 @@ def print_options(msg):
     arguments = docopt(__doc__, version="1.0.0")
     print(arguments)
 
+
 async def init():
     await asyncio.sleep(0.1)
-    sk = SKUtil(verbose=True)
+    opts = dict()
+    opts["chat_DEP"] = os.getenv("AZURE_OPENAI_COMPLETIONS_DEP")
+    opts["embeddings_DEP"] = os.getenv("AZURE_OPENAI_EMBEDDINGS_DEP")
+    
+    plugins = list()
+    sk = SKUtil(opts=opts, plugins=plugins, verbose=True)
     print(sk)
 
 

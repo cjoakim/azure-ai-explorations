@@ -117,7 +117,7 @@ async def generate_embedding():
     kernel = Kernel()
     url = os.environ["AZURE_OPENAI_URL"]
     key = os.environ["AZURE_OPENAI_KEY"]
-    dep = os.environ["AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT"]
+    dep = os.environ["AZURE_OPENAI_EMBEDDINGS_DEP"]
     text = FS.read("../data/misc/gettysburg-address.txt").strip()
 
     embedding_service = AzureTextEmbedding(

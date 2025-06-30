@@ -26,11 +26,30 @@ from semantic_kernel.connectors.ai.open_ai.prompt_execution_settings.azure_chat_
 
 class SKUtil:
 
-    def __init__(self, verbose: bool = False):
+    def __init__(self, opts: dict = {}, plugins: list[str] = [], verbose: bool = False):
         self.api_url = os.getenv("AZURE_OPENAI_URL")
         self.api_key = os.getenv("AZURE_OPENAI_KEY")
-        self.completions_dep = os.getenv("AZURE_OPENAI_COMPLETIONS_DEPLOYMENT")
+        self.chat_completion = None  # instance variable needed?
+        #self.completions_dep = os.getenv("AZURE_OPENAI_COMPLETIONS_DEP")
         if verbose:
             print(f"SKUtil initialized; api_url: {self.api_url}")
             print(f"SKUtil initialized; api_key:  {self.api_key}")
             print(f"SKUtil initialized; completions_dep:  {self.completions_dep}")
+        self.kernel = Kernel()
+
+    def build_kernel(self, opts: dict = {}, plugins: list[str] = []) -> Kernel:
+        if opts is None:
+            return self.kernel
+        
+        if "chat_completion" in opts.keys():
+            dep_name = opts["chat_completion"]
+            chat_completion = AzureChatCompletion(
+                deployment_name="your_models_DEP_name",
+                api_key="your_api_key",
+                base_url="your_base_url",
+            )
+            self.chat_completion = chat_completion
+            self.kernel.add_service(chat_completion)
+
+        for plugin in plugins:
+            pass

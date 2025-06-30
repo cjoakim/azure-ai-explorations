@@ -161,11 +161,11 @@ class Program {
     private static Kernel BuildAppKernel() {
         string apiUrl = ReadEnvVar("AZURE_OPENAI_URL", "none");
         string apiKey = ReadEnvVar("AZURE_OPENAI_KEY", "none");
-        string depName = ReadEnvVar("AZURE_OPENAI_COMPLETIONS_DEPLOYMENT", "gpt-3.5-turbo");
+        string depName = ReadEnvVar("AZURE_OPENAI_COMPLETIONS_DEP", "gpt-3.5-turbo");
         if (CliFlagPresent("--personal")) {
             apiUrl = ReadEnvVar("AZURE_PERSONAL_OPENAI_URL", "none");
             apiKey = ReadEnvVar("AZURE_PERSONAL_OPENAI_KEY", "none");
-            depName = ReadEnvVar("AZURE_PERSONAL_OPENAI_COMPLETIONS_DEPLOYMENT", "gpt-3.5-turbo");
+            depName = ReadEnvVar("AZURE_PERSONAL_OPENAI_COMPLETIONS_DEP", "gpt-3.5-turbo");
         }
 
         Console.WriteLine("BuildAppKernel - apiUrl:  " + apiUrl);
