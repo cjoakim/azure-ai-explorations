@@ -60,6 +60,7 @@ from semantic_kernel.prompt_template import (
 )
 
 from src.ai.sk_util import SKUtil
+from src.ai.sk.lights_plugin import LightsPlugin
 from src.io.fs import FS
 
 
@@ -88,11 +89,12 @@ async def smoketest():
     opts["chat_completion"] = completions_dep
     opts["text_embedding"] = embedding_dep
     opts["kernel_log_level"] = "DEBUG"
-    plugins = list()
+    builtin_plugins = list()
+    custom_plugins = dict()
+    custom_plugins["Lights"] = LightsPlugin()
 
     print("main generate_embedding opts: {}".format(opts))
-    print("main generate_embedding plugins: {}".format(plugins))
-    sk_util = SKUtil(opts, plugins, True)
+    sk_util = SKUtil(opts, builtin_plugins, custom_plugins, True)
     sk_util.build_kernel()
     text = FS.read("../data/text/gettysburg-address.txt").strip()
     #await asyncio.sleep(3)

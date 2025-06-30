@@ -45,10 +45,12 @@ class SKUtil:
     def __init__(
             self,
             opts: dict = {},
-            plugins: list[str] = [],
+            builtin_plugins: list[str] = [],
+            custom_plugins: dict = {},
             verbose: bool = False):
         self.opts = opts
-        self.plugins = plugins
+        self.builtin_plugins = builtin_plugins
+        self.custom_plugins = custom_plugins
         self.verbose = verbose
         self.aoai_api_url = os.getenv("AZURE_OPENAI_URL")
         self.aoai_api_key = os.getenv("AZURE_OPENAI_KEY")
@@ -91,8 +93,13 @@ class SKUtil:
             print(f"SKUtil#build_kernel; default completions dep: {self.default_chat_deployment_name}")
             print(f"SKUtil#build_kernel; default embeddings dep:  {self.default_embedding_deployment_name}")
 
-        for plugin in self.plugins:
-            pass
+        for plugin_name in self.builtin_plugins:
+            print(f"SKUtil#build_kernel; adding built-in plugin: {plugin_name}")
+
+        for plugin_name in self.custom_plugins.keys():
+            impl_instance = self.custom_plugins[plugin_name]
+            print(f"SKUtil#build_kernel; adding custom plugin: {plugin_name}")
+            self.kernel.add_plugin(impl_instance, plugin_name)
 
     async def generate_embedding(self, text: str, dep_name: str) -> list[float] | None:
         if text is None:
