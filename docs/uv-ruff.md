@@ -63,7 +63,91 @@ See https://github.com/pypa/pipx
 
 ---
 
-## Installation
+## Installation on Windows 11
+
+### Install Scoop
+
+See https://scoop.sh/
+
+```
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+Initializing...
+Downloading...
+Creating shim...
+Adding ~\scoop\shims to your path.
+Scoop was installed successfully!
+Type 'scoop help' for instructions.
+```
+
+### Install pipx
+
+```
+PS C:\Users\chris> scoop install pipx
+Installing 'pipx' (1.7.1) [64bit] from 'main' bucket
+pipx.pyz (321.6 KB) [============================================================] 100%
+Checking hash of pipx.pyz ... ok.
+Running pre_install script...done.
+Linking ~\scoop\apps\pipx\current => ~\scoop\apps\pipx\1.7.1
+Creating shim for 'pipx'.
+'pipx' (1.7.1) was installed successfully!
+'pipx' suggests installing 'python'.
+
+
+PS C:\Users\chris> pipx ensurepath
+Success! Added C:\Users\chris\.local\bin to the PATH environment variable.
+
+Consider adding shell completions for pipx. Run 'pipx completions' for instructions.
+
+You will need to open a new terminal or re-login for the PATH changes to take effect.
+Alternatively, you can source your shell's config file with e.g. 'source ~/.bashrc'.
+
+Otherwise pipx is ready to go! ✨ 🌟 ✨
+
+
+PS C:\Users\chris> pipx install argcomplete
+  installed package argcomplete 3.6.2, installed using Python 3.12.9
+  These apps are now globally available
+    - activate-global-python-argcomplete.exe
+    - python-argcomplete-check-easy-install-script.exe
+    - register-python-argcomplete.exe
+⚠️  Note: 'C:\Users\chris\.local\bin' is not on your PATH environment variable. These
+    apps will not be globally accessible until your PATH is updated. Run `pipx
+    ensurepath` to automatically add it, or manually modify your PATH in your shell's
+    config file (e.g. ~/.bashrc).
+done! ✨ 🌟 ✨
+
+pipx ensurepath
+```
+
+### Install uv with pipx 
+
+```
+PS C:\Users\chris> pipx install uv
+  installed package uv 0.7.17, installed using Python 3.12.9
+  These apps are now globally available
+    - uv.exe
+    - uvw.exe
+    - uvx.exe
+done! ✨ 🌟 ✨
+```
+
+---
+
+### Install ruff with pipx 
+
+```
+PS C:\Users\chris> pipx install ruff
+  installed package ruff 0.12.1, installed using Python 3.12.9
+  These apps are now globally available
+    - ruff.exe
+done! ✨ 🌟 ✨
+```
+
+---
+
+## Installation on macOS
 
 Install the following "modern python" tools below:
 
