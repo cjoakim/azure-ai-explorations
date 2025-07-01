@@ -132,6 +132,8 @@ def simple_built_in_plugin_list() -> list[str]:
     return "http,math,text,time,wait".split(",")
  
 
+# ========== obsolete/legacy code below ==========
+
 async def run_semantic_function():
     # This method was adapted from the SK sample at:
     # https://github.com/microsoft/semantic-kernel/blob/main/python/samples/getting_started/00-getting-started.ipynb
