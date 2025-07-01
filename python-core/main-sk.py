@@ -89,12 +89,12 @@ async def smoketest():
     opts["chat_completion"] = completions_dep
     opts["text_embedding"] = embedding_dep
     opts["kernel_log_level"] = "DEBUG"
-    builtin_plugins = list()
+    simple_builtin_plugins = simple_built_in_plugin_list()
     custom_plugins = dict()
     custom_plugins["Lights"] = LightsPlugin()
 
     print("main generate_embedding opts: {}".format(opts))
-    sk_util = SKUtil(opts, builtin_plugins, custom_plugins, True)
+    sk_util = SKUtil(opts, simple_builtin_plugins, custom_plugins, True)
     sk_util.build_kernel()
     text = FS.read("../data/text/gettysburg-address.txt").strip()
     #await asyncio.sleep(3)
@@ -104,6 +104,14 @@ async def smoketest():
     if embedding_array is not None:
         print(len(embedding_array))
         FS.write_json(embedding_array, "tmp/embedding.json")
+
+
+def simple_built_in_plugin_list() -> list[str]:
+    # Return a list of the simple built-in plugins that have zero constructor args.
+    # Plugins NOT covered here: conversation_summary, text_memory, web_search_engine 
+    # See https://learn.microsoft.com/en-us/python/api/semantic-kernel/semantic_kernel.core_plugins?view=semantic-kernel-python
+    return "http,math,text,time,wait".split(",")
+ 
 
 async def run_semantic_function():
     # This method was adapted from the SK sample at:

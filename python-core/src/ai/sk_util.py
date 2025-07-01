@@ -22,6 +22,16 @@ from semantic_kernel.connectors.ai.open_ai import OpenAIChatCompletion
 from semantic_kernel.connectors.ai.open_ai import OpenAIEmbeddingPromptExecutionSettings
 from semantic_kernel.connectors.ai.open_ai import OpenAITextPromptExecutionSettings
 from semantic_kernel.contents.chat_history import ChatHistory
+
+from semantic_kernel.core_plugins.conversation_summary_plugin import ConversationSummaryPlugin
+from semantic_kernel.core_plugins.http_plugin import HttpPlugin
+from semantic_kernel.core_plugins.math_plugin import MathPlugin
+from semantic_kernel.core_plugins.text_memory_plugin import TextMemoryPlugin
+from semantic_kernel.core_plugins.text_plugin import TextPlugin
+from semantic_kernel.core_plugins.time_plugin import TimePlugin
+from semantic_kernel.core_plugins.wait_plugin import WaitPlugin
+from semantic_kernel.core_plugins.web_search_engine_plugin import WebSearchEnginePlugin
+
 from semantic_kernel.functions import kernel_function
 from semantic_kernel.functions.kernel_arguments import KernelArguments
 from semantic_kernel.kernel_pydantic import KernelBaseSettings
@@ -45,11 +55,11 @@ class SKUtil:
     def __init__(
             self,
             opts: dict = {},
-            builtin_plugins: list[str] = [],
+            simple_builtin_plugins: list[str] = [],
             custom_plugins: dict = {},
             verbose: bool = False):
         self.opts = opts
-        self.builtin_plugins = builtin_plugins
+        self.simple_builtin_plugins = simple_builtin_plugins
         self.custom_plugins = custom_plugins
         self.verbose = verbose
         self.aoai_api_url = os.getenv("AZURE_OPENAI_URL")
@@ -66,40 +76,61 @@ class SKUtil:
         self.embedding_model_cache = dict()
 
         if self.verbose:
-            print(f"SKUtil#__init__; aoai_api_url: {self.aoai_api_url}")
-            print(f"SKUtil#__init__; aoai_api_key: {self.aoai_api_key}")
+            print(f"SKUtil#__init__ aoai_api_url: {self.aoai_api_url}")
+            print(f"SKUtil#__init__ aoai_api_key: {self.aoai_api_key}")
         self.kernel = Kernel()
         kernel_logger = logging.getLogger("kernel")
         if kernel_logger is not None:
             kernel_logger.setLevel(self.get_kernel_logging_level())
  
     def build_kernel(self) -> Kernel:
-        if self.opts is None:
-            return self.kernel
-        
-        if "chat_completion" in self.opts.keys():
-            dep_name = self.opts["chat_completion"]
-            self.default_chat_deployment_name = dep_name
-            completion_instance = self.get_completion_instance(dep_name)
-            self.kernel.add_service(completion_instance)
+        if self.opts is not None:
+            if "chat_completion" in self.opts.keys():
+                dep_name = self.opts["chat_completion"]
+                self.default_chat_deployment_name = dep_name
+                completion_instance = self.get_completion_instance(dep_name)
+                self.kernel.add_service(completion_instance)
 
-        if "text_embedding" in self.opts.keys():
-            dep_name = self.opts["text_embedding"]
-            self.default_embedding_deployment_name = dep_name
-            embedding_instance = self.get_embedding_instance(dep_name)
-            self.kernel.add_service(embedding_instance)
+            if "text_embedding" in self.opts.keys():
+                dep_name = self.opts["text_embedding"]
+                self.default_embedding_deployment_name = dep_name
+                embedding_instance = self.get_embedding_instance(dep_name)
+                self.kernel.add_service(embedding_instance)
 
         if self.verbose:
-            print(f"SKUtil#build_kernel; default completions dep: {self.default_chat_deployment_name}")
-            print(f"SKUtil#build_kernel; default embeddings dep:  {self.default_embedding_deployment_name}")
+            print(f"SKUtil#build_kernel default completions dep: {self.default_chat_deployment_name}")
+            print(f"SKUtil#build_kernel default embeddings dep:  {self.default_embedding_deployment_name}")
 
-        for plugin_name in self.builtin_plugins:
-            print(f"SKUtil#build_kernel; adding built-in plugin: {plugin_name}")
+        if self.simple_builtin_plugins is not None:
+            for plugin_name in self.simple_builtin_plugins:
+                normalized_name = str(plugin_name).lower().strip()
+                print(f"SKUtil#build_kernel adding built-in plugin: {normalized_name}")
+                # See https://learn.microsoft.com/en-us/python/api/semantic-kernel/semantic_kernel.core_plugins?view=semantic-kernel-python
+                # Plugins NOT covered here: conversation_summary, text_memory, web_search_engine.
+                match normalized_name:
+                    case "http":
+                        self.kernel.add_plugin(
+                            HttpPlugin(), plugin_name="http")
+                    case "math":
+                        self.kernel.add_plugin(
+                            MathPlugin(), plugin_name="math")
+                    case "text":
+                        self.kernel.add_plugin(
+                            TextPlugin(), plugin_name="text")
+                    case "time":
+                        self.kernel.add_plugin(
+                            TimePlugin(), plugin_name="time")
+                    case "wait":
+                        self.kernel.add_plugin(
+                            WaitPlugin(), plugin_name="wait")
+                    case _:
+                        print("SKUtil#build_kernel Unmatched built-in plugin name: {}".format(normalized_name))
 
-        for plugin_name in self.custom_plugins.keys():
-            impl_instance = self.custom_plugins[plugin_name]
-            print(f"SKUtil#build_kernel; adding custom plugin: {plugin_name}")
-            self.kernel.add_plugin(impl_instance, plugin_name)
+        if self.custom_plugins is not None:
+            for plugin_name in self.custom_plugins.keys():
+                impl_instance = self.custom_plugins[plugin_name]
+                print(f"SKUtil#build_kernel adding custom plugin: {plugin_name}")
+                self.kernel.add_plugin(impl_instance, plugin_name)
 
     async def generate_embedding(self, text: str, dep_name: str) -> list[float] | None:
         if text is None:
@@ -153,7 +184,6 @@ class SKUtil:
                     if self.verbose:
                         print("SKUtil#get_completion_instance cached: {}".format(deployment_name))
         return instance
-
 
     def get_embedding_instance(self, deployment_name: str) -> AzureTextEmbedding | None:
         instance = None
