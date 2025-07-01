@@ -97,13 +97,32 @@ async def smoketest():
     sk_util = SKUtil(opts, simple_builtin_plugins, custom_plugins, True)
     sk_util.build_kernel()
     text = FS.read("../data/text/gettysburg-address.txt").strip()
-    #await asyncio.sleep(3)
 
+    # Generate an embedding
     embedding_array = await sk_util.generate_embedding(text, embedding_dep)
     print(str(type(embedding_array)))  # <class 'numpy.ndarray'>.
     if embedding_array is not None:
         print(len(embedding_array))
         FS.write_json(embedding_array, "tmp/embedding.json")
+
+    # Have an interactive Chat:
+    execution_settings = AzureChatPromptExecutionSettings()
+    execution_settings.function_choice_behavior = FunctionChoiceBehavior.Auto()
+    history = ChatHistory()
+    deployment_name = sk_util.default_chat_deployment_name
+    continue_to_chat = True
+
+    while continue_to_chat:
+        print("Please enter your next input:")
+        user_message = input()
+        if user_message.lower() in ['quit', 'stop', 'bye', 'goodbye']:
+            continue_to_chat = False
+            print("Conversation ended!")
+        else:
+            result = await sk_util.get_chat_message_content(
+                deployment_name, user_message, history, execution_settings)
+            print("Assistant > " + str(result))
+            history.add_message(result)
 
 
 def simple_built_in_plugin_list() -> list[str]:

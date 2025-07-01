@@ -158,7 +158,23 @@ class SKUtil:
                 print(traceback.format_exc())
                 return None
 
+    async def get_chat_message_content(self,
+        dep_name: str,
+        user_message: str,
+        history: ChatHistory,
+        execution_settings):
 
+        instance = self.get_completion_instance(dep_name)
+        if instance is None:
+            print("SKUtil#get_chat_message_content - instance for deployment {} is None".format(dep_name))
+            return None
+        else:
+            history.add_user_message(user_message)
+            return await instance.get_chat_message_content(
+                chat_history=history,
+                settings=execution_settings,
+                kernel=self.kernel)
+    
     # ========== The following methods are intented to be "private" ==========
 
     def get_kernel_logging_level(self):
