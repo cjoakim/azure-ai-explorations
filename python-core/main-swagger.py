@@ -15,6 +15,8 @@ import traceback
 from docopt import docopt
 from dotenv import load_dotenv
 
+from markdown_pdf import MarkdownPdf, Section
+
 from src.io.fs import FS
 
 
@@ -60,6 +62,16 @@ def parse(infile="../data/swagger/swagger.json"):
     md_lines.append("")
     FS.write_lines(md_lines, "tmp/swaggger.md")
 
+    # See https://pypi.org/project/markdown-pdf/
+    with open("tmp/swaggger.md", "r") as f:
+        md_content = f.read()
+    pdf = MarkdownPdf()
+    css = "table, th, td {border: 1px solid black;}"
+    css = "p span h1 h2 h3 { font-size: 0.875em;}"
+    pdf.add_section(Section(md_content), user_css=css)
+    pdf.meta["title"] = "Swagger Analysis PDF"
+    pdf.meta["author"] = "Chris Joakim"
+    pdf.save("tmp/swaggger.pdf")
 
 def schema_is_of_interest(schema_name) -> bool:
     if schema_name.startswith("Question"):
