@@ -5,6 +5,7 @@ dependencies = [
   "aiohttp>=3.11.18",
   "azure-ai-documentintelligence==1.0.2",
   "azure-ai-projects",
+  "azure-ai-textanalytics",
   "azure-cosmos>=4.9.0",
   "azure-identity",
   "azure-mgmt-cognitiveservices",
