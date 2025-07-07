@@ -35,6 +35,7 @@
 **/pyvenv.cfg
 **/ruff-check.txt
 **/.override.properties*
+**/swagger.json
 
 
 ### THE FOLLOWING ARE THE STANDARD ENTRIES FOR A GITHUB PYTHON PROJECT ###
