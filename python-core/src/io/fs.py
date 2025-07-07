@@ -132,7 +132,7 @@ class FS:
     @classmethod
     def read_csv_as_dicts(
         cls, infile: str, delim=",", dialect="excel", encoding="utf-8", mode="rt"
-    ) -> list[str] | None:
+    ) -> list[dict] | None:
         """
         Read the given csv filename, return an array of dicts or None.
         Implementation uses csv.DictReader.
@@ -145,7 +145,8 @@ class FS:
                     for row in rdr:
                         rows.append(row)
                 return rows
-        except:
+        except Exception as e:
+            print(str(e))
             print(traceback.format_exc())
         return None
 

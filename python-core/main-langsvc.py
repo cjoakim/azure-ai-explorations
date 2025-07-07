@@ -8,6 +8,7 @@ Usage:
 
 import json
 import os
+import random
 import sys
 import traceback
 
@@ -36,6 +37,36 @@ def check_env():
 def explore():
     ta_client = build_client() 
     print("TTextAnalyticsClient: {}".format(ta_client))
+    do_sentiment_analysis(ta_client, 10)
+
+
+def do_sentiment_analysis(ta_client, num_docs=10):
+    infile = "../data/text/kaggle-jp797498e-twitter-entity-sentiment-analysis.csv"
+    all_rows = FS.read_csv_as_dicts(infile)   
+    test_rows = random_rows(all_rows, num_docs)
+
+    for row in test_rows:
+        txt_documents = list()
+        txt_documents.append(row["tweet_text"])
+        results = ta_client.analyze_sentiment(documents=txt_documents)
+        for result in results:
+            if not result.is_error:
+                print(("---"))
+                print("Document text: {}".format(row["tweet_text"]))
+                print("Document sentiment: {}".format(result.sentiment))
+                print("Positive score:     {}".format(result.confidence_scores.positive))
+                print("Neutral score:      {}".format(result.confidence_scores.neutral))
+                print("Negative score:     {}".format(result.confidence_scores.negative))
+            else:
+                print("Error: {}".format(result.error))
+
+def random_rows(rows, count):
+    max_idx = len(rows) - 1
+    random_rows = list()
+    while len(random_rows) < count:
+        idx = random.randint(0, max_idx)
+        random_rows.append(rows[idx])
+    return random_rows
 
 
 def build_client():
