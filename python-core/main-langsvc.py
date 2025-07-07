@@ -45,18 +45,29 @@ def do_sentiment_analysis(ta_client, num_docs=10):
     all_rows = FS.read_csv_as_dicts(infile)   
     test_rows = random_rows(all_rows, num_docs)
 
+
     for row in test_rows:
         txt_documents = list()
         txt_documents.append(row["tweet_text"])
+        
         results = ta_client.analyze_sentiment(documents=txt_documents)
         for result in results:
             if not result.is_error:
-                print(("---"))
+                print(("--- Sentiment Analysis"))
                 print("Document text: {}".format(row["tweet_text"]))
                 print("Document sentiment: {}".format(result.sentiment))
                 print("Positive score:     {}".format(result.confidence_scores.positive))
                 print("Neutral score:      {}".format(result.confidence_scores.neutral))
                 print("Negative score:     {}".format(result.confidence_scores.negative))
+            else:
+                print("Error: {}".format(result.error))
+
+        results = ta_client.extract_key_phrases(documents=txt_documents)
+        for result in results:
+            if not result.is_error:
+                print(("--- Key Phrases"))
+                print("Document text: {}".format(row["tweet_text"]))
+                print("Document key_phrases: {}".format(result.key_phrases))
             else:
                 print("Error: {}".format(result.error))
 
