@@ -6,6 +6,8 @@ Usage:
     python main-langsvc.py explore
 """
 
+# https://learn.microsoft.com/en-us/training/paths/develop-language-solutions-azure-ai/
+
 import json
 import os
 import random
@@ -41,15 +43,18 @@ def explore():
 
 
 def do_sentiment_analysis(ta_client, num_docs=10):
+
+    # First, gather several random rows for text analysis below.
+    # This is a Kaggle dataset of tweets, with sentiment labels.
     infile = "../data/text/kaggle-jp797498e-twitter-entity-sentiment-analysis.csv"
     all_rows = FS.read_csv_as_dicts(infile)   
     test_rows = random_rows(all_rows, num_docs)
-
 
     for row in test_rows:
         txt_documents = list()
         txt_documents.append(row["tweet_text"])
         
+        # Sentiment Analysis
         results = ta_client.analyze_sentiment(documents=txt_documents)
         for result in results:
             if not result.is_error:
@@ -62,6 +67,7 @@ def do_sentiment_analysis(ta_client, num_docs=10):
             else:
                 print("Error: {}".format(result.error))
 
+        # Key Phrases
         results = ta_client.extract_key_phrases(documents=txt_documents)
         for result in results:
             if not result.is_error:
@@ -70,6 +76,48 @@ def do_sentiment_analysis(ta_client, num_docs=10):
                 print("Document key_phrases: {}".format(result.key_phrases))
             else:
                 print("Error: {}".format(result.error))
+
+        # Language Detection
+        results = ta_client.detect_language(documents=txt_documents)
+        for result in results:
+            if not result.is_error:
+                print(("--- Language Detection"))
+                print("Document text: {}".format(row["tweet_text"]))
+                print("Language '{}', ISO639-1 name '{}'".format(
+                    result.primary_language.name,
+                    result.primary_language.iso6391_name))
+            else:
+                print("Error: {}".format(result.error))
+
+        # Key Phrases
+        results = ta_client.extract_key_phrases(documents=txt_documents)
+        for result in results:
+            if not result.is_error:
+                print(("--- Key Phrases"))
+                print("Document text: {}".format(row["tweet_text"]))
+                print("Key Phrases: {}".format(result.key_phrases))
+            else:
+                print("Error: {}".format(result.error))
+
+        # Entities
+        results = ta_client.recognize_entities(documents=txt_documents)
+        for idx, review in enumerate(results):
+            for entity in review.entities:
+                print(f"Entity '{entity.text}' has category '{entity.category}'")
+
+
+        # Summary
+        poller = ta_client.begin_extract_summary(txt_documents)
+        extract_summary_results = poller.result()
+        for result in extract_summary_results:
+            if result.kind == "ExtractiveSummarization":
+                print(("--- ExtractiveSummarization"))
+                print("Document text: {}".format(row["tweet_text"]))
+                print("Summary extracted: \n{}".format(
+                    " ".join([sentence.text for sentence in result.sentences]))
+                )
+            else:
+                print("result.kind is {}".format(result.kind))
 
 def random_rows(rows, count):
     max_idx = len(rows) - 1
