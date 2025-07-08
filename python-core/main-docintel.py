@@ -253,6 +253,21 @@ def azure_sample():
                         )
 
 
+def fetch_html_page_v2() -> str | None:
+    try:
+        url = "https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service"
+        # from bs4 import BeautifulSoup
+        # soup = BeautifulSoup(response.text, 'html.parser')
+        # html_content = str(soup.body)
+
+        # import pdfkit
+        # pdfkit.from_string(html_content, 'output.pdf')
+
+    except Exception as e:
+        print(str(e))
+        print(traceback.format_exc())
+
+
 if __name__ == "__main__":
     try:
         load_dotenv(override=True)
