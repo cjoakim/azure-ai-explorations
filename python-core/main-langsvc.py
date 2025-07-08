@@ -3,7 +3,8 @@ Usage:
     CLI app for Azure AI Search.
     -
     python main-langsvc.py <func>
-    python main-langsvc.py explore
+    python main-langsvc.py explore_text_analytics
+    python main-langsvc.py explore_qna
 """
 
 # https://learn.microsoft.com/en-us/training/paths/develop-language-solutions-azure-ai/
@@ -18,7 +19,10 @@ from docopt import docopt
 from dotenv import load_dotenv
 
 from azure.core.credentials import AzureKeyCredential
+from azure.ai.language.questionanswering.authoring import AuthoringClient
+from azure.ai.language.questionanswering import QuestionAnsweringClient
 from azure.ai.textanalytics import TextAnalyticsClient
+
 
 from src.io.fs import FS
 from src.os.env import Env
@@ -36,11 +40,10 @@ def check_env():
         if name.startswith("AZURE_AI_SEARCH"):
             print("{}: {}".format(name, os.environ[name]))
 
-def explore():
-    ta_client = build_client() 
+def explore_text_analytics():
+    ta_client = build_ta_client() 
     print("TTextAnalyticsClient: {}".format(ta_client))
     do_sentiment_analysis(ta_client, 10)
-
 
 def do_sentiment_analysis(ta_client, num_docs=10):
 
@@ -119,6 +122,72 @@ def do_sentiment_analysis(ta_client, num_docs=10):
             else:
                 print("result.kind is {}".format(result.kind))
 
+def explore_qna():
+    qa_client = build_qa_client()
+    auth_client = build_authoring_client()
+    print("QuestionAnsweringClient: {}".format(qa_client))
+    print("AuthoringClient: {}".format(auth_client))
+    # cat sdk/cognitivelanguage/azure-ai-language-questionanswering/azure/ai/language/questionanswering/authoring/aio/_operations/_operations.py | grep def  
+    # list_qnas
+
+    project_name = "p1a"
+    create_project = False
+
+    if create_project:
+        print("auth_client creating project: {}".format(project_name))
+        project = auth_client.create_project(
+            project_name=project_name,
+            options={
+                "description": "project 1a",
+                "language": "en",
+                "multilingualResource": True,
+                "settings": {
+                    "defaultAnswer": "no answer"
+                }
+            })
+
+        print("view created project info:")
+        print("\tname: {}".format(project["projectName"]))
+        print("\tlanguage: {}".format(project["language"]))
+        print("\tdescription: {}".format(project["description"]))
+    
+    if True:
+        print("auth_client listing projects...")
+        qna_projects = auth_client.list_projects()
+        for p in qna_projects:
+            if p["projectName"] == project_name:
+                print("project: {}".format(p["projectName"]))
+                print("\tlanguage: {}".format(p["language"]))
+                print("\tdescription: {}".format(p["description"]))
+
+    if True:
+        print("list project sources")
+        sources = auth_client.list_sources(project_name=project_name)
+        for source in sources:
+            print("source name: {}".format(source.get("displayName", "N/A")))
+            print("\tsource: {}".format(source["source"]))
+            print("\tsource Uri: {}".format(source.get("sourceUri", "N/A")))
+            print("\tsource kind: {}".format(source["sourceKind"]))
+
+    if True:
+        qna_poller = auth_client.begin_update_qnas(
+            project_name=project_name,
+            qnas=[]
+        )
+        qnas = qna_poller.result()
+
+        # Zero QnA pairs from the first URL, but multiple for the Cosmos DB FAQ.
+        # https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/models-featured
+        # https://learn.microsoft.com/en-us/azure/cosmos-db/faq
+    if True:    
+        for item in qnas:
+            print("qna: {}".format(item["id"]))
+            print("\tquestions:")
+            for question in item["questions"]:
+                print("\t\t{}".format(question))
+            print("\tanswer: {}".format(item["answer"]))
+
+
 def random_rows(rows, count):
     max_idx = len(rows) - 1
     random_rows = list()
@@ -128,14 +197,30 @@ def random_rows(rows, count):
     return random_rows
 
 
-def build_client():
+def build_ta_client() -> TextAnalyticsClient:
     url = os.getenv("AZURE_LANGSERVICE_URL", None)
     key = os.getenv("AZURE_LANGSERVICE_KEY", None)
-    print("build_client url: {}".format(url))
-    print("build_client key: {}".format(key))
+    print("build_ta_client url: {}".format(url))
+    print("build_ta_client key: {}".format(key))
     return TextAnalyticsClient(
         endpoint=url, credential=AzureKeyCredential(key))
 
+
+def build_qa_client() -> QuestionAnsweringClient:
+    url = os.getenv("AZURE_LANGSERVICE_URL", None)
+    key = os.getenv("AZURE_LANGSERVICE_KEY", None)
+    print("build_qa_client url: {}".format(url))
+    print("build_qa_client key: {}".format(key))
+    return QuestionAnsweringClient(
+        endpoint=url, credential=AzureKeyCredential(key))
+
+def build_authoring_client() -> AuthoringClient:
+    url = os.getenv("AZURE_LANGSERVICE_URL", None)
+    key = os.getenv("AZURE_LANGSERVICE_KEY", None)
+    print("build_authoring_client url: {}".format(url))
+    print("build_authoring_client key: {}".format(key))
+    return AuthoringClient(
+        endpoint=url, credential=AzureKeyCredential(key))
 
 
 if __name__ == "__main__":
@@ -146,10 +231,10 @@ if __name__ == "__main__":
             func = sys.argv[1].lower()
             print("=== CLI function: {}".format(func))
 
-            if func == "explore":
-                explore()
-            elif func == "explore2":
-                explore()
+            if func == "explore_text_analytics":
+                explore_text_analytics()
+            elif func == "explore_qna":
+                explore_qna()
             else:
                 print_options("Error: invalid function: {}".format(func))
     except Exception as e:
