@@ -11,3 +11,8 @@ az account list-locations --query "[].{Region:name}" --out table > tmp/region-na
 
 echo "az account list-locations datails ..."
 az account list-locations --out json > tmp/region-details.json 
+
+# cat tmp/region-names.txt | grep norway 
+# norwayeast
+# norway
+# norwaywest
