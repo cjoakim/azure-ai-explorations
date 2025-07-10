@@ -26,6 +26,7 @@ from azure.ai.documentintelligence.aio import (
 )
 from azure.ai.documentintelligence.models import AnalyzeResult
 from azure.ai.documentintelligence.models import AnalyzeDocumentRequest
+from azure.ai.documentintelligence.models import DocumentContentFormat
 from azure.ai.documentintelligence.models import DocumentAnalysisFeature
 
 from src.io.fs import FS
@@ -103,31 +104,35 @@ def explore():
 
 async def explore_async_local_file():
     di_client: build_async_docintel_client = build_async_docintel_client()
-    # sos_lyrics = "../data/docs/dire-straits-sultans-of-swing-lyrics.pdf"
-    # constitution = "../data/docs/us-constitution.pdf"
-    # simple_sample = "../data/docs/simple-sample-doc.pdf"
-    laws_of_chess = "../data/docs/LawsOfChess.pdf"
-
-    infile = laws_of_chess
+    # infile = "../data/docs/dire-straits-sultans-of-swing-lyrics.pdf"
+    # infile = "../data/docs/us-constitution.pdf"
+    # infile = "../data/docs/simple-sample-doc.pdf"
+    # infile = "../data/docs/LawsOfChess.pdf"
+    infile = "../data/docs/SampleDocument.pdf"
     print(f"Analyzing file: {infile} ...")
+
+    output_format = DocumentContentFormat.MARKDOWN
+    features_list = list()
+    # features.append(DocumentAnalysisFeature.STYLE_FONT)
     async with di_client:
         with open(infile, "rb") as f:
             poller = await di_client.begin_analyze_document(
-                "prebuilt-read",
+                "prebuilt-layout",
                 body=f,
-                features=[DocumentAnalysisFeature.STYLE_FONT],
+                output_content_format=output_format,
+                features=features_list
             )
             print(f"poller type: {str(type(poller))}")
-            # <class 'azure.ai.documentintelligence.aio._operations._patch.AsyncAnalyzeDocumentLROPoller'>
 
         result: AnalyzeResult = await poller.result()
         print(f"result type: {str(type(result))}")
-        # <class 'azure.ai.documentintelligence.models._models.AnalyzeResult'>
 
         print(result.content)
         basename = os.path.basename(infile)
-        outfile = f"tmp/{basename}.json"
-        FS.write_json(result.as_dict(), outfile)
+        content_outfile = f"tmp/{basename}.md"
+        result_outfile  = f"tmp/{basename}.json"
+        FS.write(result.content, content_outfile)
+        FS.write_json(result.as_dict(), result_outfile)
 
         print(f"page count is {len(result.pages)}")
 
