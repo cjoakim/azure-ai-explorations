@@ -98,12 +98,6 @@ async def explore_async_local_file():
 
 async def storage_pipeline_example():
     # TODO
-    # - create a storage client
-    # - list a given raw container
-    # - for each accepted filetype, process the file with Document Intelligence
-    # - emit Markdown results for each input blob
-    # - store the emitted Markdown in a "bronze" storage container
-    # - possibly also store the DI processing results metadata in the bronze container
     print("storage_pipeline_example() not implemented yet")
 
     try:
