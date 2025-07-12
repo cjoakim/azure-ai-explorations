@@ -1,0 +1,23 @@
+{
+  "name": "pipeline_config",
+  "containers": {
+    "raw": "di-sample-docs",
+    "bronze": "di-preprocessed",
+    "telemetry": "di-telemetry",
+    "testing": "di-test"
+  },
+  "filetypes": [
+    "bmp",
+    "docx",
+    "heif",
+    "html",
+    "jpeg",
+    "jpg",
+    "md",
+    "pdf",
+    "png",
+    "pptx",
+    "tiff",
+    "xlsx"
+  ]
+}
