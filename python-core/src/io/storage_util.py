@@ -77,6 +77,24 @@ class StorageUtil:
             logging.error(f"Failed to upload blob '{container_blobname}': {str(e)}")
             return False
 
+    def upload_str_as(
+            self,
+            container_name: str,
+            container_blobname: str,
+            content: str,
+            replace: bool = True) -> bool:
+        try:
+            blob_client = self.blob_service_client.get_blob_client(container=container_name, blob=container_blobname)
+            if not replace and blob_client.exists():
+                logging.info(f"Blob '{container_blobname}' already exists and replace is False.")
+                return False
+            blob_client.upload_blob(content, overwrite=replace)
+            logging.info(f"Blob '{container_blobname}' uploaded to container '{container_name}'.")
+            return True
+        except Exception as e:
+            logging.error(f"Failed to upload blob '{container_blobname}': {str(e)}")
+            return False
+        
     def download_blob_to_file(self, container_name: str, container_blobname: str, local_filename: str) -> bool:
         try:
             blob_client = self.blob_service_client.get_blob_client(container=container_name, blob=container_blobname)

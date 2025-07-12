@@ -22,9 +22,10 @@ testing container:       di-test
 """
 
 import asyncio
-import base64
+import json
 import sys
 import os
+import time
 import traceback
 
 from docopt import docopt
@@ -41,6 +42,8 @@ from azure.ai.documentintelligence.models import DocumentContentFormat
 from azure.ai.documentintelligence.models import DocumentAnalysisFeature
 
 from src.io.fs import FS
+from src.io.storage_util import StorageUtil
+from src.os.env import Env
 
 
 def print_options(msg):
@@ -48,8 +51,10 @@ def print_options(msg):
     arguments = docopt(__doc__, version="1.0.0")
     print(arguments)
 
+
 def config_filename():
     return "config/pipeline_config.json"
+
 
 def create_config():
     config = dict()
@@ -62,23 +67,45 @@ def create_config():
     config["containers"] = containers
     config["filetypes"] = supported_filetypes()
 
-
-# raw container:           di-sample-docs
-# bronze container:        di-preprocessed
-# telemetry container:     di-telemetry
-# testing container:       di-test
-
     FS.write_json(
         config, 
         config_filename(),
-
         sort_keys=False)
+
 
 def explore():
     config = FS.read_json(config_filename())
     print(f"Pipeline config: {config}")
     cname = config["containers"]["testing"]
     print(f"Testing container name: {cname}")
+
+    storage_util = build_storage_util()
+    print("===== StorageUtil constructor")
+    time.sleep(1) 
+
+    containers = storage_util.list_containers()
+    for container in containers:
+        print(f"Container: {container}")
+
+    for n in range(40):
+        dir = n % 10
+        epoch = int(time.time())
+        blobname = "test/{}/test-blob-{}.txt".format(dir, epoch)
+        msg = dict()
+        msg["n"] = n
+        msg["epoch"] = epoch
+        msg["blobname"] = blobname
+        print(f"Uploading blob: {blobname} to container: {cname}")
+        result = storage_util.upload_str_as(
+            cname, blobname, json.dumps(msg), replace=True)
+        print(f"  result: {result}")
+        time.sleep(0.1)
+
+    time.sleep(1) 
+
+def build_storage_util():
+    connection_string = os.getenv("AZURE_STORAGE_CONN_STRING")
+    return StorageUtil(connection_string, logging_level=None)
 
 
 def supported_filetypes() -> list[str]:
