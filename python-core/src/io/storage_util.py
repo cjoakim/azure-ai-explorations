@@ -18,6 +18,7 @@ class StorageUtil:
 
     def __init__(self, connection_string: str, logging_level=logging.INFO):
         self.blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+        self.list_item_keys = None
         if logging_level is not None:
             logging.basicConfig(level=logging.INFO)
 
@@ -39,7 +40,7 @@ class StorageUtil:
             logging.error(f"Failed to delete container '{container_name}': {str(e)}")
             return False
 
-    def list_containers(self, recursive: bool = False) -> List[str]:
+    def list_containers(self) -> List[str]:
         try:
             containers = self.blob_service_client.list_containers()
             container_names = [container.name for container in containers]
@@ -49,13 +50,14 @@ class StorageUtil:
             logging.error(f"Failed to list containers: {str(e)}")
             return []
 
-    def list_container(self, container_name: str, recursive: bool = False) -> List[str]:
+    def list_container(self, container_name: str, names_only: bool = True) -> List:
         try:
             container_client = self.blob_service_client.get_container_client(container_name)
             blob_list = container_client.list_blobs()
-            blobs = [blob.name for blob in blob_list]
-            logging.info(f"Blobs in container '{container_name}' listed.")
-            return blobs
+            if names_only:
+                return [blob.name for blob in blob_list]
+            else:
+                return [self._filtered_list_metadata(blob) for blob in blob_list]
         except Exception as e:
             logging.error(f"Failed to list blobs in container '{container_name}': {str(e)}")
             return []
@@ -145,3 +147,15 @@ class StorageUtil:
             logging.error(f"Failed to delete blob '{container_blobname}': {str(e)}")
             return False
         
+    def _list_item_keys(self) -> List[str]:
+        if self.list_item_keys is None:
+            self.list_item_keys = "name,deleted,creation_time,etag,size".split(",")
+        return self.list_item_keys
+    
+    def _filtered_list_metadata(self, data: dict) -> dict:
+        filtered = dict()
+        for key in self._list_item_keys():
+            if key in data:
+                filtered[key] = str(data[key])
+        return filtered 
+    

@@ -62,16 +62,16 @@ def smoketest():
             print(f"Retaining container: {container} (not a smoketest container)")
     time.sleep(1) 
     
-    container_name = "smoketest{}".format(int(Env.epoch()))
-    print(f"New container name: {container_name}")
+    cname = "smoketest{}".format(int(Env.epoch()))
+    print(f"New container name: {cname}")
     time.sleep(1)
 
     print("===== creating the container")
-    created_container = storage_util.create_container(container_name)
+    created_container = storage_util.create_container(cname)
     if created_container:
         print(f"Container '{created_container}' created successfully.")
     else:
-        print(f"Failed to create container '{container_name}'.")
+        print(f"Failed to create container '{cname}'.")
     time.sleep(1) 
 
     print("===== uploading pyproject.toml")
@@ -81,13 +81,13 @@ def smoketest():
         "file_size": "42"
     }
     result = storage_util.upload_file(
-        container_name, "pyproject.toml", metadata=metadata, replace=True)
+        cname, "pyproject.toml", metadata=metadata, replace=True)
     print(f"Upload result: {result}")
     time.sleep(1) 
 
     print("===== uploading readme.md")
     result = storage_util.upload_file(
-        container_name, "readme.md", replace=True)
+        cname, "readme.md", replace=True)
     print(f"Upload result: {result}")
     time.sleep(1) 
 
@@ -97,27 +97,30 @@ def smoketest():
     FS.write_json(containers, "tmp/storage-containers.json", pretty=True, sort_keys=True)
     time.sleep(1) 
 
-    print("===== list container, not recursive")
-    blobs = storage_util.list_container(container_name, recursive=False)
-    print(f"Blobs in '{container_name}': {blobs}")
-    time.sleep(1) 
+    print("===== list container, names_only: False")
+    blobs = storage_util.list_container(cname, names_only=False)
+    for b in blobs:
+        print("---\nlist item: {}".format(b))
+        for key in b.keys():
+            print(f"  item key: {key}: {b[key]}")
+    time.sleep(1)
 
-    print("===== list container, recursive")
-    blobs = storage_util.list_container(container_name, recursive=True)
-    print(f"Blobs in '{container_name}': {blobs}")
+    print("===== list container, names_only: True")
+    blobs = storage_util.list_container(cname, names_only=True)
+    print(f"Blobs in '{cname}': {blobs}")
     FS.write_json(blobs, "tmp/storage-blobs.json", pretty=True, sort_keys=True)
     time.sleep(1) 
 
     print("===== download_blob_to_file")
     result = storage_util.download_blob_to_file(
-        container_name, "pyproject.toml", "tmp/pyproject_downloaded.toml")
+        cname, "pyproject.toml", "tmp/pyproject_downloaded.toml")
     print(f"Download result: {result}")
     print(f"Download result metadata: {result[1]["metadata"]}")
     time.sleep(1)
 
     print("===== download_blob_to_file")
     result = storage_util.download_blob_to_file(
-        container_name, "readme.md", "tmp/readme.md")
+        cname, "readme.md", "tmp/readme.md")
     print(f"Download result: {result}")
     time.sleep(1)
 
@@ -129,7 +132,7 @@ def smoketest():
     time.sleep(1)
 
     print("===== download_blob_as_string")
-    txt = storage_util.download_blob_as_string(container_name, "pyproject.toml")
+    txt = storage_util.download_blob_as_string(cname, "pyproject.toml")
     print(f"txt: \n{txt}\n{len(txt)}")
     time.sleep(1) 
 

@@ -12,13 +12,14 @@ bronze container:        di-preprocessed
 telemetry container:     di-telemetry
 testing container:       di-test
 
-- capacity
-- nesting
-  - customer_id/source_id/filename (the path)
-- listing of nested
-- blob metadata
-- ttl?
-
+Functionality to explore:
+- TODO capacity
+- DONE nesting 
+  - DONE customer_id/source_id/filename (the path)
+- DONE listing of nested
+- DONE blob metadata
+- DONE enhance blob list info
+- PASS ttl?
 """
 
 import asyncio
@@ -102,6 +103,18 @@ def explore():
         time.sleep(0.1)
 
     time.sleep(1) 
+
+    print("===== list container")
+    blobs = storage_util.list_container(cname, names_only=False)
+    for b in blobs:
+        print("---\nlist item: {}".format(b))
+        for key in b.keys():
+            print(f"  item key: {key}: {b[key]}")
+
+    outfile = f"tmp/storage-blobs-{cname}.json"
+    #FS.write_json(blobs, outfile, pretty=True, sort_keys=True)
+    time.sleep(1) 
+
 
 def build_storage_util():
     connection_string = os.getenv("AZURE_STORAGE_CONN_STRING")
