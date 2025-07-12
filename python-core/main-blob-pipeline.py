@@ -96,7 +96,7 @@ def explore():
         msg["epoch"] = epoch
         msg["blobname"] = blobname
         print(f"Uploading blob: {blobname} to container: {cname}")
-        result = storage_util.upload_str_as(
+        result = storage_util.upload_string_as(
             cname, blobname, json.dumps(msg), replace=True)
         print(f"  result: {result}")
         time.sleep(0.1)

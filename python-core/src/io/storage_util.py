@@ -60,50 +60,71 @@ class StorageUtil:
             logging.error(f"Failed to list blobs in container '{container_name}': {str(e)}")
             return []
 
-    def upload_blob(self, container_name: str, local_filename: str, replace: bool = True) -> bool:
-        return self.upload_blob_as(container_name, local_filename, local_filename, replace)
+    def upload_file(
+            self,
+            container_name: str,
+            local_filename: str,
+            metadata: dict | None = None,
+            replace: bool = True) -> bool:
+        return self.upload_file_as(
+            container_name,
+            local_filename,
+            local_filename,
+            metadata,
+            replace)
 
-    def upload_blob_as(self, container_name: str, container_blobname: str, local_filename: str, replace: bool = True) -> bool:
+    def upload_file_as(
+            self,
+            container_name: str,
+            container_blobname: str,
+            local_filename: str,
+            metadata: dict | None = None,
+            replace: bool = True) -> bool:
         try:
-            blob_client = self.blob_service_client.get_blob_client(container=container_name, blob=container_blobname)
-            if not replace and blob_client.exists():
-                logging.info(f"Blob '{container_blobname}' already exists and replace is False.")
+            blob_client = self.blob_service_client.get_blob_client(
+                container=container_name, blob=container_blobname)
+            if blob_client.exists() and not replace:
                 return False
             with open(local_filename, "rb") as data:
-                blob_client.upload_blob(data, overwrite=replace)
+                blob_client.upload_blob(data, metadata=metadata, overwrite=replace)
             logging.info(f"Blob '{container_blobname}' uploaded to container '{container_name}'.")
             return True
         except Exception as e:
             logging.error(f"Failed to upload blob '{container_blobname}': {str(e)}")
             return False
 
-    def upload_str_as(
+    def upload_string_as(
             self,
             container_name: str,
             container_blobname: str,
             content: str,
+            metadata: dict | None = None,
             replace: bool = True) -> bool:
         try:
             blob_client = self.blob_service_client.get_blob_client(container=container_name, blob=container_blobname)
             if not replace and blob_client.exists():
                 logging.info(f"Blob '{container_blobname}' already exists and replace is False.")
                 return False
-            blob_client.upload_blob(content, overwrite=replace)
+            blob_client.upload_blob(content, metadata=metadata, overwrite=replace)
             logging.info(f"Blob '{container_blobname}' uploaded to container '{container_name}'.")
             return True
         except Exception as e:
             logging.error(f"Failed to upload blob '{container_blobname}': {str(e)}")
             return False
         
-    def download_blob_to_file(self, container_name: str, container_blobname: str, local_filename: str) -> bool:
+    def download_blob_to_file(
+            self,
+            container_name: str,
+            container_blobname: str,
+            local_filename: str) -> tuple:
         try:
             blob_client = self.blob_service_client.get_blob_client(container=container_name, blob=container_blobname)
             with open(local_filename, "wb") as download_file:
                 download_file.write(blob_client.download_blob().readall())
-            return True
+            return (True, blob_client.get_blob_properties())
         except Exception as e:
             logging.error(f"Failed to download blob '{container_blobname}': {str(e)}")
-            return False
+            return (False, None)
 
     def download_blob_as_string(self, container_name: str, container_blobname: str) -> str | None:
         try:

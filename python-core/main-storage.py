@@ -75,12 +75,19 @@ def smoketest():
     time.sleep(1) 
 
     print("===== uploading pyproject.toml")
-    result = storage_util.upload_blob(container_name, "pyproject.toml", replace=True)
+    metadata = {
+        "description": "Sample pyproject.toml file for testing",
+        "category": "smoketest",
+        "file_size": "42"
+    }
+    result = storage_util.upload_file(
+        container_name, "pyproject.toml", metadata=metadata, replace=True)
     print(f"Upload result: {result}")
     time.sleep(1) 
 
     print("===== uploading readme.md")
-    result = storage_util.upload_blob(container_name, "readme.md", replace=True)
+    result = storage_util.upload_file(
+        container_name, "readme.md", replace=True)
     print(f"Upload result: {result}")
     time.sleep(1) 
 
@@ -104,6 +111,13 @@ def smoketest():
     print("===== download_blob_to_file")
     result = storage_util.download_blob_to_file(
         container_name, "pyproject.toml", "tmp/pyproject_downloaded.toml")
+    print(f"Download result: {result}")
+    print(f"Download result metadata: {result[1]["metadata"]}")
+    time.sleep(1)
+
+    print("===== download_blob_to_file")
+    result = storage_util.download_blob_to_file(
+        container_name, "readme.md", "tmp/readme.md")
     print(f"Download result: {result}")
     time.sleep(1)
 
