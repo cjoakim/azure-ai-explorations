@@ -27,6 +27,7 @@ dependencies = [
   "promptflow-tools",
   "promptflow",
   "psutil",
+  "psycopg[binary,pool]",
   "pymongo>=4.6.3",
   "pypistats",
   "pytest-asyncio>=1.0.0",
