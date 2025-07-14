@@ -11,6 +11,7 @@ import asyncio
 import json
 import logging
 import os
+from select import select
 import sys
 import time
 import traceback
@@ -29,6 +30,7 @@ from azure.ai.documentintelligence.models import AnalyzeDocumentRequest
 from azure.ai.documentintelligence.models import DocumentContentFormat
 from azure.ai.documentintelligence.models import DocumentAnalysisFeature
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from src.db.pg_util import PGUtil
@@ -217,8 +219,16 @@ async def load_configuration(name: str, json_filename: str):
         with Session(AppEngine.get_engine()) as session:
             session.add_all([c])
             session.commit()
+
+        stmt = select(Configuration).where(Configuration.name == name)
+        with Session(AppEngine.get_engine()) as session:
+            rows = session.execute(stmt)
+            for row in rows:
+                print(row)
+
     except Exception as e:
-        logging.critical("Exception in load_configuration: {}".format(str(e)))
+        #logging.critical("Exception in load_configuration: {}".format(str(e)))
+        logging.critical(e, stack_info=True, exc_info=True)
 
     
 async def async_main():
