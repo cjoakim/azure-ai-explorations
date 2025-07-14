@@ -52,6 +52,7 @@ CREATE TABLE documents (
     raw_container              VARCHAR(64) NOT NULL,
     raw_file_name              VARCHAR(128) NOT NULL,
     raw_file_size              INTEGER,
+    raw_etag                   VARCHAR(32) NOT NULL,
     raw_file_type              VARCHAR(8) NOT NULL,
     raw_storage_path           VARCHAR(1024) NOT NULL,
     raw_inserted_at            TIMESTAMP,

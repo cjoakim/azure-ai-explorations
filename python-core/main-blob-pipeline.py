@@ -14,6 +14,7 @@ Usage:
 # Chris Joakim, 3Cloud, July 2025 
 
 import asyncio
+import datetime
 import json
 import logging
 import os
@@ -40,7 +41,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from src.db.pg_util import PGUtil
-from src.db.sqlalchemy_models import AppEngine, Configuration
+from src.db.sqlalchemy_models import AppEngine, Configuration, Document
 
 from src.io.fs import FS
 from src.io.storage_util import StorageUtil
@@ -247,11 +248,35 @@ async def load_documents_per_raw_container():
         print(f"config read from db: {config} {str(type(config))}")
         if config is None:
             return
+        raw_container = config["containers"]["raw"]
+        print(f"raw_container: {raw_container}")
+        blobs = storage_util.list_container(raw_container, names_only=False)
+        for b in blobs:
+            print(b)
+            doc = Document(
+                source_system="test",
+                source_path=b["name"],
+                raw_container=raw_container,
+                raw_file_name=b["name"],
+                raw_file_size=int(b["size"]),
+                raw_etag=b["etag"],
+                raw_file_type=b["name"].split(".")[-1],
+                raw_storage_path=b["name"],
+                raw_inserted_at=datetime.datetime.now(),
+                processing_state="raw",
+                preprocessed_container=None,
+                preprocessed_path=None,
+                preprocessing_chunk_count=0,
+                preprocessing_messages=None,
+                preprocessed_at=None,
+                qna_extracted_at=None,
+                qna_extracted_messages=None,
+            )
+            logging.info("Document to be loaded: {}".format(doc))
 
-        # logging.info("config to be loaded: {}".format(c))
-        # with Session(AppEngine.get_engine()) as session:
-        #     session.add_all([c])
-        #     session.commit()
+            with Session(AppEngine.get_engine()) as session:
+                session.add_all([doc])
+                session.commit()
 
         # stmt = select(Configuration).where(Configuration.name == name)
         # with Session(AppEngine.get_engine()) as session:
