@@ -213,6 +213,7 @@ async def load_configuration(name: str, json_filename: str):
 
     try:
         c = Configuration(name=name, data=FS.read_json(json_filename))
+        print(c)
         with Session(AppEngine.get_engine()) as session:
             session.add_all([c])
             session.commit()

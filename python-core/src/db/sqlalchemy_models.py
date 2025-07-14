@@ -1,12 +1,15 @@
-
+import json
 import logging
 import os
 
+from datetime import datetime
 from typing import List
 from typing import Optional
 
 from sqlalchemy import create_engine
+from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
+from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
@@ -59,6 +62,7 @@ class AppEngine():
 class Base(DeclarativeBase):
     pass
 
+
 class Configuration(Base):
     __tablename__ = "configuration"
 
@@ -66,5 +70,55 @@ class Configuration(Base):
     data: Mapped[pgJSON] = mapped_column(pgJSON, nullable=False)
 
     def __repr__(self) -> str:
-        return f"Configuration(name={self.name!r}, data={self.data!r})"
+        return json.dumps(self.as_dict())
+    
+    def as_dict(self) -> dict:
+        d = dict()
+        d["name"] = self.name
+        d["data"] = self.data
+        return d
 
+class Document(Base):
+    __tablename__ = "documents"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    source_system: Mapped[str] = mapped_column(String(128))
+    source_path: Mapped[str] = mapped_column(String(1024))
+    raw_container: Mapped[str] = mapped_column(String(64))
+    raw_file_name: Mapped[str] = mapped_column(String(128))
+    raw_file_size: Mapped[int] = mapped_column(Integer)
+    raw_file_type: Mapped[str] = mapped_column(String(128))
+    raw_storage_path: Mapped[str] = mapped_column(String(1024))
+    raw_inserted_at: Mapped[datetime] = mapped_column(DateTime)
+    processing_state: Mapped[str] = mapped_column(String(64))
+    preprocessed_container: Mapped[str] = mapped_column(String(64))
+    preprocessed_path: Mapped[str] = mapped_column(String(1024))
+    preprocessing_chunk_count: Mapped[int] = mapped_column(Integer)
+    preprocessing_messages: Mapped[pgJSON] = mapped_column(pgJSON)
+    preprocessed_at: Mapped[datetime] = mapped_column(DateTime)
+    qna_extracted_at: Mapped[datetime] = mapped_column(DateTime)
+    qna_extracted_messages: Mapped[pgJSON] = mapped_column(pgJSON)
+
+    def __repr__(self) -> str:
+        return json.dumps(self.as_dict())
+
+    def as_dict(self) -> dict:
+        d = dict()
+        d["id"] = self.id
+        d["source_system"] = self.source_system
+        d["source_path"] = self.source_path
+        d["raw_container"] = self.raw_container
+        d["raw_file_name"] = self.raw_file_name
+        d["raw_file_size"] = self.raw_file_size
+        d["raw_file_type"] = self.raw_file_type
+        d["raw_storage_path"] = self.raw_storage_path
+        d["raw_inserted_at"] = self.raw_inserted_at.isoformat()
+        d["processing_state"] = self.processing_state
+        d["preprocessed_container"] = self.preprocessed_container
+        d["preprocessed_path"] = self.preprocessed_path
+        d["preprocessing_chunk_count"] = self.preprocessing_chunk_count
+        d["preprocessing_messages"] = self.preprocessing_messages
+        d["preprocessed_at"] = self.preprocessed_at.isoformat() if self.preprocessed_at else None
+        d["qna_extracted_at"] = self.qna_extracted_at.isoformat()
+        d["qna_extracted_messages"] = self.qna_extracted_messages
+        return d
