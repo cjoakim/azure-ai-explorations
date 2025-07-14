@@ -42,6 +42,7 @@ from sqlalchemy.orm import Session
 
 from src.db.pg_util import PGUtil
 from src.db.sqlalchemy_models import AppEngine, Configuration, Document
+from src.db.sqlalchemy_models import CommonOperations
 
 from src.io.fs import FS
 from src.io.storage_util import StorageUtil
@@ -244,7 +245,7 @@ async def load_documents_per_raw_container():
     AppEngine.initialize()
     await asyncio.sleep(0.1) 
     try:
-        config = await read_configuration_object("pipeline")
+        config = await CommonOperations.read_configuration_object("pipeline")
         print(f"config read from db: {config} {str(type(config))}")
         if config is None:
             return
@@ -274,9 +275,15 @@ async def load_documents_per_raw_container():
             )
             logging.info("Document to be loaded: {}".format(doc))
 
-            with Session(AppEngine.get_engine()) as session:
-                session.add_all([doc])
-                session.commit()
+            existing_doc = await CommonOperations.read_document(doc)
+            logging.info("existing_doc: {}".format(existing_doc))
+
+            if existing_doc is None:
+                with Session(AppEngine.get_engine()) as session:
+                    session.add_all([doc])
+                    session.commit()
+            else:
+                logging.info("Document already exists in DB, skipping: {}".format(doc))
 
         # stmt = select(Configuration).where(Configuration.name == name)
         # with Session(AppEngine.get_engine()) as session:
@@ -287,24 +294,6 @@ async def load_documents_per_raw_container():
     except Exception as e:
         #logging.critical("Exception in load_configuration: {}".format(str(e)))
         logging.critical(e, stack_info=True, exc_info=True)
-
-
-async def read_configuration_object(config_name: str):
-    """
-    Read the given configuration, from the DB, by name.
-    Return the JSON object from the JSONB 'data' column.
-    """
-    await asyncio.sleep(0.1)  # Simulate some async work for now
-    AppEngine.initialize()
-    obj = None
-    try:
-        stmt = select(Configuration).where(Configuration.name == config_name)
-        with Session(AppEngine.get_engine()) as session:
-            c = session.execute(stmt).scalar_one_or_none()
-            obj = c.data
-    except Exception as e:
-        logging.critical(str(e))
-    return obj
 
 
 async def async_main():

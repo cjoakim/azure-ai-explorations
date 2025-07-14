@@ -1,3 +1,4 @@
+import asyncio
 import json
 import logging
 import os
@@ -11,6 +12,10 @@ from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
 from sqlalchemy import String
+
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
@@ -114,7 +119,6 @@ class Document(Base):
         d["raw_file_size"] = self.raw_file_size
         d["raw_etag"] = self.raw_etag
         d["raw_file_type"] = self.raw_file_type
-        
         # d["raw_storage_path"] = self.raw_storage_path
         # d["raw_inserted_at"] = self.raw_inserted_at.isoformat()
         # d["processing_state"] = self.processing_state
@@ -126,3 +130,44 @@ class Document(Base):
         # d["qna_extracted_at"] = self.qna_extracted_at.isoformat()
         # d["qna_extracted_messages"] = self.qna_extracted_messages
         return d
+
+
+class CommonOperations():
+    
+    @classmethod
+    def find_configuration_by_name(cls, name: str):
+        pass
+
+    @classmethod
+    async def read_configuration_object(cls, config_name: str):
+        """
+        Read the given configuration, from the DB, by name.
+        Return the JSON object from the JSONB 'data' column.
+        """
+        await asyncio.sleep(0.1)  # Simulate some async work for now
+        obj = None
+        try:
+            stmt = select(Configuration).where(Configuration.name == config_name)
+            with Session(AppEngine.get_engine()) as session:
+                c = session.execute(stmt).scalar_one_or_none()
+                obj = c.data
+        except Exception as e:
+            logging.critical(str(e))
+        return obj
+    
+    @classmethod
+    async def read_document(cls, d: Document):
+        await asyncio.sleep(0.1)  # Simulate some async work for now
+        obj = None
+        try:
+            stmt = select(Document).where(
+                Document.source_system == d.source_system,
+                Document.source_path   == d.source_path,
+                Document.raw_container == d.raw_container,
+                Document.raw_file_name == d.raw_file_name
+            )
+            with Session(AppEngine.get_engine()) as session:
+                obj = session.execute(stmt).scalar_one_or_none()
+        except Exception as e:
+            logging.critical(str(e))
+        return obj
