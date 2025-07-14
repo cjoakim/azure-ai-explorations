@@ -77,6 +77,7 @@ class Configuration(Base):
         d["name"] = self.name
         d["data"] = self.data
         return d
+    
 
 class Document(Base):
     __tablename__ = "documents"

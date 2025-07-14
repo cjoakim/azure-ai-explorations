@@ -42,7 +42,7 @@ CREATE TABLE configuration (
 --   "reprocess" = manually set to this value to trigger reprocessing
 
 CREATE TABLE documents (
-    id                 INTEGER primary key,
+    id                 SERIAL primary key,
 
     -- the source of the document
     source_system              VARCHAR(128) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE documents (
 --                these may be identified by vector search and other means.
 
 CREATE TABLE extracted_qna (
-    id                 INTEGER primary key,
+    id                 SERIAL primary key,
     document_id                INTEGER,
     question_id                INTEGER,
     type                       CHAR NOT NULL,
@@ -124,7 +124,7 @@ CREATE TABLE extracted_qna (
 --   "a" = answer
 
 CREATE TABLE teams_qna (
-    id                 INTEGER primary key,
+    id                 SERIAL primary key,
     type                       CHAR,
     value                      VARCHAR(2048),
     embedding                  VECTOR(1536)
@@ -143,7 +143,7 @@ CREATE TABLE teams_qna (
 -- data = optional supplemental information
 
 CREATE TABLE audit_log (
-    id                 INTEGER primary key,
+    id                 SERIAL primary key,
     created_at                 TIMESTAMP,
     type                       CHAR NOT NULL,
     level                      CHAR NOT NULL,

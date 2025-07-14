@@ -5,6 +5,7 @@ Usage:
   python main-blob-pipeline.py explore
   python main-blob-pipeline.py delete_define_ai_pipeline_tables
   python main-blob-pipeline.py load_configuration pipeline config/pipeline_config.json
+  python main-blob-pipeline.py load_documents_per_raw_container
 """
 
 import asyncio
@@ -210,12 +211,13 @@ async def load_configuration(name: str, json_filename: str):
     """
     Load the configuration table for the specified name with the
     value of the given JSON filename.  The "data" column is a JSONB.
+    Then immediately read that row and display it.
     """
     AppEngine.initialize()
 
     try:
         c = Configuration(name=name, data=FS.read_json(json_filename))
-        print(c)
+        logging.info("config to be loaded: {}".format(c))
         with Session(AppEngine.get_engine()) as session:
             session.add_all([c])
             session.commit()
@@ -224,13 +226,57 @@ async def load_configuration(name: str, json_filename: str):
         with Session(AppEngine.get_engine()) as session:
             rows = session.execute(stmt)
             for row in rows:
-                print(row)
+                logging.info("config read from db: {}".format(row))
 
     except Exception as e:
         #logging.critical("Exception in load_configuration: {}".format(str(e)))
         logging.critical(e, stack_info=True, exc_info=True)
 
-    
+
+async def load_documents_per_raw_container():
+    storage_util = build_storage_util()
+    AppEngine.initialize()
+    await asyncio.sleep(0.1) 
+    try:
+        config = await read_configuration_object("pipeline")
+        print(f"config read from db: {config} {str(type(config))}")
+        if config is None:
+            return
+
+        # logging.info("config to be loaded: {}".format(c))
+        # with Session(AppEngine.get_engine()) as session:
+        #     session.add_all([c])
+        #     session.commit()
+
+        # stmt = select(Configuration).where(Configuration.name == name)
+        # with Session(AppEngine.get_engine()) as session:
+        #     rows = session.execute(stmt)
+        #     for row in rows:
+        #         logging.info("config read from db: {}".format(row))
+
+    except Exception as e:
+        #logging.critical("Exception in load_configuration: {}".format(str(e)))
+        logging.critical(e, stack_info=True, exc_info=True)
+
+
+async def read_configuration_object(config_name: str):
+    """
+    Read the given configuration, from the DB, by name.
+    Return the JSON object from the JSONB 'data' column.
+    """
+    await asyncio.sleep(0.1)  # Simulate some async work for now
+    AppEngine.initialize()
+    obj = None
+    try:
+        stmt = select(Configuration).where(Configuration.name == config_name)
+        with Session(AppEngine.get_engine()) as session:
+            c = session.execute(stmt).scalar_one_or_none()
+            obj = c.data
+    except Exception as e:
+        logging.critical(str(e))
+    return obj
+
+
 async def async_main():
     """
     This is the asyncronous main logic, called from the entry point
@@ -249,6 +295,8 @@ async def async_main():
                 name = sys.argv[2]
                 json_filename = sys.argv[3]
                 await load_configuration(name, json_filename)
+            elif func == "load_documents_per_raw_container":
+                await load_documents_per_raw_container()
             elif func == "delete_define_ai_pipeline_tables":
                 await execute_sql_script("sql/ai_pipeline.ddl")
             else:
