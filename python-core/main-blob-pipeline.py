@@ -8,6 +8,11 @@ Usage:
   python main-blob-pipeline.py load_documents_per_raw_container
 """
 
+# This module is an alpha version of a Python-based AI pipeline;
+# it is a volatile work-in-progress at this time.
+# Much of the code will be refactored at a later date.
+# Chris Joakim, 3Cloud, July 2025 
+
 import asyncio
 import json
 import logging
