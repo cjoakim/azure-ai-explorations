@@ -18,6 +18,13 @@ export storage_kind="BlobStorage"     # {BlobStorage, BlockBlobStorage, FileStor
 export storage_sku="Standard_LRS"     # {Premium_LRS, Premium_ZRS, Standard_GRS, Standard_GZRS, , Standard_RAGRS, Standard_RAGZRS, Standard_ZRS]
 export storage_access_tier="Hot"      # Cool, Hot
 
+export storage_adlsgen2_region=$primary_region
+export storage_adlsgen2_rg=$primary_rg
+export storage_adlsgen2_name="cjoakimaiadlsstorage"
+export storage_adlsgen2_kind="BlobStorage"     # {BlobStorage, BlockBlobStorage, FileStorage, Storage, StorageV2}]
+export storage_adlsgen2_sku="Standard_LRS"     # {Premium_LRS, Premium_ZRS, Standard_GRS, Standard_GZRS, , Standard_RAGRS, Standard_RAGZRS, Standard_ZRS]
+export storage_adlsgen2_access_tier="Hot"      # Cool, Hot
+
 export cosmos_nosql_region=$primary_region
 export cosmos_nosql_rg=$primary_rg
 export cosmos_nosql_acct_name="cjoakimaicosmos"

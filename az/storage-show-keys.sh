@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Create the storage account and its keys per config in env.sh.
+# Show the general info and keys for the storage account.
 # Chris Joakim, 2025
 
 source ./env.sh
