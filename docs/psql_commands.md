@@ -44,3 +44,17 @@ command            description
 ```
 
 See https://quickref.me/postgres.html
+
+## Common Queries
+
+#### Count the rows in a table
+
+```
+select count(*) from configuration;
+```
+
+#### Delete all rows in a table
+
+```
+truncate configuration;
+```

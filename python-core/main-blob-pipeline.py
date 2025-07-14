@@ -15,6 +15,7 @@ import sys
 import time
 import traceback
 
+
 from docopt import docopt
 from dotenv import load_dotenv
 
@@ -28,7 +29,11 @@ from azure.ai.documentintelligence.models import AnalyzeDocumentRequest
 from azure.ai.documentintelligence.models import DocumentContentFormat
 from azure.ai.documentintelligence.models import DocumentAnalysisFeature
 
+from sqlalchemy.orm import Session
+
 from src.db.pg_util import PGUtil
+from src.db.sqlalchemy_models import AppEngine, Configuration
+
 from src.io.fs import FS
 from src.io.storage_util import StorageUtil
 from src.os.env import Env
@@ -205,12 +210,19 @@ async def load_configuration(name: str, json_filename: str):
     Load the configuration table for the specified name with the
     value of the given JSON filename.  The "data" column is a JSONB.
     """
-    print(f"PGUtil#load_configuration, name: {name}, json_filename: {json_filename}")
-    columns = "name,data".split(",")
-    jstr = json.dumps(FS.read_json(json_filename))
-    values_tup = (name, jstr)
-    rowcount = await PGUtil.execute_insert("configuration", columns, values_tup)
-    print(f"PGUtil#load_configuration, rowcount: {rowcount}")
+    AppEngine.initialize()
+
+    c = Configuration(name=name, data=FS.read_json(json_filename))
+    with Session(AppEngine.get_engine()) as session:
+        session.add_all([c])
+        session.commit()
+
+    # print(f"PGUtil#load_configuration, name: {name}, json_filename: {json_filename}")
+    # columns = "name,data".split(",")
+    # jstr = json.dumps(FS.read_json(json_filename))
+    # values_tup = (name, jstr)
+    # rowcount = await PGUtil.execute_insert("configuration", columns, values_tup)
+    # print(f"PGUtil#load_configuration, rowcount: {rowcount}")
 
 
 async def async_main():

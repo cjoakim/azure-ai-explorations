@@ -158,7 +158,6 @@ class PGUtil:
         logging.error("PGUtil#execute_insert, sql: {}".format(sql))
 
         async with cls.pool.connection() as conn:
-            conn.set_session(readonly=False, autocommit=True)
             async with conn.cursor() as cursor:
                 try:
                     await asyncio.wait_for(
