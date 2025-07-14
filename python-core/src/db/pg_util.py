@@ -139,3 +139,41 @@ class PGUtil:
                 except Exception as e:
                     logging.critical((str(e)))
         return result_objects
+
+
+    @classmethod
+    async def execute_insert(cls, 
+        tablename: str, columns: list[str], values_tup: tuple) -> int:
+        rowcount = 0
+        if (len(columns) != len(values_tup)):
+            logging.error("PGUtil#execute_insert, columns and values_tup length mismatch")
+            return rowcount
+        placeholders_list = list()
+        for colname in columns:
+            placeholders_list.append("%s")
+        sql = "INSERT INTO {} ({}) VALUES ({});".format(
+            tablename,
+            ", ".join(columns),
+            ", ".join(placeholders_list))
+        logging.error("PGUtil#execute_insert, sql: {}".format(sql))
+        # INSERT INTO students (name, age, course)
+        # VALUES (%s, %s, %s);
+        # cur = conn.cursor()
+        # sql = "INSERT INTO your_table (column1, column2, column3) VALUES (%s, %s, %s);"
+        # my_tuple = ("value1", "value2", "value3")
+        # cur.execute(sql, my_tuple)
+        # conn.commit()
+        # cur.close()
+        # conn.close()
+
+        async with cls.pool.connection() as conn:
+            async with conn.cursor() as cursor:
+                try:
+                    await asyncio.wait_for(
+                        cursor.execute(sql, values_tup), timeout=30.0)
+                    rowcount = cursor.rowcount
+                    #cursor.commit()
+                    #cursor.close()
+                except Exception as e:
+                    logging.critical((str(e)))
+        return rowcount

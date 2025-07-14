@@ -4,6 +4,7 @@ Usage:
   python main-blob-pipeline.py create_config
   python main-blob-pipeline.py explore
   python main-blob-pipeline.py delete_define_ai_pipeline_tables
+  python main-blob-pipeline.py load_configuration pipeline config/pipeline_config.json
 """
 
 import asyncio
@@ -199,6 +200,18 @@ async def execute_sql_script(script_filename: str):
     if results is not None:
         print(json.dumps(results, sort_keys=False, indent=2))
 
+async def load_configuration(name: str, json_filename: str):
+    """
+    Load the configuration table for the specified name with the
+    value of the given JSON filename.  The "data" column is a JSONB.
+    """
+    print(f"PGUtil#load_configuration, name: {name}, json_filename: {json_filename}")
+    columns = "name,data".split(",")
+    jstr = json.dumps(FS.read_json(json_filename))
+    values_tup = (name, jstr)
+    rowcount = await PGUtil.execute_insert("configuration", columns, values_tup)
+    print(f"PGUtil#load_configuration, rowcount: {rowcount}")
+
 
 async def async_main():
     """
@@ -215,6 +228,10 @@ async def async_main():
                 create_config()
             elif func == "explore":
                 explore()
+            elif func == "load_configuration":
+                name = sys.argv[2]
+                json_filename = sys.argv[3]
+                await load_configuration(name, json_filename)
             elif func == "delete_define_ai_pipeline_tables":
                 await execute_sql_script("sql/ai_pipeline.ddl")
             else:
