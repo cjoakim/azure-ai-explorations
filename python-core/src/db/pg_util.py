@@ -156,24 +156,14 @@ class PGUtil:
             ", ".join(columns),
             ", ".join(placeholders_list))
         logging.error("PGUtil#execute_insert, sql: {}".format(sql))
-        # INSERT INTO students (name, age, course)
-        # VALUES (%s, %s, %s);
-        # cur = conn.cursor()
-        # sql = "INSERT INTO your_table (column1, column2, column3) VALUES (%s, %s, %s);"
-        # my_tuple = ("value1", "value2", "value3")
-        # cur.execute(sql, my_tuple)
-        # conn.commit()
-        # cur.close()
-        # conn.close()
 
         async with cls.pool.connection() as conn:
+            conn.set_session(readonly=False, autocommit=True)
             async with conn.cursor() as cursor:
                 try:
                     await asyncio.wait_for(
                         cursor.execute(sql, values_tup), timeout=30.0)
                     rowcount = cursor.rowcount
-                    #cursor.commit()
-                    #cursor.close()
                 except Exception as e:
                     logging.critical((str(e)))
         return rowcount
