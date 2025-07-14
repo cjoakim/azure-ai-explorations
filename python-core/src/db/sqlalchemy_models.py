@@ -1,8 +1,11 @@
+
+import logging
 import os
 
 from typing import List
 from typing import Optional
 
+from sqlalchemy import create_engine
 from sqlalchemy import ForeignKey
 from sqlalchemy import String
 from sqlalchemy.orm import DeclarativeBase
@@ -10,8 +13,12 @@ from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import JSON as pgJSON
-from sqlalchemy import create_engine
 
+from src.os.env import Env
+
+
+# Class AppEngine is used to create and manage the singleton instance
+# of the SQLAlchemy engine, created with the create_engine() function.
 
 class AppEngine():
     
@@ -25,9 +32,10 @@ class AppEngine():
     def get_engine(cls):
         if AppEngine.engine is None:
             try:
-                engine_url = AppEngine.get_engine_url()
-                pool_size = 5     # TODO make this configurable
-                max_overflow = 0  # TODO make this configurable
+                engine_url = Env.sqlalchemy_engine_url()
+                logging.info("AppEngine#engine_url: {}".format(engine_url))
+                pool_size = Env.sqlalchemy_pool_size()
+                max_overflow = Env.sqlalchemy_max_overflow()
                 AppEngine.engine = create_engine(
                     engine_url, pool_size=pool_size, max_overflow=max_overflow)
             except Exception as e:
@@ -35,64 +43,17 @@ class AppEngine():
         print("AppEngine.get_engine, engine: {}".format(AppEngine.engine))
         return AppEngine.engine
 
-   
     @classmethod
-    def get_engine_url(cls) -> str:
-        """
-        Create and return a SQLAlchemy engine URL for your PostgreSQL database.
-        The return value can be passed to the SQLAlchemy create_engine() function.
-        """
-         # "postgresql+psycopg2://user:password@hostname:port/database_name")
-        return "postgresql+psycopg://{}:{}@{}:{}/{}".format(
-            cls.postgresql_user(),
-            cls.postgresql_password(),
-            cls.postgresql_server(),
-            cls.postgresql_port(),
-            cls.postgresql_database(),
-        )
-    
-    @classmethod
-    def envvar(cls, name: str, default: str = "") -> str:
-        """
-        Return the value of the given environment variable name,
-        or the given default value."""
-        if name in os.environ:
-            return os.environ[name].strip()
-        return default
-    
-    @classmethod
-    def postgresql_server(cls) -> str:
-        return cls.envvar("AZURE_PG_FLEX_SERVER", None)
-
-    @classmethod
-    def postgresql_port(cls) -> str:
-        return cls.envvar("AZURE_PG_FLEX_PORT", "5432")
-
-    @classmethod
-    def postgresql_database(cls) -> str:
-        return cls.envvar("AZURE_PG_FLEX_DB", None)
-
-    @classmethod
-    def postgresql_user(cls) -> str:
-        return cls.envvar("AZURE_PG_FLEX_USER", None)
-
-    @classmethod
-    def postgresql_password(cls) -> str:
-        return cls.envvar("AZURE_PG_FLEX_PASS", None)
-
-    @classmethod
-    def pg_connection_str(cls):
-        """
-        Create and return the connection string for your Azure
-        PostgreSQL database per the AZURE_xxx environment variables.
-        """
-        return "host={} port={} dbname={} user={} password={} ".format(
-            cls.postgresql_server(),
-            cls.postgresql_port(),
-            cls.postgresql_database(),
-            cls.postgresql_user(),
-            cls.postgresql_password(),
-        )
+    def dispose(cls):
+        if AppEngine.engine is not None:
+            try:
+                print("AppEngine.dispose()...")
+                AppEngine.engine.dispose()
+            except Exception as e:
+                print("Error disposing AppEngine:")
+                print(str(e))
+            AppEngine.engine = None
+            print("AppEngine.dispose() completed")
 
 
 class Base(DeclarativeBase):

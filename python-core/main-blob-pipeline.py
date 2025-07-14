@@ -121,12 +121,10 @@ def supported_filetypes() -> list[str]:
     Return the filetypes supported by Document Intelligence, plus 'md':
     Filetypes: bmp, docx, heif, html, jpeg, jpg, md, pdf, png, pptx, tiff, xlsx
     """
-    general_types = "pdf,html"
-    images_types = "jpeg,jpg,png,bmp,heif,tiff"
-    ms_office_types = "docx,xlsx,pptx"
-    additional_types = "md"  # TODO: what about txt?
-    all_types = f"{general_types},{images_types},{ms_office_types},{additional_types}"
-    return sorted(all_types.lower().strip().split(","))
+    di_types = Env.document_intelligence_supported_filetypes()
+    di_types.append("md")
+    # di_types.append("txt"). # TODO: what about txt files?
+    return sorted(di_types)
 
 
 def build_async_docintel_client() -> DocumentIntelligenceAsyncClient | None:
@@ -201,6 +199,7 @@ async def execute_sql_script(script_filename: str):
     print(f"Executing SQL script: {script_filename}")
     print(sql)
 
+    await PGUtil.initialze_pool()
     results = await PGUtil.execute_query(sql)
     if results is not None:
         print(json.dumps(results, sort_keys=False, indent=2))
@@ -212,26 +211,21 @@ async def load_configuration(name: str, json_filename: str):
     """
     AppEngine.initialize()
 
-    c = Configuration(name=name, data=FS.read_json(json_filename))
-    with Session(AppEngine.get_engine()) as session:
-        session.add_all([c])
-        session.commit()
+    try:
+        c = Configuration(name=name, data=FS.read_json(json_filename))
+        with Session(AppEngine.get_engine()) as session:
+            session.add_all([c])
+            session.commit()
+    except Exception as e:
+        logging.critical("Exception in load_configuration: {}".format(str(e)))
 
-    # print(f"PGUtil#load_configuration, name: {name}, json_filename: {json_filename}")
-    # columns = "name,data".split(",")
-    # jstr = json.dumps(FS.read_json(json_filename))
-    # values_tup = (name, jstr)
-    # rowcount = await PGUtil.execute_insert("configuration", columns, values_tup)
-    # print(f"PGUtil#load_configuration, rowcount: {rowcount}")
-
-
+    
 async def async_main():
     """
     This is the asyncronous main logic, called from the entry point
     of this module with "asyncio.run(async_main())".
     """
     try:
-        await PGUtil.initialze_pool()
         if len(sys.argv) < 2:
             print_options("no command-line args given")
         else:
@@ -251,15 +245,16 @@ async def async_main():
     except Exception as e:
         logging.critical(str(e))
         logging.exception(e, stack_info=True, exc_info=True)
-        logging.error("Stack trace:\n%s", traceback.format_exc())
 
     try:
         await PGUtil.close_pool()
     except Exception as e:
         logging.critical(str(e))
-        logging.exception(e, stack_info=True, exc_info=True)
-        logging.error("Stack trace:\n%s", traceback.format_exc())
 
+    try:
+        AppEngine.dispose()
+    except Exception as e:
+        logging.critical(str(e))
 
 if __name__ == "__main__":
     load_dotenv(override=True)

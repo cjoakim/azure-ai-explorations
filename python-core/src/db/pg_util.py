@@ -4,6 +4,8 @@ import os
 
 import psycopg_pool
 
+from src.os.env import Env
+
 # This class is used to access an Azure PostgreSQL account
 # via the psycopg library and asynchronous SDK methods.
 # Chris Joakim, 3Cloud
@@ -25,7 +27,7 @@ class PGUtil:
 
         conn_pool_max_size = 1
         logging.info("PGUtil#initialze_pool creating new...")
-        conn_str = cls.pg_connection_str()
+        conn_str = Env.pg_connection_str()
         conn_str_tokens = conn_str.split("password")
         logging.info(
             "PGUtil#initialze_pool, conn_str: {} password=<omitted>".format(
@@ -42,49 +44,6 @@ class PGUtil:
         await PGUtil.pool.check()
         logging.info("PGUtil#initialze_pool, pool opened")
         return PGUtil.pool
-
-    @classmethod
-    def envvar(cls, name: str, default: str = "") -> str:
-        """
-        Return the value of the given environment variable name,
-        or the given default value."""
-        if name in os.environ:
-            return os.environ[name].strip()
-        return default
-    
-    @classmethod
-    def postgresql_server(cls) -> str:
-        return cls.envvar("AZURE_PG_FLEX_SERVER", None)
-
-    @classmethod
-    def postgresql_port(cls) -> str:
-        return cls.envvar("AZURE_PG_FLEX_PORT", "5432")
-
-    @classmethod
-    def postgresql_database(cls) -> str:
-        return cls.envvar("AZURE_PG_FLEX_DB", None)
-
-    @classmethod
-    def postgresql_user(cls) -> str:
-        return cls.envvar("AZURE_PG_FLEX_USER", None)
-
-    @classmethod
-    def postgresql_password(cls) -> str:
-        return cls.envvar("AZURE_PG_FLEX_PASS", None)
-
-    @classmethod
-    def pg_connection_str(cls):
-        """
-        Create and return the connection string for your Azure
-        PostgreSQL database per the AZURE_xxx environment variables.
-        """
-        return "host={} port={} dbname={} user={} password={} ".format(
-            cls.postgresql_server(),
-            cls.postgresql_port(),
-            cls.postgresql_database(),
-            cls.postgresql_user(),
-            cls.postgresql_password(),
-        )
 
     @classmethod
     def set_search_path_statement(cls):
@@ -111,6 +70,8 @@ class PGUtil:
             await PGUtil.pool.close()
             logging.info("PGUtil#close_pool, closed")
             PGUtil.pool = None
+        else:
+            logging.info("PGUtil#close_pool, pool is None, nothing to close")
 
     @classmethod
     async def execute_query(cls, sql) -> list:
