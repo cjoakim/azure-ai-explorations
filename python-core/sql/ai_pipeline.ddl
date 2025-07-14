@@ -100,7 +100,7 @@ CREATE TABLE extracted_qna (
     value                      VARCHAR(2048) NOT NULL,
     created_at                 TIMESTAMP,
 
-    embedding                  VECTOR(1536)
+    embedding                  VECTOR(1536),
 
     processing_state           VARCHAR(64) NOT NULL,
 
@@ -168,6 +168,6 @@ DROP INDEX IF EXISTS idx_audit_log_level;
 CREATE INDEX idx_audit_log_level
 ON audit_log(level);
 
-DROP INDEX IF EXISTS idx_audit_log_process_id;
-CREATE INDEX idx_audit_log_process_id
-ON audit_log(process_id);
+DROP INDEX IF EXISTS idx_audit_log_process_name;
+CREATE INDEX idx_audit_log_process_name
+ON audit_log(process_name);

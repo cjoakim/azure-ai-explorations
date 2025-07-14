@@ -3,29 +3,14 @@ Usage:
   python main-blob-pipeline.py <func>
   python main-blob-pipeline.py create_config
   python main-blob-pipeline.py explore
-  python main-blob-pipeline.py yyy
-"""
-
-"""
-raw container:           di-sample-docs
-bronze container:        di-preprocessed
-telemetry container:     di-telemetry
-testing container:       di-test
-
-Functionality to explore:
-- TODO capacity
-- DONE nesting 
-  - DONE customer_id/source_id/filename (the path)
-- DONE listing of nested
-- DONE blob metadata
-- DONE enhance blob list info
-- PASS ttl?
+  python main-blob-pipeline.py delete_define_ai_pipeline_tables
 """
 
 import asyncio
 import json
-import sys
+import logging
 import os
+import sys
 import time
 import traceback
 
@@ -42,9 +27,13 @@ from azure.ai.documentintelligence.models import AnalyzeDocumentRequest
 from azure.ai.documentintelligence.models import DocumentContentFormat
 from azure.ai.documentintelligence.models import DocumentAnalysisFeature
 
+from src.db.pg_util import PGUtil
 from src.io.fs import FS
 from src.io.storage_util import StorageUtil
 from src.os.env import Env
+
+logging.basicConfig(
+    format="%(asctime)s - %(message)s", level=logging.INFO)
 
 
 def print_options(msg):
@@ -201,20 +190,54 @@ async def storage_pipeline_example():
         print(traceback.format_exc())
 
 
-if __name__ == "__main__":
+async def execute_sql_script(script_filename: str):
+    sql = FS.read(script_filename)
+    print(f"Executing SQL script: {script_filename}")
+    print(sql)
+
+    results = await PGUtil.execute_query(sql)
+    if results is not None:
+        print(json.dumps(results, sort_keys=False, indent=2))
+
+
+async def async_main():
+    """
+    This is the asyncronous main logic, called from the entry point
+    of this module with "asyncio.run(async_main())".
+    """
     try:
-        load_dotenv(override=True)
+        await PGUtil.initialze_pool()
         if len(sys.argv) < 2:
-            print_options("Error: no CLI args provided")
+            print_options("no command-line args given")
         else:
             func = sys.argv[1].lower()
             if func == "create_config":
                 create_config()
             elif func == "explore":
                 explore()
+            elif func == "delete_define_ai_pipeline_tables":
+                await execute_sql_script("sql/ai_pipeline.ddl")
             else:
                 print_options("Error: invalid function: {}".format(func))
     except Exception as e:
-        print(str(e))
-        print(traceback.format_exc())
+        logging.critical(str(e))
+        logging.exception(e, stack_info=True, exc_info=True)
+        logging.error("Stack trace:\n%s", traceback.format_exc())
 
+    try:
+        await PGUtil.close_pool()
+    except Exception as e:
+        logging.critical(str(e))
+        logging.exception(e, stack_info=True, exc_info=True)
+        logging.error("Stack trace:\n%s", traceback.format_exc())
+
+
+if __name__ == "__main__":
+    load_dotenv(override=True)
+    if sys.platform == "win32":
+        logging.info("Running on Windows, setting WindowsSelectorEventLoopPolicy")
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    else:
+        logging.info("Not running on Windows")
+
+    asyncio.run(async_main())
