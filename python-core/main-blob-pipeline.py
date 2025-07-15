@@ -6,7 +6,7 @@ Usage:
   python main-blob-pipeline.py load_configuration ai_pipeline config/ai_pipeline_config.json
   python main-blob-pipeline.py create_storage_containers
   python main-blob-pipeline.py upload_blobs_into_raw_container ../data/docs/
-  python main-blob-pipeline.py load_documents_per_raw_container
+  python main-blob-pipeline.py load_documents_table_per_raw_container
   python main-blob-pipeline.py extract_text_from_documents
   python main-blob-pipeline.py ai_process_extracted_text
   python main-blob-pipeline.py evaluate_extracted_qnas
@@ -183,7 +183,7 @@ async def upload_blobs_into_raw_container(sample_docs_dir: str = "../data/docs/"
     except Exception as e:
         logging.critical(e, stack_info=True, exc_info=True)
 
-async def load_documents_per_raw_container():
+async def load_documents_table_per_raw_container():
     storage_util = _build_storage_util()
     AppEngine.initialize()
     await asyncio.sleep(0.1) 
@@ -308,8 +308,8 @@ async def async_main():
             elif func == "upload_blobs_into_raw_container":
                 sample_docs_dir = sys.argv[2]
                 await upload_blobs_into_raw_container(sample_docs_dir)
-            elif func == "load_documents_per_raw_container":
-                await load_documents_per_raw_container()
+            elif func == "load_documents_table_per_raw_container":
+                await load_documents_table_per_raw_container()
             elif func == "extract_text_from_documents":
                 await extract_text_from_documents()
             elif func == "ai_process_extracted_text":
