@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS configuration CASCADE;
 DROP TABLE IF EXISTS documents CASCADE;
 DROP TABLE IF EXISTS extracted_qna CASCADE;
 DROP TABLE IF EXISTS teams_qna CASCADE;
-DROP TABLE IF EXISTS audit_log CASCADE;
+DROP TABLE IF EXISTS activity_log CASCADE;
 
 
 -- The "configuration" table contains rows with names like "pipeline"
@@ -132,7 +132,7 @@ CREATE TABLE teams_qna (
 );
 
 
--- The audit_log table captures "who did what, when" for the system.
+-- The activity_log table captures "who did what, when" for the system.
 -- It can record both system-generated and human-generated activity.
 -- type values:
 --   "s" = system
@@ -143,7 +143,7 @@ CREATE TABLE teams_qna (
 -- message = the system or human message or comment
 -- data = optional supplemental information
 
-CREATE TABLE audit_log (
+CREATE TABLE activity_log (
     id                 SERIAL primary key,
     created_at                 TIMESTAMP,
     type                       CHAR NOT NULL,
@@ -156,19 +156,19 @@ CREATE TABLE audit_log (
 
 
 -- TODO: create the necessary indexes for the above tables 
--- Examples for the audit_log table are implemented below.
+-- Examples for the activity_log table are implemented below.
 
 
--- indexes for the audit_log table
+-- indexes for the activity_log table
 
-DROP INDEX IF EXISTS idx_audit_log_type;
-CREATE INDEX idx_audit_log_type
-ON audit_log(type);
+DROP INDEX IF EXISTS idx_activity_log_type;
+CREATE INDEX idx_activity_log_type
+ON activity_log(type);
 
-DROP INDEX IF EXISTS idx_audit_log_level;
-CREATE INDEX idx_audit_log_level
-ON audit_log(level);
+DROP INDEX IF EXISTS idx_activity_log_level;
+CREATE INDEX idx_activity_log_level
+ON activity_log(level);
 
-DROP INDEX IF EXISTS idx_audit_log_process_name;
-CREATE INDEX idx_audit_log_process_name
-ON audit_log(process_name);
+DROP INDEX IF EXISTS idx_activity_log_process_name;
+CREATE INDEX idx_activity_log_process_name
+ON activity_log(process_name);

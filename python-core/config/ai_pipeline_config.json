@@ -1,5 +1,5 @@
 {
-  "name": "pipeline_config",
+  "name": "ai_pipeline",
   "containers": {
     "raw": "di-sample-docs",
     "bronze": "di-preprocessed",
