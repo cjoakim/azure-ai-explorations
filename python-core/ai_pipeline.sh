@@ -21,7 +21,9 @@ python main-blob-pipeline.py create_storage_containers
 sleep 1
 
 echo "========== Uploading blobs into raw container =========="
-python main-blob-pipeline.py upload_blobs_into_raw_container
+rm tmp/*.*
+cp ../data/docs/* tmp/
+python main-blob-pipeline.py upload_blobs_into_raw_container tmp
 sleep 1
 
 echo "========== Loading documents from raw container into DB =========="

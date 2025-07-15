@@ -135,14 +135,11 @@ class Document(Base):
 class CommonOperations():
     
     @classmethod
-    def find_configuration_by_name(cls, name: str):
-        pass
-
-    @classmethod
-    async def read_configuration_object(cls, config_name: str):
+    async def read_configuration_object(cls, config_name: str) -> dict:
         """
-        Read the given configuration, from the DB, by name.
+        Read the given configuration, from the DB, by its name.
         Return the JSON object from the JSONB 'data' column.
+        TODO: Consider returning a Pydantic model instead of a dict.
         """
         await asyncio.sleep(0.1)  # Simulate some async work for now
         obj = None
