@@ -4,6 +4,8 @@ Usage:
   python main-blob-pipeline.py delete_define_ai_pipeline_tables
   python main-blob-pipeline.py create_ai_pipeline_config_json_file
   python main-blob-pipeline.py load_configuration ai_pipeline config/ai_pipeline_config.json
+  python main-blob-pipeline.py create_storage_containers
+  python main-blob-pipeline.py upload_blobs_into_raw_container
   python main-blob-pipeline.py load_documents_per_raw_container
   python main-blob-pipeline.py extract_text_from_documents
   python main-blob-pipeline.py ai_process_extracted_text
@@ -25,6 +27,8 @@ from select import select
 import sys
 import time
 import traceback
+
+from typing import List
 
 from docopt import docopt
 from dotenv import load_dotenv
@@ -51,7 +55,7 @@ from src.io.storage_util import StorageUtil
 from src.os.env import Env
 
 logging.basicConfig(
-    format="%(asctime)s - %(message)s", level=logging.INFO)
+    format="%(asctime)s - %(message)s", level=logging.WARNING)
 
 def print_options(msg):
     print(msg)
@@ -62,10 +66,11 @@ def create_ai_pipeline_config_json_file():
     config = dict()
     config["name"] = _ai_pipeline_config_name()
     containers = dict()
-    containers["raw"] = "di-sample-docs"
-    containers["bronze"] = "di-preprocessed"
-    containers["telemetry"] = "di-telemetry"
-    containers["testing"] = "di-test"
+    containers["raw"] = "qna-raw"
+    containers["bronze"] = "qna-preprocessed"
+    containers["silver"] = "qna-processed"
+    containers["telemetry"] = "qna-telemetry"
+    containers["testing"] = "qna-test"
     config["containers"] = containers
     config["filetypes"] = _supported_filetypes()
 
@@ -108,6 +113,47 @@ async def load_configuration(name: str, json_filename: str):
     except Exception as e:
         #logging.critical("Exception in load_configuration: {}".format(str(e)))
         logging.critical(e, stack_info=True, exc_info=True)
+
+async def create_storage_containers():
+    storage_util = _build_storage_util()
+    AppEngine.initialize()
+    await asyncio.sleep(0.1) 
+    try:
+        config_name = _ai_pipeline_config_name()
+        config = await CommonOperations.read_configuration_object(config_name)
+        print(f"config read from db: {config} {str(type(config))}")
+        if config is None:
+            return
+        current_containers : List[str] = storage_util.list_containers()
+        print(f"Storage current_containers: {current_containers}")
+
+        containers_dict = config["containers"]
+        print(f"Configured containers_dict: {containers_dict}")
+
+        for key in containers_dict.keys():
+            cname = containers_dict[key]
+            if cname in current_containers:
+                print(f"Storage container already exists: {cname}")
+            else:
+                await asyncio.sleep(1.0)
+                print(f"Creating storage container: {cname} ...")
+                result = storage_util.create_container(cname)
+                if result is not None:
+                    print(f"Storage container created: {cname}")
+        
+    except Exception as e:
+        #logging.critical("Exception in load_configuration: {}".format(str(e)))
+        logging.critical(e, stack_info=True, exc_info=True)
+
+#   "containers": {
+#     "raw": "qna-raw",
+#     "bronze": "qna-preprocessed",
+#     "silver": "qna-processed",
+#     "telemetry": "qna-telemetry",
+#     "testing": "qna-test"
+#   },
+async def upload_blobs_into_raw_container():
+    logging.info("upload_blobs_into_raw_container NOT YET IMPLEMENTED")
 
 async def load_documents_per_raw_container():
     storage_util = _build_storage_util()
@@ -300,6 +346,10 @@ async def async_main():
                 name = sys.argv[2]
                 json_filename = sys.argv[3]
                 await load_configuration(name, json_filename)
+            elif func == "create_storage_containers":
+                await create_storage_containers()
+            elif func == "upload_blobs_into_raw_container":
+                await upload_blobs_into_raw_container()
             elif func == "load_documents_per_raw_container":
                 await load_documents_per_raw_container()
             elif func == "extract_text_from_documents":

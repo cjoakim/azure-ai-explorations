@@ -1,10 +1,11 @@
 {
   "name": "ai_pipeline",
   "containers": {
-    "raw": "di-sample-docs",
-    "bronze": "di-preprocessed",
-    "telemetry": "di-telemetry",
-    "testing": "di-test"
+    "raw": "qna-raw",
+    "bronze": "qna-preprocessed",
+    "silver": "qna-processed",
+    "telemetry": "qna-telemetry",
+    "testing": "qna-test"
   },
   "filetypes": [
     "bmp",

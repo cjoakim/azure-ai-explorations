@@ -18,7 +18,9 @@
 -- qna=> CREATE EXTENSION IF NOT EXISTS vector CASCADE;
 -- qna=> CREATE EXTENSION IF NOT EXISTS PG_DISKANN CASCADE;
 -- qna=> CREATE EXTENSION IF NOT EXISTS AZURE_AI CASCADE;
-
+-- These extensions were enabled for the account previously;
+-- either in Azure Portal or when the account was created with
+-- the Azure CLI, PowerShell, etc..
 
 SET search_path TO qna, public;
 

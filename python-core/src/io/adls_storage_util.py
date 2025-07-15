@@ -8,7 +8,7 @@ from azure.storage.filedatalake import DataLakeServiceClient
 # are caught and logged, and appropriate values are returned to indicate success or failure.
 # See https://learn.microsoft.com/en-us/python/api/overview/azure/storage-file-datalake-readme
 # Chris Joakim, 2025
-# TODO: build out this class if regular storage, and class StorageUtil in this repo,
+# TODO: build out this class IF regular storage, and class StorageUtil in this repo,
 #       is not sufficient for our needs
 
 from typing import List
