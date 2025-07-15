@@ -10,9 +10,17 @@
 -- metadata to the raw blobs such that the documents table can
 -- be populated by another process which scans the raw container 
 -- for both blobs and their metadata.
+-- 
+-- psql shell commands to setup the "qna" database:
+-- postgres=> create database qna owner cjoakim;
+-- \c qna
+-- qna=> CREATE EXTENSION IF NOT EXISTS age CASCADE;
+-- qna=> CREATE EXTENSION IF NOT EXISTS vector CASCADE;
+-- qna=> CREATE EXTENSION IF NOT EXISTS PG_DISKANN CASCADE;
+-- qna=> CREATE EXTENSION IF NOT EXISTS AZURE_AI CASCADE;
 
 
-SET search_path TO public;
+SET search_path TO qna, public;
 
 DROP TABLE IF EXISTS configuration CASCADE;
 DROP TABLE IF EXISTS documents CASCADE;
@@ -113,7 +121,11 @@ CREATE TABLE extracted_qna (
     human_reviewer_id          VARCHAR(64),
     human_reviewer_comment     VARCHAR(1024),
 
-    teams_loaded_at            TIMESTAMP
+    teams_loaded_at            TIMESTAMP,
+
+    CONSTRAINT fk_document_id
+      FOREIGN KEY(document_id)
+        REFERENCES documents(id)
 );
 
 
