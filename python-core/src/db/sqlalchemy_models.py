@@ -78,6 +78,7 @@ class Base(DeclarativeBase):
 
 class Configuration(Base):
     __tablename__ = "configuration"
+    ##__table_args__ = {'extend_existing': True}
 
     name: Mapped[str] = mapped_column(primary_key=True)
     data: Mapped[pgJSON] = mapped_column(pgJSON, nullable=False)
@@ -94,6 +95,7 @@ class Configuration(Base):
 
 class Document(Base):
     __tablename__ = "documents"
+    #__table_args__ = {'extend_existing': True}
 
     id: Mapped[int] = mapped_column(primary_key=True)
     source_system: Mapped[str] = mapped_column(String(128))
@@ -140,14 +142,8 @@ class Document(Base):
         return d
 
 class ExtractedQA(Base):
-    __tablename__ = "documents"
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    # TODO: Define the fields for the ExtractedQA model
-
-
-class ExtractedQA(Base):
     __tablename__ = "extracted_qa"
+    #__table_args__ = {'extend_existing': True}
 
     id: Mapped[int] = mapped_column(primary_key=True)
     # TODO: Define the fields for the ExtractedQA model
@@ -155,6 +151,7 @@ class ExtractedQA(Base):
 
 class TeamsQA(Base):
     __tablename__ = "teams_qa"
+    #__table_args__ = {'extend_existing': True}
 
     id: Mapped[int] = mapped_column(primary_key=True)
     # TODO: Define the fields for the TeamsQA model
@@ -162,6 +159,7 @@ class TeamsQA(Base):
 
 class ApplicationEvent(Base):
     __tablename__ = "application_events"
+    #__table_args__ = {'extend_existing': True}
 
     id: Mapped[int] = mapped_column(primary_key=True)
     # TODO: Define the fields for the ApplicationEvent model
