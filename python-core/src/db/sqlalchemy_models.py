@@ -24,13 +24,19 @@ from sqlalchemy.dialects.postgresql import JSON as pgJSON
 
 from src.os.env import Env
 
-
-# Class AppEngine is used to create and manage the singleton instance
-# of the SQLAlchemy engine, created with the create_engine() function.
-
+# This module contains classes and SQLAlchemy ORM models 
+# that are used to access the Azure PostgreSQL database. 
+#
+# Though SQLAlchemy is capable of additionally creating the tables
+# and indexes for the database, this application currently uses a
+# traditional DDL file instead; see file 'sql/ai_pipeline.ddl'
+#  
 class AppEngine():
-    
-    engine = None
+    """
+    Class AppEngine is used to create and manage the singleton instance
+    of the SQLAlchemy engine, created with the create_engine() function.
+    """
+    engine = None  # singleton instance of the SQLAlchemy engine
 
     @classmethod
     def initialize(cls):
@@ -38,6 +44,7 @@ class AppEngine():
 
     @classmethod
     def get_engine(cls):
+        """ Lazy initialization getter method for the SQLAlchemy engine singleton. """
         if AppEngine.engine is None:
             try:
                 engine_url = Env.sqlalchemy_engine_url()
@@ -47,21 +54,22 @@ class AppEngine():
                 AppEngine.engine = create_engine(
                     engine_url, pool_size=pool_size, max_overflow=max_overflow)
             except Exception as e:
-                print(str(e))
-        print("AppEngine.get_engine, engine: {}".format(AppEngine.engine))
+                logging.critical(str(e))
+        logging.info("AppEngine.get_engine, engine: {}".format(AppEngine.engine))
         return AppEngine.engine
-
+ 
     @classmethod
     def dispose(cls):
+        """ Close or dispose of the SQLAlchemy engine object. """
         if AppEngine.engine is not None:
             try:
-                print("AppEngine.dispose()...")
+                logging.error("AppEngine.dispose()...")
                 AppEngine.engine.dispose()
             except Exception as e:
-                print("Error disposing AppEngine:")
-                print(str(e))
+                logging.error("Error disposing AppEngine:")
+                logging.error(str(e))
             AppEngine.engine = None
-            print("AppEngine.dispose() completed")
+            logging.warning("AppEngine.dispose() completed")
 
 
 class Base(DeclarativeBase):
@@ -131,13 +139,44 @@ class Document(Base):
         # d["qna_extracted_messages"] = self.qna_extracted_messages
         return d
 
+class ExtractedQA(Base):
+    __tablename__ = "documents"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # TODO: Define the fields for the ExtractedQA model
+
+
+class ExtractedQA(Base):
+    __tablename__ = "extracted_qa"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # TODO: Define the fields for the ExtractedQA model
+
+
+class TeamsQA(Base):
+    __tablename__ = "teams_qa"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # TODO: Define the fields for the TeamsQA model
+
+
+class ApplicationEvent(Base):
+    __tablename__ = "application_events"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # TODO: Define the fields for the ApplicationEvent model
+
 
 class CommonOperations():
+    """
+    Common database operations that can be used thoughtout the application
+    in a reusable way.
+    """
     
     @classmethod
     async def read_configuration_object(cls, config_name: str) -> dict:
         """
-        Read the given configuration, from the DB, by its name.
+        Read the given configuration, from the DB, by its name, such as 'ai_pipeline'.
         Return the JSON object from the JSONB 'data' column.
         TODO: Consider returning a Pydantic model instead of a dict.
         """

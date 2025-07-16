@@ -26,9 +26,9 @@ SET search_path TO qna, public;
 
 DROP TABLE IF EXISTS configuration CASCADE;
 DROP TABLE IF EXISTS documents CASCADE;
-DROP TABLE IF EXISTS extracted_qna CASCADE;
-DROP TABLE IF EXISTS teams_qna CASCADE;
-DROP TABLE IF EXISTS activity_log CASCADE;
+DROP TABLE IF EXISTS extracted_qa CASCADE;
+DROP TABLE IF EXISTS teams_qa CASCADE;
+DROP TABLE IF EXISTS application_events CASCADE;
 
 
 -- The "configuration" table contains rows with names like "pipeline"
@@ -48,7 +48,7 @@ CREATE TABLE configuration (
 --   "raw" = the raw document from a source system was landed in blob storage
 --   "preprocessed" = the raw document was processed with DI, chunked, etc 
 --   "qna_extracted" = final state; the QnAs will be decisioned downstream
---                     see the extracted_qna table
+--                     see the extracted_qa table
 --   "reprocess" = manually set to this value to trigger reprocessing
 
 CREATE TABLE documents (
@@ -82,7 +82,7 @@ CREATE TABLE documents (
 );
 
 
--- The "extracted_qna" table represents the QnAs extracted by the
+-- The "extracted_qa" table represents the QnAs extracted by the
 -- AI pipeline from the raw and preprocessed data.
 -- These questions and answers, in turn, have their own
 -- processing pipeline which includes a "human in the loop"
@@ -103,7 +103,7 @@ CREATE TABLE documents (
 --                human may wish to reference in the review process.
 --                these may be identified by vector search and other means.
 
-CREATE TABLE extracted_qna (
+CREATE TABLE extracted_qa (
     id                 SERIAL primary key,
     document_id                INTEGER,
     question_id                INTEGER,
@@ -138,7 +138,7 @@ CREATE TABLE extracted_qna (
 --   "q" = question
 --   "a" = answer
 
-CREATE TABLE teams_qna (
+CREATE TABLE teams_qa (
     id                 SERIAL primary key,
     type                       CHAR,
     value                      VARCHAR(2048),
@@ -157,7 +157,7 @@ CREATE TABLE teams_qna (
 -- message = the system or human message or comment
 -- data = optional supplemental information
 
-CREATE TABLE activity_log (
+CREATE TABLE application_event (
     id                 SERIAL primary key,
     created_at                 TIMESTAMP,
     type                       CHAR NOT NULL,
